@@ -38,7 +38,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
+                <div class="title">CMS Test Page</div>
+                <a href="/text">crud</a>
             </div>
         </div>
     </body>
