@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Text;
 
 class TextController extends Controller
 {
@@ -45,9 +46,10 @@ class TextController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Text $text)
     {
-        //
+        //$text = Text::findOrFail($id);
+        return view('text.show',compact('text'));
     }
 
     /**
