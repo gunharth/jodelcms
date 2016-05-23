@@ -14,7 +14,9 @@ class CreateTextsTable extends Migration
     {
         Schema::create('texts', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('content');
+            $table->string('title');
+            $table->text('contentLeft');
+            $table->text('contentRight');
             $table->timestamps();
         });
     }
