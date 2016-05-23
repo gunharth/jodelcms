@@ -39,7 +39,7 @@
         <div class="container">
             <div class="content">
                 <div class="title">CMS Test Page</div>
-                <a href="/text">crud</a>
+                <a href="/text/1">crud</a>
             </div>
         </div>
     </body>
