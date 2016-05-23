@@ -58,7 +58,7 @@ class TextController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(text $text)
+    public function edit(Text $text)
     {
         return view('text.edit',compact('text'));
     }
@@ -70,9 +70,15 @@ class TextController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    //public function update(Request $request, Text $text)
+    public function update(Request $request, Text $text)
     {
-        //
+        //return $request->all();
+        //$text = Text::findOrFail($id);
+        
+        $data = $request->all();
+        $text->fill($data)->save();
+        return 'true';
     }
 
     /**

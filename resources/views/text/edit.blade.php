@@ -2,20 +2,28 @@
 
 @section('content')
     <div class="container">
-      <div class="row"><h1 data-field="title">{{ $text->title }}</h1></div>
+      <div class="row"><h1 data-field="title">{!! $text->title !!}</h1></div>
       <div class="row">
         <div class="col-md-6">
-          <div class="mytextarea editable" data-field="content-left">{{ $text->contentLeft }}</div>
+          <div class="mytextarea editable" data-field="contentLeft">{!! $text->contentLeft !!}</div>
         </div>
         <div class="col-md-6">
-          <div class="mytextarea" data-field="content-right">{{ $text->contentRight }}</div>
+          <div class="mytextarea" data-field="contentRight">{!! $text->contentRight !!}</div>
         </div>
+        <button id="savePage">Save</button>
       </div>
     </div><!-- /.container -->
 @endsection
 @section('scripts')
     <script src='/js/tinymce/tinymce.min.js'></script>
     <script>
+      
+      tinymce.init({
+        selector: 'h1',
+        inline: true,
+        menubar: false,
+        toolbar: false,
+      });
       tinymce.init({
         selector: '.mytextarea',
         inline: true,
@@ -34,17 +42,18 @@
        external_plugins: { "filemanager" : "/js/filemanager/plugin.min.js"}
 
     });
-    tinymce.init({
-      selector: 'h1',
-      inline: true,
-      menubar: false,
-      toolbar: false,
 
 
-    });
 
     $(document).ready(function() {
+
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+});
       $('#savePage').on('click', function(e) {
+        
           var data = {};
           e.preventDefault();
           for (i=0; i < tinymce.editors.length; i++){
@@ -55,17 +64,14 @@
             //alert('Editor-Id(' + tinymce.editors[i].id + '):' + content);
           }
           $.ajax({
-        dataType: "json",
+        dataType: "html",
         data: data,
-        url: "myfile.php",
+        url: "/text/1",
         cache: false,
-        method: 'GET',
-        success: function(rsp) {
-            alert(JSON.stringify(rsp));
-        var Content = rsp;
-        var Template = render('tsk_lst');
-        var HTML = Template({ Content : Content });
-        $( "#task_lists" ).html( HTML );
+        method: 'POST',
+        success: function(date) {
+            //alert(data);
+            // make something green!!!
         }
     });
           //console.log(JSON.stringify(data));

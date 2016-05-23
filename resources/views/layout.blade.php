@@ -7,12 +7,14 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>LK Test</title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="/css/app.css">
     <style>
+      img { width: 100%; height: auto; }
       .editable:hover { border: 1px dashed #000; }
     </style>
   </head>

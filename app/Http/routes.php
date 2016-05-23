@@ -15,4 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('text','TextController');
+// Pages controller
+// Ajax call to update
+// others are resource
+Route::post('text/{text}', 'TextController@update');
+Route::resource('text','TextController', ['except' => ['update']]);
