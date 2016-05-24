@@ -26,8 +26,8 @@ return array(
     |    ]
     */
     'disks' => [
-            'rackspace',
-            's3'
+           // 'rackspace',
+           // 's3'
     ],
 
     /*

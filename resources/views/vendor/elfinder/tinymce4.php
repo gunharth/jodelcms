@@ -57,7 +57,8 @@
             var elf = $('#elfinder').elfinder({
                 // set your elFinder options here
                 defaultView : 'list',
-                height: 600,
+                resizable : false,
+                height: 598,
                 uiOptions: {
                     toolbar : [
                         ['back', 'forward'],
@@ -71,7 +72,7 @@
                         ['rm'],
                         ['duplicate', 'rename', 'edit', 'resize'],
                         //['extract', 'archive'],
-                        ['search'],
+                        //['search'],
                         ['view'],
                         ['help']
                     ]
