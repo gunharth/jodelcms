@@ -146,7 +146,7 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
-        Illuminate\View\ViewServiceProvider::class,
+        Illuminate\View\ViewServiceProvider::class,    
 
         /*
          * Application Service Providers...
@@ -155,6 +155,11 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        /*
+         * Additional Service Providers
+         */
+        Barryvdh\Elfinder\ElfinderServiceProvider::class,
 
     ],
 
