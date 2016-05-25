@@ -55,7 +55,6 @@ class PagesController extends Controller
      */
     public function show(Page $page)
     {
-        //$page = Page::findOrFail($id);
         return view('page.show',compact('page'));
     }
 
@@ -77,12 +76,8 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //public function update(Request $request, page $page)
     public function update(Request $request, Page $page)
     {
-        //return $request->all();
-        //$page = page::findOrFail($id);
-        
         $data = $request->all();
         $page->fill($data)->save();
         return 'true';
@@ -98,7 +93,7 @@ class PagesController extends Controller
     {
         //
     }
-
+    
     public function loadiFrame(Page $page) 
     {
         return view('editor',compact('page'));
