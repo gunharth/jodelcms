@@ -88,11 +88,22 @@
         url: "/page/1",
         cache: false,
         method: 'POST',
-        success: function(date) {
+        success: function(data) {
+            //return data;
             //alert(data);
             // make something green!!!
+            setTimeout(function(){
+                $('.inlinecms-loading-indicator', window.parent.document).hide();
+            },1000);
+            
         }
     });
+    }
+
+    function savePageTest() {
+      
+            return 'yoyo';
+
     }
 
   </script>
