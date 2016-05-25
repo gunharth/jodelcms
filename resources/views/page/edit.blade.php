@@ -4,17 +4,17 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <h1 class="editable" data-field="title">{!! $text->title !!}</h1>
+          <h1 class="editable" data-field="title">{!! $page->title !!}</h1>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6">
           <div class="mytextarea editable" data-field="contentLeft">
-          {!! $text->contentLeft !!}
+          {!! $page->contentLeft !!}
           </div>
         </div>
         <div class="col-md-6">
-          <div class="mytextarea editable" data-field="contentRight">{!! $text->contentRight !!}</div>
+          <div class="mytextarea editable" data-field="contentRight">{!! $page->contentRight !!}</div>
         </div>
       </div>
     </div><!-- /.container -->
@@ -103,7 +103,7 @@
           $.ajax({
         dataType: "html",
         data: data,
-        url: "/text/1",
+        url: "/page/1",
         cache: false,
         method: 'POST',
         success: function(date) {

@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Text;
+use App\Page;
 
-class TextController extends Controller
+class PagesController extends Controller
 {
     
 
@@ -23,7 +23,7 @@ class TextController extends Controller
      */
     public function index()
     {
-        return view('text.show');
+        return view('page.show');
     }
 
     /**
@@ -53,10 +53,10 @@ class TextController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Text $text)
+    public function show(Page $page)
     {
-        //$text = Text::findOrFail($id);
-        return view('text.show',compact('text'));
+        //$page = Page::findOrFail($id);
+        return view('page.show',compact('page'));
     }
 
     /**
@@ -65,9 +65,9 @@ class TextController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Text $text)
+    public function edit(Page $page)
     {
-        return view('text.edit',compact('text'));
+        return view('page.edit',compact('page'));
     }
 
     /**
@@ -77,14 +77,14 @@ class TextController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //public function update(Request $request, Text $text)
-    public function update(Request $request, Text $text)
+    //public function update(Request $request, page $page)
+    public function update(Request $request, Page $page)
     {
         //return $request->all();
-        //$text = Text::findOrFail($id);
+        //$page = page::findOrFail($id);
         
         $data = $request->all();
-        $text->fill($data)->save();
+        $page->fill($data)->save();
         return 'true';
     }
 
@@ -99,8 +99,8 @@ class TextController extends Controller
         //
     }
 
-    public function loadiFrame(Text $text) 
+    public function loadiFrame(Page $page) 
     {
-        return view('editor',compact('text'));
+        return view('editor',compact('page'));
     }
 }

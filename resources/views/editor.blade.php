@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="/css/app.css">
 </head>
 <body>
-	<iframe id="editorIFrame" src="/text/{{ $text->id}}/edit" frameborder="0" style="position: absolute; margin: 0; padding:0; width: 100%; height: 100%"></iframe>
+	<iframe id="editorIFrame" src="/page/{{ $page->id}}/edit" frameborder="0" style="position: absolute; margin: 0; padding:0; width: 100%; height: 100%"></iframe>
 	<div id="cms-panel" style="position: fixed; z-index: 1000; width: 200px; height: 200px; top: 300px; left: 50px; display: block; background: #f4f4f4">
 	<button id="savePage">Save</button>
 	</div>

@@ -20,13 +20,13 @@ Route::auth();
 // Pages controller
 // Ajax call to update
 // others are resource
-Route::post('text/{text}', 'TextController@update');
-Route::resource('text','TextController', ['except' => ['update']]);
-Route::get('editor/page/{text}', 'TextController@loadiFrame');
+Route::post('page/{page}', 'PagesController@update');
+Route::resource('page','PagesController', ['except' => ['update']]);
+Route::get('editor/page/{page}', 'PagesController@loadiFrame');
 
 /* Option for getting slug and finding correct routes through a controller
-Route::get('{text}', function(Controller $text) {
-	return Route::dispatchToRoute(Illuminate\Http\Request::create('text/'.$text));
+Route::get('{page}', function(Controller $page) {
+	return Route::dispatchToRoute(Illuminate\Http\Request::create('page/'.$page));
 });
 */
 

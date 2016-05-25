@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Text extends Model
+class Page extends Model
 {
     protected $fillable = ['title', 'contentLeft', 'contentRight'];
 }
