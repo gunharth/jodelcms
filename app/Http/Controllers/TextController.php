@@ -91,4 +91,9 @@ class TextController extends Controller
     {
         //
     }
+
+    public function loadiFrame(Text $text) 
+    {
+        return view('editor',compact('text'));
+    }
 }

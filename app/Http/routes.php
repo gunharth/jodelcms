@@ -20,3 +20,4 @@ Route::get('/', function () {
 // others are resource
 Route::post('text/{text}', 'TextController@update');
 Route::resource('text','TextController', ['except' => ['update']]);
+Route::get('editor/page/{text}', 'TextController@loadiFrame');
