@@ -16,7 +16,6 @@
         <div class="col-md-6">
           <div class="mytextarea editable" data-field="contentRight">{!! $text->contentRight !!}</div>
         </div>
-        <button id="savePage">Save</button>
       </div>
     </div><!-- /.container -->
 @endsection

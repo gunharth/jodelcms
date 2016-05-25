@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::auth();
+
 // Pages controller
 // Ajax call to update
 // others are resource
@@ -27,3 +29,7 @@ Route::get('{text}', function(Controller $text) {
 	return Route::dispatchToRoute(Illuminate\Http\Request::create('text/'.$text));
 });
 */
+
+
+
+//Route::get('/home', 'HomeController@index');
