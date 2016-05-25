@@ -2,13 +2,19 @@
 
 @section('content')
     <div class="container">
-      <div class="row"><h1 data-field="title">{!! $text->title !!}</h1></div>
       <div class="row">
         <div class="col-md-6">
-          <div class="mytextarea editable" data-field="contentLeft">{!! $text->contentLeft !!}</div>
+          <h1 class="editable" data-field="title">{!! $text->title !!}</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mytextarea editable" data-field="contentLeft">
+          {!! $text->contentLeft !!}
+          </div>
         </div>
         <div class="col-md-6">
-          <div class="mytextarea" data-field="contentRight">{!! $text->contentRight !!}</div>
+          <div class="mytextarea editable" data-field="contentRight">{!! $text->contentRight !!}</div>
         </div>
         <button id="savePage">Save</button>
       </div>
@@ -83,10 +89,11 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
 });
-      $('#savePage').on('click', function(e) {
-        
-          var data = {};
-          e.preventDefault();
+      
+    });
+
+    function savePage() {
+      var data = {};
           for (i=0; i < tinymce.editors.length; i++){
             var content = tinymce.editors[i].getContent();
             var field = document.getElementById(tinymce.editors[i].id).dataset.field;
@@ -105,9 +112,7 @@
             // make something green!!!
         }
     });
-          //console.log(JSON.stringify(data));
-      });
-    });
+    }
 
   </script>
 @endsection

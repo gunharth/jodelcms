@@ -21,3 +21,9 @@ Route::get('/', function () {
 Route::post('text/{text}', 'TextController@update');
 Route::resource('text','TextController', ['except' => ['update']]);
 Route::get('editor/page/{text}', 'TextController@loadiFrame');
+
+/* Option for getting slug and finding correct routes through a controller
+Route::get('{text}', function(Controller $text) {
+	return Route::dispatchToRoute(Illuminate\Http\Request::create('text/'.$text));
+});
+*/

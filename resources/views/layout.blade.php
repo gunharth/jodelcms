@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="/css/app.css">
     <style>
       img { width: 100%; height: auto; }
-      .editable:hover { border: 1px dashed #000; }
+      .editable { outline: 1px dashed #27ae60; }
+      .editable:hover { outline: 1px solid #27ae60;     box-shadow: 0 0 20px #27ae60;}
     </style>
   </head>
   

@@ -5,10 +5,10 @@
     <div class="row"><h1>{!! $text->title !!}</h1></div>
     <div class="row">
       <div class="col-md-6">
-        <div>{!! $text->contentLeft !!}</div>
+        {!! $text->contentLeft !!}
       </div>
       <div class="col-md-6">
-        <div>{!! $text->contentRight !!}</div>
+        {!! $text->contentRight !!}
       </div>
     </div>
   </div><!-- /.container -->
