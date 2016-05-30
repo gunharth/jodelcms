@@ -86,22 +86,22 @@ if (!function_exists('renderNode')) {
      * @param $resource
      * @return string
      */
-    function renderNode($node, $resource)
+    function renderNode($node)
     {
         $id = 'data-id="' . $node->id .'"';
         $list = 'class="dd-list"';
-        $class = 'class="dd-item dd3-item"';
-        $handle = 'class="dd-handle dd3-handle"';
+        $class = 'class="dd-item"';
+        $handle = 'class="dd-handle"';
         //$name  = '<span class="ol-buttons"> ' . get_ops($resource, $node->id, 'inline') . '</span>';
         $name  = '<div '.$handle.'>' . $node->name . '</div>';
-        $name  .= '<div class="dd3-content">' . $node->name . '</div>';
+        $name  .= '<div class="dd-content">' . $node->name . '</div>';
         if ($node->isLeaf()) {
             return '<li '.$class.' '.$id.'>' . $name . '</li>';
         } else {
             $html = '<li '.$class.' '.$id.'>' . $name;
             $html .= '<ol '.$list.'>';
             foreach ($node->children as $child) {
-                $html .= renderNode($child, $resource);
+                $html .= renderNode($child);
             }
             $html .= '</ol>';
             $html .= '</li>';
