@@ -33,7 +33,7 @@
 				<li><a href="#tab-menus">Menus</a></li>
 				<li><a href="#tab-settings" class="small"><i class="fa fa-gear"></i></a></li>
 			</ul>
-			<div id="tab-elements" class="tab" style="display: block;">
+			<div id="tab-elements" class="tab">
 				<div class="list">
 					<ul><li data-id="text" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Text"><i class="fa fa-font"></i></li><li data-id="image" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Image"><i class="fa fa-picture-o"></i></li><li data-id="gallery" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Gallery"><i class="fa fa-th-large"></i></li><li data-id="video" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Video"><i class="fa fa-youtube-play"></i></li><li data-id="file" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="File"><i class="fa fa-download"></i></li><li data-id="form" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Contact Form"><i class="fa fa-envelope-o"></i></li><li data-id="map" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Map"><i class="fa fa-map-o"></i></li><li data-id="share" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Share Buttons"><i class="fa fa-share-alt"></i></li><li data-id="spacer" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Spacer"><i class="fa fa-arrows-v"></i></li><li data-id="code" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Code"><i class="fa fa-code"></i></li></ul>
 				</div>
@@ -122,6 +122,51 @@
         	$('#editorIFrame').get(0).contentWindow.savePage();
     	});
 
+    	 
+    	//this.restorePanelState = function(){
+    	function restorePanelState() {
+		var panel = $('#inlinecms-panel');
+		var panelState = {};
+
+		if (!localStorage.getItem("inlinecms-panel")){
+			panelState = {
+				position: {left: 50, top: 150},
+				tab: '#tab-elements',
+                expanded: true
+			};
+		} else {
+			panelState = JSON.parse(localStorage.getItem("inlinecms-panel"))
+		}
+
+		panel.css(panelState.position);
+
+		var a = $("#tabs a[href='"+panelState.tab+"']", panel);
+
+		$('#tabs .active', panel).removeClass('active');
+		$('#tabs '+a.attr('href'), panel).show();
+
+		a.parent('li').addClass('active');
+
+        if (!panelState.expanded){
+            $('.body', panel).hide();
+            $('.title .tb-collapse i', panel).toggleClass('fa-caret-up').toggleClass('fa-caret-down');
+        }
+
+	};
+
+    	function savePanelState() {
+    		var panel = $('#inlinecms-panel');
+        var activeTab = $('#tabs .active', panel).length > 0 ?
+                        $('#tabs .active a', panel).attr('href') :
+                        $('#tabs a', panel).eq(0).attr('href');
+
+		localStorage.setItem("inlinecms-panel", JSON.stringify({
+			position: panel.position(),
+			tab: activeTab,
+            expanded: $('.body:visible', panel).length
+		}));
+	};
+
       	 function buildPanel() {
 
         var panel = $('#inlinecms-panel');
@@ -130,7 +175,7 @@
             handle: ".title",
             iframeFix: true,
             stop: function(){
-				//cms.savePanelState();
+				savePanelState();
             }
         });
 
@@ -138,7 +183,7 @@
 
 			e.preventDefault();
 			$('.body', panel).slideToggle(250, function(){
-                //cms.savePanelState();
+                savePanelState();
             });
 			//$('i', this).toggleClass('fa-caret-up').toggleClass('fa-caret-down');
 			return false;
@@ -149,17 +194,19 @@
             $('.tb-collapse', $(this)).click();
         });
 
-        $('#tabs > ul > li > a', panel).on('click', function(){
+        $('#tabs > ul > li > a', panel).on('click', function(e){
+			e.preventDefault();
 			var a = $(this);
 			$('#inlinecms-panel #tabs ul li').removeClass('active');
 			a.parent('li').addClass('active');
 			$('#inlinecms-panel #tabs .tab').hide();
 			$('#inlinecms-panel #tabs '+a.attr('href')).show();
-			//cms.savePanelState();
-			return false;
+			savePanelState();
+			//return false;
 		});
     };
 buildPanel();
+restorePanelState();
 
 
 	$('.dd').nestable().on('change',function(){
