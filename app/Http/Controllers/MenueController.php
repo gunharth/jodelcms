@@ -5,17 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Page;
+use App\Menue;
 
-class PagesController extends Controller
+class MenueController extends Controller
 {
-    
-
-    public function __construct()
-    {
-        $this->middleware('auth',['except' =>['show'] ]);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +16,7 @@ class PagesController extends Controller
      */
     public function index()
     {
-        return view('page.show');
+        //
     }
 
     /**
@@ -53,10 +46,9 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Page $page)
+    public function show($id)
     {
-        //$menu = \App\Menue::all();
-        return view('page.show',compact('page','menu'));
+        //
     }
 
     /**
@@ -65,9 +57,9 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Page $page)
+    public function edit($id)
     {
-        return view('page.edit',compact('page'));
+        //
     }
 
     /**
@@ -77,11 +69,9 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Page $page)
+    public function update(Request $request, $id)
     {
-        $data = $request->all();
-        $page->fill($data)->save();
-        return 'true';
+        //
     }
 
     /**
@@ -94,9 +84,25 @@ class PagesController extends Controller
     {
         //
     }
-    
-    public function loadiFrame(Page $page) 
+
+    /**
+     * Save the menu ordering
+     *
+     * @param Request $request
+     */
+    public function postOrder(Request $request)
     {
-        return view('editor',compact('page'));
+        if ($request->ajax()) {
+            //dd($request->getContent());
+            $menues = json_decode($request->getContent());
+            foreach ($menues as $p) {
+                $menue = Menue::findOrFail($p->id);
+                $menue->lft = $p->lft;
+                $menue->rgt = $p->rgt;
+                $menue->parent_id = $p->parent_id != "" ? $p->parent_id : null;
+                $menue->depth = $p->depth;
+                $menue->save();
+            }
+        }
     }
 }

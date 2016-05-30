@@ -14,6 +14,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="/css/app.css">
     <style>
+      body { margin-top: 50px; }
       img { width: 100%; height: auto; }
       .editable { outline: 1px dashed #27ae60; }
       .editable:hover { outline: 1px solid #27ae60;     box-shadow: 0 0 20px #27ae60;}
@@ -22,6 +23,7 @@
   
   <body>
 
+@include('partials.nav')
   @yield('content')
 
   <script src="/js/app.js"></script>

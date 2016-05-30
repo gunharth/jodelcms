@@ -24,6 +24,8 @@ Route::post('page/{page}', 'PagesController@update');
 Route::resource('page','PagesController', ['except' => ['update']]);
 Route::get('editor/page/{page}', 'PagesController@loadiFrame');
 
+Route::post('menue/sortorder', 'MenueController@postOrder');
+
 /* Option for getting slug and finding correct routes through a controller
 Route::get('{page}', function(Controller $page) {
 	return Route::dispatchToRoute(Illuminate\Http\Request::create('page/'.$page));

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>Document</title>
 	<link rel="stylesheet" href="/css/app.css">
 	<link rel="stylesheet" href="/css/editor.css">
@@ -54,7 +55,19 @@
 					<button class="btn-move-up item-only" title="Move Up" disabled=""><i class="fa fa-arrow-up"></i></button>
 					<button class="btn-move-down item-only" title="Move Down" disabled=""><i class="fa fa-arrow-down"></i></button>
 				</div>
-                <div id="inlinecms-menus-tree" class="pane jstree jstree-2 jstree-default jstree-leaf" role="tree" tabindex="0" aria-activedescendant="j2_loading" aria-busy="false"><ul class="jstree-container-ul jstree-children jstree-wholerow-ul jstree-no-dots" role="group"></ul></div>
+                <div id="inlinecms-menus-tree" class="pane jstree jstree-2 jstree-default jstree-leaf" role="tree" tabindex="0" aria-activedescendant="j2_loading" aria-busy="false"><ul class="jstree-container-ul jstree-children jstree-wholerow-ul jstree-no-dots" role="group"></ul>
+					
+					<div class="dd" id="nestable3">
+            <ol class="dd-list">
+            @foreach(\App\Menue::all() as $node)
+                    {!! renderNode($node, "page") !!}
+                @endforeach
+               
+            </ol>
+        </div>
+
+
+                </div>
 			</div>
             <div id="tab-settings" class="tab">
                 <ul class="links">
@@ -93,8 +106,9 @@
 	
 	<script src="/js/app.js"></script>
 	<script src='/js/jquery-ui.js'></script>
+	<script src="/packages/nestable-fork/dist/jquery.nestable.min.js"></script>
 	<script>
-	$(document).ready(function() {
+	$(function () {
 
       	$.ajaxSetup({
 	        headers: {
@@ -145,7 +159,27 @@
 		});
     };
 buildPanel();
+
+
+	$('.dd').nestable().on('change',function(){
+                        $.ajax({
+                            type: 'POST',
+                            url: '/menue/sortorder',
+                            data: JSON.stringify($('.dd').nestable('asNestedSet')),
+                            contentType: "json",
+                            /*headers: {
+                                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                            },*/
+                            error:  function (xhr, ajaxOptions, thrownError) {
+                                console.log(xhr.status);
+                                console.log(thrownError);
+                            }
+                        });
+                    }
+                );
 	});
+
+	
 	</script>
 </body>
 </html>

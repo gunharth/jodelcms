@@ -9,7 +9,9 @@
         "laravel/framework": "5.2.*",
         "barryvdh/laravel-elfinder": "^0.3.7",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "league/flysystem-rackspace": "^1.0"
+        "league/flysystem-rackspace": "^1.0",
+        "laravelcollective/html": "5.2.*",
+        "baum/baum": "~1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
