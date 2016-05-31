@@ -19,6 +19,7 @@
       </div>
     </div><!-- /.container -->
 @endsection
+
 @section('scripts')
     <script src='/js/tinymce/tinymce.min.js'></script>
     <script>
@@ -47,12 +48,14 @@
     });
 
       function elFinderBrowser (field_name, url, type, win) {
+        console.log(type);
         tinymce.activeEditor.windowManager.open({
           file: '<?= route('elfinder.tinymce4') ?>',// use an absolute path!
           title: 'Files',
           width: 900,
           height: 600,
-          resizable: 'yes'
+          resizable: 'yes',
+
         }, {
           setUrl: function (url) {
             win.document.getElementById(field_name).value = url;
@@ -93,17 +96,11 @@
             //alert(data);
             // make something green!!!
             setTimeout(function(){
-                $('.inlinecms-loading-indicator', window.parent.document).hide();
+                $('#editor-loading', window.parent.document).hide();
             },1000);
             
         }
     });
-    }
-
-    function savePageTest() {
-      
-            return 'yoyo';
-
     }
 
   </script>

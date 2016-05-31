@@ -13,6 +13,7 @@
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/font-awesome/css/font-awesome.css">
     <style>
       body { margin-top: 50px; }
       img { width: 100%; height: auto; }

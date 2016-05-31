@@ -1,7 +1,6 @@
 @extends('layout')
 
 @section('content')
-
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -21,6 +20,3 @@
     <a href="/editor/page/{{ $page->id }}">Edit</a>
   @endif
 @endsection
-   
-  </body>
-</html>
