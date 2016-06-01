@@ -44,7 +44,8 @@ class PagesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $page = Page::create($request->all());
+        return redirect()->action('PagesController@loadiFrame', [$page->id]);
     }
 
     /**

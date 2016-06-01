@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+    <input type="hidden" id="page_id" value="{!! $page->id !!}">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
@@ -86,11 +87,16 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
+
+      
       
     });
 
-    function savePage() {
+function savePage() {
+      
       var data = {};
+      var page_id = $('#page_id').val();
+      //data['id'] = $('#page_id').val();
           for (i=0; i < tinymce.editors.length; i++){
             var content = tinymce.editors[i].getContent();
             var field = document.getElementById(tinymce.editors[i].id).dataset.field;
@@ -101,7 +107,7 @@
           $.ajax({
         dataType: "html",
         data: data,
-        url: "/page/1",
+        url: "/page/"+page_id,
         cache: false,
         method: 'POST',
         success: function(data) {
@@ -110,11 +116,13 @@
             // make something green!!!
             setTimeout(function(){
                 $('#editor-loading', window.parent.document).hide();
+                document.location.reload();
             },1000);
             
         }
     });
     }
+    
 
   </script>
 @endsection

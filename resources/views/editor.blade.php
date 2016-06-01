@@ -157,7 +157,23 @@
 
 .dd-handle:hover { background: #ddd; }
 
-#editor-loading{position:absolute;left:50%;top:50%;margin-left:-50px;margin-top:-50px;width:100px;height:100px;line-height:100px;background:rgba(44,62,80,.85);color:#FFF;font-size:60px;text-align:center;border-radius:15px;display:none}
+#editor-loading {
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin-left:-50px;
+	margin-top:-50px;
+	width:100px;
+	height:100px;
+	line-height:100px;
+	background:rgba(44,62,80,.85);
+	color:#FFF;
+	font-size:60px;
+	text-align:center;
+	border-radius:15px;
+	display:none;
+	z-index: 51;
+	}
 
 	</style>
 </head>
@@ -260,20 +276,22 @@
 
 <div id="dialog-form" title="Create new user">
   <p class="validateTips">All form fields are required.</p>
- 
-  <form>
-    <fieldset>
-      <label for="name">Name</label>
-      <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
-      <label for="email">Email</label>
-      <input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
- 
-      <!-- Allow form submission with keyboard without duplicating the dialog button -->
-      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-    </fieldset>
-  </form>
+ 	
+ 	{!! Form::open([
+            'route' => ['page.store'],
+            'class' => 'form-horizontal'
+        ]) !!}
+	  <div class="form-group">
+	    {!! Form::label('title','Title',['class' => 'col-sm-2']) !!}
+	    <div class="col-sm-10">
+	    {!! Form::text('title',null,['class' => 'form-control', 'placeholder' => 'Page Title']) !!}
+	    </div>
+	</div>
+	<div class="form-group">
+	    {!! Form::submit('Save',['class' => 'btn btn-primary']) !!}
+	</div>
+	{!! Form::close() !!}
+
 </div>
 	
 	<script src="/js/app.js"></script>
