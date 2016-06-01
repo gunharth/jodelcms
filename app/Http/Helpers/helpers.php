@@ -93,8 +93,14 @@ if (!function_exists('renderNode')) {
         $class = 'class="dd-item"';
         $handle = 'class="dd-handle"';
         //$name  = '<span class="ol-buttons"> ' . get_ops($resource, $node->id, 'inline') . '</span>';
-        $name  = '<div '.$handle.'>' . $node->name . '</div>';
-        $name  .= '<div class="dd-content">' . $node->name . '</div>';
+        $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
+                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-external-link"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-times"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-gear"></i></button>' .
+                   '</div>';
+        $name  = '<div '.$handle.'><i class="fa fa-arrows"></i></div>';
+        $name  .= '<div class="dd-content">' . $node->name . $actions . '</div>';
+        
         if ($node->isLeaf()) {
             return '<li '.$class.' '.$id.'>' . $name . '</li>';
         } else {
@@ -107,5 +113,30 @@ if (!function_exists('renderNode')) {
             $html .= '</li>';
         }
         return $html;
+    }
+}
+
+if (!function_exists('renderPage')) {
+    /**
+     * Render nodes for nested sets
+     *
+     * @param $node
+     * @param $resource
+     * @return string
+     */
+    function renderPage($page)
+    {
+        $id = 'data-id="' . $page->id .'"';
+        $list = 'class="dd-list"';
+        $class = 'class="dd-item"';
+        $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
+                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-external-link"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-times"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-gear"></i></button>' .
+                   '</div>';
+        $name  = '<div class="dd-content">' . $page->title . $actions . '</div>';
+
+        return '<li '.$class.' '.$id.'>' . $name . '</li>';
+        
     }
 }

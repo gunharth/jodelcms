@@ -9,6 +9,6 @@ class Page extends Model
     protected $fillable = [
     	'title', 
     	'contentLeft', 
-    	'contentRight
-    '];
+    	'contentRight'
+    ];
 }

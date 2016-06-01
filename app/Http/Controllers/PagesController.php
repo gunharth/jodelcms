@@ -80,7 +80,9 @@ class PagesController extends Controller
     public function update(Request $request, Page $page)
     {
         $data = $request->all();
+
         $page->fill($data)->save();
+        dd($page);
         return 'true';
     }
 

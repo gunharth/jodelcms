@@ -43,9 +43,22 @@
        toolbar2: "link unlink anchor | image media | forecolor backcolor  | print preview code ",
        image_advtab: true ,
        
-       file_browser_callback : elFinderBrowser
+       file_browser_callback : elFinderBrowser,
+       setup: function(ed) {
+      ed.on('Change Undo Redo', logDirty);
+    }
 
     });
+
+      function setNotDirty() {
+    tinymce.activeEditor.isNotDirty = true;
+    logDirty();
+  }
+  function logDirty() {
+    var isDirty = tinymce.activeEditor.isDirty();
+    //tinymce.$('#status').text('isDirty: ' + isDirty);
+    console.log('isDirty: ' + isDirty);
+  }
 
       function elFinderBrowser (field_name, url, type, win) {
         console.log(type);

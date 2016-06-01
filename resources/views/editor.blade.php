@@ -5,19 +5,31 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>Document</title>
 	<!--<link rel="stylesheet" href="/css/app.css">-->
+	<link rel="stylesheet" href="/css/jquery-ui.css">
 	<link rel="stylesheet" href="/css/superhero.css">
 	<!--<link rel="stylesheet" href="/css/editor.css">-->
 	<link rel="stylesheet" href="/font-awesome/css/font-awesome.css">
 	<!--<link rel="stylesheet" href="/packages/nestable-fork/src/jquery.nestable.css">-->
 	<style>
+		
+*:focus {outline: none;}
 		body { background: transparent; }
+
+
 		#editor-panel {     
 			right: auto;
     		bottom: auto; 
-
+    		top: 161px; 
+    		left: 410px; 
+    		display: block;
+    		z-index: 50;
     	}
+    	#editor-panel button:focus {
+  outline: none;
+}
     	#editor-panel .modal-dialog {     
 			margin: 10px;
+			width: 400px;
     	}
     	#editor-panel .modal-content {     
 			-webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
@@ -33,6 +45,7 @@
 		#editor-panel .tab { display: none; }
 
 		#editor-panel button { border-radius: 4px; }
+		#editor-panel #tabs .buttons { padding-bottom: 5px; }
 
 		.dd { position: relative; display: block; margin: 0; padding: 0; max-width: 600px; list-style: none; font-size: 13px; line-height: 20px; }
 
@@ -44,15 +57,7 @@
 .dd-empty,
 .dd-placeholder { display: block; position: relative; margin: 0; padding: 0; min-height: 20px; font-size: 13px; line-height: 20px; }
 
-.dd-handle { display: block; height: 30px; margin: 5px 0; padding: 5px 10px; color: #333; text-decoration: none; font-weight: bold; border: 1px solid #ccc;
-    background: #fafafa;
-    background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
-    background:    -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
-    background:         linear-gradient(top, #fafafa 0%, #eee 100%);
-    -webkit-border-radius: 3px;
-            border-radius: 3px;
-    box-sizing: border-box; -moz-box-sizing: border-box;
-}
+
 .dd-handle:hover { color: #2ea8e5; background: #fff; }
 
 .dd-item > button { display: block; position: relative; cursor: pointer; float: left; width: 25px; height: 20px; margin: 5px 0; padding: 0; text-indent: 100%; white-space: nowrap; overflow: hidden; border: 0; background: transparent; font-size: 12px; line-height: 1; text-align: center; font-weight: bold; }
@@ -114,7 +119,7 @@
  * Nestable Draggable Handles
  */
 
-.dd-content { display: block; height: 30px; margin: 5px 0; padding: 5px 10px 5px 40px; color: #333; text-decoration: none; font-weight: bold; border: 1px solid #ccc;
+.dd-content { display: block; height: 31px; margin: 5px 0; padding: 5px 10px 5px 40px; color: #333; text-decoration: none; border: 1px solid #ccc;
     background: #fafafa;
     background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
     background:    -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
@@ -129,7 +134,18 @@
 
 .dd-item > button { margin-left: 30px; }
 
-.dd-handle { position: absolute; margin: 0; left: 0; top: 0; cursor: pointer; width: 30px; text-indent: 100%; white-space: nowrap; overflow: hidden;
+.dd-handle { 
+	position: absolute;
+	display: block; 
+	height: 30px;
+	margin: 0; 
+	padding: 4px 8px;
+	left: 0; 
+	top: 0; c
+	ursor: pointer; 
+	width: 30px; 
+	white-space: nowrap; 
+	overflow: hidden;
     border: 1px solid #aaa;
     background: #ddd;
     background: -webkit-linear-gradient(top, #ddd 0%, #bbb 100%);
@@ -138,7 +154,7 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
-.dd-handle:before { content: '≡'; display: block; position: absolute; left: 0; top: 3px; width: 100%; text-align: center; text-indent: 0; color: #fff; font-size: 20px; font-weight: normal; }
+
 .dd-handle:hover { background: #ddd; }
 
 #editor-loading{position:absolute;left:50%;top:50%;margin-left:-50px;margin-top:-50px;width:100px;height:100px;line-height:100px;background:rgba(44,62,80,.85);color:#FFF;font-size:60px;text-align:center;border-radius:15px;display:none}
@@ -147,7 +163,7 @@
 </head>
 <body>
 	<iframe id="editorIFrame" src="/page/{{ $page->id}}/edit" frameborder="0" style="position: absolute; margin: 0; padding:0; width: 100%; height: 100%;"></iframe>
-<div id="editor-panel" class="modal" style="top: 161px; left: 410px; display: block;">
+<div id="editor-panel" class="modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -156,12 +172,12 @@
         <h4 class="modal-title">jodelCMS</h4>
         </div>
         <div class="col-sm-2">
-            <select class="all-langs">
+            <!--<select class="all-langs">
                 <option value="en" selected="selected">EN</option>
-            </select>
+            </select>-->
         </div>
-        <div class="col-sm-4 pull-right">
-			<a class="tb-collapse" href="#"><i class="fa fa-caret-up"></i></a>
+        <div class="col-sm-4 text-right">
+			<a class="tb-collapse" href="#"><i class="fa fa-fw fa-caret-up"></i></a>
 			<a class="tb-logout" href="?exit"><i class="fa fa-times"></i></a>
 		</div>
         
@@ -173,7 +189,7 @@
 				<li class="active"><a href="#tab-elements">Elements</a></li>
 				<li><a href="#tab-pages">Pages</a></li>
 				<li><a href="#tab-menus">Menus</a></li>
-				<li><a href="#tab-settings" class="small"><i class="fa fa-gear"></i></a></li>
+				<li><a href="#tab-settings"><i class="fa fa-gear"></i></a></li>
 			</ul>
 			<div id="tab-elements" class="tab">
 				<div class="list">
@@ -182,35 +198,27 @@
 			</div>
 			<div id="tab-pages" class="tab">
 				<div class="buttons">
-					<button class="btn-create" title="Create"><i class="fa fa-plus"></i></button>
-					<button class="btn-open page-only" title="Open"><i class="fa fa-external-link"></i></button>
-					<button class="btn-settings page-only" title="Settings"><i class="fa fa-gear"></i></button>
-					<button class="btn-delete" title="Delete" disabled=""><i class="fa fa-times"></i></button>
+					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
 				</div>
-				<div id="inlinecms-pages-tree" class="pane jstree jstree-1 jstree-default" role="tree" tabindex="0" aria-activedescendant="n-index" aria-busy="false"><ul class="jstree-container-ul jstree-children jstree-wholerow-ul jstree-no-dots" role="group"><li role="treeitem" aria-selected="true" aria-level="1" aria-labelledby="n-index_anchor" id="n-index" class="jstree-node  jstree-leaf jstree-last"><div unselectable="on" role="presentation" class="jstree-wholerow jstree-wholerow-clicked">&nbsp;</div><i class="jstree-icon jstree-ocl" role="presentation"></i><a class="jstree-anchor jstree-clicked" href="#" tabindex="-1" id="n-index_anchor"><i class="jstree-icon jstree-themeicon fa fa-home jstree-themeicon-custom" role="presentation"></i>Home</a></li></ul></div>
+				<div class="dd">
+		            <ol class="dd-list">
+		            	@foreach(\App\Page::all() as $page)
+		                    {!! renderPage($page) !!}
+		                @endforeach
+		            </ol>
+		        </div> 
 			</div>
 			<div id="tab-menus" class="tab">
 				<div class="buttons">
-					<button class="btn-create" title="Create"><i class="fa fa-plus"></i></button>
-					<button class="btn-settings item-only" title="Settings" disabled=""><i class="fa fa-gear"></i></button>
-					<button class="btn-delete item-only" title="Delete" disabled=""><i class="fa fa-times"></i></button>
-					<span class="delimiter"></span>
-					<button class="btn-move-up item-only" title="Move Up" disabled=""><i class="fa fa-arrow-up"></i></button>
-					<button class="btn-move-down item-only" title="Move Down" disabled=""><i class="fa fa-arrow-down"></i></button>
+					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
 				</div>
-                <div id="inlinecms-menus-tree" class="pane jstree jstree-2 jstree-default jstree-leaf" role="tree" tabindex="0" aria-activedescendant="j2_loading" aria-busy="false">
-					
-					<div class="dd">
-            <ol class="dd-list">
-            @foreach(\App\Menue::all()->toHierarchy() as $node)
-                    {!! renderNode($node) !!}
-                @endforeach
-               
-            </ol>
-        </div>
-
-
-                </div>
+				<div class="dd">
+		            <ol class="dd-list">
+		            	@foreach(\App\Menue::all()->toHierarchy() as $node)
+		                    {!! renderNode($node) !!}
+		                @endforeach
+		            </ol>
+		        </div> 
 			</div>
             <div id="tab-settings" class="tab">
                 <ul class="links">
@@ -250,6 +258,23 @@
 
 <div id="editor-loading"><i class="fa fa-spinner fa-pulse"></i></div>
 
+<div id="dialog-form" title="Create new user">
+  <p class="validateTips">All form fields are required.</p>
+ 
+  <form>
+    <fieldset>
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
+      <label for="email">Email</label>
+      <input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
+ 
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
 	
 	<script src="/js/app.js"></script>
 	<script src='/js/jquery-ui.js'></script>
@@ -261,43 +286,72 @@
 		constructor() {
 			this.editorPanel = $('#editor-panel');
 			this.editorPanelCollapse = $('#modal-toggle');
+			this.dialog = $( "#dialog-form" );
 		}
 	
 		initPanel() {
 			$.ajaxSetup({
-	        headers: {
-	            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	        }
-		});
+		        headers: {
+		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        }
+			});
 
 			this.editorPanel.draggable({
 	            handle: ".modal-header",
 	            iframeFix: true,
 	            cursor: "move",
+	            containment: "document",
 	            stop: ()=> {
 	            	this.savePanelState();
 	            	this.editorPanel.css({height: 'auto'});
 	            }
 	        });
-	        this.restorePanelState();
+	        //this.restorePanelState();
 
-	        $('#tabs > ul > li > a', this.editorPanel).on('click', (e)=>{
-				e.preventDefault();
-				var a = $(e.currentTarget);
-				$('#editor-panel #tabs ul li').removeClass('active');
-				a.parent('li').addClass('active');
-				$('#editor-panel #tabs .tab').hide();
-				$('#editor-panel #tabs '+a.attr('href')).show();
-				this.savePanelState();
-			});
-
-			$('.modal-header .tb-collapse', this.editorPanel).on('click', (e)=>{
+	        $('.modal-header .tb-collapse', this.editorPanel).on('click', (e)=>{
 				e.preventDefault();
 				this.editorPanelCollapse.slideToggle(250, ()=>{
 	                this.savePanelState();
 	            });
 				$('.modal-header .tb-collapse i').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
 	        });
+
+			$( "#tabs" ).tabs({
+				activate: ( event, ui ) => {
+					this.savePanelState();
+				},
+				create:  ( event, ui ) => {
+					this.restorePanelState();
+				}
+			});
+
+			
+ 
+    
+
+			
+		    $('#tab-pages .btn-create', this.editorPanel).on('click', (e)=>{
+		        	e.preventDefault();
+		        	//this.addPage();
+		        	this.dialog.dialog({
+      autoOpen: false,
+      height: 300,
+      width: 350,
+      modal: true,
+      buttons: {
+        "Create an account": this.addPage(),
+        Cancel: () => {
+          this.dialog.dialog( "close" );
+        }
+      },
+      close: function() {
+        form[ 0 ].reset();
+        allFields.removeClass( "ui-state-error" );
+      }
+    });
+		        	this.dialog.dialog( "open" );
+			});
+			
 
 	        $('#savePage').on('click', (e)=> {
 	      		e.preventDefault();
@@ -324,9 +378,11 @@
 		}
 
 		savePanelState() {
-	        var activeTab = $('#tabs .active', this.editorPanel).length > 0 ?
-	                        $('#tabs .active a', this.editorPanel).attr('href') :
-	                        $('#tabs a', this.editorPanel).eq(0).attr('href');
+	        /*var activeTab = $('#tabs .ui-state-active', this.editorPanel).length > 0 ?
+	                        $('#tabs .ui-state-active a', this.editorPanel).attr('href') :
+	                        $('#tabs a', this.editorPanel).eq(0).attr('href');*/
+
+	        let activeTab = $('#tabs').tabs( "option", "active" );
 
 			localStorage.setItem("editor-panel", JSON.stringify({
 				position: this.editorPanel.position(),
@@ -347,19 +403,23 @@
 				panelState = JSON.parse(localStorage.getItem("editor-panel"))
 			}
 			this.editorPanel.css(panelState.position);
-			var a = $("#tabs a[href='"+panelState.tab+"']", this.editorPanel);
+			$('#tabs').tabs( "option", "active", panelState.tab );
+			/*var a = $("#tabs a[href='"+panelState.tab+"']", this.editorPanel);
 			$('#tabs .active', this.editorPanel).removeClass('active');
 			$('#tabs '+a.attr('href'), this.editorPanel).show();
-			a.parent('li').addClass('active');
+			a.parent('li').addClass('active');*/
 	        if (!panelState.expanded){
 	            this.editorPanelCollapse.hide();
 	            $('.modal-header .tb-collapse i').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
 	        }
 		};
+
+		addPage() {
+			console.log('xp')
+		};
 	
 	}
 	$(function () {
-		
 
 		let editor = new Editor();
 		editor.initPanel();
