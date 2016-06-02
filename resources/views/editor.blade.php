@@ -268,10 +268,10 @@
             </div>
 		</div><!-- tabs end -->
       </div>
-      <div id="save-buttons" class="modal-footer">
+      <!--<div id="save-buttons" class="modal-footer">
         <button id="savePage" type="button" class="btn btn-primary"><i class="fa fa-fw fa-check"></i>Save</button>
         <button type="button" class="btn btn-primary"><i class="fa fa-fw fa-sign-out"></i>Save &amp; Exit</button>
-      </div>
+      </div>-->
       </div>
     </div>
   </div>
@@ -280,22 +280,47 @@
 <div id="editor-loading"><i class="fa fa-spinner fa-pulse"></i></div>
 
 <div id="dialog-form" title="Create new user" style="display:none">
-
  	{!! Form::open([
             'route' => ['page.store'],
-            'class' => 'form-horizontal'
         ]) !!}
-	  <div class="form-group">
-	    {!! Form::label('title','Title',['class' => 'col-sm-2']) !!}
-	    <div class="col-sm-10">
+	
+    <div class="tabs">
+    
+        <ul>
+            <li><a href="#tab-page-basic">Basic</a></li>
+            <li><a href="#tab-page-seo">Details</a></li>
+        </ul>        
+        
+        <div id="tab-page-basic">
+            
+        <div class="form-group">
+	    {!! Form::label('title','Page Title') !!}
 	    {!! Form::text('title',null,['class' => 'form-control', 'placeholder' => 'Page Title']) !!}
 	    </div>
-	</div>
-	<div class="form-group">
+	    <div class="form-group">
 	    {!! Form::submit('Save',['class' => 'btn btn-primary']) !!}
-	</div>
-	{!! Form::close() !!}
+	    </div>
+	
+        </div>
+        
+        <div id="tab-page-seo">
+            <fieldset>
+                
+                <div class="field">
+                    <label for="description">Page Description:</label>
+                    <textarea name="description"></textarea>
+                </div>
 
+                <div class="field">
+                    <label for="keywords">Page Keywords:</label>
+                    <input type="text" name="keywords">
+                </div>
+                
+            </fieldset>
+        </div>
+        
+    </div>
+  {!! Form::close() !!}
 </div>
 	
 	<script src="/js/app.js"></script>
@@ -330,6 +355,26 @@
 	        });
 	        //this.restorePanelState();
 
+	        $(window).resize(() => {
+				let windowWidth = $(window).width();
+				let windowHeight = $(window).height();
+				let left = $("#editor-panel").position().left;
+				let width = $("#editor-panel").width();
+				let top = $("#editor-panel").position().top;
+				let height = $("#editor-panel").height();
+				if (windowWidth < left + width) {                
+				    let newLeft = left - ((left + width) - windowWidth);
+				    if(newLeft < 0) { newLeft = 0;}
+				    $("#editor-panel").css({ left: newLeft });
+				}
+				if (windowHeight < top + height) {                
+				    let newTop = top - ((top + height) - windowHeight);
+				    if(newTop < 0) { newTop = 0;}
+				    $("#editor-panel").css({ top: newTop });
+				}
+				this.savePanelState();
+			});
+
 	        $('.modal-header .tb-collapse', this.editorPanel).on('click', (e)=>{
 				e.preventDefault();
 				this.editorPanelCollapse.slideToggle(250, ()=>{
@@ -345,6 +390,10 @@
 				create:  ( event, ui ) => {
 					this.restorePanelState();
 				}
+			});
+
+			$( ".tabs" ).tabs({
+				
 			});
 			
 		    $('#tab-pages .btn-create', this.editorPanel).on('click', (e)=>{
@@ -370,11 +419,11 @@
 			});
 			
 
-	        $('#savePage').on('click', (e)=> {
+	        /*$('#savePage').on('click', (e)=> {
 	      		e.preventDefault();
 	      		$('#editor-loading').show();
 	        	$('#editorIFrame').get(0).contentWindow.savePage();
-	    	});
+	    	});*/
 
 	    	$('.dd').nestable().on('change',function(){
                         $.ajax({
@@ -440,7 +489,6 @@
 
 		let editor = new Editor();
 		editor.initPanel();
-
 
 	});
 

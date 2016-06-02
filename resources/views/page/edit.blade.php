@@ -5,7 +5,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <h1 class="editable" data-field="title">{!! $page->title !!}</h1>
+          <h1 class="editable" data-field="contentTitle">{!! $page->contentTitle !!}</h1> slug: {!! $page->slug !!}
         </div>
       </div>
       <div class="row">
@@ -30,36 +30,31 @@
         inline: true,
         menubar: false,
         toolbar: false,
+        plugins: [
+             "save autosave"
+       ],
+       toolbar1: "save | undo redo",
+       save_onsavecallback: function () { savePage(); }
       });
 
       tinymce.init({
         selector: '.mytextarea',
         inline: true,
+        menubar: false,
         plugins: [
-             "advlist autolink link image lists charmap print preview hr anchor pagebreak",
+             "save autosave advlist autolink link image lists charmap print preview hr anchor pagebreak",
              "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
              "table contextmenu directionality emoticons paste textcolor code"
        ],
-       toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+       toolbar1: "save | undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
        toolbar2: "link unlink anchor | image media | forecolor backcolor  | print preview code ",
        image_advtab: true ,
        
        file_browser_callback : elFinderBrowser,
-       setup: function(ed) {
-      ed.on('Change Undo Redo', logDirty);
-    }
+       save_onsavecallback: function () { savePage(); }
+       
 
     });
-
-      function setNotDirty() {
-    tinymce.activeEditor.isNotDirty = true;
-    logDirty();
-  }
-  function logDirty() {
-    var isDirty = tinymce.activeEditor.isDirty();
-    //tinymce.$('#status').text('isDirty: ' + isDirty);
-    console.log('isDirty: ' + isDirty);
-  }
 
       function elFinderBrowser (field_name, url, type, win) {
         console.log(type);
@@ -94,9 +89,10 @@
 
 function savePage() {
       
-      var data = {};
-      var page_id = $('#page_id').val();
-      //data['id'] = $('#page_id').val();
+      $('#editor-loading', window.parent.document).show();
+
+        var data = {};
+        var page_id = $('#page_id').val();
           for (i=0; i < tinymce.editors.length; i++){
             var content = tinymce.editors[i].getContent();
             var field = document.getElementById(tinymce.editors[i].id).dataset.field;
@@ -111,13 +107,11 @@ function savePage() {
         cache: false,
         method: 'POST',
         success: function(data) {
-            //return data;
-            //alert(data);
             // make something green!!!
             setTimeout(function(){
                 $('#editor-loading', window.parent.document).hide();
                 document.location.reload();
-            },1000);
+            },500);
             
         }
     });

@@ -168,6 +168,8 @@ return [
         Barryvdh\Elfinder\ElfinderServiceProvider::class,
         Baum\Providers\BaumServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
 
     ],
 
