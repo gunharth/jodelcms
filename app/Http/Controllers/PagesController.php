@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Page;
 
@@ -13,7 +12,7 @@ class PagesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth',['except' =>['show'] ]);
+        $this->middleware('auth', ['except' =>['show'] ]);
     }
 
     /**
@@ -23,7 +22,8 @@ class PagesController extends Controller
      */
     public function index()
     {
-        return view('page.show');
+        $page = Page::findOrFail(1);
+        return view('page.show', compact('page'));
     }
 
     /**
@@ -57,7 +57,7 @@ class PagesController extends Controller
     public function show(Page $page)
     {
         //$menu = \App\Menue::all();
-        return view('page.show',compact('page','menu'));
+        return view('page.show', compact('page'));
     }
 
     /**
@@ -68,7 +68,7 @@ class PagesController extends Controller
      */
     public function edit(Page $page)
     {
-        return view('page.edit',compact('page'));
+        return view('page.edit', compact('page'));
     }
 
     /**
@@ -98,8 +98,8 @@ class PagesController extends Controller
         //
     }
     
-    public function loadiFrame(Page $page) 
+    public function loadiFrame(Page $page)
     {
-        return view('editor',compact('page'));
+        return view('editor', compact('page'));
     }
 }

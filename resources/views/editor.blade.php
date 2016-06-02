@@ -43,6 +43,7 @@
 		    cursor: move;
 		}
 		#editor-panel .tab { display: none; }
+		#editor-panel .tab-content { height: 300px; overflow-y: auto; }
 
 		#editor-panel button { border-radius: 4px; }
 		#editor-panel #tabs .buttons { padding-bottom: 5px; }
@@ -216,25 +217,29 @@
 				<div class="buttons">
 					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
 				</div>
-				<div class="dd">
-		            <ol class="dd-list">
-		            	@foreach(\App\Page::all() as $page)
-		                    {!! renderPage($page) !!}
-		                @endforeach
-		            </ol>
-		        </div> 
+				<div class="tab-content">
+					<div class="dd">
+			            <ol class="dd-list">
+			            	@foreach(\App\Page::orderBy('title')->get() as $page)
+			                    {!! renderPage($page) !!}
+			                @endforeach
+			            </ol>
+			        </div> 
+		        </div>
 			</div>
 			<div id="tab-menus" class="tab">
 				<div class="buttons">
 					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
 				</div>
-				<div class="dd">
-		            <ol class="dd-list">
-		            	@foreach(\App\Menue::all()->toHierarchy() as $node)
-		                    {!! renderNode($node) !!}
-		                @endforeach
-		            </ol>
-		        </div> 
+				<div class="tab-content">
+					<div class="dd">
+			            <ol class="dd-list">
+			            	@foreach(\App\Menue::all()->toHierarchy() as $node)
+			                    {!! renderNode($node) !!}
+			                @endforeach
+			            </ol>
+			        </div>
+		        </div>
 			</div>
             <div id="tab-settings" class="tab">
                 <ul class="links">
@@ -274,9 +279,8 @@
 
 <div id="editor-loading"><i class="fa fa-spinner fa-pulse"></i></div>
 
-<div id="dialog-form" title="Create new user">
-  <p class="validateTips">All form fields are required.</p>
- 	
+<div id="dialog-form" title="Create new user" style="display:none">
+
  	{!! Form::open([
             'route' => ['page.store'],
             'class' => 'form-horizontal'
@@ -342,32 +346,27 @@
 					this.restorePanelState();
 				}
 			});
-
-			
- 
-    
-
 			
 		    $('#tab-pages .btn-create', this.editorPanel).on('click', (e)=>{
-		        	e.preventDefault();
-		        	//this.addPage();
-		        	this.dialog.dialog({
-      autoOpen: false,
-      height: 300,
-      width: 350,
-      modal: true,
-      buttons: {
-        "Create an account": this.addPage(),
-        Cancel: () => {
-          this.dialog.dialog( "close" );
-        }
-      },
-      close: function() {
-        form[ 0 ].reset();
-        allFields.removeClass( "ui-state-error" );
-      }
-    });
-		        	this.dialog.dialog( "open" );
+	        	e.preventDefault();
+	        	//this.addPage();
+	        	this.dialog.dialog({
+			      autoOpen: false,
+			      height: 300,
+			      width: 350,
+			      modal: true,
+			      buttons: {
+			        //"Create an account": this.addPage(),
+			        Cancel: () => {
+			          this.dialog.dialog( "close" );
+			        }
+			      },
+			      close: function() {
+			        /*form[ 0 ].reset();
+			        allFields.removeClass( "ui-state-error" );*/
+			      }
+			    });
+	        	this.dialog.dialog( "open" );
 			});
 			
 

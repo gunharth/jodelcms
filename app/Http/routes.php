@@ -11,15 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::auth();
 
 // Pages controller
 // Ajax call to update
 // others are resource
+Route::get('/', 'PagesController@index');
 Route::post('page/{page}', 'PagesController@update');
 Route::resource('page','PagesController', ['except' => ['update']]);
 Route::get('editor/page/{page}', 'PagesController@loadiFrame');

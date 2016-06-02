@@ -130,9 +130,11 @@ if (!function_exists('renderPage')) {
         $list = 'class="dd-list"';
         $class = 'class="dd-item"';
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
-                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-external-link"></i></button>' .
-                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-times"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-pencil-square-o"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-circle"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-circle-o"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-gear"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-times"></i></button>' .
                    '</div>';
         $name  = '<div class="dd-content">' . $page->title . $actions . '</div>';
 
