@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-    <input type="hidden" id="page_id" value="{!! $page->id !!}">
+    <input type="hidden" id="page_id" value="{!! $page->slug !!}">
     <div class="container">
       <div class="row">
         <div class="col-md-6">

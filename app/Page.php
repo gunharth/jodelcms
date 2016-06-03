@@ -22,4 +22,9 @@ class Page extends Model implements SluggableInterface
     	'contentRight'
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }

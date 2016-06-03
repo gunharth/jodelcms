@@ -17,6 +17,6 @@
     </div>
   </div><!-- /.container -->
   @if (Auth::check())
-    <a href="/editor/page/{{ $page->id }}">Edit</a>
+    <a href="/editor/page/{{ $page->slug }}">Edit</a>
   @endif
 @endsection

@@ -179,7 +179,7 @@
 	</style>
 </head>
 <body>
-	<iframe id="editorIFrame" src="/page/{{ $page->id}}/edit" frameborder="0" style="position: absolute; margin: 0; padding:0; width: 100%; height: 100%;"></iframe>
+	<iframe id="editorIFrame" src="/page/{{ $page->slug}}/edit" frameborder="0" style="position: absolute; margin: 0; padding:0; width: 100%; height: 100%;"></iframe>
 <div id="editor-panel" class="modal">
   <div class="modal-dialog">
     <div class="modal-content">
