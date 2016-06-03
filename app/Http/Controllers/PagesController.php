@@ -44,8 +44,7 @@ class PagesController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $request->slug = str_slug($request->title,"-");
+        $request->slug = str_slug($request->title, "-");
         $page = Page::create($request->all());
         return redirect()->action('PagesController@loadiFrame', [$page->slug]);
     }

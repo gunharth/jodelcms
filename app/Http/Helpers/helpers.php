@@ -13,10 +13,10 @@ if (!function_exists('renderMenuNode')) {
         $class = 'class="dropdown"';
         $caret = '<i class="fa fa-caret-down"></i>';
         //$link = route('page', ['page_slug' => $node->slug]);
-        $link = $node->name;
+        $link = '/page/'.$node->page->slug;
         $drop_down = '<a class="dropdown-toggle" data-toggle="dropdown" href="'.$link.'"
                         role="button" aria-expanded="false">' . $node->name . ' ' . $caret . '</a>';
-        $single  = '<a href="'. $link .'">' . $node->name . '</a>';
+        $single  = '<a href="'. $link .'">' . $node->name  .'a</a>';
         if ($node->isLeaf()) {
             return '<li>' . $single . '</li>';
         } else {

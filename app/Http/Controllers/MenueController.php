@@ -37,7 +37,8 @@ class MenueController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $menu = Menue::create($request->all());
+        return redirect()->back();
     }
 
     /**

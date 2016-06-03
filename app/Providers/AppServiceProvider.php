@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('partials.nav', function($view)
         {
-            $view->with('menu', Menue::all());
+            $view->with('menu', Menue::with('page')->get());
         });
     }
 

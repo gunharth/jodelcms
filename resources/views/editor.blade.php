@@ -12,7 +12,7 @@
 	<!--<link rel="stylesheet" href="/packages/nestable-fork/src/jquery.nestable.css">-->
 	<style>
 		
-*:focus {outline: none;}
+		*:focus {outline: none;}
 		body { background: transparent; }
 
 
@@ -129,6 +129,11 @@
             border-radius: 3px;
     box-sizing: border-box; -moz-box-sizing: border-box;
 }
+.dd-title {
+	white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .dd-content:hover { color: #2ea8e5; background: #fff; }
 
 .dd-dragel > .dd-item > .dd-content { margin: 0; }
@@ -203,16 +208,16 @@
       <div class="modal-body">
         <div id="tabs">
 			<ul class="list-inline">
-				<li class="active"><a href="#tab-elements">Elements</a></li>
+				<!--<li><a href="#tab-elements">Elements</a></li>-->
 				<li><a href="#tab-pages">Pages</a></li>
 				<li><a href="#tab-menus">Menus</a></li>
 				<li><a href="#tab-settings"><i class="fa fa-gear"></i></a></li>
 			</ul>
-			<div id="tab-elements" class="tab">
+			<!--<div id="tab-elements" class="tab">
 				<div class="list">
 					<ul><li data-id="text" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Text"><i class="fa fa-font"></i></li><li data-id="image" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Image"><i class="fa fa-picture-o"></i></li><li data-id="gallery" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Gallery"><i class="fa fa-th-large"></i></li><li data-id="video" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Video"><i class="fa fa-youtube-play"></i></li><li data-id="file" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="File"><i class="fa fa-download"></i></li><li data-id="form" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Contact Form"><i class="fa fa-envelope-o"></i></li><li data-id="map" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Map"><i class="fa fa-map-o"></i></li><li data-id="share" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Share Buttons"><i class="fa fa-share-alt"></i></li><li data-id="spacer" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Spacer"><i class="fa fa-arrows-v"></i></li><li data-id="code" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Code"><i class="fa fa-code"></i></li></ul>
 				</div>
-			</div>
+			</div>-->
 			<div id="tab-pages" class="tab">
 				<div class="buttons">
 					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
@@ -279,50 +284,7 @@
 
 <div id="editor-loading"><i class="fa fa-spinner fa-pulse"></i></div>
 
-<div id="dialog-form" title="Create new user" style="display:none">
- 	{!! Form::open([
-            'route' => ['page.store'],
-        ]) !!}
-	
-    <div class="tabs">
-    
-        <ul>
-            <li><a href="#tab-page-basic">Basic</a></li>
-            <li><a href="#tab-page-seo">Details</a></li>
-        </ul>        
-        
-        <div id="tab-page-basic">
-            
-        <div class="form-group">
-	    {!! Form::label('title','Page Title') !!}
-	    {!! Form::text('title',null,['class' => 'form-control', 'placeholder' => 'Page Title']) !!}
-	    </div>
-	    <div class="form-group">
-	    {!! Form::submit('Save',['class' => 'btn btn-primary']) !!}
-	    </div>
-	
-        </div>
-        
-        <div id="tab-page-seo">
-            <fieldset>
-                
-                <div class="field">
-                    <label for="description">Page Description:</label>
-                    <textarea name="description"></textarea>
-                </div>
 
-                <div class="field">
-                    <label for="keywords">Page Keywords:</label>
-                    <input type="text" name="keywords">
-                </div>
-                
-            </fieldset>
-        </div>
-        
-    </div>
-  {!! Form::close() !!}
-</div>
-	
 	<script src="/js/app.js"></script>
 	<script src='/js/jquery-ui.js'></script>
 	<script src="/packages/nestable-fork/src/jquery.nestable.js"></script>
@@ -333,7 +295,8 @@
 		constructor() {
 			this.editorPanel = $('#editor-panel');
 			this.editorPanelCollapse = $('#modal-toggle');
-			this.dialog = $( "#dialog-form" );
+			this.formsLoaded = {};
+
 		}
 	
 		initPanel() {
@@ -353,7 +316,6 @@
 	            	this.editorPanel.css({height: 'auto'});
 	            }
 	        });
-	        //this.restorePanelState();
 
 	        $(window).resize(() => {
 				let windowWidth = $(window).width();
@@ -392,38 +354,17 @@
 				}
 			});
 
-			$( ".tabs" ).tabs({
-				
-			});
+			$( ".tabs" ).tabs({});
 			
 		    $('#tab-pages .btn-create', this.editorPanel).on('click', (e)=>{
 	        	e.preventDefault();
-	        	//this.addPage();
-	        	this.dialog.dialog({
-			      autoOpen: false,
-			      height: 300,
-			      width: 350,
-			      modal: true,
-			      buttons: {
-			        //"Create an account": this.addPage(),
-			        Cancel: () => {
-			          this.dialog.dialog( "close" );
-			        }
-			      },
-			      close: function() {
-			        /*form[ 0 ].reset();
-			        allFields.removeClass( "ui-state-error" );*/
-			      }
-			    });
-	        	this.dialog.dialog( "open" );
+	        	this.addPage();
 			});
-			
 
-	        /*$('#savePage').on('click', (e)=> {
-	      		e.preventDefault();
-	      		$('#editor-loading').show();
-	        	$('#editorIFrame').get(0).contentWindow.savePage();
-	    	});*/
+			$('#tab-menus .btn-create', this.editorPanel).on('click', (e)=>{
+	        	e.preventDefault();
+	        	this.addMenu();
+			});
 
 	    	$('.dd').nestable().on('change',function(){
                         $.ajax({
@@ -444,9 +385,6 @@
 		}
 
 		savePanelState() {
-	        /*var activeTab = $('#tabs .ui-state-active', this.editorPanel).length > 0 ?
-	                        $('#tabs .ui-state-active a', this.editorPanel).attr('href') :
-	                        $('#tabs a', this.editorPanel).eq(0).attr('href');*/
 
 	        let activeTab = $('#tabs').tabs( "option", "active" );
 
@@ -470,21 +408,116 @@
 			}
 			this.editorPanel.css(panelState.position);
 			$('#tabs').tabs( "option", "active", panelState.tab );
-			/*var a = $("#tabs a[href='"+panelState.tab+"']", this.editorPanel);
-			$('#tabs .active', this.editorPanel).removeClass('active');
-			$('#tabs '+a.attr('href'), this.editorPanel).show();
-			a.parent('li').addClass('active');*/
 	        if (!panelState.expanded){
 	            this.editorPanelCollapse.hide();
 	            $('.modal-header .tb-collapse i').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
 	        }
 		};
 
+		// ad page and prepare dialog details
+		//openDialog
+		//openform
+
 		addPage() {
-			console.log('xp')
+			this.openDialog({
+				id: 'page-add',
+	            title: 'Create a new Page',
+	            url: '/admin/forms/page/create',
+	            buttons: {
+					ok: 'Create',
+					Cancel: () => {
+			          this.dialog.dialog( "close" );
+			        }
+				}
+			});
 		};
-	
+
+		addMenu() {
+			this.openDialog({
+				id: 'menu-add',
+	            title: 'Create a new menu',
+	            url: '/admin/forms/menu/create',
+	            buttons: {
+					ok: 'Create',
+					Cancel: () => {
+			          this.dialog.dialog( "close" );
+			        }
+				}
+			});
+		};
+
+		openDialog(options) {
+			var isFormDomLoaded = typeof(this.formsLoaded[options.id]) !== 'undefined';
+
+			if (!isFormDomLoaded){
+	            this.loadDialog(options);
+				return;
+			}
+			this.showDialog(options);
+		}
+
+		loadDialog(options) {
+			var formDom = $('<div></div>').attr('id', options.id);
+			$.ajax({
+				  url: options.url,
+				})
+			  	.done((html) => {
+			      	formDom.hide().append(html);
+					if (formDom.find('.tabs').length === 1){
+		                $('.tabs', formDom).tabs({
+		                    /*activate: function(){
+		                        if (typeof(options.onTabChange) === 'function'){
+		                            options.onTabChange(formDom);
+		                        }
+		                    }*/
+		                });
+		            }
+					$('body').append(formDom);
+					this.formsLoaded[options.id] = true;
+            		this.showDialog(options);
+				});
+		}
+
+		showDialog(options) {
+			var dialog = $('#'+options.id);
+
+			var buttons = {};
+
+			buttons[options.buttons.ok] = ()=>{
+				var form = $('form', dialog);
+				form.submit()
+				//$('#createPage').submit();
+				//cms.submitForm(values, form, dialogDom, options);
+			};
+			buttons['Close'] = ()=>{
+				$('#'+options.id).dialog('close');
+			};
+
+			dialog.dialog({
+				title: options.title,
+				modal: true,
+				buttons: buttons,
+				width: typeof(options.width) === 'undefined' ? 450 : options.width,
+	            minWidth: 300,
+	            /*position: {
+	                my: "center top",
+	                at: "center top+50",
+	                of: window
+	            },*/
+	            /*open:function () {
+
+	                $(this).closest('.ui-dialog').find(".ui-dialog-buttonset .ui-button:first").addClass("green");
+
+	                if (typeof(options.onAfterShow) === 'function'){
+	                    options.onAfterShow(form);
+	                }
+
+	            }*/
+			});
+		};
+
 	}
+
 	$(function () {
 
 		let editor = new Editor();
@@ -492,121 +525,6 @@
 
 	});
 
-	//$(function () {
-      	
-      	/*$('#savePage').on('click', function(e) {
-      		e.preventDefault();
-      		$('#editor-loading').show();
-        	$('#editorIFrame').get(0).contentWindow.savePage();
-    	});*/
-
-    	/*$('.dd').nestable().on('change',function(){
-                        $.ajax({
-                            type: 'POST',
-                            url: '/menue/sortorder',
-                            data: JSON.stringify($('.dd').nestable('asNestedSet')),
-                            contentType: "json",
-                           
-                            error:  function (xhr, ajaxOptions, thrownError) {
-                                console.log(xhr.status);
-                                console.log(thrownError);
-                            }
-                        });
-                    }
-                );
-});*/
-
-    	 
-    	//this.restorePanelState = function(){
-  /*  	function restorePanelState() {
-		var panel = $('#inlinecms-panel');
-		var panelState = {};
-
-		if (!localStorage.getItem("inlinecms-panel")){
-			panelState = {
-				position: {left: 50, top: 150},
-				tab: '#tab-elements',
-                expanded: true
-			};
-		} else {
-			panelState = JSON.parse(localStorage.getItem("inlinecms-panel"))
-		}
-
-		panel.css(panelState.position);
-
-		var a = $("#tabs a[href='"+panelState.tab+"']", panel);
-
-		$('#tabs .active', panel).removeClass('active');
-		$('#tabs '+a.attr('href'), panel).show();
-
-		a.parent('li').addClass('active');
-
-        if (!panelState.expanded){
-            $('.body', panel).hide();
-            $('.title .tb-collapse i', panel).toggleClass('fa-caret-up').toggleClass('fa-caret-down');
-        }
-
-	};
-
-    	function savePanelState() {
-    		var panel = $('#inlinecms-panel');
-        var activeTab = $('#tabs .active', panel).length > 0 ?
-                        $('#tabs .active a', panel).attr('href') :
-                        $('#tabs a', panel).eq(0).attr('href');
-
-		localStorage.setItem("inlinecms-panel", JSON.stringify({
-			position: panel.position(),
-			tab: activeTab,
-            expanded: $('.body:visible', panel).length
-		}));
-	};
-
-      	  function buildPanel() {
-
-        var panel = $('#inlinecms-panel');
-
-		panel.draggable({
-            handle: ".title",
-            iframeFix: true,
-            stop: function(){
-				savePanelState();
-            }
-        });
-
-       $('.title .tb-collapse', panel).on('click', function(e){
-
-			e.preventDefault();
-			$('.body', panel).slideToggle(250, function(){
-                savePanelState();
-            });
-			//$('i', this).toggleClass('fa-caret-up').toggleClass('fa-caret-down');
-			return false;
-
-        });
-
-        $('.title', panel).on('dblclick', function(e){
-            $('.tb-collapse', $(this)).click();
-        });
-
-        $('#tabs > ul > li > a', panel).on('click', function(e){
-			e.preventDefault();
-			var a = $(this);
-			$('#inlinecms-panel #tabs ul li').removeClass('active');
-			a.parent('li').addClass('active');
-			$('#inlinecms-panel #tabs .tab').hide();
-			$('#inlinecms-panel #tabs '+a.attr('href')).show();
-			savePanelState();
-			//return false;
-		});
-    };
-buildPanel();
-restorePanelState();*/
-
-
-	
-	
-
-	
 	</script>
 </body>
 </html>
