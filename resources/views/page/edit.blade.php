@@ -83,6 +83,8 @@
         }
       });
 
+      $('a[target!=_blank]').attr('target', '_top');
+
       
       
     });

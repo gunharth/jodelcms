@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Page;
+use Auth;
 
 class PagesController extends Controller
 {
@@ -12,7 +13,7 @@ class PagesController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' =>['show'] ]);
+        $this->middleware('auth', ['except' =>['show','index'] ]);
     }
 
     /**
@@ -23,6 +24,9 @@ class PagesController extends Controller
     public function index()
     {
         $page = Page::findOrFail(1);
+        if (Auth::check()) {
+            return $this->loadiFrame($page);
+        }
         return view('page.show', compact('page'));
     }
 
@@ -57,7 +61,9 @@ class PagesController extends Controller
      */
     public function show(Page $page)
     {
-        //$menu = \App\Menue::all();
+        if (Auth::check()) {
+            return $this->loadiFrame($page);
+        }
         return view('page.show', compact('page'));
     }
 
