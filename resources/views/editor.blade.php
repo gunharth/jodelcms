@@ -199,8 +199,8 @@
             </select>-->
         </div>
         <div class="col-sm-4 text-right">
-			<a class="tb-collapse" href="#"><i class="fa fa-fw fa-caret-up"></i></a>
-			<a class="tb-logout" href="?exit"><i class="fa fa-times"></i></a>
+			<a class="tb-collapse" href="#"><i class="fa fa-fw fa-lg fa-caret-up"></i></a>
+			<a href="/logout"><i class="fa fa-lg fa-sign-out"></i></a>
 		</div>
         
       </div>
