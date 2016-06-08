@@ -31,6 +31,17 @@ Route::resource('menue','MenueController', ['except' => ['update']]);
 	return Route::dispatchToRoute(Illuminate\Http\Request::create('page/'.$page));
 });*/
 Route::resource('page','PagesController', ['except' => ['update']]);
+// Route::get('{slug}', function($slug) {
+// 	// find which type of controller
+// 	$cont = '\PagesController';
+// 	//return Route::dispatchToRoute(Illuminate\Http\Request::create('page/'.$page));
+// 	//return $slug;
+// 	$app = app();
+//     $controller = $app->make('\App\Http\Controllers'.$cont);
+//     return $controller->callAction('show', $parameters = array($slug));
+
+// })->where('slug', '^(?!_debugbar)[A-Za-z0-9_/-]+');
+//
 Route::get('forms/page/{page}', function() {
 	return view('page.forms.create');
 });

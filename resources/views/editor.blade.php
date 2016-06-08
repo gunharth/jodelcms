@@ -21,7 +21,7 @@
     		bottom: auto; 
     		top: 161px; 
     		left: 410px; 
-    		display: block;
+    		display: none;
     		z-index: 50;
     	}
     	#editor-panel button:focus {
@@ -199,8 +199,8 @@
             </select>-->
         </div>
         <div class="col-sm-4 text-right">
-			<a class="tb-collapse" href="#"><i class="fa fa-fw fa-lg fa-caret-up"></i></a>
-			<a href="/logout"><i class="fa fa-lg fa-sign-out"></i></a>
+			<a class="tb-collapse" href="#" title="Toggle"><i class="fa fa-fw fa-lg fa-caret-up"></i></a>
+			<a href="/logout" title="Sign out"><i class="fa fa-lg fa-sign-out"></i></a>
 		</div>
         
       </div>
@@ -350,7 +350,10 @@
 					this.savePanelState();
 				},
 				create:  ( event, ui ) => {
-					this.restorePanelState();
+					//this.editorPanel.fadeIn(() => {
+						this.restorePanelState();
+					//});
+					
 				}
 			});
 
@@ -382,10 +385,11 @@
                         });
                     }
                 );
+
+
 		}
 
 		savePanelState() {
-
 	        let activeTab = $('#tabs').tabs( "option", "active" );
 
 			localStorage.setItem("editor-panel", JSON.stringify({
@@ -396,11 +400,12 @@
 		};
 
 		restorePanelState() {
+			this.editorPanel.fadeIn();
 			let panelState = {};
 			if (!localStorage.getItem("editor-panel")){
 				panelState = {
 					position: {left: 50, top: 150},
-					tab: '#tab-elements',
+					tab: 0,
 	                expanded: true
 				};
 			} else {
@@ -522,6 +527,7 @@
 
 		let editor = new Editor();
 		editor.initPanel();
+
 
 	});
 

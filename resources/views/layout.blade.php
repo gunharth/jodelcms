@@ -14,20 +14,21 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="/css/prism.css">
     <style>
       body { margin-top: 50px; }
       img { width: 100%; height: auto; }
-      .editable { outline: 1px dashed #27ae60; }
-      .editable:hover { outline: 1px solid #27ae60;     box-shadow: 0 0 20px #27ae60;}
     </style>
+    @yield('styles')
   </head>
   
   <body>
 
-@include('partials.nav')
+  @include('partials.nav')
   @yield('content')
 
   <script src="/js/app.js"></script>
+  <script src="/js/prism.js"></script>
 
   @yield('scripts')
 

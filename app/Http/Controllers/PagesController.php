@@ -75,7 +75,7 @@ class PagesController extends Controller
      */
     public function edit(Page $page)
     {
-        return view('page.edit', compact('page'));
+        return view('page.show', compact('page'));
     }
 
     /**
@@ -87,10 +87,8 @@ class PagesController extends Controller
      */
     public function update(Request $request, Page $page)
     {
-        $data = $request->all();
-
-        $page->fill($data)->save();
-        dd($page);
+        //$data = ;
+        $page->fill($request->all())->save();
         return 'true';
     }
 

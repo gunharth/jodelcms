@@ -13,10 +13,10 @@ if (!function_exists('renderMenuNode')) {
         $class = 'class="dropdown"';
         $caret = '<i class="fa fa-caret-down"></i>';
         //$link = route('page', ['page_slug' => $node->slug]);
-        $link = '/page/'.$node->page->slug;
+        $link = $node->page->link;
         $drop_down = '<a class="dropdown-toggle" data-toggle="dropdown" href="'.$link.'"
                         role="button" aria-expanded="false">' . $node->name . ' ' . $caret . '</a>';
-        $single  = '<a href="'. $link .'">' . $node->name  .'a</a>';
+        $single  = '<a href="'. $link .'">' . $node->name  .'</a>';
         if ($node->isLeaf()) {
             return '<li>' . $single . '</li>';
         } else {
@@ -129,12 +129,16 @@ if (!function_exists('renderPage')) {
         $id = 'data-id="' . $page->id .'"';
         $list = 'class="dd-list"';
         $class = 'class="dd-item"';
+        $delete = '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-fw fa-times"></i></button>';
+        if($page->id == 1) {
+            $delete = '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-fw"></i></button>';
+        }
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
                    '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-pencil-square-o"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-circle"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-circle-o"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-gear"></i></button>' .
-                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-times"></i></button>' .
+                   $delete .
                    '</div>';
         $name  = '<div class="dd-content">' . $page->title . $actions . '</div>';
 

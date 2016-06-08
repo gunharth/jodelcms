@@ -22,9 +22,20 @@ class Page extends Model implements SluggableInterface
     	'contentRight'
     ];
 
+    protected $appends = [  
+        'link'
+    ];
+
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public function getLinkAttribute() {
+        if($this->slug == 'home') {
+            return '/';
+        }
+        return '/page/'.$this->slug;
     }
 
 }
