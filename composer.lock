@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.18.15",
+            "version": "3.18.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a50c0971d42867ac8184c52c5f35b27255a695b2"
+                "reference": "5b959dda467752d4db8fa41fe9bbce85cabbe81e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a50c0971d42867ac8184c52c5f35b27255a695b2",
-                "reference": "a50c0971d42867ac8184c52c5f35b27255a695b2",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5b959dda467752d4db8fa41fe9bbce85cabbe81e",
+                "reference": "5b959dda467752d4db8fa41fe9bbce85cabbe81e",
                 "shasum": ""
             },
             "require": {
@@ -85,7 +85,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-06-02 20:13:40"
+            "time": "2016-06-07 21:16:15"
         },
         {
             "name": "barryvdh/elfinder-flysystem-driver",

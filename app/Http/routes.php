@@ -16,20 +16,8 @@
 Route::auth();
 
 // Pages controller
-// Ajax call to update
-// others are resource
 Route::get('/', 'PagesController@index');
 Route::post('page/{page}', 'PagesController@update');
-//Route::resource('page','PagesController', ['except' => ['update']]);
-//Route::get('editor/page/{page}', 'PagesController@loadiFrame');
-
-Route::post('menue/sortorder', 'MenueController@postOrder');
-Route::resource('menue','MenueController', ['except' => ['update']]);
-
-/* Option for getting slug and finding correct routes through a controller*/
-/*Route::get('{page}', function($page) {
-	return Route::dispatchToRoute(Illuminate\Http\Request::create('page/'.$page));
-});*/
 Route::resource('page','PagesController', ['except' => ['update']]);
 // Route::get('{slug}', function($slug) {
 // 	// find which type of controller
@@ -41,14 +29,15 @@ Route::resource('page','PagesController', ['except' => ['update']]);
 //     return $controller->callAction('show', $parameters = array($slug));
 
 // })->where('slug', '^(?!_debugbar)[A-Za-z0-9_/-]+');
-//
+
+// menu controller
+Route::post('menue/sortorder', 'MenueController@postOrder');
+Route::resource('menue','MenueController', ['except' => ['update']]);
+
+
 Route::get('forms/page/{page}', function() {
 	return view('page.forms.create');
 });
 Route::get('/admin/forms/{type}/{action}', function($type,$action) {
 	return view('admin.forms.'.'.'.$type.'.'.$action);
 });
-
-
-
-//Route::get('/home', 'HomeController@index');
