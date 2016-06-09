@@ -73,27 +73,65 @@
 	        	this.addPage();
 			});
 
+		    /**
+		    /* Menu funtions
+		    **/
+		    $('.nestable').nestable().on('change',function(){
+                $.ajax({
+                    type: 'POST',
+                    url: '/menue/sortorder',
+                    data: JSON.stringify($('.nestable').nestable('asNestedSet')),
+                    contentType: "json",
+                    /*headers: {
+                        'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                    },*/
+                    error:  function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+                });
+            });
+
 			$('#tab-menus .btn-create', this.editorPanel).on('click', (e)=>{
 	        	e.preventDefault();
 	        	this.addMenu();
 			});
 
-	    	$('.dd').nestable().on('change',function(){
-                        $.ajax({
-                            type: 'POST',
-                            url: '/menue/sortorder',
-                            data: JSON.stringify($('.dd').nestable('asNestedSet')),
-                            contentType: "json",
-                            /*headers: {
-                                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                            },*/
-                            error:  function (xhr, ajaxOptions, thrownError) {
-                                console.log(xhr.status);
-                                console.log(thrownError);
-                            }
-                        });
+	    	$('#tab-menus', this.editorPanel).on('click', '.toggleActive', (e)=>{
+	        	e.preventDefault();
+	        	let menu_id = $(e.target).parents('.dd-item').data('id');
+	        	let active = $(e.target).data('active');
+	        	$.ajax({
+                    type: 'POST',
+                    url: '/menue/active',
+                    data: 'id='+menu_id+'&active='+active,
+                    error:  function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
                     }
-                );
+                }).done(function() {
+					  $(e.target).toggleClass( "fa-circle-o" ).toggleClass( "fa-circle" );
+				});
+			});
+
+			$('#tab-menus', this.editorPanel).on('click', '.delete', (e)=>{
+	        	e.preventDefault();
+	        	let parent = $(e.target).parents('.dd-item');
+	        	let menu_id = parent.data('id');
+	        	$.ajax({
+                    type: 'POST',
+                    url: '/menue/delete',
+                    data: 'id='+menu_id,
+                    error:  function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+                }).done(function() {
+					  parent.slideUp( () => {
+					  	parent.remove();
+					  });
+				});
+			});
 
 
 		}

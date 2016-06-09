@@ -3,7 +3,7 @@
 @if (Auth::check())
 @section('styles')
   <style>
-    /*.jodelText, .jodelTextarea { outline: 1px dashed #27ae60; }*/
+    .jodelText, .jodelTextarea { outline: 1px dashed #27ae60; }
     .jodelText:hover, .jodelTextarea:hover { outline: 1px solid #27ae60;}
   </style>
 @endsection

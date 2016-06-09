@@ -93,9 +93,17 @@ if (!function_exists('renderNode')) {
         $class = 'class="dd-item"';
         $handle = 'class="dd-handle"';
         //$name  = '<span class="ol-buttons"> ' . get_ops($resource, $node->id, 'inline') . '</span>';
+        
+        // $active = 'fa-circle';
+        // if($node->active == 1) {
+        //     $active = 'fa-circle';
+        // }
+        $active = ($node->active == 1) ? 'fa-circle' : 'fa-circle-o';
+        $active_data = ($node->active == 1) ? 0 : 1;
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
                    '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-external-link"></i></button>' .
-                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-times"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs toggleActive"><i class="fa ' . $active . '" data-active="' . $active_data . '"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs delete"><i class="fa fa-times"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-gear"></i></button>' .
                    '</div>';
         $name  = '<div '.$handle.'><i class="fa fa-arrows"></i></div>';

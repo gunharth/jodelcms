@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,7 +25,14 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('menues')->insert([
             'name' => 'Home',
-            'page_id' => 1
+            'parent_id' => 0,
+            'lft' => 1,
+            'rgt' => 2,
+            'depth' => 0,
+            'page_id' => 1,
+            'active' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ]);
 
         // $this->call(UsersTableSeeder::class);

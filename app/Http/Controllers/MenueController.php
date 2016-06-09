@@ -106,4 +106,32 @@ class MenueController extends Controller
             }
         }
     }
+
+    /**
+     * Save the menu ordering
+     *
+     * @param Request $request
+     */
+    public function postActive(Request $request)
+    {
+        if ($request->ajax()) {
+            $menue = Menue::findOrFail($request->id);
+            $menue->active = $request->active;
+            $menue->save();
+        }
+    }
+
+    /**
+     * Save the menu ordering
+     *
+     * @param Request $request
+     */
+    public function postDelete(Request $request)
+    {
+        if ($request->ajax()) {
+            $menue = Menue::findOrFail($request->id);
+            $menue->delete();
+        }
+    }
+
 }

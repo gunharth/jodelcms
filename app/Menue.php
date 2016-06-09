@@ -15,7 +15,7 @@ class Menue extends Node
    *
    * @var string
    */
-  protected $table = 'menues';#
+  protected $table = 'menues';
 
   public function page()
   {

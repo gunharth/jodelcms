@@ -64,7 +64,7 @@
 					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
 				</div>
 				<div class="tab-content">
-					<div class="dd">
+					<div class="dd nestable">
 			            <ol class="dd-list">
 			            	@foreach(\App\Menue::all()->toHierarchy() as $node)
 			                    {!! renderNode($node) !!}

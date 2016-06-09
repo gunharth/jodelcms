@@ -32,6 +32,8 @@ Route::resource('page','PagesController', ['except' => ['update']]);
 
 // menu controller
 Route::post('menue/sortorder', 'MenueController@postOrder');
+Route::post('menue/active', 'MenueController@postActive');
+Route::post('menue/delete', 'MenueController@postDelete');
 Route::resource('menue','MenueController', ['except' => ['update']]);
 
 

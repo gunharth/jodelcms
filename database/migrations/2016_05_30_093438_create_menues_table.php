@@ -25,6 +25,7 @@ class CreateMenuesTable extends Migration {
       // Add needed columns here (f.ex: name, slug, path, etc.)
       $table->string('name', 50);
       $table->integer('page_id')->default(1);
+      $table->boolean('active')->default(0);
 
       $table->timestamps();
     });
