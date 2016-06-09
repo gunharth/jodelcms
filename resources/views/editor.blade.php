@@ -37,6 +37,7 @@
 				<!--<li><a href="#tab-elements">Elements</a></li>-->
 				<li><a href="#tab-pages">Pages</a></li>
 				<li><a href="#tab-menus">Menus</a></li>
+				<li><a href="#tab-collections">Collections</a></li>
 				<li><a href="#tab-settings"><i class="fa fa-gear"></i></a></li>
 			</ul>
 			<!--<div id="tab-elements" class="tab">
@@ -70,6 +71,16 @@
 			                @endforeach
 			            </ol>
 			        </div>
+		        </div>
+			</div>
+			<div id="tab-collections" class="tab">
+				<div class="buttons">
+					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
+				</div>
+				<div class="tab-content">
+					<div class="dd">
+			             BLOG
+			        </div> 
 		        </div>
 			</div>
             <div id="tab-settings" class="tab">

@@ -41,3 +41,7 @@ Route::get('forms/page/{page}', function() {
 Route::get('/admin/forms/{type}/{action}', function($type,$action) {
 	return view('admin.forms.'.'.'.$type.'.'.$action);
 });
+
+
+
+//Route::get('/home', 'HomeController@index');
