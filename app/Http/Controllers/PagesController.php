@@ -107,4 +107,31 @@ class PagesController extends Controller
     {
         return view('editor', compact('page'));
     }
+
+    /**
+     * Save the menu ordering
+     *
+     * @param Request $request
+     */
+    public function postActive(Request $request)
+    {
+        if ($request->ajax()) {
+            $page = Menue::findOrFail($request->id);
+            $page->active = $request->active;
+            $page->save();
+        }
+    }
+
+    /**
+     * Save the menu ordering
+     *
+     * @param Request $request
+     */
+    public function postDelete(Request $request)
+    {
+        if ($request->ajax()) {
+            $page = Page::findOrFail($request->id);
+            $page->delete();
+        }
+    }
 }

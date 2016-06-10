@@ -73,6 +73,29 @@
 	        	this.addPage();
 			});
 
+
+			$('#tab-pages', this.editorPanel).on('click', '.delete', (e)=>{
+	        	e.preventDefault();
+	        	let parent = $(e.target).parents('.dd-item');
+	        	let page_id = parent.data('id');
+	        	$.ajax({
+                    type: 'POST',
+                    url: '/page/delete',
+                    data: 'id='+page_id,
+                    error:  function (xhr, ajaxOptions, thrownError) {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+                }).done(function() {
+					  parent.slideUp( () => {
+					  	parent.remove();
+					  });
+				});
+			});
+
+
+		
+
 		    /**
 		    /* Menu funtions
 		    **/

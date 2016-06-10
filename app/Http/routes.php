@@ -17,6 +17,8 @@ Route::auth();
 
 // Pages controller
 Route::get('/', 'PagesController@index');
+//Route::post('page/active', 'PageController@postActive');
+Route::post('page/delete', 'PagesController@postDelete');
 Route::post('page/{page}', 'PagesController@update');
 Route::resource('page','PagesController', ['except' => ['update']]);
 // Route::get('{slug}', function($slug) {

@@ -137,7 +137,7 @@ if (!function_exists('renderPage')) {
         $id = 'data-id="' . $page->id .'"';
         $list = 'class="dd-list"';
         $class = 'class="dd-item"';
-        $delete = '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-fw fa-times"></i></button>';
+        $delete = '<button type="button" class="btn btn-link btn-xs delete"><i class="fa fa-fw fa-times"></i></button>';
         if($page->id == 1) {
             $delete = '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-fw"></i></button>';
         }
