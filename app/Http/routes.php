@@ -19,8 +19,10 @@ Route::auth();
 Route::get('/', 'PagesController@index');
 //Route::post('page/active', 'PageController@postActive');
 Route::post('page/delete', 'PagesController@postDelete');
+Route::get('page/{page}/settings', 'PagesController@settings');
 Route::post('page/{page}', 'PagesController@update');
-Route::resource('page','PagesController', ['except' => ['update']]);
+
+Route::resource('page','PagesController');
 // Route::get('{slug}', function($slug) {
 // 	// find which type of controller
 // 	$cont = '\PagesController';

@@ -79,6 +79,18 @@ class PagesController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function settings($id)
+    {
+        $page = Page::findOrFail($id);
+        return view('admin.forms.page.edit', compact('page'));
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -89,7 +101,7 @@ class PagesController extends Controller
     {
         //$data = ;
         $page->fill($request->all())->save();
-        return 'true';
+        return $page;
     }
 
     /**

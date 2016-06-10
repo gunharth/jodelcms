@@ -98,7 +98,7 @@ if (!function_exists('renderNode')) {
         $active_data = ($node->active == 1) ? 0 : 1;
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
                    '<a href="' . $node->link . '" class="btn btn-xs"><i class="fa fa-external-link"></i></a>' .
-                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-pencil-square-o"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs edit"><i class="fa fa-pencil-square-o"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs toggleActive"><i class="fa ' . $active . '" data-active="' . $active_data . '"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs delete"><i class="fa fa-times"></i></button>' .
                    '</div>';
@@ -139,10 +139,10 @@ if (!function_exists('renderPage')) {
         }
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
                    '<a href="' . $page->link . '" class="btn btn-xs"><i class="fa fa-external-link"></i></a>' .
-                   '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-pencil-square-o"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs edit"><i class="fa fa-pencil-square-o"></i></button>' .
                    $delete .
                    '</div>';
-        $name  = '<div class="dd-content">' . $page->title . $actions . '</div>';
+        $name  = '<div class="dd-content"><span class="dd-title">' . $page->title . '</span>' . $actions . '</div>';
 
         return '<li '.$class.' '.$id.'>' . $name . '</li>';
         

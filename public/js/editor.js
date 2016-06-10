@@ -5,8 +5,23 @@
 			this.editorPanel = $('#editor-panel');
 			this.editorPanelCollapse = $('#modal-toggle');
 			this.formsLoaded = {};
+			this.page_id = 0;
 
 		}
+
+		showLoadingIndicator() {
+	        if ($('#editor-loading').length){
+	            $('#editor-loading').show();
+	            return;
+	        }
+	        var indicator = $('<div></div>').addClass('inlinecms-loading-indicator');
+	        indicator.append('<i class="fa fa-spinner fa-pulse"></i>').show();
+	        $('body').append(indicator);
+	    };
+
+	    hideLoadingIndicator(){
+	        $('#editor-loading').hide();
+	    };
 	
 		initPanel() {
 			$.ajaxSetup({
@@ -73,25 +88,47 @@
 	        	this.addPage();
 			});
 
+			$('#tab-pages .edit', this.editorPanel).on('click', (e)=>{
+	        	e.preventDefault();
+	        	let parent = $(e.target).parents('.dd-item');
+	        	this.page_id = parent.data('id');
+	        	this.editPage();
+			});
+
+			
+
 
 			$('#tab-pages', this.editorPanel).on('click', '.delete', (e)=>{
 	        	e.preventDefault();
 	        	let parent = $(e.target).parents('.dd-item');
 	        	let page_id = parent.data('id');
-	        	$.ajax({
-                    type: 'POST',
-                    url: '/page/delete',
-                    data: 'id='+page_id,
-                    error:  function (xhr, ajaxOptions, thrownError) {
-                        console.log(xhr.status);
-                        console.log(thrownError);
-                    }
-                }).done(function() {
-					  parent.slideUp( () => {
-					  	parent.remove();
-					  });
+
+	        	let message = 'Test';
+
+	        	this.showConfirmationDialog(message, ()=>{
+		        	this.showLoadingIndicator();
+		        	$.ajax({
+	                    type: 'POST',
+	                    url: '/page/delete',
+	                    data: 'id='+page_id,
+	                    error:  function (xhr, ajaxOptions, thrownError) {
+	                        console.log(xhr.status);
+	                        console.log(thrownError);
+	                    }
+	                }).done(()=>{
+						  parent.slideUp( () => {
+						  	parent.remove();
+						  	this.hideLoadingIndicator();
+						  });
+					});
 				});
 			});
+
+
+
+
+			
+		
 
 
 		
@@ -159,6 +196,37 @@
 
 		}
 
+		editPage() {
+				this.openDialog({
+					id: 'page-edit',
+		            title: 'Edit',
+		            url: '/page/'+this.page_id+'/settings',
+		            type: 'ajax',
+		            buttons: {
+						ok: 'Save',
+						Cancel: () => {
+				          this.dialog.dialog( "close" );
+				        }
+					}
+				});
+			};
+
+		addPage() {
+			this.openDialog({
+				id: 'page-add',
+	            title: 'Create a new Page',
+	            url: '/admin/forms/page/create',
+	            type: '',
+	            buttons: {
+					ok: 'Create',
+					Cancel: () => {
+			          this.dialog.dialog( "close" );
+			        }
+				}
+			});
+		};
+
+
 		savePanelState() {
 	        let activeTab = $('#tabs').tabs( "option", "active" );
 
@@ -193,19 +261,7 @@
 		//openDialog
 		//openform
 
-		addPage() {
-			this.openDialog({
-				id: 'page-add',
-	            title: 'Create a new Page',
-	            url: '/admin/forms/page/create',
-	            buttons: {
-					ok: 'Create',
-					Cancel: () => {
-			          this.dialog.dialog( "close" );
-			        }
-				}
-			});
-		};
+		
 
 		addMenu() {
 			this.openDialog({
@@ -253,6 +309,8 @@
 				});
 		}
 
+
+
 		showDialog(options) {
 			var dialog = $('#'+options.id);
 
@@ -260,12 +318,10 @@
 
 			buttons[options.buttons.ok] = ()=>{
 				var form = $('form', dialog);
-				form.submit()
-				//$('#createPage').submit();
-				//cms.submitForm(values, form, dialogDom, options);
+				this.submitForm(dialog,form,options);
 			};
 			buttons['Close'] = ()=>{
-				$('#'+options.id).dialog('close');
+				dialog.dialog('close');
 			};
 
 			dialog.dialog({
@@ -290,6 +346,58 @@
 	            }*/
 			});
 		};
+
+		submitForm(dialog,form,options) {
+			if(options.type == 'ajax') {
+				var formData = form.serialize()
+		        $.ajax({
+		            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+		            url         : '/page/dsadf', // the url where we want to POST
+		            data        : formData, // our data object
+		            dataType    : 'json', // what type of data do we expect back from the server
+		            encode          : true
+		        }).done(function(data) {
+		            	dialog.dialog('close');
+		            	$('#tab-pages .dd-item[data-id="4"] .dd-title').text(data.title);
+
+            });
+		        } else {
+		        	form.submit()
+		        }
+			
+
+		}
+
+		showConfirmationDialog(message, onConfirm, onCancel){
+
+	        var buttons = {};
+
+	        buttons["yes"] = function(){
+	            if (typeof(onConfirm)==='function') { onConfirm(); }
+	            $(this).dialog('close');
+	        };
+
+	        buttons["no"] = function(){
+	            if (typeof(onCancel)==='function') { onCancel(); }
+	            $(this).dialog('close');
+	        };
+
+			$('<div class="message-text inlinecms"></div>').append(message).dialog({
+				title: "confirmation",
+				modal: true,
+				resizable: false,
+	            width:350,
+				buttons: buttons,
+	            open:function () {
+	                $(this).closest('.ui-dialog').find(".ui-dialog-buttonset .ui-button:first").addClass("green");
+	                $(this).closest('.ui-dialog').find(".ui-dialog-buttonset .ui-button:last").addClass("red");
+	            }
+			});
+
+		};
+
+
+		
 
 	}
 

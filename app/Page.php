@@ -19,7 +19,9 @@ class Page extends Model implements SluggableInterface
     	'title', 
     	'contentTitle', 
     	'contentLeft', 
-    	'contentRight'
+    	'contentRight',
+        'meta_description',
+        'meta_keywords'
     ];
 
     protected $appends = [  
