@@ -33,6 +33,11 @@ class Page extends Model implements SluggableInterface
         return 'slug';
     }
 
+    public function menu()
+    {
+        return $this->morphMany('App\Menu', 'parser');
+    }
+
     public function getLinkAttribute() {
         if($this->slug == 'home') {
             return '/';

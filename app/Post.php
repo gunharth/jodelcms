@@ -12,6 +12,10 @@ class Post extends Model
     	'content'
     ];
 
+    protected $appends = [  
+        'link'
+    ];
+
     /**
 	 * Get the route key for the model.
 	 *
@@ -21,4 +25,19 @@ class Post extends Model
 	{
 	    return 'slug';
 	}
+	
+
+	public function menu()
+    {
+        return $this->morphMany('App\Menu', 'parser');
+    }
+
+
+    public function getLinkAttribute() {
+        if($this->slug == 'home') {
+            return '/blog';
+        }
+        return '/blog/'.$this->slug;
+    }
+
 }

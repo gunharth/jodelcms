@@ -22,6 +22,11 @@ class Menue extends Node
       return $this->belongsTo('App\Page');
   }
 
+  public function parser()
+    {
+        return $this->morphTo();
+    }
+
   //////////////////////////////////////////////////////////////////////////////
 
   //

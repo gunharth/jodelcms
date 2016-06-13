@@ -18,7 +18,7 @@ class PostsController extends Controller
 
     public function index()
     {
-    	$posts = Post::paginate(1);
+    	$posts = Post::where('id', '>', 1)->paginate(1);
     	if (Auth::check()) {
     		$src = '/blog/indexEditor';
             return $this->loadiFrame($src);
@@ -26,9 +26,10 @@ class PostsController extends Controller
     	return view('blog.index', compact('posts'));
     }
 
+
     public function indexEditor()
     {
-    	$posts = Post::paginate(1);
+        $posts = Post::where('id', '>', 1)->paginate(1);
     	return view('blog.index', compact('posts'));
     }
 
