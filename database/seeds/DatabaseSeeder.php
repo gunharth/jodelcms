@@ -45,6 +45,14 @@ class DatabaseSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
+        DB::table('posts')->insert([
+            'title' => 'My second Blog',
+            'slug' => 'my-blog-2',
+            'short_description' => 'My second Blog',
+            'content' => 'My first Blog',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
         DB::table('menues')->insert([
             'name' => 'Home',
             'parent_id' => 0,
