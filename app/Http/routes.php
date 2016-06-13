@@ -23,6 +23,14 @@ Route::get('page/{page}/settings', 'PagesController@settings');
 Route::post('page/{page}', 'PagesController@update');
 
 Route::resource('page','PagesController');
+
+Route::get('blog/indexEditor','PostsController@indexEditor');
+Route::get('blog/{post}','PostsController@show');
+Route::get('blog/{post}/edit','PostsController@edit');
+Route::get('blog','PostsController@index');
+Route::post('blog/{post}', 'PostsController@update');
+
+Route::resource('blog','PostsController');
 // Route::get('{slug}', function($slug) {
 // 	// find which type of controller
 // 	$cont = '\PagesController';

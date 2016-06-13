@@ -34,6 +34,14 @@ class DatabaseSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
+        DB::table('posts')->insert([
+            'title' => 'My first blog',
+            'slug' => 'my-first-blog',
+            'short_description' => 'My first blog content',
+            'content' => 'My first blog content',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
 
         // $this->call(UsersTableSeeder::class);
     }

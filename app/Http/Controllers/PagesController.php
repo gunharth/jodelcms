@@ -25,7 +25,8 @@ class PagesController extends Controller
     {
         $page = Page::findOrFail(1);
         if (Auth::check()) {
-            return $this->loadiFrame($page);
+            $src = '/page/'.$page->slug.'/edit';
+            return $this->loadiFrame($src);
         }
         return view('page.show', compact('page'));
     }
@@ -62,7 +63,8 @@ class PagesController extends Controller
     public function show(Page $page)
     {
         if (Auth::check()) {
-            return $this->loadiFrame($page);
+            $src = '/page/'.$page->slug.'/edit';
+            return $this->loadiFrame($src);
         }
         return view('page.show', compact('page'));
     }
@@ -115,9 +117,9 @@ class PagesController extends Controller
         //
     }
     
-    public function loadiFrame(Page $page)
+    public function loadiFrame($src)
     {
-        return view('editor', compact('page'));
+        return view('editor', compact('src'));
     }
 
     /**

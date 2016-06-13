@@ -6,6 +6,7 @@
 			this.editorPanelCollapse = $('#modal-toggle');
 			this.formsLoaded = {};
 			this.page_id = 0;
+			this.editorFrame = $("#editorIFrame");
 
 		}
 
@@ -29,6 +30,12 @@
 		            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 		        }
 			});
+
+			//window.frames[0]
+			this.editorFrame.load(() => {
+			    $('a[target!=_blank]', this.editorFrame.contents()).attr('target', '_top');
+			});
+			
 
 			this.editorPanel.draggable({
 	            handle: ".modal-header",
@@ -111,7 +118,7 @@
 	                    type: 'POST',
 	                    url: '/page/delete',
 	                    data: 'id='+page_id,
-	                    error:  function (xhr, ajaxOptions, thrownError) {
+	                    error: (xhr, ajaxOptions, thrownError) => {
 	                        console.log(xhr.status);
 	                        console.log(thrownError);
 	                    }
@@ -136,7 +143,7 @@
 		    /**
 		    /* Menu funtions
 		    **/
-		    $('.nestable').nestable().on('change',function(){
+		    $('.nestable').nestable().on('change',() => {
                 $.ajax({
                     type: 'POST',
                     url: '/menue/sortorder',
@@ -145,7 +152,7 @@
                     /*headers: {
                         'X-CSRF-Token': $('meta[name="_token"]').attr('content')
                     },*/
-                    error:  function (xhr, ajaxOptions, thrownError) {
+                    error: (xhr, ajaxOptions, thrownError) => {
                         console.log(xhr.status);
                         console.log(thrownError);
                     }
@@ -182,11 +189,11 @@
                     type: 'POST',
                     url: '/menue/delete',
                     data: 'id='+menu_id,
-                    error:  function (xhr, ajaxOptions, thrownError) {
+                    error: (xhr, ajaxOptions, thrownError) => {
                         console.log(xhr.status);
                         console.log(thrownError);
                     }
-                }).done(function() {
+                }).done(() => {
 					  parent.slideUp( () => {
 					  	parent.remove();
 					  });
