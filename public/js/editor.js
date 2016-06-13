@@ -349,16 +349,17 @@
 
 		submitForm(dialog,form,options) {
 			if(options.type == 'ajax') {
-				var formData = form.serialize()
+				var formData = form.serialize();
+				let action = form.action;
 		        $.ajax({
 		            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-		            url         : '/page/dsadf', // the url where we want to POST
+		            url         : action, // the url where we want to POST
 		            data        : formData, // our data object
 		            dataType    : 'json', // what type of data do we expect back from the server
 		            encode          : true
 		        }).done(function(data) {
 		            	dialog.dialog('close');
-		            	$('#tab-pages .dd-item[data-id="4"] .dd-title').text(data.title);
+		            	$('#tab-pages .dd-item[data-id='+data.id+'] .dd-title').text(data.title);
 
             });
 		        } else {
