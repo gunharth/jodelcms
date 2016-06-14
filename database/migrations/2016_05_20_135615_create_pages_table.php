@@ -16,12 +16,19 @@ class CreatePagesTable extends Migration
             $table->increments('id');
             $table->string('title');
             //variable content blocks
-            $table->string('contentTitle')->nullable();
-            $table->text('contentLeft')->nullable();
-            $table->text('contentRight')->nullable();
+            $table->text('content01')->nullable();
+            $table->text('content02')->nullable();
+            $table->text('content03')->nullable();
+            $table->text('content04')->nullable();
+            $table->text('content05')->nullable();
+            $table->text('content06')->nullable();
+            $table->text('content07')->nullable();
+            $table->text('content08')->nullable();
+            $table->text('content09')->nullable();
+            $table->text('content10')->nullable();
             // settings
             $table->string('slug')->nullable();
-            $table->integer('template_id')->nullable();;
+            $table->integer('template_id')->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();

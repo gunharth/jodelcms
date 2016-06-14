@@ -18,7 +18,7 @@ class PostsController extends Controller
 
     public function index()
     {
-    	$posts = Post::where('id', '>', 1)->paginate(1);
+    	$posts = Post::where('id', '>', 1)->paginate(10);
     	if (Auth::check()) {
     		$src = '/blog/indexEditor';
             return $this->loadiFrame($src);

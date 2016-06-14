@@ -14,16 +14,22 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <h1 @if (Auth::check()) class="jodelText" data-field="contentTitle" @endif>{!! $page->contentTitle !!}</h1>
+        <h1 @if (Auth::check()) class="jodelText" data-field="content01" @endif>{!! $page->content01 !!}</h1>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
-          <div @if (Auth::check()) class="jodelTextarea" data-field="contentLeft" @endif>{!! $page->contentLeft !!}</div>
+      <div class="col-md-3">
+          <div @if (Auth::check()) class="jodelTextarea" data-field="content02" @endif>{!! $page->content02 !!}</div>
       </div>
-      <div class="col-md-6">
-          <div @if (Auth::check()) class="jodelTextarea" data-field="contentRight" @endif>{!! $page->contentRight !!}</div>
-        </div>
+      <div class="col-md-3">
+          <div @if (Auth::check()) class="jodelTextarea" data-field="content03" @endif>{!! $page->content03 !!}</div>
+      </div>
+      <div class="col-md-3">
+          <div @if (Auth::check()) class="jodelTextarea" data-field="content04" @endif>{!! $page->content04 !!}</div>
+      </div>
+      <div class="col-md-3">
+          <div @if (Auth::check()) class="jodelTextarea" data-field="content05" @endif>{!! $page->content05 !!}</div>
+      </div>
     </div>
   </div><!-- /.container -->
 @endsection

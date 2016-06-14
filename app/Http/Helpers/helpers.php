@@ -7,23 +7,28 @@ if (!function_exists('renderMenuNode')) {
      * @param $node
      * @return string
      */
-    function renderMenuNode($node)
+    function renderMenuNode($node, $path)
     {
         $list = 'class="dropdown-menu"';
         $class = 'class="dropdown"';
         $caret = '<i class="fa fa-caret-down"></i>';
         //$link = route('page', ['page_slug' => $node->slug]);
         $link = $node->parser->link;
+        $active = '';
+        $path = '/' . preg_replace('/\/edit$/', '', $path);
+        if($path == $link) {
+            $active = ' class="active"';
+        }
         $drop_down = '<a class="dropdown-toggle" data-toggle="dropdown" href="'.$link.'"
                         role="button" aria-expanded="false">' . $node->name . ' ' . $caret . '</a>';
         $single  = '<a href="'. $link .'">' . $node->name  .'</a>';
         if ($node->isLeaf()) {
-            return '<li>' . $single . '</li>';
+            return '<li' . $active .'>' . $single . '</li>';
         } else {
             $html = '<li '.$class.'>' . $drop_down;
             $html .= '<ul '.$list.'>';
             foreach ($node->children as $child) {
-                $html .= renderMenuNode($child);
+                $html .= renderMenuNode($child,$path);
             }
             $html .= '</ul>';
             $html .= '</li>';

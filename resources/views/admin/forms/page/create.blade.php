@@ -16,6 +16,15 @@
 	    {!! Form::label('title','Page Title') !!}
 	    {!! Form::text('title',null,['class' => 'form-control', 'placeholder' => 'Page Title']) !!}
 	    </div>
+        <div class="form-group">
+        {!! Form::label('template_id','Template') !!}
+        {!! Form::select(
+                'template_id',
+                $templates,
+                0,
+                ['class' => 'form-control']
+                ) !!}
+        </div>
 	
         </div>
         

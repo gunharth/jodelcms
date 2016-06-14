@@ -79,7 +79,7 @@
 				</div>
 				<div class="tab-content">
 					<div class="dd">
-			             BLOG
+			             BLOG - Image slider
 			        </div> 
 		        </div>
 			</div>

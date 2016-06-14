@@ -17,39 +17,70 @@ class DatabaseSeeder extends Seeder
             'email' => 'hello@gunharth.io',
             'password' => bcrypt('123456'),
         ]);
+        DB::table('templates')->insert([
+            'name' => 'Homepage',
+            'path' => 'page',
+            'active' => 0
+        ]);
+        DB::table('templates')->insert([
+            'name' => 'Standard',
+            'path' => 'standard',
+            'active' => 1
+        ]);
+        DB::table('templates')->insert([
+            'name' => 'Four Columns',
+            'path' => 'columns',
+            'active' => 1
+        ]);
+        DB::table('templates')->insert([
+            'name' => 'Blog Index',
+            'path' => 'blog',
+            'active' => 0
+        ]);
+        DB::table('templates')->insert([
+            'name' => 'Blog page',
+            'path' => 'page',
+            'active' => 0
+        ]);
         DB::table('pages')->insert([
             'title' => 'Home',
-            'contentTitle' => 'Welcome',
-            'contentLeft' => 'This is the homepage',
-            'slug' => 'home'
+            'content01' => 'Welcome',
+            'content02' => 'This is the homepage',
+            'slug' => 'home',
+            'template_id' => 1
         ]);
         DB::table('pages')->insert([
             'title' => 'Page 2',
-            'contentTitle' => 'Welcome',
-            'contentLeft' => 'This is the homepage',
-            'slug' => 'page-2'
+            'content01' => 'Page 2',
+            'content02' => 'This is page 2',
+            'slug' => 'page-2',
+            'template_id' => 2
         ]);
         DB::table('posts')->insert([
             'title' => 'Blog Home',
             'slug' => 'home',
             'short_description' => 'Blog Home',
             'content' => 'Blog Home',
+            'template_id' => 3,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
+
         ]);
         DB::table('posts')->insert([
             'title' => 'My first Blog',
-            'slug' => 'my-blog',
-            'short_description' => 'My first Blog',
-            'content' => 'My first Blog',
+            'slug' => 'my-first-blog',
+            'short_description' => 'My first Blog description',
+            'content' => 'My first Blog content',
+            'template_id' => 4,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('posts')->insert([
             'title' => 'My second Blog',
             'slug' => 'my-blog-2',
-            'short_description' => 'My second Blog',
-            'content' => 'My first Blog',
+            'short_description' => 'My second Blog description',
+            'content' => 'My second Blog content',
+            'template_id' => 4,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);

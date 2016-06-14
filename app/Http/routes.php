@@ -53,7 +53,8 @@ Route::get('forms/page/{page}', function() {
 	return view('page.forms.create');
 });
 Route::get('/admin/forms/{type}/{action}', function($type,$action) {
-	return view('admin.forms.'.'.'.$type.'.'.$action);
+	$templates = \App\Template::where('active', 1)->lists('name', 'id');
+	return view('admin.forms.'.$type.'.'.$action)->with('templates', $templates);
 });
 
 

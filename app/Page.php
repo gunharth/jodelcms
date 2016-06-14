@@ -17,11 +17,23 @@ class Page extends Model implements SluggableInterface
 
     protected $fillable = [
     	'title', 
-    	'contentTitle', 
-    	'contentLeft', 
-    	'contentRight',
+    	'content01', 
+    	'content02',
+        'content03', 
+        'content04', 
+        'content05', 
+        'content06', 
+        'content07', 
+        'content08', 
+        'content09', 
+        'content10', 
         'meta_description',
-        'meta_keywords'
+        'meta_keywords',
+        'template_id'
+    ];
+
+    protected $with = [  
+        'template'
     ];
 
     protected $appends = [  
@@ -43,6 +55,11 @@ class Page extends Model implements SluggableInterface
             return '/';
         }
         return '/page/'.$this->slug;
+    }
+
+    public function template()
+    {
+        return $this->belongsTo('App\Template');
     }
 
 }
