@@ -18,8 +18,9 @@ class CreateMenuesTable extends Migration {
       // Take a look at the model scaffold comments for details.
       // We add indexes on parent_id, lft, rgt columns by default.
       $table->increments('id');
-      $table->integer('parser_id');
-      $table->string('parser_type');
+      $table->integer('menu_id')->nullable()->index();
+      $table->integer('parser_id')->nullable();
+      $table->string('parser_type')->nullable();
       $table->integer('parent_id')->nullable()->index();
       $table->integer('lft')->nullable()->index();
       $table->integer('rgt')->nullable()->index();

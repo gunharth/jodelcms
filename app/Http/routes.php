@@ -52,9 +52,17 @@ Route::resource('menue','MenueController', ['except' => ['update']]);
 Route::get('forms/page/{page}', function() {
 	return view('page.forms.create');
 });
-Route::get('/admin/forms/{type}/{action}', function($type,$action) {
+Route::get('/admin/forms/{type}/{action}/{id?}', function($type,$action,$id=null) {
 	$templates = \App\Template::where('active', 1)->lists('name', 'id');
-	return view('admin.forms.'.$type.'.'.$action)->with('templates', $templates);
+	//return view('admin.forms.'.$type.'.'.$action)->with('templates', $templates, 'id', $id);
+	return view('admin.forms.'.$type.'.'.$action, compact('templates', 'id'));
+});
+Route::get('/admin/menu/listMenus/{id}', function($id) {
+	$html = '';
+	foreach(\App\Menue::where('menu_id',$id)->get()->toHierarchy() as $node) {
+		$html .= renderNode($node);
+	}
+	return $html;
 });
 
 

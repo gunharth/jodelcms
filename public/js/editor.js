@@ -143,7 +143,9 @@
 		    /**
 		    /* Menu funtions
 		    **/
-		    $('.nestable').nestable().on('change',() => {
+		    $('.nestable').nestable({
+		    	maxDepth: 3
+		    	 }).on('change',() => {
                 $.ajax({
                     type: 'POST',
                     url: '/menue/sortorder',
@@ -161,7 +163,8 @@
 
 			$('#tab-menus .btn-create', this.editorPanel).on('click', (e)=>{
 	        	e.preventDefault();
-	        	this.addMenu();
+	        	let menu_id = $('#menuSelector').find('option:selected').val();
+	        	this.addMenu(menu_id);
 			});
 
 	    	$('#tab-menus', this.editorPanel).on('click', '.toggleActive', (e)=>{
@@ -199,6 +202,22 @@
 					  });
 				});
 			});
+
+			$('#menuSelector', this.editorPanel).on('change', (e)=>{
+				let menu_id = $('#menuSelector').find('option:selected').val();
+				$.ajax({
+                    type: 'GET',
+                    url: '/admin/menu/listMenus/'+menu_id,
+                    //data: 'id='+menu_id,
+                    error: (xhr, ajaxOptions, thrownError) => {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+                }).done((html) => {
+					  $('#menuItems').html(html)
+				});
+			});
+			
 
 
 		}
@@ -270,11 +289,14 @@
 
 		
 
-		addMenu() {
+		addMenu(menu_id) {
+			$('#menu-add').remove();
+			delete this.formsLoaded['menu-add'];
 			this.openDialog({
 				id: 'menu-add',
 	            title: 'Create a new menu',
-	            url: '/admin/forms/menu/create',
+	            url: '/admin/forms/menu/create/'+menu_id,
+	            type: 'ajax',
 	            buttons: {
 					ok: 'Create',
 					Cancel: () => {
@@ -357,7 +379,7 @@
 		submitForm(dialog,form,options) {
 			if(options.type == 'ajax') {
 				var formData = form.serialize();
-				let action = form.action;
+				let action = form.attr('action');
 		        $.ajax({
 		            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
 		            url         : action, // the url where we want to POST

@@ -9,7 +9,12 @@ use App\Menue;
 
 class MenueController extends Controller
 {
-    /**
+   public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+   /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -38,7 +43,7 @@ class MenueController extends Controller
     public function store(Request $request)
     {
         $menu = Menue::create($request->all());
-        return redirect()->back();
+        //return redirect()->back();
     }
 
     /**

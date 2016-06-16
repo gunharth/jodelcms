@@ -10,6 +10,14 @@
 @endif
 
 @section('content')
+@foreach($page->menu as $menu)
+Menu id {!! $menu->id !!}
+@endforeach
+
+@foreach (Config::get('jodel.menus') as $key => $val)
+     {{ $key}} {{ $val}}
+@endforeach
+
   @if (Auth::check()) <input type="hidden" id="page_id" value="{!! $page->slug !!}"> @endif
   <div class="container">
     <div class="row">

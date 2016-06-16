@@ -17,6 +17,11 @@ class Menue extends Node
    */
   protected $table = 'menues';
 
+  protected $fillable = [
+      'name', 
+      'menu_id', 
+    ];
+
   public function page()
   {
       return $this->belongsTo('App\Page');
@@ -26,6 +31,10 @@ class Menue extends Node
     {
         return $this->morphTo();
     }
+
+    protected $scoped = array('menu_id');
+
+
 
   //////////////////////////////////////////////////////////////////////////////
 

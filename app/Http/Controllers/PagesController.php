@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Page;
+use App\Menue;
 use Auth;
 
 class PagesController extends Controller
@@ -62,12 +63,19 @@ class PagesController extends Controller
      */
     public function show(Page $page)
     {
+        //$page->menu = $this->getActiveMenue('App\Page', $page->id);
+        //dd($page);
         if (Auth::check()) {
             $src = '/page/'.$page->slug.'/edit';
             return $this->loadiFrame($src);
         }
         return view('templates.' . $page->template->path . '.show', compact('page'));
     }
+
+    /*public function getActiveMenue($parser, $id)
+  {
+    return Menue::where('id',$id)->where('parser',$parser);
+  }*/
 
     /**
      * Show the form for editing the specified resource.

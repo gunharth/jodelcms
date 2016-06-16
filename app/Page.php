@@ -33,7 +33,8 @@ class Page extends Model implements SluggableInterface
     ];
 
     protected $with = [  
-        'template'
+        'template',
+        'menu'
     ];
 
     protected $appends = [  
@@ -47,7 +48,7 @@ class Page extends Model implements SluggableInterface
 
     public function menu()
     {
-        return $this->morphMany('App\Menu', 'parser');
+        return $this->morphMany('App\Menue', 'parser');
     }
 
     public function getLinkAttribute() {

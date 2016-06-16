@@ -85,6 +85,7 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('menues')->insert([
+            'menu_id' => 1,
             'name' => 'Home',
             'parent_id' => 0,
             'parser_id' => 1,
@@ -98,6 +99,7 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('menues')->insert([
+            'menu_id' => 1,
             'name' => 'Page 2',
             'parent_id' => 0,
             'parser_id' => 2,
@@ -111,6 +113,35 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('menues')->insert([
+            'menu_id' => 3,
+            'name' => 'Footer',
+            'parent_id' => 0,
+            'parser_id' => 2,
+            'parser_type' => 'App\Page',
+            'lft' => 1,
+            'rgt' => 2,
+            'depth' => 0,
+            'page_id' => 2,
+            'active' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('menues')->insert([
+            'menu_id' => 1,
+            'name' => 'Page 2 again',
+            'parent_id' => 0,
+            'parser_id' => 2,
+            'parser_type' => 'App\Page',
+            'lft' => 1,
+            'rgt' => 2,
+            'depth' => 0,
+            'page_id' => 2,
+            'active' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('menues')->insert([
+            'menu_id' => 1,
             'name' => 'Blog',
             'parent_id' => 0,
             'parser_id' => 1,

@@ -16,7 +16,11 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('partials.nav', function($view)
         {
-            $view->with('menu', Menue::with('parser')->where('active', '=', 1)->get());
+            $view->with('menu', Menue::with('parser')->where('active', '=', 1)->where('menu_id',1)->get());
+        });
+        view()->composer('partials.footer', function($view)
+        {
+            $view->with('menu', Menue::with('parser')->where('active', '=', 1)->where('menu_id',3)->get());
         });
     }
 

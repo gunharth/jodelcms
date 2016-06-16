@@ -61,12 +61,17 @@
 			</div>
 			<div id="tab-menus" class="tab">
 				<div class="buttons">
+					<select name="menuSelector" id="menuSelector" class="form-control">
+						@foreach (Config::get('jodel.menus') as $name => $id)
+						     <option value="{{ $id }}">{{ $name }} </option>
+						@endforeach
+					</select>
 					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
 				</div>
 				<div class="tab-content">
 					<div class="dd nestable">
-			            <ol class="dd-list">
-			            	@foreach(\App\Menue::all()->toHierarchy() as $node)
+			            <ol class="dd-list" id="menuItems">
+			            	@foreach(\App\Menue::where('menu_id',1)->get()->toHierarchy() as $node)
 			                    {!! renderNode($node) !!}
 			                @endforeach
 			            </ol>
