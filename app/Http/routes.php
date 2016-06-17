@@ -43,10 +43,10 @@ Route::resource('blog','PostsController');
 // })->where('slug', '^(?!_debugbar)[A-Za-z0-9_/-]+');
 
 // menu controller
-Route::post('menue/sortorder', 'MenueController@postOrder');
-Route::post('menue/active', 'MenueController@postActive');
-Route::post('menue/delete', 'MenueController@postDelete');
-Route::resource('menue','MenueController', ['except' => ['update']]);
+Route::post('menue/sortorder', 'MenusController@postOrder');
+Route::post('menue/active', 'MenusController@postActive');
+Route::post('menue/delete', 'MenusController@postDelete');
+Route::resource('menue','MenusController', ['except' => ['update']]);
 
 
 Route::get('forms/page/{page}', function() {
@@ -59,7 +59,7 @@ Route::get('/admin/forms/{type}/{action}/{id?}', function($type,$action,$id=null
 });
 Route::get('/admin/menu/listMenus/{id}', function($id) {
 	$html = '';
-	foreach(\App\Menue::where('menu_id',$id)->get()->toHierarchy() as $node) {
+	foreach(\App\Menu::where('menu_id',$id)->get()->toHierarchy() as $node) {
 		$html .= renderNode($node);
 	}
 	return $html;

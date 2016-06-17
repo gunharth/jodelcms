@@ -7,7 +7,7 @@ use Baum\Node;
 /**
 * Menue
 */
-class Menue extends Node
+class Menu extends Node
 {
 
     /**
@@ -15,7 +15,7 @@ class Menue extends Node
    *
    * @var string
    */
-  protected $table = 'menues';
+  protected $table = 'menus';
 
   protected $fillable = [
       'name', 

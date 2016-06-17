@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Page;
-use App\Menue;
+use App\Menu;
 use Auth;
 
 class PagesController extends Controller
@@ -63,7 +63,7 @@ class PagesController extends Controller
      */
     public function show(Page $page)
     {
-        //$page->menu = $this->getActiveMenue('App\Page', $page->id);
+        //$page->menu = $this->getActiveMenu('App\Page', $page->id);
         //dd($page);
         if (Auth::check()) {
             $src = '/page/'.$page->slug.'/edit';
@@ -72,9 +72,9 @@ class PagesController extends Controller
         return view('templates.' . $page->template->path . '.show', compact('page'));
     }
 
-    /*public function getActiveMenue($parser, $id)
+    /*public function getActiveMenu($parser, $id)
   {
-    return Menue::where('id',$id)->where('parser',$parser);
+    return Menu::where('id',$id)->where('parser',$parser);
   }*/
 
     /**
@@ -141,7 +141,7 @@ class PagesController extends Controller
     public function postActive(Request $request)
     {
         if ($request->ajax()) {
-            $page = Menue::findOrFail($request->id);
+            $page = Menu::findOrFail($request->id);
             $page->active = $request->active;
             $page->save();
         }

@@ -11,17 +11,11 @@
 		}
 
 		showLoadingIndicator() {
-	        if ($('#editor-loading').length){
-	            $('#editor-loading').show();
-	            return;
-	        }
-	        var indicator = $('<div></div>').addClass('inlinecms-loading-indicator');
-	        indicator.append('<i class="fa fa-spinner fa-pulse"></i>').show();
-	        $('body').append(indicator);
+			$('#editor-loading').show();
 	    };
 
 	    hideLoadingIndicator(){
-	        $('#editor-loading').hide();
+	        $('#editor-loading').fadeOut();
 	    };
 	
 		initPanel() {
@@ -225,6 +219,7 @@
 		}
 
 		loadMenu(menu_id) {
+			this.showLoadingIndicator();
 			$.ajax({
                     type: 'GET',
                     url: '/admin/menu/listMenus/'+menu_id,
@@ -236,6 +231,7 @@
                 }).done((html) => {
 					  $('#menuItems').html(html)
 					  this.savePanelState();
+					  this.hideLoadingIndicator();
 				});
 		}
 
@@ -319,6 +315,9 @@
 	            title: 'Create a new menu',
 	            url: '/admin/forms/menu/create/'+menu_id,
 	            type: 'ajax',
+	            callback: () => {
+	            	this.loadMenu(menu_id);
+	            },
 	            buttons: {
 					ok: 'Create',
 					Cancel: () => {
@@ -411,6 +410,9 @@
 		        }).done(function(data) {
 		            	dialog.dialog('close');
 		            	$('#tab-pages .dd-item[data-id='+data.id+'] .dd-title').text(data.title);
+		            	if (typeof(options.callback) === 'function'){
+							options.callback();
+						}
 
             });
 		        } else {

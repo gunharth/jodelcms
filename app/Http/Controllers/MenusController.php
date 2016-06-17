@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Menue;
+use App\Menu;
 
-class MenueController extends Controller
+class MenusController extends Controller
 {
    public function __construct()
     {
@@ -42,7 +42,8 @@ class MenueController extends Controller
      */
     public function store(Request $request)
     {
-        $menu = Menue::create($request->all());
+        $menu = Menu::create($request->all());
+        return $menu;
         //return redirect()->back();
     }
 
@@ -100,14 +101,14 @@ class MenueController extends Controller
     {
         if ($request->ajax()) {
             //dd($request->getContent());
-            $menues = json_decode($request->getContent());
-            foreach ($menues as $p) {
-                $menue = Menue::findOrFail($p->id);
-                $menue->lft = $p->lft;
-                $menue->rgt = $p->rgt;
-                $menue->parent_id = $p->parent_id != "" ? $p->parent_id : null;
-                $menue->depth = $p->depth;
-                $menue->save();
+            $menus = json_decode($request->getContent());
+            foreach ($menus as $p) {
+                $menu = Menu::findOrFail($p->id);
+                $menu->lft = $p->lft;
+                $menu->rgt = $p->rgt;
+                $menu->parent_id = $p->parent_id != "" ? $p->parent_id : null;
+                $menu->depth = $p->depth;
+                $menu->save();
             }
         }
     }
@@ -120,9 +121,9 @@ class MenueController extends Controller
     public function postActive(Request $request)
     {
         if ($request->ajax()) {
-            $menue = Menue::findOrFail($request->id);
-            $menue->active = $request->active;
-            $menue->save();
+            $menu = Menu::findOrFail($request->id);
+            $menu->active = $request->active;
+            $menu->save();
         }
     }
 
@@ -134,8 +135,8 @@ class MenueController extends Controller
     public function postDelete(Request $request)
     {
         if ($request->ajax()) {
-            $menue = Menue::findOrFail($request->id);
-            $menue->delete();
+            $menu = Menu::findOrFail($request->id);
+            $menu->delete();
         }
     }
 

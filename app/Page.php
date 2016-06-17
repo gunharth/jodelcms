@@ -48,7 +48,7 @@ class Page extends Model implements SluggableInterface
 
     public function menu()
     {
-        return $this->morphMany('App\Menue', 'parser');
+        return $this->morphMany('App\menu', 'parser');
     }
 
     public function getLinkAttribute() {
