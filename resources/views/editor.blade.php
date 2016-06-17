@@ -71,9 +71,7 @@
 				<div class="tab-content">
 					<div class="dd nestable">
 			            <ol class="dd-list" id="menuItems">
-			            	@foreach(\App\Menue::where('menu_id',1)->get()->toHierarchy() as $node)
-			                    {!! renderNode($node) !!}
-			                @endforeach
+
 			            </ol>
 			        </div>
 		        </div>

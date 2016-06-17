@@ -14,11 +14,7 @@
 Menu id {!! $menu->id !!}
 @endforeach
 
-@foreach (Config::get('jodel.menus') as $key => $val)
-     {{ $key}} {{ $val}}
-@endforeach
-
-  @if (Auth::check()) <input type="hidden" id="page_id" value="{!! $page->slug !!}"> @endif
+@if (Auth::check()) <input type="hidden" id="page_id" value="{!! $page->slug !!}"> @endif
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -69,10 +65,27 @@ Menu id {!! $menu->id !!}
        image_advtab: true ,
        
        file_browser_callback : elFinderBrowser,
-       save_onsavecallback: function () { savePage(); }
+       save_onsavecallback: function () { savePage(); },
+       setup : function(ed){
+         /*ed.on('NodeChange', function(e){
+             console.log('the event object ' + e);
+             console.log('the editor object ' + ed);
+             console.log('the content ' + ed.getContent());
+         });*/
+         ed.on('keyup', function (e) {
+            tinyMceChange(ed);
+        });
+        ed.on('change', function(e) {
+            tinyMceChange(ed);
+        });
+    }
        
 
     });
+
+      function tinyMceChange(ed) {
+    console.debug('Editor contents was modified. Contents: ' + ed.getContent());
+}
 
       function elFinderBrowser (field_name, url, type, win) {
         console.log(type);

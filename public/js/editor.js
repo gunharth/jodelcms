@@ -205,7 +205,8 @@
 
 			$('#menuSelector', this.editorPanel).on('change', (e)=>{
 				let menu_id = $('#menuSelector').find('option:selected').val();
-				$.ajax({
+				this.loadMenu(menu_id);
+				/*$.ajax({
                     type: 'GET',
                     url: '/admin/menu/listMenus/'+menu_id,
                     //data: 'id='+menu_id,
@@ -215,11 +216,27 @@
                     }
                 }).done((html) => {
 					  $('#menuItems').html(html)
-				});
+					  this.savePanelState();
+				});*/
 			});
 			
 
 
+		}
+
+		loadMenu(menu_id) {
+			$.ajax({
+                    type: 'GET',
+                    url: '/admin/menu/listMenus/'+menu_id,
+                    //data: 'id='+menu_id,
+                    error: (xhr, ajaxOptions, thrownError) => {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+                }).done((html) => {
+					  $('#menuItems').html(html)
+					  this.savePanelState();
+				});
 		}
 
 		editPage() {
@@ -255,10 +272,12 @@
 
 		savePanelState() {
 	        let activeTab = $('#tabs').tabs( "option", "active" );
-
+	        // let active menu
+	        let activeMenu = $('#menuSelector', this.editorPanel).val();
 			localStorage.setItem("editor-panel", JSON.stringify({
 				position: this.editorPanel.position(),
 				tab: activeTab,
+				menu: activeMenu,
 	            expanded: $('#modal-toggle:visible', this.editorPanel).length
 			}));
 		};
@@ -270,6 +289,7 @@
 				panelState = {
 					position: {left: 50, top: 150},
 					tab: 0,
+					menu: 1,
 	                expanded: true
 				};
 			} else {
@@ -277,6 +297,8 @@
 			}
 			this.editorPanel.css(panelState.position);
 			$('#tabs').tabs( "option", "active", panelState.tab );
+			$("#menuSelector > [value=" + panelState.menu + "]").attr("selected", "true");
+			this.loadMenu(panelState.menu);
 	        if (!panelState.expanded){
 	            this.editorPanelCollapse.hide();
 	            $('.modal-header .tb-collapse i').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
@@ -434,7 +456,7 @@
 	$(function () {
 
 		let editor = new Editor();
-		editor.initPanel();
+		editor.initPanel()
 
 
 	});
