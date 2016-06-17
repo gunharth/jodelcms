@@ -11,13 +11,14 @@
 </head>
 <body>
 	<iframe id="editorIFrame" name="editorIFrame" src="{{ $src }}" frameborder="0" style="position: absolute; margin: 0; padding:0; width: 100%; height: 100%;"></iframe>
+
 <div id="editor-panel" class="modal">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
         <div class="col-sm-6">
-        <h4 class="modal-title">jodelCMS</h4>
+        	<h4 class="modal-title">jodelCMS</h4>
         </div>
         <div class="col-sm-2">
             <!--<select class="all-langs">
@@ -119,16 +120,12 @@
             </div>
 		</div><!-- tabs end -->
       </div>
-      <!--<div id="save-buttons" class="modal-footer">
-        <button id="savePage" type="button" class="btn btn-primary"><i class="fa fa-fw fa-check"></i>Save</button>
-        <button type="button" class="btn btn-primary"><i class="fa fa-fw fa-sign-out"></i>Save &amp; Exit</button>
-      </div>-->
       </div>
     </div>
   </div>
 </div>
-
 <div id="editor-loading"><i class="fa fa-spinner fa-pulse"></i></div>
+
 	<script src="/js/app.js"></script>
 	<script src='/js/jquery-ui.js'></script>
 	<script src="/packages/nestable-fork/src/jquery.nestable.js"></script>
