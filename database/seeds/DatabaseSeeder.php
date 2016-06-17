@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
-            'page_id' => 1,
+            //'page_id' => 1,
             'active' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -107,7 +107,7 @@ class DatabaseSeeder extends Seeder
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
-            'page_id' => 2,
+            //'page_id' => 2,
             'active' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -121,7 +121,7 @@ class DatabaseSeeder extends Seeder
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
-            'page_id' => 2,
+            //'page_id' => 2,
             'active' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -135,7 +135,7 @@ class DatabaseSeeder extends Seeder
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
-            'page_id' => 2,
+            //'page_id' => 2,
             'active' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -149,7 +149,7 @@ class DatabaseSeeder extends Seeder
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
-            'page_id' => 1,
+            //'page_id' => 1,
             'active' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()

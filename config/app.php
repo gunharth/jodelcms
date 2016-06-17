@@ -160,6 +160,7 @@ return [
         /*
          * Application Custom Service Providers...
          */
+        App\Providers\JodelServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
 
         /*

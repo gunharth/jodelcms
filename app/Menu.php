@@ -22,10 +22,10 @@ class Menu extends Node
       'menu_id', 
     ];
 
-  public function page()
+  /*public function page()
   {
       return $this->belongsTo('App\Page');
-  }
+  }*/
 
   public function parser()
     {

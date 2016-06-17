@@ -25,6 +25,7 @@
             </select>-->
         </div>
         <div class="col-sm-4 text-right">
+			<a class="tb-refresh" href="#" title="Refresh"><i class="fa fa-fw fa-lg fa-refresh"></i></a>
 			<a class="tb-collapse" href="#" title="Toggle"><i class="fa fa-fw fa-lg fa-caret-up"></i></a>
 			<a href="/logout" title="Sign out"><i class="fa fa-lg fa-sign-out"></i></a>
 		</div>
@@ -34,17 +35,12 @@
       <div class="modal-body">
         <div id="tabs">
 			<ul class="list-inline">
-				<!--<li><a href="#tab-elements">Elements</a></li>-->
 				<li><a href="#tab-pages">Pages</a></li>
 				<li><a href="#tab-menus">Menus</a></li>
 				<li><a href="#tab-collections">Collections</a></li>
+				<li><a href="#tab-elements">Elements</a></li>
 				<li><a href="#tab-settings"><i class="fa fa-gear"></i></a></li>
 			</ul>
-			<!--<div id="tab-elements" class="tab">
-				<div class="list">
-					<ul><li data-id="text" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Text"><i class="fa fa-font"></i></li><li data-id="image" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Image"><i class="fa fa-picture-o"></i></li><li data-id="gallery" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Gallery"><i class="fa fa-th-large"></i></li><li data-id="video" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Video"><i class="fa fa-youtube-play"></i></li><li data-id="file" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="File"><i class="fa fa-download"></i></li><li data-id="form" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Contact Form"><i class="fa fa-envelope-o"></i></li><li data-id="map" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Map"><i class="fa fa-map-o"></i></li><li data-id="share" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Share Buttons"><i class="fa fa-share-alt"></i></li><li data-id="spacer" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Spacer"><i class="fa fa-arrows-v"></i></li><li data-id="code" class="inlinecms-widget-element ui-draggable ui-draggable-handle" title="Code"><i class="fa fa-code"></i></li></ul>
-				</div>
-			</div>-->
 			<div id="tab-pages" class="tab">
 				<div class="buttons">
 					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
@@ -83,6 +79,16 @@
 				<div class="tab-content">
 					<div class="dd">
 			             BLOG - Image slider
+			        </div> 
+		        </div>
+			</div>
+			<div id="tab-elements" class="tab">
+				<div class="buttons">
+					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
+				</div>
+				<div class="tab-content">
+					<div class="dd">
+			             Element
 			        </div> 
 		        </div>
 			</div>
