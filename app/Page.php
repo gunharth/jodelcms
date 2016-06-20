@@ -27,6 +27,7 @@ class Page extends Model implements SluggableInterface
         'content08', 
         'content09', 
         'content10', 
+        'meta_title',
         'meta_description',
         'meta_keywords',
         'template_id'

@@ -9,7 +9,12 @@
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>LK Test</title>
+    <title>@hasSection('title')
+              @yield('title') - AjodelcCMS
+          @else
+              jodelcCMS
+          @endif
+    </title>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="/css/app.css">

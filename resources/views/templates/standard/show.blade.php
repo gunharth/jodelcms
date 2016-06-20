@@ -54,7 +54,7 @@ Menu id {!! $menu->id !!}
         inline: true,
         menubar: false,
         plugins: [
-             "save autosave advlist autolink link image lists charmap print preview hr anchor pagebreak",
+             "save autosave advlist autolink link image imagetools lists charmap print preview hr anchor pagebreak",
              "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
              "table contextmenu directionality emoticons paste textcolor code codesample"
        ],
@@ -63,9 +63,12 @@ Menu id {!! $menu->id !!}
        //toolbar2: "link unlink anchor | image media | forecolor backcolor  | print preview code ",
        toolbar2: "link unlink anchor | image media | forecolor backcolor | bullist numlist |code codesample",
        image_advtab: true ,
-       
+       image_dimensions: false,
        file_browser_callback : elFinderBrowser,
        save_onsavecallback: function () { savePage(); },
+       video_template_callback: function(data) {
+   return '<video' + (data.poster ? ' poster="' + data.poster + '"' : '') + ' controls="controls" data-type="test">\n' + '<source src="' + data.source1 + '"' + (data.source1mime ? ' type="' + data.source1mime + '"' : '') + ' />\n' + (data.source2 ? '<source src="' + data.source2 + '"' + (data.source2mime ? ' type="' + data.source2mime + '"' : '') + ' />\n' : '') + '</video>';
+ },
        setup : function(ed){
          /*ed.on('NodeChange', function(e){
              console.log('the event object ' + e);

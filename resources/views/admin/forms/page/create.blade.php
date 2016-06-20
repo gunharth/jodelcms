@@ -29,6 +29,10 @@
         </div>
         
         <div id="tab-page-seo">
+            <div class="form-group">
+                {!! Form::label('meta_title','Page Title') !!}
+                {!! Form::text('meta_title',null,['class' => 'form-control', 'placeholder' => 'Page Title']) !!}
+            </div>
             <fieldset>
                 
                 <div class="field">
