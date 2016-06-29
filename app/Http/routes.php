@@ -47,10 +47,11 @@ Route::resource('blog','PostsController');
 // })->where('slug', '^(?!_debugbar)[A-Za-z0-9_/-]+');
 
 // menu controller
-Route::post('menue/sortorder', 'MenusController@postOrder');
-Route::post('menue/active', 'MenusController@postActive');
-Route::post('menue/delete', 'MenusController@postDelete');
-Route::resource('menue','MenusController', ['except' => ['update']]);
+Route::post('menu/sortorder', 'MenusController@postOrder');
+Route::post('menu/active', 'MenusController@postActive');
+Route::post('menu/delete', 'MenusController@postDelete');
+Route::get('menu/{menu}/settings', 'MenusController@settings');
+Route::resource('menu','MenusController');
 
 
 Route::get('forms/page/{page}', function() {

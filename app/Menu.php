@@ -32,6 +32,11 @@ class Menu extends Node
       'menu_id', 
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
   /*public function page()
   {
       return $this->belongsTo('App\Page');

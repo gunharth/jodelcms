@@ -163,7 +163,7 @@ class Editor {
             this.showLoadingIndicator();
             $.ajax({
                 type: 'POST',
-                url: '/menue/sortorder',
+                url: '/menu/sortorder',
                 data: JSON.stringify($('.nestable').nestable('asNestedSet')),
                 contentType: "json",
                 /*headers: {
@@ -178,24 +178,25 @@ class Editor {
             });
         });
 
+
         /**
          *	Open new menu dialog
          */
         $('#tab-menus', this.editorPanel).on('click', '.btn-create', (e) => {
             e.preventDefault();
-            let menu_id = $('#menuSelector').find('option:selected').val();
-            this.addMenu(menu_id);
+            //let menu_id = $('#menuSelector').find('option:selected').val();
+            this.addMenu( this.getMenuID() );
         });
 
 
         /**
          *  Open edit menu dialog
          */
-        $('#tab-pages', this.editorPanel).on('click', '.edit', (e) => {
+        $('#tab-menus', this.editorPanel).on('click', '.edit', (e) => {
             e.preventDefault();
             let parent = $(e.target).parents('.dd-item');
-            this.page_id = parent.data('id');
-            this.editPage();
+            this.menu_id = parent.data('id');
+            this.editMenu();
         });
 
 
@@ -209,7 +210,7 @@ class Editor {
             let active = $(e.target).data('active');
             $.ajax({
                 type: 'POST',
-                url: '/menue/active',
+                url: '/menu/active',
                 data: 'id=' + menu_id + '&active=' + active,
                 error: (xhr, ajaxOptions, thrownError) => {
                     console.log(xhr.status);
@@ -236,7 +237,7 @@ class Editor {
                 this.showLoadingIndicator();
                 $.ajax({
                     type: 'POST',
-                    url: '/menue/delete',
+                    url: '/menu/delete',
                     data: 'id=' + menu_id,
                     error: (xhr, ajaxOptions, thrownError) => {
                         console.log(xhr.status);
@@ -255,8 +256,8 @@ class Editor {
          *	Select a menu
          */
         $('#menuSelector', this.editorPanel).on('change', (e) => {
-            let menu_id = $('#menuSelector').find('option:selected').val();
-            this.loadMenu(menu_id);
+            //let menu_id = $('#menuSelector').find('option:selected').val();
+            this.loadMenu( this.getMenuID() );
         });
 
     }
@@ -364,6 +365,35 @@ class Editor {
     // ad page and prepare dialog details
     //openDialog
     //openform
+    
+    /**
+    *  Get active Menu id
+    */
+   getMenuID() {
+        return $('#menuSelector').find('option:selected').val();
+   }
+
+
+    /**
+     *  Editor edit menu window
+     */
+    editMenu() {
+        this.openDialog({
+            id: 'menu-edit',
+            title: 'Edit',
+            url: '/menu/' + this.menu_id + '/settings',
+            type: 'ajax',
+            callback: () => {
+                this.loadMenu( this.getMenuID() );
+            },
+            buttons: {
+                ok: 'Save',
+                Cancel: () => {
+                    this.dialog.dialog("close");
+                }
+            }
+        });
+    };
 
 
 

@@ -1,5 +1,5 @@
 {!! Form::open([
-            'route' => ['menue.store'],
+            'route' => ['menu.store'],
             'id' => 'createMenu'
         ]) !!}
  		{!! Form::hidden('menu_id',$id) !!}
