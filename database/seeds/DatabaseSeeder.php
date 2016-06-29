@@ -12,11 +12,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        /**
+         * Admin account
+         */
         DB::table('users')->insert([
             'name' => 'Admin',
             'email' => 'hello@gunharth.io',
             'password' => bcrypt('123456'),
         ]);
+
+        /**
+         * Templates
+         */
         DB::table('templates')->insert([
             'name' => 'Homepage',
             'path' => 'page',
@@ -42,12 +49,23 @@ class DatabaseSeeder extends Seeder
             'path' => 'page',
             'active' => 0
         ]);
+
+        /**
+         * Pages
+         */
         DB::table('pages')->insert([
             'title' => 'Home',
             'content01' => 'Welcome',
             'content02' => 'This is the homepage',
             'slug' => 'home',
             'template_id' => 1
+        ]);
+        DB::table('pages')->insert([
+            'title' => 'Page 1',
+            'content01' => 'Page 1',
+            'content02' => 'This is page 1',
+            'slug' => 'page-1',
+            'template_id' => 2
         ]);
         DB::table('pages')->insert([
             'title' => 'Page 2',
@@ -63,13 +81,10 @@ class DatabaseSeeder extends Seeder
             'slug' => 'page-3',
             'template_id' => 2
         ]);
-        DB::table('pages')->insert([
-            'title' => 'Page 4',
-            'content01' => 'Page 4',
-            'content02' => 'This is page 4',
-            'slug' => 'page-4',
-            'template_id' => 2
-        ]);
+
+        /**
+         * Blog Pages
+         */
         DB::table('posts')->insert([
             'title' => 'Blog Home',
             'slug' => 'home',
@@ -98,6 +113,10 @@ class DatabaseSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
+
+        /**
+         * Menus
+         */
         DB::table('menus')->insert([
             'menu_id' => 1,
             'name' => 'Home',
@@ -105,7 +124,6 @@ class DatabaseSeeder extends Seeder
             'parent_id' => 0,
             'morpher_id' => 1,
             'morpher_type' => 'App\Page',
-            'morpher_controller' => 'PagesController',
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
@@ -116,14 +134,13 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('menus')->insert([
             'menu_id' => 1,
-            'name' => 'Page 2',
-            'slug' => 'page-2',
+            'name' => 'Page 1',
+            'slug' => 'page-1',
             'parent_id' => 0,
             'morpher_id' => 2,
             'morpher_type' => 'App\Page',
-            'morpher_controller' => 'PagesController',
-            'lft' => 1,
-            'rgt' => 2,
+            'lft' => 3,
+            'rgt' => 4,
             'depth' => 0,
             //'page_id' => 2,
             'active' => 1,
@@ -131,15 +148,14 @@ class DatabaseSeeder extends Seeder
             'updated_at' => Carbon::now()
         ]);
         DB::table('menus')->insert([
-            'menu_id' => 3,
-            'name' => 'Footer',
-            'slug' => 'footer',
+            'menu_id' => 1,
+            'name' => 'Page 2',
+            'slug' => 'page-2',
             'parent_id' => 0,
-            'morpher_id' => 2,
+            'morpher_id' => 3,
             'morpher_type' => 'App\Page',
-            'morpher_controller' => 'PagesController',
-            'lft' => 1,
-            'rgt' => 2,
+            'lft' => 5,
+            'rgt' => 6,
             'depth' => 0,
             //'page_id' => 2,
             'active' => 1,
@@ -149,29 +165,12 @@ class DatabaseSeeder extends Seeder
         DB::table('menus')->insert([
             'menu_id' => 1,
             'name' => 'Page 3',
-            'slug' => 'page-3-menuslug',
-            'parent_id' => 0,
-            'morpher_id' => 3,
-            'morpher_type' => 'App\Page',
-            'morpher_controller' => 'PagesController',
-            'lft' => 1,
-            'rgt' => 2,
-            'depth' => 0,
-            //'page_id' => 2,
-            'active' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
-        DB::table('menus')->insert([
-            'menu_id' => 1,
-            'name' => 'Page 4',
-            'slug' => 'page-4',
+            'slug' => 'page-3',
             'parent_id' => 0,
             'morpher_id' => 4,
             'morpher_type' => 'App\Page',
-            'morpher_controller' => 'PagesController',
-            'lft' => 1,
-            'rgt' => 2,
+            'lft' => 7,
+            'rgt' => 8,
             'depth' => 0,
             //'page_id' => 2,
             'active' => 1,
@@ -185,11 +184,25 @@ class DatabaseSeeder extends Seeder
             'parent_id' => 0,
             'morpher_id' => 1,
             'morpher_type' => 'App\Post',
-            'morpher_controller' => 'PostsController',
+            'lft' => 9,
+            'rgt' => 10,
+            'depth' => 0,
+            //'page_id' => 1,
+            'active' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('menus')->insert([
+            'menu_id' => 3,
+            'name' => 'Footer',
+            'slug' => 'footer',
+            'parent_id' => 0,
+            'morpher_id' => 2,
+            'morpher_type' => 'App\Page',
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
-            //'page_id' => 1,
+            //'page_id' => 2,
             'active' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()

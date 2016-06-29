@@ -21,7 +21,6 @@ class CreateMenusTable extends Migration {
       $table->integer('menu_id')->nullable()->index();
       $table->integer('morpher_id')->nullable();
       $table->string('morpher_type')->nullable();
-      $table->string('morpher_controller')->nullable();
       $table->integer('parent_id')->nullable()->index();
       $table->integer('lft')->nullable()->index();
       $table->integer('rgt')->nullable()->index();

@@ -42,6 +42,11 @@ class Page extends Model implements SluggableInterface
         'link'
     ];
 
+    static function returnController()
+    {
+        return 'PagesController';
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';

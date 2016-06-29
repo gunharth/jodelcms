@@ -48,7 +48,7 @@
 				</div>
 				<div class="tab-content">
 					<div class="dd">
-			            <ol class="dd-list">
+			            <ol class="dd-list" id="pageItems">
 			            	@foreach(\App\Page::orderBy('title')->get() as $page)
 			                    {!! renderPage($page) !!}
 			                @endforeach

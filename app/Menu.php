@@ -29,7 +29,10 @@ class Menu extends Node
 
   protected $fillable = [
       'name', 
-      'menu_id', 
+      'menu_id',
+      'slug', 
+      'morpher_id',
+      'morpher_type'
     ];
 
     public function getRouteKeyName()

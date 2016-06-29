@@ -51,6 +51,7 @@ Route::post('menu/sortorder', 'MenusController@postOrder');
 Route::post('menu/active', 'MenusController@postActive');
 Route::post('menu/delete', 'MenusController@postDelete');
 Route::get('menu/{menu}/settings', 'MenusController@settings');
+Route::post('blog/{id}', 'MenusController@update');
 Route::resource('menu','MenusController');
 
 
@@ -68,6 +69,13 @@ Route::get('/admin/menu/listMenus/{id}', function($id) {
 		$html .= renderNode($node);
 	}
 	return $html;
+});
+Route::get('/admin/page/listPages', function() {
+    $html = '';
+    foreach(\App\Page::orderBy('title')->get() as $page) {
+        $html .= renderPage($page);
+    }
+    return $html;
 });
 
 
@@ -99,9 +107,7 @@ Route::get('/{slug}', function($slug)
         if ($valid)
         {
             $app = app();
-			//$yo = 'PagesController';
-			$targetController = "App\Http\Controllers\\".$main->morpher_controller;
-			$controller = $app->make($targetController);
+			$controller = $app->make('App\Http\Controllers\\'.$main->morpher_type::returnController());
 			return $controller->callAction('showID', $parameters = array($main->morpher_id));
         }
     }

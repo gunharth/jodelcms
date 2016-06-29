@@ -42,6 +42,8 @@ class MenusController extends Controller
      */
     public function store(Request $request)
     {
+        $request->slug = str_slug($request->name, "-");
+        //dd($request->slug);
         $menu = Menu::create($request->all());
         return $menu;
         //return redirect()->back();
@@ -89,9 +91,14 @@ class MenusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Menu $menu)
+    public function update(Request $request, $id)
     {
-        //$data = ;
+        $menu = Menu::findOrFail($id);
+
+        $request->slug = str_slug($request->slug, "-");
+        if(!$request->slug) {
+            $request->slug = str_slug($request->name, "-");
+        }
         $menu->fill($request->all())->save();
         return $menu;
     }

@@ -16,6 +16,11 @@ class Post extends Model
         'link'
     ];
 
+    static function returnController()
+    {
+        return 'PostsController';
+    }
+
     /**
 	 * Get the route key for the model.
 	 *

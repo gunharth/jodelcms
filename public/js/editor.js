@@ -263,21 +263,20 @@ class Editor {
     }
 
     /**
-     *	Editor load selected menu
+     *  Editor load all pages
      */
-    loadMenu(menu_id) {
+    loadPages() {
         this.showLoadingIndicator();
         $.ajax({
             type: 'GET',
-            url: '/admin/menu/listMenus/' + menu_id,
+            url: '/admin/page/listPages',
             //data: 'id='+menu_id,
             error: (xhr, ajaxOptions, thrownError) => {
                 console.log(xhr.status);
                 console.log(thrownError);
             }
         }).done((html) => {
-            $('#menuItems').html(html)
-            this.savePanelState();
+            $('#pageItems').html(html)
             this.hideLoadingIndicator();
         });
     }
@@ -286,11 +285,16 @@ class Editor {
      *	Editor edit page window
      */
     editPage() {
+        $('#page-edit').remove();
+        delete this.formsLoaded['page-edit'];
         this.openDialog({
             id: 'page-edit',
             title: 'Edit',
             url: '/page/' + this.page_id + '/settings',
             type: 'ajax',
+            callback: () => {
+                this.loadPages();
+            },
             buttons: {
                 ok: 'Save',
                 Cancel: () => {
@@ -373,11 +377,33 @@ class Editor {
         return $('#menuSelector').find('option:selected').val();
    }
 
+   /**
+     *  Editor load selected menu
+     */
+    loadMenu(menu_id) {
+        this.showLoadingIndicator();
+        $.ajax({
+            type: 'GET',
+            url: '/admin/menu/listMenus/' + menu_id,
+            //data: 'id='+menu_id,
+            error: (xhr, ajaxOptions, thrownError) => {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        }).done((html) => {
+            $('#menuItems').html(html)
+            this.savePanelState();
+            this.hideLoadingIndicator();
+        });
+    }
+
 
     /**
      *  Editor edit menu window
      */
     editMenu() {
+        $('#menu-edit').remove();
+        delete this.formsLoaded['menu-edit'];
         this.openDialog({
             id: 'menu-edit',
             title: 'Edit',
@@ -386,6 +412,7 @@ class Editor {
             callback: () => {
                 this.loadMenu( this.getMenuID() );
             },
+            cache: false,
             buttons: {
                 ok: 'Save',
                 Cancel: () => {
@@ -420,7 +447,7 @@ class Editor {
     openDialog(options) {
         var isFormDomLoaded = typeof(this.formsLoaded[options.id]) !== 'undefined';
 
-        if (!isFormDomLoaded) {
+        if (!isFormDomLoaded || options.cache === false) {
             this.loadDialog(options);
             return;
         }
@@ -428,6 +455,8 @@ class Editor {
     }
 
     loadDialog(options) {
+        $('#'+options.id).remove();
+        console.log('called')
         var formDom = $('<div></div>').attr('id', options.id);
         $.ajax({
                 url: options.url,
@@ -499,7 +528,7 @@ class Editor {
                 encode: true
             }).done((data) => {
                 dialog.dialog('close');
-                $('#tab-pages .dd-item[data-id=' + data.id + '] .dd-title').text(data.title);
+                //dialog.remove();
                 if (typeof(options.callback) === 'function') {
                     options.callback();
                 }
