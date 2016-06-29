@@ -96,9 +96,8 @@ class MenusController extends Controller
         $menu = Menu::findOrFail($id);
 
         $request->slug = str_slug($request->slug, "-");
-        if(!$request->slug) {
-            $request->slug = str_slug($request->name, "-");
-        }
+       
+        dd($request->slug);
         $menu->fill($request->all())->save();
         return $menu;
     }
