@@ -15,8 +15,12 @@
 
 Route::auth();
 
-// Pages controller
 Route::get('/', 'PagesController@index');
+
+
+
+// Pages controller
+//Route::get('/', 'PagesController@index');
 //Route::post('page/active', 'PageController@postActive');
 Route::post('page/delete', 'PagesController@postDelete');
 Route::get('page/{page}/settings', 'PagesController@settings');
@@ -65,6 +69,46 @@ Route::get('/admin/menu/listMenus/{id}', function($id) {
 	return $html;
 });
 
+
+Route::get('/{slug}', function($slug)
+{
+    $categories = explode('/', $slug);
+    //return end($categories);
+    $main = App\Menu::where('slug', end($categories))->first();
+    /*if (!$main) {
+    	$main = App\Menu::where('slug', prev($categories))->first();
+    }*/
+    reset($categories);
+
+    if ($main)
+    {
+        $ancestors = $main->getAncestors();
+
+        $valid = true;
+
+        foreach ($ancestors as $i => $category)
+        {
+            if ($category->slug !== $categories[$i])
+            {
+                $valid = false;
+                break;
+            }
+        }
+
+        if ($valid)
+        {
+            $app = app();
+			//$yo = 'PagesController';
+			$targetController = "App\Http\Controllers\\".$main->morpher_controller;
+			$controller = $app->make($targetController);
+			return $controller->callAction('showID', $parameters = array($main->morpher_id));
+        }
+    }
+    //try next up
+
+    App::abort('404');
+
+})->where('slug', '^(?!_debugbar)[A-Za-z0-9_/-]+');
 
 
 //Route::get('/home', 'HomeController@index');

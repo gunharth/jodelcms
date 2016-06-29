@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Cviebrock\EloquentSluggable\SluggableInterface;
+use Cviebrock\EloquentSluggable\SluggableTrait;
 use Baum\Node;
 
 /**
@@ -9,6 +11,14 @@ use Baum\Node;
 */
 class Menu extends Node
 {
+
+   use SluggableTrait;
+
+    protected $sluggable = [
+        'build_from' => 'name',
+        'save_to'    => 'slug',
+    ];
+
 
     /**
    * Table name.
@@ -27,7 +37,7 @@ class Menu extends Node
       return $this->belongsTo('App\Page');
   }*/
 
-  public function parser()
+  public function morpher()
     {
         return $this->morphTo();
     }

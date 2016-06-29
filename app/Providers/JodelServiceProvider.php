@@ -19,7 +19,7 @@ class JodelServiceProvider extends ServiceProvider
          */
         view()->composer('partials.nav', function($view)
         {
-            $view->with('menu', Menu::with('parser')->where('active', '=', 1)->where('menu_id',1)->get());
+            $view->with('menu', Menu::with('morpher')->where('active', '=', 1)->where('menu_id',1)->get());
         });
 
         /**
@@ -27,7 +27,7 @@ class JodelServiceProvider extends ServiceProvider
          */
         view()->composer('partials.footer', function($view)
         {
-            $view->with('menu', Menu::with('parser')->where('active', '=', 1)->where('menu_id',3)->get());
+            $view->with('menu', Menu::with('morpher')->where('active', '=', 1)->where('menu_id',3)->get());
         });
     }
 

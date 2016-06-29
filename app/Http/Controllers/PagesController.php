@@ -72,6 +72,18 @@ class PagesController extends Controller
         return view('templates.' . $page->template->path . '.show', compact('page'));
     }
 
+    public function showID($id)
+    {
+        $page = Page::find($id);
+        //$page->menu = $this->getActiveMenu('App\Page', $page->id);
+        //dd($page);
+        if (Auth::check()) {
+            $src = '/page/'.$page->slug.'/edit';
+            return $this->loadiFrame($src);
+        }
+        return view('templates.' . $page->template->path . '.show', compact('page'));
+    }
+
     /*public function getActiveMenu($parser, $id)
   {
     return Menu::where('id',$id)->where('parser',$parser);

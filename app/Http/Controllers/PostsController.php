@@ -43,6 +43,25 @@ class PostsController extends Controller
     	return view('blog.show', compact('post'));
     }
 
+    public function showID($id)
+    {
+        
+        if($id == 1) {
+            $posts = Post::where('id', '>', 1)->paginate(10);
+            if (Auth::check()) {
+                $src = '/blog/indexEditor';
+                return $this->loadiFrame($src);
+            }
+            return view('blog.index', compact('posts'));
+        }
+        $post = Post::find($id);
+        if (Auth::check()) {
+            $src = '/blog/'.$post->slug.'/edit';
+            return $this->loadiFrame($src);
+        }
+        return view('blog.show', compact('post'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

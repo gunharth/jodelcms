@@ -16,7 +16,7 @@ class CreatePostsTable extends Migration {
         {
             $table->increments('id');
             $table->string('title', 100);
-            $table->string('slug', 120)->unique();
+            $table->string('slug', 120)->unique()->index();
             $table->text('short_description');
             $table->longtext('content');
             $table->integer('template_id')->nullable();

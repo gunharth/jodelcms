@@ -7,13 +7,16 @@ if (!function_exists('renderMenuNode')) {
      * @param $node
      * @return string
      */
-    function renderMenuNode($node, $path)
+    function renderMenuNode($node, $path, $link = null)
     {
         $list = 'class="dropdown-menu"';
         $class = 'class="dropdown"';
         $caret = '<i class="fa fa-caret-down"></i>';
+        //$link = '';
         //$link = route('page', ['page_slug' => $node->slug]);
-        $link = $node->parser->link;
+        $link .= '/' . $node->slug;
+        //dd($node->getAncestorsAndSelf()->lists('slug'));
+       // $link =  implode('/',$node->getAncestorsAndSelf()->lists('slug'));
         $active = '';
         $path = '/' . preg_replace('/\/edit$/', '', $path);
         if($path == $link) {
@@ -28,7 +31,7 @@ if (!function_exists('renderMenuNode')) {
             $html = '<li '.$class.'>' . $drop_down;
             $html .= '<ul '.$list.'>';
             foreach ($node->children as $child) {
-                $html .= renderMenuNode($child,$path);
+                $html .= renderMenuNode($child,$path, $link);
             }
             $html .= '</ul>';
             $html .= '</li>';

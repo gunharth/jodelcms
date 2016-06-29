@@ -56,6 +56,20 @@ class DatabaseSeeder extends Seeder
             'slug' => 'page-2',
             'template_id' => 2
         ]);
+        DB::table('pages')->insert([
+            'title' => 'Page 3',
+            'content01' => 'Page 3',
+            'content02' => 'This is page 3',
+            'slug' => 'page-3',
+            'template_id' => 2
+        ]);
+        DB::table('pages')->insert([
+            'title' => 'Page 4',
+            'content01' => 'Page 4',
+            'content02' => 'This is page 4',
+            'slug' => 'page-4',
+            'template_id' => 2
+        ]);
         DB::table('posts')->insert([
             'title' => 'Blog Home',
             'slug' => 'home',
@@ -87,9 +101,11 @@ class DatabaseSeeder extends Seeder
         DB::table('menus')->insert([
             'menu_id' => 1,
             'name' => 'Home',
+            'slug' => '',
             'parent_id' => 0,
-            'parser_id' => 1,
-            'parser_type' => 'App\Page',
+            'morpher_id' => 1,
+            'morpher_type' => 'App\Page',
+            'morpher_controller' => 'PagesController',
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
@@ -101,9 +117,11 @@ class DatabaseSeeder extends Seeder
         DB::table('menus')->insert([
             'menu_id' => 1,
             'name' => 'Page 2',
+            'slug' => 'page-2',
             'parent_id' => 0,
-            'parser_id' => 2,
-            'parser_type' => 'App\Page',
+            'morpher_id' => 2,
+            'morpher_type' => 'App\Page',
+            'morpher_controller' => 'PagesController',
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
@@ -115,9 +133,11 @@ class DatabaseSeeder extends Seeder
         DB::table('menus')->insert([
             'menu_id' => 3,
             'name' => 'Footer',
+            'slug' => 'footer',
             'parent_id' => 0,
-            'parser_id' => 2,
-            'parser_type' => 'App\Page',
+            'morpher_id' => 2,
+            'morpher_type' => 'App\Page',
+            'morpher_controller' => 'PagesController',
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
@@ -128,10 +148,28 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('menus')->insert([
             'menu_id' => 1,
-            'name' => 'Page 2 again',
+            'name' => 'Page 3',
+            'slug' => 'page-3-menuslug',
             'parent_id' => 0,
-            'parser_id' => 2,
-            'parser_type' => 'App\Page',
+            'morpher_id' => 3,
+            'morpher_type' => 'App\Page',
+            'morpher_controller' => 'PagesController',
+            'lft' => 1,
+            'rgt' => 2,
+            'depth' => 0,
+            //'page_id' => 2,
+            'active' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('menus')->insert([
+            'menu_id' => 1,
+            'name' => 'Page 4',
+            'slug' => 'page-4',
+            'parent_id' => 0,
+            'morpher_id' => 4,
+            'morpher_type' => 'App\Page',
+            'morpher_controller' => 'PagesController',
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
@@ -143,9 +181,11 @@ class DatabaseSeeder extends Seeder
         DB::table('menus')->insert([
             'menu_id' => 1,
             'name' => 'Blog',
+            'slug' => 'blog',
             'parent_id' => 0,
-            'parser_id' => 1,
-            'parser_type' => 'App\Post',
+            'morpher_id' => 1,
+            'morpher_type' => 'App\Post',
+            'morpher_controller' => 'PostsController',
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,

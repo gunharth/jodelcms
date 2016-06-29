@@ -29,7 +29,7 @@ class Post extends Model
 
 	public function menu()
     {
-        return $this->morphMany('App\Menu', 'parser');
+        return $this->morphMany('App\Menu', 'morpher');
     }
 
 
