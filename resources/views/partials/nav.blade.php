@@ -12,7 +12,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             @foreach($menu->toHierarchy() as $node)
-                {!! renderMenuNode($node, Request::path()) !!}
+                {!! renderMainMenu($node, Request::path()) !!}
             @endforeach
         </ul>
         </div><!--/.nav-collapse -->

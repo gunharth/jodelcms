@@ -1,13 +1,13 @@
 <?php
 
-if (!function_exists('renderMenuNode')) {
+if (!function_exists('renderMainMenu')) {
     /**
      * Render nodes for nested sets
      *
      * @param $node
      * @return string
      */
-    function renderMenuNode($node, $path, $link = null)
+    function renderMainMenu($node, $path, $link = null)
     {
         $list = 'class="dropdown-menu"';
         $class = 'class="dropdown"';
@@ -15,6 +15,11 @@ if (!function_exists('renderMenuNode')) {
         //$link = '';
         //$link = route('page', ['page_slug' => $node->slug]);
         $link .= '/' . $node->slug;
+        $target = '';
+        if($node->external_link != '') {
+            $link = $node->external_link;
+            $target = ' target="_blank"';
+        }
         //dd($node->getAncestorsAndSelf()->lists('slug'));
        // $link =  implode('/',$node->getAncestorsAndSelf()->lists('slug'));
         $active = '';
@@ -22,16 +27,16 @@ if (!function_exists('renderMenuNode')) {
         if($path == $link) {
             $active = ' class="active"';
         }
-        $drop_down = '<a class="dropdown-toggle" data-toggle="dropdown" href="'.$link.'"
+        $drop_down = '<a class="dropdown-toggle" data-toggle="dropdown" href="/#"
                         role="button" aria-expanded="false">' . $node->name . ' ' . $caret . '</a>';
-        $single  = '<a href="'. $link .'">' . $node->name  .'</a>';
+        $single  = '<a href="'. $link .'" '. $target .'>' . $node->name  .'</a>';
         if ($node->isLeaf()) {
             return '<li' . $active .'>' . $single . '</li>';
         } else {
             $html = '<li '.$class.'>' . $drop_down;
             $html .= '<ul '.$list.'>';
             foreach ($node->children as $child) {
-                $html .= renderMenuNode($child,$path, $link);
+                $html .= renderMainMenu($child,$path, $link);
             }
             $html .= '</ul>';
             $html .= '</li>';
@@ -40,53 +45,8 @@ if (!function_exists('renderMenuNode')) {
     }
 }
 
-if (!function_exists('get_ops')) {
-    /**
-     * Returns resource operations for the datatables or nested sets
-     *
-     * @param $resource
-     * @param $id
-     * @param $class
-     * @return string
-     */
-    function get_ops($resource, $id, $class = "btn")
-    {
-        if ($class=="btn") {
-            $show_class = "btn btn-xs bg-navy";
-            $edit_class = "btn btn-xs bg-olive";
-            $delete_class = "btn btn-xs btn-danger destroy";
-        } else {
-            $show_class = "inline-show";
-            $edit_class = "inline-edit";
-            $delete_class = "inline-delete";
-        }
-        $show_path = route($resource.'.show', ['id' => $id]);
-        $edit_path = route($resource.'.edit', ['id' => $id]);
-        $delete_path = route($resource.'.destroy', ['id' => $id]);
-        $ops  = '<ul class="list-inline no-margin-bottom">';
-        $ops .=  '<li>';
-        $ops .=  '<a class="'.$show_class.'" href="'.$show_path.'">
-                  <i class="fa fa-search"></i>
-                  show</a>';
-        $ops .=  '</li>';
-        $ops .=  '<li>';
-        $ops .=  '<a class="'.$edit_class.'" href="'.$edit_path.'">
-                 <i class="fa fa-pencil-square-o"></i>edit</a>';
-        $ops .=  '</li>';
-        $ops .=  '<li>';
-        $ops .= Form::open(['method' => 'DELETE', 'url' => $delete_path]);
-        $ops .= Form::submit('&#xf1f8; del', [
-                'onclick' => "return confirm('".trans('admin.ops.confirmation')."');",
-                'class' => $delete_class
-            ]);
-        $ops .= Form::close();
-        $ops .=  '</li>';
-        $ops .=  '</ul>';
-        return $ops;
-    }
-}
 
-if (!function_exists('renderNode')) {
+if (!function_exists('renderEditorMenus')) {
     /**
      * Render nodes for nested sets
      *
@@ -94,18 +54,24 @@ if (!function_exists('renderNode')) {
      * @param $resource
      * @return string
      */
-    function renderNode($node)
+    function renderEditorMenus($node, $slug = null)
     {
         $id = 'data-id="' . $node->id .'"';
         $list = 'class="dd-list"';
         $class = 'class="dd-item"';
         $handle = 'class="dd-handle"';
+        $slug .= '/' . $node->slug;
+        $target = '';
+        if($node->external_link != '') {
+            $slug = $node->external_link;
+            $target = ' target="_blank"';
+        }
         //$name  = '<span class="ol-buttons"> ' . get_ops($resource, $node->id, 'inline') . '</span>';
         
         $active = ($node->active == 1) ? 'fa-circle' : 'fa-circle-o';
         $active_data = ($node->active == 1) ? 0 : 1;
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
-                   '<a href="' . $node->link . '" class="btn btn-xs"><i class="fa fa-external-link"></i></a>' .
+                   '<a href="' . $slug . '" ' . $target . ' class="btn btn-xs"><i class="fa fa-external-link"></i></a>' .
                    '<button type="button" class="btn btn-link btn-xs edit"><i class="fa fa-pencil-square-o"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs toggleActive"><i class="fa ' . $active . '" data-active="' . $active_data . '"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs delete"><i class="fa fa-times"></i></button>' .
@@ -119,7 +85,7 @@ if (!function_exists('renderNode')) {
             $html = '<li '.$class.' '.$id.'>' . $name;
             $html .= '<ol '.$list.'>';
             foreach ($node->children as $child) {
-                $html .= renderNode($child);
+                $html .= renderEditorMenus($child,$slug);
             }
             $html .= '</ol>';
             $html .= '</li>';

@@ -260,6 +260,29 @@ class Editor {
             this.loadMenu( this.getMenuID() );
         });
 
+        /**
+         *  Menu item type form select
+         */
+        $('body').on('change','#menuTypeSelector', (e) => {
+            let ele = $('#menuTypeItemSelector');
+            let selected = $('#menuTypeSelector').find('option:selected').val();
+            $.ajax({
+                type: 'GET',
+                url: '/admin/menuSelectorType/' + selected,
+                //data: 'id='+menu_id,
+                error: (xhr, ajaxOptions, thrownError) => {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            }).done((data) => {
+                ele.empty();
+                //ele.append('<option value="0">-- Auswahl --</option>');
+                for (var i = 0; i < data.length; i++) {
+                    ele.append('<option value="' + data[i].id + '">' + data[i].title + '</option>');
+                }
+            });
+        });
+
     }
 
     /**
@@ -409,6 +432,30 @@ class Editor {
             title: 'Edit',
             url: '/menu/' + this.menu_id + '/settings',
             type: 'ajax',
+            onAfterShow: () => {
+                let ele = $('#menuTypeItemSelector');
+            let selected = $('#menuTypeSelector').find('option:selected').val();
+            $.ajax({
+                type: 'GET',
+                url: '/admin/menuSelectorType/' + selected,
+                //data: 'id='+menu_id,
+                error: (xhr, ajaxOptions, thrownError) => {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            }).done((data) => {
+                ele.empty();
+                //ele.append('<option value="0">-- Auswahl --</option>');
+                let selected = $('#morpher_id_orig').text();
+                for (var i = 0; i < data.length; i++) {
+                    let sel = '';
+                    if(data[i].id == selected) {
+                        sel = ' selected="selected"';
+                    }
+                    ele.append('<option value="' + data[i].id + '"' + sel + '>' + data[i].title + '</option>');
+                }
+            });
+            },
             callback: () => {
                 this.loadMenu( this.getMenuID() );
             },
@@ -456,7 +503,6 @@ class Editor {
 
     loadDialog(options) {
         $('#'+options.id).remove();
-        console.log('called')
         var formDom = $('<div></div>').attr('id', options.id);
         $.ajax({
                 url: options.url,
@@ -504,15 +550,15 @@ class Editor {
                 at: "center top+50",
                 of: window
             },*/
-            /*open:function () {
+            open:function () {
 
-                $(this).closest('.ui-dialog').find(".ui-dialog-buttonset .ui-button:first").addClass("green");
+                //$(this).closest('.ui-dialog').find(".ui-dialog-buttonset .ui-button:first").addClass("green");
 
                 if (typeof(options.onAfterShow) === 'function'){
-                    options.onAfterShow(form);
+                    options.onAfterShow();
                 }
 
-            }*/
+            }
         });
     };
 

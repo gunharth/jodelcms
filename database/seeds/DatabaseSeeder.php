@@ -115,6 +115,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         /**
+         * Pages
+         */
+        DB::table('externals')->insert([
+            'title' => 'External Link',
+        ]);
+
+        /**
          * Menus
          */
         DB::table('menus')->insert([
@@ -186,6 +193,22 @@ class DatabaseSeeder extends Seeder
             'morpher_type' => 'App\Post',
             'lft' => 9,
             'rgt' => 10,
+            'depth' => 0,
+            //'page_id' => 1,
+            'active' => 1,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+        DB::table('menus')->insert([
+            'menu_id' => 1,
+            'name' => 'Google',
+            'slug' => 'google',
+            'external_link' => 'http://www.google.com',
+            'parent_id' => 0,
+            'morpher_id' => 1,
+            'morpher_type' => 'App\External',
+            'lft' => 11,
+            'rgt' => 12,
             'depth' => 0,
             //'page_id' => 1,
             'active' => 1,

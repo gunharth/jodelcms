@@ -8,4 +8,10 @@ return [
         'Footer Links' => 3,
     ],
 
+    'contentTypes' => [
+        'Page' => 'Page',
+        'Post' => 'Blog',
+        'External' => 'External URL',
+    ],
+
 ];

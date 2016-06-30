@@ -9,10 +9,10 @@ use Baum\Node;
 /**
 * Menue
 */
-class Menu extends Node
+class Menu extends Node implements SluggableInterface
 {
 
-   use SluggableTrait;
+    use SluggableTrait;
 
     protected $sluggable = [
         'build_from' => 'name',
@@ -27,10 +27,10 @@ class Menu extends Node
    */
   protected $table = 'menus';
 
-  protected $fillable = [
-      'name', 
+    protected $fillable = [
+      'name',
       'menu_id',
-      'slug', 
+      'slug',
       'morpher_id',
       'morpher_type'
     ];
@@ -45,13 +45,31 @@ class Menu extends Node
       return $this->belongsTo('App\Page');
   }*/
 
-  public function morpher()
+  protected $appends = [
+        'morpher_type_simple'
+    ];
+
+    public function morpher()
     {
         return $this->morphTo();
     }
 
     protected $scoped = array('menu_id');
 
+    public function setMorpherType()
+    {
+        return $this->morphTo();
+    }
+    
+    public function setMorpherTypeAttribute($value)
+    {
+        $this->attributes['morpher_type'] = 'App\\'.$value;
+    }
+
+    public function getMorpherTypeSimpleAttribute()
+    {
+        return str_replace("App\\", "", $this->morpher_type);
+    }
 
 
   //////////////////////////////////////////////////////////////////////////////

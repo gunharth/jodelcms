@@ -28,6 +28,7 @@ class CreateMenusTable extends Migration {
       // Add needed columns here (f.ex: name, slug, path, etc.)
       $table->string('name', 50);
       $table->string('slug')->nullable()->index();
+      $table->string('external_link')->nullable();
       //$table->integer('page_id')->default(1);
       $table->boolean('active')->default(0)->index();
 

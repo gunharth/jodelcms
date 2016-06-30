@@ -66,7 +66,7 @@ Route::get('/admin/forms/{type}/{action}/{id?}', function($type,$action,$id=null
 Route::get('/admin/menu/listMenus/{id}', function($id) {
 	$html = '';
 	foreach(\App\Menu::where('menu_id',$id)->get()->toHierarchy() as $node) {
-		$html .= renderNode($node);
+		$html .= renderEditorMenus($node);
 	}
 	return $html;
 });
@@ -76,6 +76,13 @@ Route::get('/admin/page/listPages', function() {
         $html .= renderPage($page);
     }
     return $html;
+});
+/**
+ * Fill the select filed on Menu Type change
+ */
+Route::get('/admin/menuSelectorType/{type}', function($type) {
+    $model = '\App\\'.$type;
+    return $model::orderBy('title')->get();
 });
 
 

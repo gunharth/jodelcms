@@ -2,7 +2,7 @@
       <div class="container">
          <ul class="nav navbar-nav">
             @foreach($menu->toHierarchy() as $node)
-                {!! renderMenuNode($node, Request::path()) !!}
+                {!! renderMainMenu($node, Request::path()) !!}
             @endforeach
         </ul>
       </div>
