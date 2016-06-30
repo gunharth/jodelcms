@@ -85,8 +85,21 @@ Route::get('/admin/menuSelectorType/{type}', function($type) {
     return $model::orderBy('title')->get();
 });
 
+/**
+ *  Manually register elfinder again as othwise slug will prevail
+ */
+Route::group(['prefix' => 'elfinder'], function () {
+    Route::get('/', 'ElfinderController@showIndex');
+    Route::any('connector', ['as' => 'elfinder.connector', 'uses' => 'ElfinderController@showConnector']);
+    Route::get('popup/{input_id}', ['as' => 'elfinder.popup', 'uses' => 'ElfinderController@showPopup']);
+    Route::get('filepicker/{input_id}', ['as' => 'elfinder.filepicker', 'uses' => 'ElfinderController@showFilePicker']);
+    Route::get('tinymce', ['as' => 'elfinder.tinymce', 'uses' => 'ElfinderController@showTinyMCE']);
+    Route::get('tinymce4', ['as' => 'elfinder.tinymce4', 'uses' => 'ElfinderController@showTinyMCE4']);
+    Route::get('ckeditor', ['as' => 'elfinder.ckeditor', 'uses' => 'ElfinderController@showCKeditor4']);
+});
 
-Route::get('/{slug}', function($slug)
+
+Route::get('{slug}', function($slug)
 {
     $categories = explode('/', $slug);
     //return end($categories);
