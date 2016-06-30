@@ -42,7 +42,7 @@ class Page extends Model implements SluggableInterface
         'link'
     ];
 
-    static function returnController()
+    public function returnController()
     {
         return 'PagesController';
     }

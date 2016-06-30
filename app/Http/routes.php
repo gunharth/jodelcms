@@ -114,7 +114,8 @@ Route::get('/{slug}', function($slug)
         if ($valid)
         {
             $app = app();
-			$controller = $app->make('App\Http\Controllers\\'.$main->morpher_type::returnController());
+            $model = new $main->morpher_type;
+			$controller = $app->make('App\Http\Controllers\\'.$model->returnController());
 			return $controller->callAction('showID', $parameters = array($main->morpher_id));
         }
     }
