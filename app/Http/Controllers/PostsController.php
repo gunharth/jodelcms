@@ -10,43 +10,42 @@ use Auth;
 class PostsController extends Controller
 {
     
-	public function __construct()
+    public function __construct()
     {
-        $this->middleware('auth', ['except' =>['show','index'] ]);
+        $this->middleware('auth', ['except' =>['show', 'index'] ]);
     }
 
 
     public function index()
     {
-    	$posts = Post::where('id', '>', 1)->paginate(10);
-    	if (Auth::check()) {
-    		$src = '/blog/indexEditor';
+        $posts = Post::where('id', '>', 1)->paginate(10);
+        if (Auth::check()) {
+            $src = '/blog/indexEditor';
             return $this->loadiFrame($src);
         }
-    	return view('blog.index', compact('posts'));
+        return view('blog.index', compact('posts'));
     }
 
 
     public function indexEditor()
     {
-        $posts = Post::where('id', '>', 1)->paginate(1);
-    	return view('blog.index', compact('posts'));
+        $posts = Post::where('id', '>', 1)->paginate(10);
+        return view('blog.index', compact('posts'));
     }
 
 
     public function show(Post $post)
     {
-    	if (Auth::check()) {
-    		$src = '/blog/'.$post->slug.'/edit';
+        if (Auth::check()) {
+            $src = '/blog/'.$post->slug.'/edit';
             return $this->loadiFrame($src);
         }
-    	return view('blog.show', compact('post'));
+        return view('blog.show', compact('post'));
     }
 
     public function showID($id)
     {
-        
-        if($id == 1) {
+        if ($id == 1) {
             $posts = Post::where('id', '>', 1)->paginate(10);
             if (Auth::check()) {
                 $src = '/blog/indexEditor';
