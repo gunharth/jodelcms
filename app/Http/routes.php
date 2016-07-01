@@ -1,92 +1,97 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-
-
 Route::auth();
 
+/**
+ * Homepage
+ */
 Route::get('/', 'PagesController@index');
 
-
-
-// Pages controller
-//Route::get('/', 'PagesController@index');
-//Route::post('page/active', 'PageController@postActive');
+/**
+ * Pages
+ */
 Route::post('page/delete', 'PagesController@postDelete');
 Route::get('page/{page}/settings', 'PagesController@settings');
 Route::post('page/{page}', 'PagesController@update');
+Route::resource('page', 'PagesController');
 
-Route::resource('page','PagesController');
-
-Route::get('blog/indexEditor','PostsController@indexEditor');
-Route::get('blog/{post}','PostsController@show');
-Route::get('blog/{post}/edit','PostsController@edit');
-Route::get('blog','PostsController@index');
+/**
+ * Blog
+ */
+Route::get('blog/indexEditor', 'PostsController@indexEditor');
+Route::get('blog/{post}', 'PostsController@show');
+Route::get('blog/{post}/edit', 'PostsController@edit');
+Route::get('blog', 'PostsController@index');
 Route::post('blog/{post}', 'PostsController@update');
+Route::resource('blog', 'PostsController');
 
-Route::resource('blog','PostsController');
-// Route::get('{slug}', function($slug) {
-// 	// find which type of controller
-// 	$cont = '\PagesController';
-// 	//return Route::dispatchToRoute(Illuminate\Http\Request::create('page/'.$page));
-// 	//return $slug;
-// 	$app = app();
-//     $controller = $app->make('\App\Http\Controllers'.$cont);
-//     return $controller->callAction('show', $parameters = array($slug));
-
-// })->where('slug', '^(?!_debugbar)[A-Za-z0-9_/-]+');
-
-// menu controller
+/**
+ * Menu
+ */
 Route::post('menu/sortorder', 'MenusController@postOrder');
 Route::post('menu/active', 'MenusController@postActive');
 Route::post('menu/delete', 'MenusController@postDelete');
 Route::get('menu/{menu}/settings', 'MenusController@settings');
 Route::post('blog/{id}', 'MenusController@update');
-Route::resource('menu','MenusController');
+Route::resource('menu', 'MenusController');
 
 
-Route::get('forms/page/{page}', function() {
-	return view('page.forms.create');
-});
-Route::get('/admin/forms/{type}/{action}/{id?}', function($type,$action,$id=null) {
-	$templates = \App\Template::where('active', 1)->lists('name', 'id');
-	//return view('admin.forms.'.$type.'.'.$action)->with('templates', $templates, 'id', $id);
-	return view('admin.forms.'.$type.'.'.$action, compact('templates', 'id'));
-});
-Route::get('/admin/menu/listMenus/{id}', function($id) {
-	$html = '';
-	foreach(\App\Menu::where('menu_id',$id)->get()->toHierarchy() as $node) {
-		$html .= renderEditorMenus($node);
-	}
-	return $html;
-});
-Route::get('/admin/page/listPages', function() {
-    $html = '';
-    foreach(\App\Page::orderBy('title')->get() as $page) {
-        $html .= renderPage($page);
-    }
-    return $html;
-});
 /**
- * Fill the select filed on Menu Type change
+ * Admin
  */
-Route::get('/admin/menuSelectorType/{type}', function($type) {
-    $model = '\App\\'.$type;
-    return $model::orderBy('title')->get();
+// Route::get('forms/page/{page}', function () {
+//     return view('page.forms.create');
+// });
+
+Route::group(['prefix' => 'admin'], function () {
+    
+    /**
+     *  Editor
+     *  Catch all route for create & edit 
+     */
+    Route::get('forms/{type}/{action}/{id?}', function ($type, $action, $id=null) {
+        $templates = \App\Template::where('active', 1)->lists('name', 'id');
+        return view('admin.forms.'.$type.'.'.$action, compact('templates', 'id'));
+    });
+
+    /**
+     * Editor: Tab Menus
+     * List and reload all Menus for selected nav
+     * Type: ajax
+     */
+    Route::get('menu/listMenus/{id}', function ($id) {
+        $html = '';
+        foreach (\App\Menu::where('menu_id', $id)->get()->toHierarchy() as $node) {
+            $html .= renderEditorMenus($node);
+        }
+        return $html;
+    });
+
+    /**
+     * Editor: Tab Pages
+     * List and reload all pages
+     * Type: ajax
+     */
+    Route::get('page/listPages', function () {
+        $html = '';
+        foreach (\App\Page::orderBy('title')->get() as $page) {
+            $html .= renderPage($page);
+        }
+        return $html;
+    });
+    /**
+     * Editor: Menu Popup: create and edit
+     * Fill the select filed on Menu Type change
+     * Type: ajax
+     */
+    Route::get('menuSelectorType/{type}', function ($type) {
+        $model = '\App\\'.$type;
+        return $model::orderBy('title')->get();
+    });
 });
 
 /**
- *  Manually register elfinder again as othwise slug will prevail
+ *  Manually register elfinder again to override slug
  */
 Route::group(['prefix' => 'elfinder'], function () {
     Route::get('/', 'ElfinderController@showIndex');
@@ -99,44 +104,29 @@ Route::group(['prefix' => 'elfinder'], function () {
 });
 
 
-Route::get('{slug}', function($slug)
-{
+/**
+ *  Catch all route for slugs
+ */
+Route::get('{slug}', function ($slug) {
     $categories = explode('/', $slug);
-    //return end($categories);
     $main = App\Menu::where('slug', end($categories))->first();
-    /*if (!$main) {
-    	$main = App\Menu::where('slug', prev($categories))->first();
-    }*/
     reset($categories);
 
-    if ($main)
-    {
+    if ($main) {
         $ancestors = $main->getAncestors();
-
         $valid = true;
-
-        foreach ($ancestors as $i => $category)
-        {
-            if ($category->slug !== $categories[$i])
-            {
+        foreach ($ancestors as $i => $category) {
+            if ($category->slug !== $categories[$i]) {
                 $valid = false;
                 break;
             }
         }
-
-        if ($valid)
-        {
+        if ($valid) {
             $app = app();
             $model = new $main->morpher_type;
-			$controller = $app->make('App\Http\Controllers\\'.$model->returnController());
-			return $controller->callAction('showID', $parameters = array($main->morpher_id));
+            $controller = $app->make('App\Http\Controllers\\'.$model->returnController());
+            return $controller->callAction('showID', $parameters = array($main->morpher_id));
         }
     }
-    //try next up
-
     App::abort('404');
-
 })->where('slug', '^(?!_debugbar)[A-Za-z0-9_/-]+');
-
-
-//Route::get('/home', 'HomeController@index');
