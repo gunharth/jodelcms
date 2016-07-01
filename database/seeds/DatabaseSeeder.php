@@ -134,7 +134,6 @@ class DatabaseSeeder extends Seeder
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
-            //'page_id' => 1,
             'active' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -149,7 +148,6 @@ class DatabaseSeeder extends Seeder
             'lft' => 3,
             'rgt' => 4,
             'depth' => 0,
-            //'page_id' => 2,
             'active' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -164,7 +162,6 @@ class DatabaseSeeder extends Seeder
             'lft' => 5,
             'rgt' => 6,
             'depth' => 0,
-            //'page_id' => 2,
             'active' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -179,7 +176,6 @@ class DatabaseSeeder extends Seeder
             'lft' => 7,
             'rgt' => 8,
             'depth' => 0,
-            //'page_id' => 2,
             'active' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -194,7 +190,6 @@ class DatabaseSeeder extends Seeder
             'lft' => 9,
             'rgt' => 10,
             'depth' => 0,
-            //'page_id' => 1,
             'active' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -210,7 +205,6 @@ class DatabaseSeeder extends Seeder
             'lft' => 11,
             'rgt' => 12,
             'depth' => 0,
-            //'page_id' => 1,
             'active' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -225,13 +219,10 @@ class DatabaseSeeder extends Seeder
             'lft' => 1,
             'rgt' => 2,
             'depth' => 0,
-            //'page_id' => 2,
             'active' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
-        
 
-        // $this->call(UsersTableSeeder::class);
     }
 }
