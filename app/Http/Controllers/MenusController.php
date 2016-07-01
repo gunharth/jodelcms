@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use App\Http\Requests\MenuRequest;
 use App\Menu;
 use App\Page;
 use Config;
@@ -42,7 +42,7 @@ class MenusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MenuRequest $request)
     {
         $menu = Menu::create($request->all());
         return $menu;
@@ -80,7 +80,6 @@ class MenusController extends Controller
     public function settings($id)
     {
         $menu = Menu::findOrFail($id);
-
         $pages = Page::lists('title', 'id')->toArray();
         return view('admin.forms.menu.edit', compact('menu','pages'));
     }
@@ -92,13 +91,12 @@ class MenusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MenuRequest $request, $id)
     {
         $menu = Menu::findOrFail($id);
         $slug = str_slug($request->slug, "-");
         if($id == 1) { $slug = ' '; }
         $request->merge(array('slug' => $slug));
-        //dd($request->all());
         $menu->fill($request->all())->save();
         return $menu;
     }

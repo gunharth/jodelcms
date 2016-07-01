@@ -94,7 +94,7 @@ if (!function_exists('renderEditorMenus')) {
     }
 }
 
-if (!function_exists('renderPage')) {
+if (!function_exists('renderEditorPages')) {
     /**
      * Render nodes for nested sets
      *
@@ -102,19 +102,19 @@ if (!function_exists('renderPage')) {
      * @param $resource
      * @return string
      */
-    function renderPage($page)
+    function renderEditorPages($page)
     {
         $id = 'data-id="' . $page->id .'"';
         $list = 'class="dd-list"';
         $class = 'class="dd-item"';
-        $delete = '<button type="button" class="btn btn-link btn-xs delete"><i class="fa fa-fw fa-times"></i></button>';
+        $delete = '<button type="button" class="btn btn-link btn-xs delete" data-toggle="tooltip" title="delete"><i class="fa fa-fw fa-times"></i></button>';
         if($page->id == 1) {
             $delete = '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-fw"></i></button>';
         }
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
-                   '<button type="button" class="btn btn-link btn-xs load"><i class="fa fa-external-link" data-url="/page/' . $page->slug . '/edit"></i></button>' .
-                   '<button type="button" class="btn btn-link btn-xs edit"><i class="fa fa-pencil-square-o"></i></button>' .
-                   '<button type="button" class="btn btn-link btn-xs duplicate"><i class="fa fa-copy"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs load" data-toggle="tooltip" title="load in Browser"><i class="fa fa-external-link" data-url="/page/' . $page->slug . '/edit"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs edit" data-toggle="tooltip" title="edit"><i class="fa fa-pencil-square-o"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs duplicate" data-toggle="tooltip" title="duplicate"><i class="fa fa-copy"></i></button>' .
                    $delete .
                    '</div>';
         $name  = '<div class="dd-content"><span class="dd-title">' . $page->title . '</span>' . $actions . '</div>';

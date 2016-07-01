@@ -50,7 +50,7 @@
 					<div class="dd">
 			            <ol class="dd-list" id="pageItems">
 			            	@foreach(\App\Page::orderBy('title')->get() as $page)
-			                    {!! renderPage($page) !!}
+			                    {!! renderEditorPages($page) !!}
 			                @endforeach
 			            </ol>
 			        </div> 

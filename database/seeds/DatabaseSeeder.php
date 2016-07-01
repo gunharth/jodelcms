@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
             'content01' => 'Page 3',
             'content02' => 'This is page 3',
             'slug' => 'page-3',
-            'template_id' => 2
+            'template_id' => 3
         ]);
 
         /**

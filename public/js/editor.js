@@ -41,6 +41,13 @@ class Editor {
             }
         });
 
+        /**
+         * Boostrap tooltips
+         */
+        // $('[data-toggle="tooltip"]').tooltip({
+        //     animation: false
+        // }); 
+
         $(window).resize(() => {
             let windowWidth = $(window).width();
             let windowHeight = $(window).height();
@@ -114,6 +121,27 @@ class Editor {
             let parent = $(e.target).parents('.dd-item');
             this.page_id = parent.data('id');
             this.editPage();
+        });
+
+        /**
+         *  Duplicate a page
+         */
+        $('#tab-pages', this.editorPanel).on('click', '.duplicate', (e) => {
+            e.preventDefault();
+            let parent = $(e.target).parents('.dd-item');
+            let page_id = parent.data('id');
+            this.showLoadingIndicator();
+            $.ajax({
+                type: 'POST',
+                url: '/page/duplicate',
+                data: 'id=' + page_id,
+                error: (xhr, ajaxOptions, thrownError) => {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            }).done(() => {
+                this.loadPages();
+            });
         });
 
         /**
@@ -434,27 +462,27 @@ class Editor {
             type: 'ajax',
             onAfterShow: () => {
                 let ele = $('#menuTypeItemSelector');
-            let selected = $('#menuTypeSelector').find('option:selected').val();
-            $.ajax({
-                type: 'GET',
-                url: '/admin/menuSelectorType/' + selected,
-                //data: 'id='+menu_id,
-                error: (xhr, ajaxOptions, thrownError) => {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                }
-            }).done((data) => {
-                ele.empty();
-                //ele.append('<option value="0">-- Auswahl --</option>');
-                let selected = $('#morpher_id_orig').text();
-                for (var i = 0; i < data.length; i++) {
-                    let sel = '';
-                    if(data[i].id == selected) {
-                        sel = ' selected="selected"';
+                let selected = $('#menuTypeSelector').find('option:selected').val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/menuSelectorType/' + selected,
+                    //data: 'id='+menu_id,
+                    error: (xhr, ajaxOptions, thrownError) => {
+                        console.log(xhr.status);
+                        console.log(thrownError);
                     }
-                    ele.append('<option value="' + data[i].id + '"' + sel + '>' + data[i].title + '</option>');
-                }
-            });
+                }).done((data) => {
+                    ele.empty();
+                    //ele.append('<option value="0">-- Auswahl --</option>');
+                    let selected = $('#morpher_id_orig').text();
+                    for (var i = 0; i < data.length; i++) {
+                        let sel = '';
+                        if(data[i].id == selected) {
+                            sel = ' selected="selected"';
+                        }
+                        ele.append('<option value="' + data[i].id + '"' + sel + '>' + data[i].title + '</option>');
+                    }
+                });
             },
             callback: () => {
                 this.loadMenu( this.getMenuID() );
@@ -479,6 +507,30 @@ class Editor {
             title: 'Create a new menu',
             url: '/admin/forms/menu/create/' + menu_id,
             type: 'ajax',
+            onAfterShow: () => {
+                let ele = $('#menuTypeItemSelector');
+                let selected = $('#menuTypeSelector').find('option:selected').val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/menuSelectorType/' + selected,
+                    //data: 'id='+menu_id,
+                    error: (xhr, ajaxOptions, thrownError) => {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+                }).done((data) => {
+                    ele.empty();
+                    //ele.append('<option value="0">-- Auswahl --</option>');
+                    let selected = $('#morpher_id_orig').text();
+                    for (var i = 0; i < data.length; i++) {
+                        let sel = '';
+                        if(data[i].id == selected) {
+                            sel = ' selected="selected"';
+                        }
+                        ele.append('<option value="' + data[i].id + '"' + sel + '>' + data[i].title + '</option>');
+                    }
+                });
+            },
             callback: () => {
                 this.loadMenu(menu_id);
             },
@@ -571,7 +623,13 @@ class Editor {
                 url: action, // the url where we want to POST
                 data: formData, // our data object
                 dataType: 'json', // what type of data do we expect back from the server
-                encode: true
+                encode: true,
+                error: (data) => {
+                        let errors = data.responseJSON;
+                        $.each( errors, ( key, value ) => {
+                            $("input[name="+key+"]").parent().addClass('has-error');
+                        });
+                    }
             }).done((data) => {
                 dialog.dialog('close');
                 //dialog.remove();

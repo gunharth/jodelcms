@@ -11,6 +11,7 @@ Route::get('/', 'PagesController@index');
  * Pages
  */
 Route::post('page/delete', 'PagesController@postDelete');
+Route::post('page/duplicate', 'PagesController@duplicate');
 Route::get('page/{page}/settings', 'PagesController@settings');
 Route::post('page/{page}', 'PagesController@update');
 Route::resource('page', 'PagesController');
@@ -75,7 +76,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('page/listPages', function () {
         $html = '';
         foreach (\App\Page::orderBy('title')->get() as $page) {
-            $html .= renderPage($page);
+            $html .= renderEditorPages($page);
         }
         return $html;
     });

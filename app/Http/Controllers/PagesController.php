@@ -49,6 +49,7 @@ class PagesController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->slug = str_slug($request->title, "-");
         $page = Page::create($request->all());
         return redirect()->route('page.show',[$request->slug]);
@@ -147,6 +148,21 @@ class PagesController extends Controller
             $page = Page::findOrFail($request->id);
             $page->active = $request->active;
             $page->save();
+        }
+    }
+
+    /**
+     * Save the menu ordering
+     *
+     * @param Request $request
+     */
+    public function duplicate(Request $request)
+    {
+        if ($request->ajax()) {
+            $page = Page::findOrFail($request->id);
+            $page->title = $page->title . ' copy';
+            $clone = $page->replicate();
+            $clone->save();
         }
     }
 
