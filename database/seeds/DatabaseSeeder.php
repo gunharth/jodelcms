@@ -141,8 +141,8 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('menus')->insert([
             'menu_id' => 1,
-            'name' => 'Page 1',
-            'slug' => 'page-1',
+            'name' => 'Menu 1',
+            'slug' => 'menu-1',
             'parent_id' => 0,
             'morpher_id' => 2,
             'morpher_type' => 'App\Page',
@@ -156,8 +156,8 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('menus')->insert([
             'menu_id' => 1,
-            'name' => 'Page 2',
-            'slug' => 'page-2',
+            'name' => 'Menu 2',
+            'slug' => 'menu-2',
             'parent_id' => 0,
             'morpher_id' => 3,
             'morpher_type' => 'App\Page',
@@ -171,8 +171,8 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('menus')->insert([
             'menu_id' => 1,
-            'name' => 'Page 3',
-            'slug' => 'page-3',
+            'name' => 'Menu 3',
+            'slug' => 'menu-3',
             'parent_id' => 0,
             'morpher_id' => 4,
             'morpher_type' => 'App\Page',
