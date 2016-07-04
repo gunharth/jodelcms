@@ -32,7 +32,7 @@
                 ) !!}
         </div>
         <div class="form-group" id="menuTypeExternalInput">
-        {!! Form::text('external_link',null,['class' => 'form-control', 'placeholder' => 'http://']) !!}
+        {!! Form::text('external_link',null,['class' => 'form-control', 'placeholder' => 'http://', 'id' => 'external_link']) !!}
         </div>
 	    <div id="morpher_id_orig" style="display: none;">{{ $menu->morpher_id }}</div>
 

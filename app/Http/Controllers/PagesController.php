@@ -9,11 +9,12 @@ use Auth;
 
 class PagesController extends Controller
 {
-    
 
+    use Traits;
+    
     public function __construct()
     {
-        $this->middleware('auth', ['except' =>['show','index'] ]);
+        $this->middleware('auth', ['except' =>['show', 'index'] ]);
     }
 
     /**
@@ -49,10 +50,9 @@ class PagesController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->slug = str_slug($request->title, "-");
         $page = Page::create($request->all());
-        return redirect()->route('page.show',[$request->slug]);
+        return redirect()->route('page.show', [$request->slug]);
     }
 
     /**
@@ -89,7 +89,7 @@ class PagesController extends Controller
      */
     public function edit(Page $page)
     {
-        if($page->template->id == 1) {
+        if ($page->template->id == 1) {
             return view('templates.index', compact('page'));
         }
         return view('templates.' . $page->template->path . '.show', compact('page'));
@@ -104,7 +104,8 @@ class PagesController extends Controller
     public function settings($id)
     {
         $page = Page::findOrFail($id);
-        return view('admin.forms.page.edit', compact('page'));
+        $templates = \App\Template::where('active', 1)->lists('name', 'id');
+        return view('admin.forms.page.edit', compact('page','templates'));
     }
 
     /**
@@ -132,10 +133,10 @@ class PagesController extends Controller
         //
     }
     
-    public function loadiFrame($src)
-    {
-        return view('editor', compact('src'));
-    }
+    // public function loadiFrame($src)
+    // {
+    //     return view('editor', compact('src'));
+    // }
 
     /**
      * Save the menu ordering

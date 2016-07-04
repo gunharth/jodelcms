@@ -1,12 +1,19 @@
 @extends('layout')
 
+@section('meta_title'){{ $page->meta_title }}@endsection
+@section('meta_description'){{ $page->meta_description }}@endsection
+@section('meta_keywords'){{ $page->meta_keywords }}@endsection
+@section('head_code'){{ $page->head_code }}@endsection
+@section('body_start_code'){{ $page->body_start_code }}@endsection
+@section('body_end_code'){{ $page->body_end_code }}@endsection
+
 @if (Auth::check())
-@section('styles')
-  <style>
-    .jodelText, .jodelTextarea { outline: 1px dashed #27ae60; }
-    .jodelText:hover, .jodelTextarea:hover { outline: 1px solid #27ae60;}
-  </style>
-@endsection
+  @section('styles')
+    <style>
+      .jodelText, .jodelTextarea { outline: 1px dashed #27ae60; }
+      .jodelText:hover, .jodelTextarea:hover { outline: 1px solid #27ae60;}
+    </style>
+  @endsection
 @endif
 
 @section('content')

@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use App\Menu;
+use App\Template;
 
 class Page extends Model implements SluggableInterface
 {
@@ -16,29 +18,32 @@ class Page extends Model implements SluggableInterface
     ];
 
     protected $fillable = [
-    	'title', 
-    	'content01', 
-    	'content02',
-        'content03', 
-        'content04', 
-        'content05', 
-        'content06', 
-        'content07', 
-        'content08', 
-        'content09', 
-        'content10', 
+        'title',
+        'content01',
+        'content02',
+        'content03',
+        'content04',
+        'content05',
+        'content06',
+        'content07',
+        'content08',
+        'content09',
+        'content10',
         'meta_title',
         'meta_description',
         'meta_keywords',
-        'template_id'
+        'template_id',
+        'head_code',
+        'body_start_code',
+        'body_end_code'
     ];
 
-    protected $with = [  
+    protected $with = [
         'template',
         'menu'
     ];
 
-    protected $appends = [  
+    protected $appends = [
         'link'
     ];
 
@@ -54,11 +59,12 @@ class Page extends Model implements SluggableInterface
 
     public function menu()
     {
-        return $this->morphMany('App\Menu', 'morpher');
+        return $this->morphMany(Menu::class, 'morpher');
     }
 
-    public function getLinkAttribute() {
-        if($this->slug == 'home') {
+    public function getLinkAttribute()
+    {
+        if ($this->slug == 'home') {
             return '/';
         }
         return '/page/'.$this->slug;
@@ -66,7 +72,6 @@ class Page extends Model implements SluggableInterface
 
     public function template()
     {
-        return $this->belongsTo('App\Template');
+        return $this->belongsTo(Template::class);
     }
-
 }

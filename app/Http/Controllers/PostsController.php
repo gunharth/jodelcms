@@ -10,6 +10,8 @@ use Auth;
 class PostsController extends Controller
 {
     
+    use Traits;
+    
     public function __construct()
     {
         $this->middleware('auth', ['except' =>['show', 'index'] ]);
@@ -23,14 +25,14 @@ class PostsController extends Controller
             $src = '/blog/indexEditor';
             return $this->loadiFrame($src);
         }
-        return view('blog.index', compact('posts'));
+        return view('templates.blog.index', compact('posts'));
     }
 
 
     public function indexEditor()
     {
         $posts = Post::where('id', '>', 1)->paginate(10);
-        return view('blog.index', compact('posts'));
+        return view('templates.blog.index', compact('posts'));
     }
 
 
@@ -40,7 +42,7 @@ class PostsController extends Controller
             $src = '/blog/'.$post->slug.'/edit';
             return $this->loadiFrame($src);
         }
-        return view('blog.show', compact('post'));
+        return view('templates.blog.show', compact('post'));
     }
 
     public function showID($id)
@@ -51,14 +53,14 @@ class PostsController extends Controller
                 $src = '/blog/indexEditor';
                 return $this->loadiFrame($src);
             }
-            return view('blog.index', compact('posts'));
+            return view('templates.blog.index', compact('posts'));
         }
         $post = Post::find($id);
         if (Auth::check()) {
             $src = '/blog/'.$post->slug.'/edit';
             return $this->loadiFrame($src);
         }
-        return view('blog.show', compact('post'));
+        return view('templates.blog.show', compact('post'));
     }
 
     /**
@@ -69,7 +71,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('blog.show', compact('post'));
+        return view('templates.blog.show', compact('post'));
     }
 
     /**
@@ -86,8 +88,8 @@ class PostsController extends Controller
         return $post;
     }
 
-    public function loadiFrame($src)
-    {
-        return view('editor', compact('src'));
-    }
+    // public function loadiFrame($src)
+    // {
+    //     return view('editor', compact('src'));
+    // }
 }

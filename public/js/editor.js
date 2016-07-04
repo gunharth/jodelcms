@@ -311,6 +311,7 @@ class Editor {
         } else {
             dropdown.show();
             external.hide();
+            $('#external_link').val('');
             $.ajax({
                 type: 'GET',
                 url: '/admin/menuSelectorType/' + selected,

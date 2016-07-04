@@ -27,6 +27,13 @@ Route::post('blog/{post}', 'PostsController@update');
 Route::resource('blog', 'PostsController');
 
 /**
+ * Test for renaming blog to articles
+ * Guest view only
+ */
+Route::get('articles/{post}', 'PostsController@show');
+Route::get('articles', 'PostsController@index');
+
+/**
  * Menu
  */
 Route::post('menu/sortorder', 'MenusController@postOrder');
@@ -48,7 +55,7 @@ Route::group(['prefix' => 'admin'], function () {
     
     /**
      *  Editor
-     *  Catch all route for create & edit 
+     *  Catch all route for create 
      */
     Route::get('forms/{type}/{action}/{id?}', function ($type, $action, $id=null) {
         $templates = \App\Template::where('active', 1)->lists('name', 'id');
@@ -92,7 +99,7 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 /**
- *  Manually register elfinder again to override slug
+ *  Manually register elfinder again to override slug below
  */
 Route::group(['prefix' => 'elfinder'], function () {
     Route::get('/', 'ElfinderController@showIndex');

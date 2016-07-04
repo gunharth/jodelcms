@@ -24,7 +24,8 @@ class MenuRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:20'
+            'name' => 'required|max:20',
+            'external_link' => 'required_if:morpher_type,External'
         ];
     }
 }

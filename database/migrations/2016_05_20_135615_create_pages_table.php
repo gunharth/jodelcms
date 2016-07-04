@@ -29,9 +29,14 @@ class CreatePagesTable extends Migration
             // settings
             $table->string('slug')->nullable()->index();
             $table->integer('template_id')->nullable();
+
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
+
+            $table->string('head_code')->nullable();
+            $table->string('body_start_code')->nullable();
+            $table->string('body_end_code')->nullable();
 
             $table->timestamps();
         });

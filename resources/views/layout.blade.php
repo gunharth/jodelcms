@@ -4,17 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <title>@yield('meta_title')</title>
+    <meta name="description" content="@yield('meta_description')">
+    <meta name="description" content="@yield('meta_keywords')">
+    @if (Auth::check())
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>@hasSection('title')
-              @yield('title') - AjodelcCMS
-          @else
-              jodelcCMS
-          @endif
-    </title>
+    @endif
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="/css/app.css">
@@ -25,18 +20,20 @@
       img { width: 100%; height: auto; }
     </style>
     @yield('styles')
+    @yield('head_code')
   </head>
   
   <body>
+    @yield('body_start_code')
 
-  @include('partials.nav')
-  @yield('content')
-  @include('partials.footer')
+    @include('partials.nav')
+    @yield('content')
+    @include('partials.footer')
 
-  <script src="/js/app.js"></script>
-  <script src="/js/prism.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/prism.js"></script>
 
-  @yield('scripts')
-
-    </body>
+    @yield('scripts')
+    @yield('body_end_code')
+  </body>
 </html>
