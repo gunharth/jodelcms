@@ -292,8 +292,25 @@ class Editor {
          *  Menu item type form select
          */
         $('body').on('change','#menuTypeSelector', (e) => {
-            let ele = $('#menuTypeItemSelector');
-            let selected = $('#menuTypeSelector').find('option:selected').val();
+            this.renderMenuTypeSelect();
+        });
+
+    }
+
+    /**
+     * Menu Popup create edit
+     * Render selection
+     */
+    renderMenuTypeSelect() {
+        let dropdown = $('#menuTypeItemSelector');
+        let external = $('#menuTypeExternalInput');
+        let selected = $('#menuTypeSelector').find('option:selected').val();
+        if(selected == 'External') {
+            dropdown.hide();
+            external.show();
+        } else {
+            dropdown.show();
+            external.hide();
             $.ajax({
                 type: 'GET',
                 url: '/admin/menuSelectorType/' + selected,
@@ -303,14 +320,21 @@ class Editor {
                     console.log(thrownError);
                 }
             }).done((data) => {
-                ele.empty();
+                dropdown.empty();
                 //ele.append('<option value="0">-- Auswahl --</option>');
+                let selected = 0;
+                if($('#morpher_id_orig').length) {
+                    selected = $('#morpher_id_orig').text();
+                }
                 for (var i = 0; i < data.length; i++) {
-                    ele.append('<option value="' + data[i].id + '">' + data[i].title + '</option>');
+                    let sel = '';
+                    if(data[i].id == selected) {
+                        sel = ' selected="selected"';
+                    }
+                    dropdown.append('<option value="' + data[i].id + '"' + sel + '>' + data[i].title + '</option>');
                 }
             });
-        });
-
+        }
     }
 
     /**
@@ -461,28 +485,7 @@ class Editor {
             url: '/menu/' + this.menu_id + '/settings',
             type: 'ajax',
             onAfterShow: () => {
-                let ele = $('#menuTypeItemSelector');
-                let selected = $('#menuTypeSelector').find('option:selected').val();
-                $.ajax({
-                    type: 'GET',
-                    url: '/admin/menuSelectorType/' + selected,
-                    //data: 'id='+menu_id,
-                    error: (xhr, ajaxOptions, thrownError) => {
-                        console.log(xhr.status);
-                        console.log(thrownError);
-                    }
-                }).done((data) => {
-                    ele.empty();
-                    //ele.append('<option value="0">-- Auswahl --</option>');
-                    let selected = $('#morpher_id_orig').text();
-                    for (var i = 0; i < data.length; i++) {
-                        let sel = '';
-                        if(data[i].id == selected) {
-                            sel = ' selected="selected"';
-                        }
-                        ele.append('<option value="' + data[i].id + '"' + sel + '>' + data[i].title + '</option>');
-                    }
-                });
+                this.renderMenuTypeSelect();
             },
             callback: () => {
                 this.loadMenu( this.getMenuID() );

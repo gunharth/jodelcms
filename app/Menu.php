@@ -32,7 +32,8 @@ class Menu extends Node implements SluggableInterface
       'menu_id',
       'slug',
       'morpher_id',
-      'morpher_type'
+      'morpher_type',
+      'external_link'
     ];
 
     public function getRouteKeyName()

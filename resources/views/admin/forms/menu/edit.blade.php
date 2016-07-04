@@ -15,7 +15,7 @@
 	    {!! Form::text('slug',null,['class' => 'form-control', 'placeholder' => 'slug']) !!}
 	    </div>
 	    <div class="form-group">
-	    {!! Form::label('morpher_type','Link') !!}
+	    {!! Form::label('morpher_type','Link to') !!}
 	     {!! Form::select(
                 'morpher_type',
                 Config::get('jodel.contentTypes'),
@@ -30,6 +30,9 @@
                 '',
                 ['class' => 'form-control', 'id' => 'menuTypeItemSelector']
                 ) !!}
+        </div>
+        <div class="form-group" id="menuTypeExternalInput">
+        {!! Form::text('external_link',null,['class' => 'form-control', 'placeholder' => 'http://']) !!}
         </div>
 	    <div id="morpher_id_orig" style="display: none;">{{ $menu->morpher_id }}</div>
 
