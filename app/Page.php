@@ -19,6 +19,7 @@ class Page extends Model implements SluggableInterface
 
     protected $fillable = [
         'title',
+        'slug',
         'content01',
         'content02',
         'content03',

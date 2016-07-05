@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Request;
+
 use App\Menu;
 
 class JodelServiceProvider extends ServiceProvider
@@ -19,7 +21,11 @@ class JodelServiceProvider extends ServiceProvider
          */
         view()->composer('partials.nav', function($view)
         {
-            $view->with('menu', Menu::with('morpher')->where('active', '=', 1)->where('menu_id',1)->get());
+            $path = Request::path();
+            if(!empty($_GET['menu'])) {
+                $path = $_GET['menu'];
+            }
+            $view->with('menu', Menu::where('active', '=', 1)->where('menu_id',1)->get())->with('path',$path);
         });
 
         /**
@@ -27,6 +33,7 @@ class JodelServiceProvider extends ServiceProvider
          */
         view()->composer('partials.footer', function($view)
         {
+            // morper needed here?
             $view->with('menu', Menu::with('morpher')->where('active', '=', 1)->where('menu_id',3)->get());
         });
     }

@@ -22,6 +22,8 @@ if (!function_exists('renderMainMenu')) {
         }
         //dd($node->getAncestorsAndSelf()->lists('slug'));
        // $link =  implode('/',$node->getAncestorsAndSelf()->lists('slug'));
+       //echo $node->morpher_id;
+       //echo $node->morpher->id;
         $active = '';
         $path = '/' . preg_replace('/\/edit$/', '', $path);
         if($path == $link) {
@@ -112,6 +114,7 @@ if (!function_exists('renderEditorPages')) {
             $delete = '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-fw"></i></button>';
         }
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
+                    '<a href="/page/' . $page->slug  . '" class="btn btn-xs"><i class="fa fa-external-link"></i></a>' .
                    '<button type="button" class="btn btn-link btn-xs load" data-toggle="tooltip" title="load in Browser"><i class="fa fa-external-link" data-url="/page/' . $page->slug . '/edit"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs edit" data-toggle="tooltip" title="edit"><i class="fa fa-pencil-square-o"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs duplicate" data-toggle="tooltip" title="duplicate"><i class="fa fa-copy"></i></button>' .

@@ -110,7 +110,7 @@ class Editor {
             let src = $(e.target).data('url');
             this.editorFrame.attr('src', src).load(() => {
                 this.hideLoadingIndicator();
-            });
+            });x
         });
 
         /**
@@ -133,7 +133,7 @@ class Editor {
             this.showLoadingIndicator();
             $.ajax({
                 type: 'POST',
-                url: '/page/duplicate',
+                url: '/admin/page/duplicate',
                 data: 'id=' + page_id,
                 error: (xhr, ajaxOptions, thrownError) => {
                     console.log(xhr.status);
@@ -158,8 +158,11 @@ class Editor {
                 this.showLoadingIndicator();
                 $.ajax({
                     type: 'POST',
-                    url: '/page/delete',
-                    data: 'id=' + page_id,
+                    url: '/admin/page/'+page_id,
+                    data: {
+                        '_method': 'delete'
+                    },
+                    dataType: 'json',
                     error: (xhr, ajaxOptions, thrownError) => {
                         console.log(xhr.status);
                         console.log(thrownError);
@@ -366,7 +369,7 @@ class Editor {
         this.openDialog({
             id: 'page-edit',
             title: 'Edit',
-            url: '/page/' + this.page_id + '/settings',
+            url: '/admin/page/' + this.page_id + '/settings',
             type: 'ajax',
             callback: () => {
                 this.loadPages();
@@ -630,6 +633,7 @@ class Editor {
                 encode: true,
                 error: (data) => {
                         let errors = data.responseJSON;
+                        console.log(errors)
                         $.each( errors, ( key, value ) => {
                             $("input[name="+key+"]").parent().addClass('has-error');
                         });

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Page;
 use Auth;
+use App\Page;
+use App\Template;
+use App\Http\Requests;
+use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
@@ -37,10 +38,10 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -50,9 +51,8 @@ class PagesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->slug = str_slug($request->title, "-");
         $page = Page::create($request->all());
-        return redirect()->route('page.show', [$request->slug]);
+        return redirect()->route('page.show', [$page->slug]);
     }
 
     /**
@@ -104,7 +104,7 @@ class PagesController extends Controller
     public function settings($id)
     {
         $page = Page::findOrFail($id);
-        $templates = \App\Template::where('active', 1)->lists('name', 'id');
+        $templates = Template::where('active', 1)->lists('name', 'id');
         return view('admin.forms.page.edit', compact('page','templates'));
     }
 
@@ -117,9 +117,18 @@ class PagesController extends Controller
      */
     public function update(Request $request, Page $page)
     {
-        //$data = ;
         $page->fill($request->all())->save();
         return $page;
+    }
+
+    public function duplicate(Request $request)
+    {
+        if ($request->ajax()) {
+            $page = Page::findOrFail($request->id);
+            $page->title = $page->title . ' copy';
+            $clone = $page->replicate()->resluggify();
+            $clone->save();
+        }
     }
 
     /**
@@ -128,9 +137,14 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            $page = Page::findOrFail($id);
+            $page->delete();
+           //return 'true';
+            return ['success' => true, 'message' => 'Item deleted!'];
+        }
     }
     
     // public function loadiFrame($src)
@@ -143,40 +157,22 @@ class PagesController extends Controller
      *
      * @param Request $request
      */
-    public function postActive(Request $request)
-    {
-        if ($request->ajax()) {
-            $page = Page::findOrFail($request->id);
-            $page->active = $request->active;
-            $page->save();
-        }
-    }
+    // public function postActive(Request $request)
+    // {
+    //     if ($request->ajax()) {
+    //         $page = Page::findOrFail($request->id);
+    //         $page->active = $request->active;
+    //         $page->save();
+    //     }
+    // }
 
-    /**
-     * Save the menu ordering
-     *
-     * @param Request $request
-     */
-    public function duplicate(Request $request)
-    {
-        if ($request->ajax()) {
-            $page = Page::findOrFail($request->id);
-            $page->title = $page->title . ' copy';
-            $clone = $page->replicate();
-            $clone->save();
-        }
-    }
 
-    /**
-     * Save the menu ordering
-     *
-     * @param Request $request
-     */
-    public function postDelete(Request $request)
+    /*public function postDelete(Request $request)
     {
         if ($request->ajax()) {
             $page = Page::findOrFail($request->id);
             $page->delete();
         }
-    }
+    }*/
+
 }

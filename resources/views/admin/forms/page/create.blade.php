@@ -1,5 +1,5 @@
 {!! Form::open([
-            'route' => ['page.store'],
+            'route' => ['admin.page.store'],
             'id' => 'createPage'
         ]) !!}
 	

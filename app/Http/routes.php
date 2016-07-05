@@ -10,12 +10,26 @@ Route::get('/', 'PagesController@index');
 /**
  * Pages
  */
-Route::post('page/delete', 'PagesController@postDelete');
-Route::post('page/duplicate', 'PagesController@duplicate');
-Route::get('page/{page}/settings', 'PagesController@settings');
-Route::post('page/{page}', 'PagesController@update');
-Route::resource('page', 'PagesController');
 
+Route::get('page/{page}', ['as' => 'page.show', 'uses' => 'PagesController@show']);
+Route::get('page/{page}/edit', 'PagesController@edit');
+
+//Route::post('page/{page}', 'PagesController@update'); 
+//Route::resource('page', 'PagesController');
+/**
+|        | POST                           | page                              | page.store           | App\Http\Controllers\PagesController@store                      | web,auth   |
+|        | GET|HEAD                       | page                              | page.index           | App\Http\Controllers\PagesController@index                      | web        |
+|        | GET|HEAD                       | page/create                       | page.create          | App\Http\Controllers\PagesController@create                     | web,auth   |
+|        | POST                           | page/delete                       |                      | App\Http\Controllers\PagesController@postDelete                 | web,auth   |
+|        | POST                           | page/duplicate                    |                      | App\Http\Controllers\PagesController@duplicate                  | web,auth   |
+|        | POST                           | page/{page}                       |                      | App\Http\Controllers\PagesController@update                     | web,auth   |
+|        | DELETE                         | page/{page}                       | page.destroy         | App\Http\Controllers\PagesController@destroy                    | web,auth   |
+|        | GET|HEAD                       | page/{page}                       | page.show            | App\Http\Controllers\PagesController@show                       | web        |
+|        | PUT|PATCH                      | page/{page}                       | page.update          | App\Http\Controllers\PagesController@update                     | web,auth   |
+|        | GET|HEAD                       | page/{page}/edit                  | page.edit            | App\Http\Controllers\PagesController@edit                       | web,auth   |
+|        | GET|HEAD                       | page/{page}/settings              |                      | App\Http\Controllers\PagesController@settings                   | web,auth   |
+*+/
+*
 /**
  * Blog
  */
@@ -53,6 +67,15 @@ Route::resource('menu', 'MenusController');
 
 Route::group(['prefix' => 'admin'], function () {
     
+    /**
+     * Pages
+     */
+    Route::post('page', ['as' => 'admin.page.store', 'uses' => 'PagesController@store']);
+    Route::match(['put','patch'],'page/{page}', ['as' => 'admin.page.update', 'uses' => 'PagesController@update']);
+    Route::delete('page/{id}', 'PagesController@destroy');
+    Route::post('page/duplicate', 'PagesController@duplicate');
+    Route::get('page/{page}/settings', 'PagesController@settings');
+
     /**
      *  Editor
      *  Catch all route for create 

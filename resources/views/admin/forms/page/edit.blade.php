@@ -1,6 +1,6 @@
 {!! Form::model($page,[
         'method' => 'PATCH',
-        'route' => ['page.update', $page->slug],
+        'route' => ['admin.page.update', $page->slug],
         'id' => 'updatePage'
     ]) !!}
 	
@@ -33,10 +33,6 @@
         
         <div id="tab-page-seo">
 
-            <div class="form-group">
-                {!! Form::label('slug','Slug') !!}
-                {!! Form::text('slug',null,['class' => 'form-control', 'placeholder' => 'page-slug']) !!}
-            </div>
 
             <div class="form-group">
                 {!! Form::label('meta_title','Meta Title') !!}

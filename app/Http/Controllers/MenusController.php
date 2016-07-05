@@ -109,7 +109,10 @@ class MenusController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if ($request->ajax()) {
+            $menu = Menu::findOrFail($request->id);
+            $menu->delete();
+        }
     }
 
     /**

@@ -23,8 +23,11 @@ class MenuRequest extends Request
      */
     public function rules()
     {
-        return [
+       //dd($this->route());
+       return [
             'name' => 'required|max:20',
+            //'slug'  => 'required|unique:menus,'.$this->route('menu'),
+            'slug'  => 'required|unique:menus',
             'external_link' => 'required_if:morpher_type,External'
         ];
     }

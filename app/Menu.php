@@ -17,6 +17,7 @@ class Menu extends Node implements SluggableInterface
     protected $sluggable = [
         'build_from' => 'name',
         'save_to'    => 'slug',
+        'on_update'  => false
     ];
 
 

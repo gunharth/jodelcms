@@ -135,30 +135,30 @@ function savePage() {
       
       $('#editor-loading', window.parent.document).show();
 
-        var data = {};
+        var data = {'_method': 'patch' };
         var page_id = $('#page_id').val();
-          for (i=0; i < tinymce.editors.length; i++){
-            var content = tinymce.editors[i].getContent();
-            var field = document.getElementById(tinymce.editors[i].id).dataset.field;
-            data[field] = content;
-            //alert(field + ':' + content);
-            //alert('Editor-Id(' + tinymce.editors[i].id + '):' + content);
-          }
-          $.ajax({
-        dataType: "html",
-        data: data,
-        url: "/page/"+page_id,
-        cache: false,
-        method: 'POST',
-        success: function(data) {
-            // make something green!!!
-            setTimeout(function(){
-                $('#editor-loading', window.parent.document).hide();
-                document.location.reload();
-            },500);
-            
+        for (i=0; i < tinymce.editors.length; i++){
+          var content = tinymce.editors[i].getContent();
+          var field = document.getElementById(tinymce.editors[i].id).dataset.field;
+          data[field] = content;
+          //alert(field + ':' + content);
+          //alert('Editor-Id(' + tinymce.editors[i].id + '):' + content);
         }
-    });
+        $.ajax({
+            dataType: "json",
+            data: data,
+            url: "/admin/page/"+page_id,
+            cache: false,
+            method: 'POST',
+            success: function(data) {
+                // make something green!!!
+                setTimeout(function(){
+                    $('#editor-loading', window.parent.document).hide();
+                    document.location.reload();
+                },500);
+                
+            }
+        });
     }
     
 
