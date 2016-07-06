@@ -116,9 +116,12 @@
     box-sizing: border-box; -moz-box-sizing: border-box;
 }
 .dd-title {
-	white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: relative;
+    display: inline-block;
 }
 .dd-content:hover { color: #2ea8e5; background: #fff; }
 
