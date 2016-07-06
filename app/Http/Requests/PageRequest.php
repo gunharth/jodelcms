@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class MenuRequest extends Request
+class PageRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class MenuRequest extends Request
     public function rules()
     {
         $global = [
-            'name' => 'required|max:30',
-            'external_link' => 'required_if:morpher_type,External'
+            'title' => 'required|max:30',
         ];
         switch ($this->method()) {
             case 'GET':
@@ -35,17 +34,16 @@ class MenuRequest extends Request
             }
             case 'POST':
             {
-                $custom = [
-                    //'slug'  => 'required|unique:menus'
-                ];
+                $custom = [];
                 return array_merge($global, $custom);
             }
             case 'PUT':
             case 'PATCH':
             {
-                $custom = [
-                    'slug'  => 'required|unique:menus,slug,'.$this->route('menu')
-                ];
+                $custom = [];
+                if (substr_compare($this->path(), "content", -1, 7)) {
+                    return [];
+                }
                 return array_merge($global, $custom);
             }
             default:break;

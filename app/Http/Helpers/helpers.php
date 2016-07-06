@@ -73,8 +73,8 @@ if (!function_exists('renderEditorMenus')) {
         $active = ($node->active == 1) ? 'fa-circle' : 'fa-circle-o';
         $active_data = ($node->active == 1) ? 0 : 1;
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
-                   '<a href="' . $slug . '" ' . $target . ' class="btn btn-xs"><i class="fa fa-external-link"></i></a>' .
-                   '<button type="button" class="btn btn-link btn-xs edit"><i class="fa fa-pencil-square-o"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs load" data-toggle="tooltip" title="load in Browser"><i class="fa fa-external-link" data-url="' . $slug . '" data-target="' . $target . '"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs edit"><i class="fa fa-gear"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs toggleActive"><i class="fa ' . $active . '" data-active="' . $active_data . '"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs delete"><i class="fa fa-times"></i></button>' .
                    '</div>';
@@ -114,9 +114,8 @@ if (!function_exists('renderEditorPages')) {
             $delete = '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-fw"></i></button>';
         }
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
-                    '<a href="/page/' . $page->slug  . '" class="btn btn-xs"><i class="fa fa-external-link"></i></a>' .
-                   '<button type="button" class="btn btn-link btn-xs load" data-toggle="tooltip" title="load in Browser"><i class="fa fa-external-link" data-url="/page/' . $page->slug . '/edit"></i></button>' .
-                   '<button type="button" class="btn btn-link btn-xs edit" data-toggle="tooltip" title="edit"><i class="fa fa-pencil-square-o"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs load" data-toggle="tooltip" title="load in Browser"><i class="fa fa-external-link" data-url="/page/' . $page->slug . '"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs edit" data-toggle="tooltip" title="edit"><i class="fa fa-gear"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs duplicate" data-toggle="tooltip" title="duplicate"><i class="fa fa-copy"></i></button>' .
                    $delete .
                    '</div>';

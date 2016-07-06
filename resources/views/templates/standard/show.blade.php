@@ -11,7 +11,8 @@
   @section('styles')
     <style>
       .jodelText, .jodelTextarea { outline: 1px dashed #27ae60; }
-      .jodelText:hover, .jodelTextarea:hover { outline: 1px solid #27ae60;}
+      .jodelText:hover, .jodelTextarea:hover, .mce-edit-focus  { outline: 1px solid #27ae60 !important;}
+      .jodelText.has-changed, .jodelTextarea.has-changed { outline: 1px dashed red !important; }
     </style>
   @endsection
 @endif
@@ -94,6 +95,7 @@ Menu id {!! $menu->id !!}
     });
 
       function tinyMceChange(ed) {
+        $(ed.targetElm).addClass('has-changed');
     console.debug('Editor contents was modified. Contents: ' + ed.getContent());
 }
 
@@ -145,9 +147,9 @@ function savePage() {
           //alert('Editor-Id(' + tinymce.editors[i].id + '):' + content);
         }
         $.ajax({
-            dataType: "json",
+            dataType: 'json',
             data: data,
-            url: "/admin/page/"+page_id,
+            url: '/admin/page/'+page_id+'/content',
             cache: false,
             method: 'POST',
             success: function(data) {

@@ -3,18 +3,12 @@
 Route::auth();
 
 /**
- * Homepage
- */
-Route::get('/', 'PagesController@index');
-
-/**
  * Pages
  */
-
+Route::get('/', 'PagesController@index');
 Route::get('page/{page}', ['as' => 'page.show', 'uses' => 'PagesController@show']);
-Route::get('page/{page}/edit', 'PagesController@edit');
+// Route::get('page/{page}/edit', 'PagesController@edit');
 
-//Route::post('page/{page}', 'PagesController@update'); 
 //Route::resource('page', 'PagesController');
 /**
 |        | POST                           | page                              | page.store           | App\Http\Controllers\PagesController@store                      | web,auth   |
@@ -68,9 +62,11 @@ Route::resource('menu', 'MenusController');
 Route::group(['prefix' => 'admin'], function () {
     
     /**
-     * Pages
+     * Admin Pages
      */
+    Route::get('page/{page}/edit', 'PagesController@edit');
     Route::post('page', ['as' => 'admin.page.store', 'uses' => 'PagesController@store']);
+    Route::match(['put','patch'],'page/{page}/content', ['as' => 'admin.page.content', 'uses' => 'PagesController@updateContent']);
     Route::match(['put','patch'],'page/{page}', ['as' => 'admin.page.update', 'uses' => 'PagesController@update']);
     Route::delete('page/{id}', 'PagesController@destroy');
     Route::post('page/duplicate', 'PagesController@duplicate');

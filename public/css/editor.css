@@ -166,3 +166,8 @@
 	display:none;
 	z-index: 51;
 	}
+
+.has-error .form-control, .has-error .form-control:focus {
+    border: 0;
+    outline: 1px solid #d9534f;
+}

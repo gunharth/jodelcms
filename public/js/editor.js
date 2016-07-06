@@ -7,6 +7,7 @@ class Editor {
         this.formsLoaded = {};
         this.page_id = 0;
         this.editorFrame = $("#editorIFrame");
+        this.data = '';
 
     }
 
@@ -102,15 +103,12 @@ class Editor {
         });
 
         /**
-         *	Load a page in iFrame
+         *	Load page in window
          */
         $('#tab-pages', this.editorPanel).on('click', '.load', (e) => {
             e.preventDefault();
-            this.showLoadingIndicator();
             let src = $(e.target).data('url');
-            this.editorFrame.attr('src', src).load(() => {
-                this.hideLoadingIndicator();
-            });x
+            window.top.location.href = src;
         });
 
         /**
@@ -139,8 +137,9 @@ class Editor {
                     console.log(xhr.status);
                     console.log(thrownError);
                 }
-            }).done(() => {
-                this.loadPages();
+            }).done((data) => {
+                this.data = data;
+                this.loadPageURL();
             });
         });
 
@@ -217,6 +216,20 @@ class Editor {
             e.preventDefault();
             //let menu_id = $('#menuSelector').find('option:selected').val();
             this.addMenu( this.getMenuID() );
+        });
+
+        /**
+         *  Load menu in window
+         */
+        $('#tab-menus', this.editorPanel).on('click', '.load', (e) => {
+            e.preventDefault();
+            let src = $(e.target).data('url');
+            let target = $(e.target).data('target');
+            if(target == '') {
+                window.top.location.href = src;
+            } else {
+                window.open(src);
+            }
         });
 
 
@@ -388,19 +401,28 @@ class Editor {
      * Editor add page window
      */
     addPage() {
+        $('#page-add').remove();
+        delete this.formsLoaded['page-add'];
         this.openDialog({
             id: 'page-add',
             title: 'Create a new Page',
             url: '/admin/forms/page/create',
-            type: '',
+            type: 'ajax',
             buttons: {
                 ok: 'Create',
                 Cancel: () => {
                     this.dialog.dialog("close");
                 }
-            }
+            },
+            callback: () => {
+                this.loadPageURL();
+            },
         });
     };
+
+    loadPageURL() {
+        window.top.location.href = '/page/'+this.data.slug;
+    }
 
 
     /**
@@ -596,6 +618,7 @@ class Editor {
         };
         buttons['Close'] = () => {
             dialog.dialog('close');
+            dialog.remove();
         };
 
         dialog.dialog({
@@ -632,6 +655,7 @@ class Editor {
                 dataType: 'json', // what type of data do we expect back from the server
                 encode: true,
                 error: (data) => {
+                        $("input").parent().removeClass('has-error');
                         let errors = data.responseJSON;
                         console.log(errors)
                         $.each( errors, ( key, value ) => {
@@ -639,6 +663,7 @@ class Editor {
                         });
                     }
             }).done((data) => {
+                this.data = data;
                 dialog.dialog('close');
                 //dialog.remove();
                 if (typeof(options.callback) === 'function') {

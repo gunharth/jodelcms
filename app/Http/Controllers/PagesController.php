@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use App\Page;
-use App\Template;
-use App\Http\Requests;
+use App\Http\Requests\PageRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Template;
+use App\Page;
+use Auth;
 
 class PagesController extends Controller
 {
@@ -27,7 +28,7 @@ class PagesController extends Controller
     {
         $page = Page::findOrFail(1);
         if (Auth::check()) {
-            $src = '/page/'.$page->slug.'/edit';
+            $src = '/admin/page/'.$page->slug.'/edit';
             return $this->loadiFrame($src);
         }
         return view('templates.index', compact('page'));
@@ -49,10 +50,11 @@ class PagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PageRequest $request)
     {
         $page = Page::create($request->all());
-        return redirect()->route('page.show', [$page->slug]);
+        return $page;
+        //return redirect()->route('page.show', [$page->slug]);
     }
 
     /**
@@ -64,7 +66,7 @@ class PagesController extends Controller
     public function show(Page $page)
     {
         if (Auth::check()) {
-            $src = '/page/'.$page->slug.'/edit';
+            $src = '/admin/page/'.$page->slug.'/edit';
             return $this->loadiFrame($src);
         }
         return view('templates.' . $page->template->path . '.show', compact('page'));
@@ -74,7 +76,7 @@ class PagesController extends Controller
     {
         $page = Page::find($id);
         if (Auth::check()) {
-            $src = '/page/'.$page->slug.'/edit';
+            $src = '/admin/page/'.$page->slug.'/edit';
             return $this->loadiFrame($src);
         }
         return view('templates.' . $page->template->path . '.show', compact('page'));
@@ -105,7 +107,7 @@ class PagesController extends Controller
     {
         $page = Page::findOrFail($id);
         $templates = Template::where('active', 1)->lists('name', 'id');
-        return view('admin.forms.page.edit', compact('page','templates'));
+        return view('admin.forms.page.edit', compact('page', 'templates'));
     }
 
     /**
@@ -115,7 +117,13 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Page $page)
+    public function update(PageRequest $request, Page $page)
+    {
+        $page->fill($request->all())->save();
+        return $page;
+    }
+
+    public function updateContent(PageRequest $request, Page $page)
     {
         $page->fill($request->all())->save();
         return $page;
@@ -128,6 +136,7 @@ class PagesController extends Controller
             $page->title = $page->title . ' copy';
             $clone = $page->replicate()->resluggify();
             $clone->save();
+            return $clone;
         }
     }
 
@@ -174,5 +183,4 @@ class PagesController extends Controller
             $page->delete();
         }
     }*/
-
 }
