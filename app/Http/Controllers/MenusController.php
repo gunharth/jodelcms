@@ -30,9 +30,11 @@ class MenusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, $id)
     {
-        //
+        if ($request->ajax()) {
+            return view('admin.forms.menu.create', compact('id'));
+        }
     }
 
     /**
@@ -108,11 +110,12 @@ class MenusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         if ($request->ajax()) {
             $menu = Menu::findOrFail($request->id);
             $menu->delete();
+            return ['success' => true, 'message' => 'Item deleted!'];
         }
     }
 
@@ -156,11 +159,11 @@ class MenusController extends Controller
      *
      * @param Request $request
      */
-    public function postDelete(Request $request)
-    {
-        if ($request->ajax()) {
-            $menu = Menu::findOrFail($request->id);
-            $menu->delete();
-        }
-    }
+    // public function postDelete(Request $request)
+    // {
+    //     if ($request->ajax()) {
+    //         $menu = Menu::findOrFail($request->id);
+    //         $menu->delete();
+    //     }
+    // }
 }

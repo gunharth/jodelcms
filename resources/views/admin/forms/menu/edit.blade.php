@@ -1,7 +1,7 @@
 
 {!! Form::model($menu,[
         'method' => 'PATCH',
-        'route' => ['menu.update', $menu->id],
+        'route' => ['admin.menu.update', $menu->id],
         'id' => 'updateMenu'
     ]) !!}
 

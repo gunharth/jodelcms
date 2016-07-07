@@ -25,31 +25,20 @@ Route::resource('blog', 'PostsController');
 Route::get('articles/{post}', 'PostsController@show');
 Route::get('articles', 'PostsController@index');
 
-/**
- * Menu
- */
-Route::post('menu/sortorder', 'MenusController@postOrder');
-Route::post('menu/active', 'MenusController@postActive');
-Route::post('menu/delete', 'MenusController@postDelete');
-Route::get('menu/{menu}/settings', 'MenusController@settings');
-//Route::post('blog/{id}', 'MenusController@update');
-Route::resource('menu', 'MenusController');
-
 
 /**
- * Admin
+ * Admin Routes
  */
-// Route::get('forms/page/{page}', function () {
-//     return view('page.forms.create');
-// });
 
 Route::group(['prefix' => 'admin'], function () {
     
     /**
      * Admin Pages
      */
+    
+    Route::post('page',         ['as' => 'admin.page.store',    'uses' => 'PagesController@store']);
+    Route::get('page/create',   ['as' => 'admin.page.create',   'uses' => 'PagesController@create']);
     Route::get('page/{page}/edit', 'PagesController@edit');
-    Route::post('page', ['as' => 'admin.page.store', 'uses' => 'PagesController@store']);
     Route::match(['put','patch'],'page/{page}/content', ['as' => 'admin.page.content', 'uses' => 'PagesController@updateContent']);
     Route::match(['put','patch'],'page/{page}', ['as' => 'admin.page.update', 'uses' => 'PagesController@update']);
     Route::delete('page/{id}', 'PagesController@destroy');
@@ -57,13 +46,26 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('page/{page}/settings', 'PagesController@settings');
 
     /**
+     * Admin Menus
+     */
+    Route::post('menu', ['as' => 'admin.menu.store', 'uses' => 'MenusController@store']);
+    Route::get('menu/create/{id}', ['as' => 'admin.menu.create', 'uses' => 'MenusController@create']);
+    Route::match(['put','patch'],'menu/{page}', ['as' => 'admin.menu.update', 'uses' => 'MenusController@update']);
+    Route::delete('menu/{id}', 'MenusController@destroy');
+    Route::post('menu/sortorder', 'MenusController@postOrder');
+    Route::post('menu/active', 'MenusController@postActive');
+    Route::get('menu/{menu}/settings', 'MenusController@settings');
+    
+    
+
+    /**
      *  Editor
      *  Catch all route for create 
      */
-    Route::get('forms/{type}/{action}/{id?}', function ($type, $action, $id=null) {
-        $templates = \App\Template::where('active', 1)->lists('name', 'id');
-        return view('admin.forms.'.$type.'.'.$action, compact('templates', 'id'));
-    });
+    // Route::get('forms/{type}/{action}/{id?}', function ($type, $action, $id=null) {
+    //     $templates = \App\Template::where('active', 1)->lists('name', 'id');
+    //     return view('admin.forms.'.$type.'.'.$action, compact('templates', 'id', 'page'));
+    // });
 
     /**
      * Editor: Tab Menus

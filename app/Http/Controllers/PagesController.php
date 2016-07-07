@@ -39,10 +39,13 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function create()
-    // {
-    //     //
-    // }
+    public function create(Request $request)
+    {
+        if ($request->ajax()) {
+            $templates = Template::where('active', 1)->lists('name', 'id');
+            return view('admin.forms.page.create', compact('templates', 'page'));
+        }
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -151,7 +154,6 @@ class PagesController extends Controller
         if ($request->ajax()) {
             $page = Page::findOrFail($id);
             $page->delete();
-           //return 'true';
             return ['success' => true, 'message' => 'Item deleted!'];
         }
     }

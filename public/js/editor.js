@@ -253,7 +253,7 @@ class Editor {
             let active = $(e.target).data('active');
             $.ajax({
                 type: 'POST',
-                url: '/menu/active',
+                url: '/admin/menu/active',
                 data: 'id=' + menu_id + '&active=' + active,
                 error: (xhr, ajaxOptions, thrownError) => {
                     console.log(xhr.status);
@@ -280,8 +280,11 @@ class Editor {
                 this.showLoadingIndicator();
                 $.ajax({
                     type: 'POST',
-                    url: '/menu/delete',
-                    data: 'id=' + menu_id,
+                    url: '/admin/menu/'+menu_id,
+                    data: {
+                        '_method': 'delete'
+                    },
+                    dataType: 'json',
                     error: (xhr, ajaxOptions, thrownError) => {
                         console.log(xhr.status);
                         console.log(thrownError);
@@ -401,7 +404,7 @@ class Editor {
         this.openDialog({
             id: 'page-add',
             title: 'Create a new Page',
-            url: '/admin/forms/page/create',
+            url: '/admin/page/create',
             type: 'ajax',
             buttons: {
                 ok: 'Create',
@@ -462,9 +465,6 @@ class Editor {
         }
     };
 
-    // ad page and prepare dialog details
-    //openDialog
-    //openform
     
     /**
     *  Get active Menu id
@@ -501,7 +501,7 @@ class Editor {
         this.openDialog({
             id: 'menu-edit',
             title: 'Edit',
-            url: '/menu/' + this.menu_id + '/settings',
+            url: '/admin/menu/' + this.menu_id + '/settings',
             type: 'ajax',
             onAfterShow: () => {
                 this.renderMenuTypeSelect();
@@ -525,7 +525,7 @@ class Editor {
         this.openDialog({
             id: 'menu-add',
             title: 'Create a new menu',
-            url: '/admin/forms/menu/create/' + menu_id,
+            url: '/admin/menu/create/' + menu_id,
             type: 'ajax',
             onAfterShow: () => {
                 let ele = $('#menuTypeItemSelector');

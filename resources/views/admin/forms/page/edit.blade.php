@@ -54,17 +54,17 @@
 
             <div class="form-group">
                 {!! Form::label('head_code','Additional head content') !!}
-                {!! Form::textarea('head_code',null,['class' => 'form-control', 'size' => '30x3', 'placeholder' => 'head content']) !!}
+                {!! Form::textarea('head_code',null,['class' => 'form-control', 'size' => '30x3', 'placeholder' => 'open graph data, etc.']) !!}
             </div>
 
            <div class="form-group">
                 {!! Form::label('body_start_code','Code right after the body tag') !!}
-                {!! Form::textarea('body_start_code',null,['class' => 'form-control', 'size' => '30x3', 'placeholder' => 'head content']) !!}
+                {!! Form::textarea('body_start_code',null,['class' => 'form-control', 'size' => '30x3', 'placeholder' => 'google anylytics code, etc.']) !!}
             </div>
             
             <div class="form-group">
                 {!! Form::label('body_end_code','Code before the end body tag') !!}
-                {!! Form::textarea('body_end_code',null,['class' => 'form-control', 'size' => '30x3', 'placeholder' => 'head content']) !!}
+                {!! Form::textarea('body_end_code',null,['class' => 'form-control', 'size' => '30x3', 'placeholder' => 'optional javascripts, etc.']) !!}
             </div>
 
         </div>
