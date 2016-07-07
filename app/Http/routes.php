@@ -50,7 +50,7 @@ Route::group(['prefix' => 'admin'], function () {
      */
     Route::post('menu', ['as' => 'admin.menu.store', 'uses' => 'MenusController@store']);
     Route::get('menu/create/{id}', ['as' => 'admin.menu.create', 'uses' => 'MenusController@create']);
-    Route::match(['put','patch'],'menu/{page}', ['as' => 'admin.menu.update', 'uses' => 'MenusController@update']);
+    Route::match(['put','patch'],'menu/{menu}', ['as' => 'admin.menu.update', 'uses' => 'MenusController@update']);
     Route::delete('menu/{id}', 'MenusController@destroy');
     Route::post('menu/sortorder', 'MenusController@postOrder');
     Route::post('menu/active', 'MenusController@postActive');
