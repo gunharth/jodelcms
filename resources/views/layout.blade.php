@@ -15,11 +15,10 @@
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="/css/prism.css">
-    <style>
-      body { margin-top: 50px; }
-      img { width: 100%; height: auto; }
-    </style>
-    @yield('styles')
+    @if (Auth::check())
+        <link rel="stylesheet" href="/css/admin.css">
+    @endif
+    @yield('templateStyles')
     @yield('head_code')
   </head>
   
@@ -32,8 +31,11 @@
 
     <script src="/js/app.js"></script>
     <script src="/js/prism.js"></script>
-
-    @yield('scripts')
+    @if (Auth::check())
+        <script src='/js/tinymce/tinymce.min.js'></script>
+        <script src='/js/admin.js'></script>
+    @endif
+    @yield('templateScripts')
     @yield('body_end_code')
   </body>
 </html>

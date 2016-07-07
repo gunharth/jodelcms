@@ -32,7 +32,6 @@
         </div>
         
         <div id="tab-page-seo">
-            {{ $page->slug }}
 
             <div class="form-group">
                 {!! Form::label('meta_title','Meta Title') !!}

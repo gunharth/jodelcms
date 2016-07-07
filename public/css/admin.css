@@ -1,0 +1,15 @@
+.jodelText,
+.jodelTextarea {
+    outline: 1px dashed #27ae60;
+}
+
+.jodelText:hover,
+.jodelTextarea:hover,
+.mce-edit-focus {
+    outline: 1px solid #27ae60 !important;
+}
+
+.jodelText.has-changed,
+.jodelTextarea.has-changed {
+    outline: 1px dashed red !important;
+}
