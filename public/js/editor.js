@@ -192,7 +192,7 @@ class Editor {
             this.showLoadingIndicator();
             $.ajax({
                 type: 'POST',
-                url: '/menu/sortorder',
+                url: '/admin/menu/sortorder',
                 data: JSON.stringify($('.nestable').nestable('asNestedSet')),
                 contentType: "json",
                 /*headers: {
