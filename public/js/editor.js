@@ -4,7 +4,6 @@ class Editor {
     constructor() {
         this.editorPanel = $('#editor-panel');
         this.editorPanelCollapse = $('#modal-toggle');
-        this.formsLoaded = {};
         this.page_id = 0;
         this.editorFrame = $("#editorIFrame");
         this.data = '';
@@ -188,7 +187,7 @@ class Editor {
         /* Menu funtions
         */
         $('.nestable').nestable({
-            maxDepth: 3
+            maxDepth: 2
         }).on('change', () => {
             this.showLoadingIndicator();
             $.ajax({
@@ -377,8 +376,6 @@ class Editor {
      *	Editor edit page window
      */
     editPage() {
-        $('#page-edit').remove();
-        delete this.formsLoaded['page-edit'];
         this.openDialog({
             id: 'page-edit',
             title: 'Edit',
@@ -401,8 +398,6 @@ class Editor {
      * Editor add page window
      */
     addPage() {
-        $('#page-add').remove();
-        delete this.formsLoaded['page-add'];
         this.openDialog({
             id: 'page-add',
             title: 'Create a new Page',
@@ -503,8 +498,6 @@ class Editor {
      *  Editor edit menu window
      */
     editMenu() {
-        $('#menu-edit').remove();
-        delete this.formsLoaded['menu-edit'];
         this.openDialog({
             id: 'menu-edit',
             title: 'Edit',
@@ -529,8 +522,6 @@ class Editor {
 
 
     addMenu(menu_id) {
-        $('#menu-add').remove();
-        delete this.formsLoaded['menu-add'];
         this.openDialog({
             id: 'menu-add',
             title: 'Create a new menu',
@@ -571,19 +562,10 @@ class Editor {
             }
         });
     };
+    
 
     openDialog(options) {
-        var isFormDomLoaded = typeof(this.formsLoaded[options.id]) !== 'undefined';
-
-        if (!isFormDomLoaded || options.cache === false) {
-            this.loadDialog(options);
-            return;
-        }
-        this.showDialog(options);
-    }
-
-    loadDialog(options) {
-        $('#'+options.id).remove();
+        //$('#'+options.id).remove();
         var formDom = $('<div></div>').attr('id', options.id);
         $.ajax({
                 url: options.url,
@@ -600,7 +582,6 @@ class Editor {
                     });
                 }
                 $('body').append(formDom);
-                this.formsLoaded[options.id] = true;
                 this.showDialog(options);
             });
     }
@@ -640,6 +621,9 @@ class Editor {
                     options.onAfterShow();
                 }
 
+            },
+            close: function( event, ui ) {
+                dialog.remove();
             }
         });
     };
