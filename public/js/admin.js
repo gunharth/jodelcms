@@ -55,11 +55,30 @@ tinymce.init({
         ed.on('change', function(e) {
             tinyMceChange(ed);
         });
+        ed.on('init', function(e) {
+            setModalEvents(ed);
+        });
     }
 });
 
 function tinyMceChange(ed) {
     $(ed.targetElm).addClass('has-changed');
+}
+
+function setModalEvents(ed) {
+    ed.windowManager.oldOpen = ed.windowManager.open; // save for later
+    ed.windowManager.open = function(t, r) { 
+        $('#editor-panel', window.parent.document).fadeOut();
+        var modal = this.oldOpen.apply(this, [t, r]);
+        modal.on('close', function() {
+            setTimeout(function() {
+                if ($('#mce-modal-block').length == 0) {
+                    $('#editor-panel', window.parent.document).fadeIn();
+                }
+            }, 300);
+        });
+        return modal; // Template plugin is dependent on this return value
+    };
 }
 
 function elFinderBrowser(field_name, url, type, win) {
