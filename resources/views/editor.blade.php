@@ -79,6 +79,16 @@
 				</div>
 				<div class="tab-content">
 					<div class="dd">
+			             <ol class="dd-list">
+			            	<li class="dd-item" data-collection="blog">
+			            		<div class="dd-content"><span class="dd-title">Blog</span><div class="btn-group pull-right" role="group" aria-label="...">
+			            			<!-- <button type="button" class="btn btn-link btn-xs load" data-toggle="tooltip" title="load in Browser"><i class="fa fa-external-link" data-url="/page/home"></i></button> -->
+			            			<button type="button" class="btn btn-link btn-xs openCollection" data-toggle="tooltip" title="edit"><i class="fa fa-gear"></i></button>
+			            			<!-- <button type="button" class="btn btn-link btn-xs duplicate" data-toggle="tooltip" title="duplicate"><i class="fa fa-copy"></i></button><button type="button" class="btn btn-link btn-xs"><i class="fa fa-fw"></i></button> -->
+			            		</div>
+			            		</div>
+			            	</li>
+			            </ol>
 			             Blog <br>
 			             Image Slider <br>
 			             Directors <br>

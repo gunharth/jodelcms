@@ -87,9 +87,10 @@ class DatabaseSeeder extends Seeder
          */
         DB::table('posts')->insert([
             'title' => 'Blog Home',
+            'content01' => 'Blog Home',
+            'content02' => 'Blog Home',
+            'content03' => 'Blog Home',
             'slug' => 'home',
-            'short_description' => 'Blog Home',
-            'content' => 'Blog Home',
             'template_id' => 3,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
@@ -97,18 +98,20 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('posts')->insert([
             'title' => 'My first Blog',
-            'slug' => 'my-first-blog',
-            'short_description' => 'My first Blog description',
-            'content' => 'My first Blog content',
+            'content01' => 'My first Blog Mega Title',
+            'content02' => 'My first Blog short description for blog homepage',
+            'content03' => 'My first Blog content ...',
+            'slug' => 'my-blog-1',
             'template_id' => 4,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
         DB::table('posts')->insert([
             'title' => 'My second Blog',
+            'content01' => 'My second Blog Mega Title',
+            'content02' => 'My second Blog short description for blog homepage',
+            'content03' => 'My second Blog content ...',
             'slug' => 'my-blog-2',
-            'short_description' => 'My second Blog description',
-            'content' => 'My second Blog content',
             'template_id' => 4,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()

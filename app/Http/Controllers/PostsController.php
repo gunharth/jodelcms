@@ -31,8 +31,15 @@ class PostsController extends Controller
 
     public function indexEditor()
     {
+        $post = Post::findOrFail(1); // get blog home and settings?
         $posts = Post::where('id', '>', 1)->paginate(10);
-        return view('templates.blog.index', compact('posts'));
+        return view('templates.blog.index', compact('post','posts'));
+    }
+
+    public function adminIndex()
+    {
+        $posts = Post::where('id', '>', 1)->paginate(10);
+        return view('admin.blog.index', compact('posts'));
     }
 
 
@@ -84,6 +91,12 @@ class PostsController extends Controller
     public function update(Request $request, Post $post)
     {
         //$data = ;
+        $post->fill($request->all())->save();
+        return $post;
+    }
+
+    public function updateContent(Request $request, Post $post)
+    {
         $post->fill($request->all())->save();
         return $post;
     }

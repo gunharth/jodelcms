@@ -7,6 +7,7 @@ class Editor {
         this.page_id = 0;
         this.editorFrame = $("#editorIFrame");
         this.data = '';
+        this.collection;
 
     }
 
@@ -313,7 +314,53 @@ class Editor {
             this.renderMenuTypeSelect();
         });
 
+
+        /**
+         *  Open edit collection dialog
+         */
+        $('#tab-collections', this.editorPanel).on('click', '.openCollection', (e) => {
+            e.preventDefault();
+            let parent = $(e.target).parents('.dd-item');
+            this.collection = parent.data('collection');
+            console.log(this.collection)
+            this.editCollection(this.collection);
+        });
+
+        /**
+         *  Tab collections tab1
+         *  Load collection in iframe
+         */
+        $('body').on('click', '#tab-collection-tab1 .load', (e) => {
+            e.preventDefault();
+            let src = $(e.target).data('url');
+            //this.editorFrame = src;
+            this.editorFrame.attr('src',src);
+        });
+
     }
+
+    /**
+     *  Editor edit page window
+     */
+    editCollection(collection) {
+        this.openDialog({
+            id: 'collection-edit',
+            title: 'Edit',
+            modal: false,
+            width: 800,
+            url: '/admin/'+collection+'/adminIndex',
+            type: 'ajax',
+            // callback: () => {
+            //     this.loadPages();
+            // },
+            buttons: {
+            //     ok: 'Save',
+            //     Cancel: () => {
+            //         this.dialog.dialog("close");
+            //     }
+            }
+        });
+    };
 
     /**
      * Menu Popup create edit
@@ -382,6 +429,7 @@ class Editor {
         this.openDialog({
             id: 'page-edit',
             title: 'Edit',
+            modal: true,
             url: '/admin/page/' + this.page_id + '/settings',
             type: 'ajax',
             callback: () => {
@@ -404,6 +452,7 @@ class Editor {
         this.openDialog({
             id: 'page-add',
             title: 'Create a new Page',
+            modal: true,
             url: '/admin/page/create',
             type: 'ajax',
             buttons: {
@@ -501,6 +550,7 @@ class Editor {
         this.openDialog({
             id: 'menu-edit',
             title: 'Edit',
+            modal: true,
             url: '/admin/menu/' + this.menu_id + '/settings',
             type: 'ajax',
             onAfterShow: () => {
@@ -525,6 +575,7 @@ class Editor {
         this.openDialog({
             id: 'menu-add',
             title: 'Create a new menu',
+            modal: true,
             url: '/admin/menu/create/' + menu_id,
             type: 'ajax',
             onAfterShow: () => {
@@ -592,22 +643,25 @@ class Editor {
         var dialog = $('#' + options.id);
 
         var buttons = {};
-
-        buttons[options.buttons.ok] = () => {
-            var form = $('form', dialog);
-            this.submitForm(dialog, form, options);
-        };
-        buttons['Close'] = () => {
-            dialog.dialog('close');
-            dialog.remove();
-        };
+        console.log(options.buttons.ok);
+        if(typeof(options.buttons.ok) !== 'undefined') {
+            buttons[options.buttons.ok] = () => {
+                var form = $('form', dialog);
+                this.submitForm(dialog, form, options);
+            };
+        }
+        // buttons['Close'] = () => {
+        //     dialog.dialog('close');
+        //     dialog.remove();
+        // };
 
         dialog.dialog({
             title: options.title,
-            modal: true,
+            modal: options.modal,
             buttons: buttons,
             width: typeof(options.width) === 'undefined' ? 450 : options.width,
             minWidth: 300,
+            minHeight: 600,
             /*position: {
                 my: "center top",
                 at: "center top+50",

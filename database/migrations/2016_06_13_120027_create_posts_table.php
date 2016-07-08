@@ -16,10 +16,19 @@ class CreatePostsTable extends Migration {
         {
             $table->increments('id');
             $table->string('title', 100);
-            $table->string('slug', 120)->unique()->index();
-            $table->text('short_description');
-            $table->longtext('content');
+            $table->text('content01')->nullable();
+            $table->text('content02')->nullable();
+            $table->longtext('content03')->nullable();
+            $table->string('slug')->unique()->index();
             $table->integer('template_id')->nullable();
+
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
+
+            $table->string('head_code')->nullable();
+            $table->string('body_start_code')->nullable();
+            $table->string('body_end_code')->nullable();
             $table->timestamps();
         });
     }

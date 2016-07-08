@@ -55,7 +55,13 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('menu/sortorder', 'MenusController@postOrder');
     Route::post('menu/active', 'MenusController@postActive');
     Route::get('menu/{menu}/settings', 'MenusController@settings');
-    
+
+    /**
+     * Admin Blog
+     */
+    Route::match(['put','patch'],'blog/{post}/content', ['as' => 'admin.blog.content', 'uses' => 'PostsController@updateContent']);
+    Route::get('blog/adminIndex', 'PostsController@adminIndex');
+
     
 
     /**

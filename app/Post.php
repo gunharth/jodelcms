@@ -15,11 +15,22 @@ class Post extends Model implements SluggableInterface
     protected $sluggable = [
         'build_from' => 'title',
         'save_to'    => 'slug',
+        'on_update'  => false
     ];
 
     protected $fillable = [
         'title',
-        'content'
+        'slug',
+        'content01',
+        'content02',
+        'content03',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'template_id',
+        'head_code',
+        'body_start_code',
+        'body_end_code'
     ];
 
     protected $with = [

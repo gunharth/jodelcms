@@ -100,7 +100,7 @@ function elFinderBrowser(field_name, url, type, win) {
 function savePage() {
     $('#editor-loading', window.parent.document).show();
     var data = { '_method': 'patch' };
-    var page_id = $('#page_id').val();
+    var url = $('#url').val();
     for (i = 0; i < tinymce.editors.length; i++) {
         var content = tinymce.editors[i].getContent();
         var field = document.getElementById(tinymce.editors[i].id).dataset.field;
@@ -109,7 +109,7 @@ function savePage() {
     $.ajax({
         dataType: 'json',
         data: data,
-        url: '/admin/page/' + page_id + '/content',
+        url: url,
         cache: false,
         method: 'POST',
         success: function(data) {
