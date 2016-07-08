@@ -79,7 +79,10 @@
 				</div>
 				<div class="tab-content">
 					<div class="dd">
-			             BLOG - Image slider
+			             Blog <br>
+			             Image Slider <br>
+			             Directors <br>
+			             Spots <br>
 			        </div> 
 		        </div>
 			</div>
@@ -89,34 +92,23 @@
 				</div>
 				<div class="tab-content">
 					<div class="dd">
-			             Element
+			             Form Builder? <br>
+			             reusable blocks ?
 			        </div> 
 		        </div>
 			</div>
             <div id="tab-settings" class="tab">
-                <ul class="links">
-                    <li>
-                        <i class="fa fa-fw fa-edit"></i>
-                        <a class="s-layouts" href="#">Manage Layouts</a>
-                    </li>
-                    <li>
-                        <i class="fa fa-fw fa-code"></i>
-                        <a class="s-code" href="#">Global Code</a>
-                    </li>
-                    <li>
-                        <i class="fa fa-fw fa-user"></i>
-                        <a class="s-user" href="#">Administrator Profile</a>
-                    </li>
-                    <li>
-                        <i class="fa fa-fw fa-envelope-o"></i>
-                        <a class="s-mail" href="#">Mail Settings</a>
-                    </li>
-                                            <li>
-                            <i class="fa fa-fw fa-cloud-download"></i>
-                            <a class="s-updates" href="http://inlinecms.com/check-updates?v=1.0.0" target="_blank">Check for updates</a>
-                        </li>
-                                    </ul>
-                <div id="core-version"><span>v1.0.0</span></div>
+                <div class="buttons">
+					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
+				</div>
+				<div class="tab-content">
+					<div class="dd">
+			             Settings (Global Title, etc ... Mail Preferences)
+			             Users / Access <br>
+			             Global Code (GA, Google webmaster tools, Bing webmaster tools, keep open to enter scripts like page specific codes) <br>
+			             Need for Recycle bin?
+			        </div> 
+		        </div>
             </div>
 		</div><!-- tabs end -->
       </div>
