@@ -25,7 +25,8 @@ class PostsController extends Controller
             $src = '/blog/indexEditor';
             return $this->loadiFrame($src);
         }
-        return view('templates.blog.index', compact('posts'));
+        $post = Post::findOrFail(1); // get blog home and settings?
+        return view('templates.blog.index', compact('post','posts'));
     }
 
 

@@ -334,7 +334,8 @@ class Editor {
             e.preventDefault();
             let src = $(e.target).data('url');
             //this.editorFrame = src;
-            this.editorFrame.attr('src',src);
+            // this.editorFrame.attr('src',src);
+            window.top.location.href = src;
         });
 
     }

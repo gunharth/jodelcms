@@ -116,7 +116,9 @@
 			             Settings (Global Title, etc ... Mail Preferences)
 			             Users / Access <br>
 			             Global Code (GA, Google webmaster tools, Bing webmaster tools, keep open to enter scripts like page specific codes) <br>
-			             Need for Recycle bin?
+			             Need for Recycle bin ? <br>
+			             spatie google analytics !
+
 			        </div> 
 		        </div>
             </div>
