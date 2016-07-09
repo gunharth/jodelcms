@@ -58,7 +58,7 @@
 			</div>
 			<div id="tab-menus" class="tab">
 				<div class="buttons">
-					<select name="menuSelector" id="menuSelector" class="form-control">
+					<select name="menuSelector" id="menuSelector" class="form-control" style="margin-bottom: 5px">
 						@foreach (Config::get('jodel.menus') as $name => $id)
 						     <option value="{{ $id }}">{{ $name }} </option>
 						@endforeach
@@ -113,6 +113,7 @@
 				</div>
 				<div class="tab-content">
 					<div class="dd">
+			             <b>DEV ONLY: <a href="/admin/Dataseed">Reset Database</a></b> <br>
 			             Settings (Global Title, etc ... Mail Preferences)
 			             Users / Access <br>
 			             Global Code (GA, Google webmaster tools, Bing webmaster tools, keep open to enter scripts like page specific codes) <br>

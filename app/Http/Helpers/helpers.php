@@ -78,9 +78,9 @@ if (!function_exists('renderEditorMenus')) {
         $active_data = ($node->active == 1) ? 0 : 1;
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
                    '<button type="button" class="btn btn-link btn-xs load" data-toggle="tooltip" title="load in Browser"><i class="fa fa-external-link" data-url="' . $slug . '" data-target="' . $target . '"></i></button>' .
-                   '<button type="button" class="btn btn-link btn-xs edit"><i class="fa fa-gear"></i></button>' .
-                   '<button type="button" class="btn btn-link btn-xs toggleActive"><i class="fa ' . $active . '" data-active="' . $active_data . '"></i></button>' .
-                   '<button type="button" class="btn btn-link btn-xs delete"><i class="fa fa-times"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs edit" title="settings"><i class="fa fa-gear"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs toggleActive" title="status"><i class="fa ' . $active . '" data-active="' . $active_data . '"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs delete" title="delete"><i class="fa fa-times"></i></button>' .
                    '</div>';
         $name  = '<div '.$handle.'><i class="fa fa-arrows"></i></div>';
         $name  .= '<div class="dd-content">' . $node->name . $actions . '</div>';
@@ -119,7 +119,7 @@ if (!function_exists('renderEditorPages')) {
         }
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
                    '<button type="button" class="btn btn-link btn-xs load" data-toggle="tooltip" title="load in Browser"><i class="fa fa-external-link" data-url="/page/' . $page->slug . '"></i></button>' .
-                   '<button type="button" class="btn btn-link btn-xs edit" data-toggle="tooltip" title="edit"><i class="fa fa-gear"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs edit" data-toggle="tooltip" title="settings"><i class="fa fa-gear"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs duplicate" data-toggle="tooltip" title="duplicate"><i class="fa fa-copy"></i></button>' .
                    $delete .
                    '</div>';

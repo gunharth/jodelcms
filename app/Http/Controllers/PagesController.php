@@ -43,6 +43,8 @@ class PagesController extends Controller
     {
         if ($request->ajax()) {
             $templates = Template::where('active', 1)->lists('name', 'id');
+            $page = new Page;
+            $page->template = Template::findOrFail(2);
             return view('admin.forms.page.create', compact('templates', 'page'));
         }
     }

@@ -30,8 +30,19 @@ Route::get('articles', 'PostsController@index');
  * Admin Routes
  */
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['middleware' => 'auth','prefix' => 'admin'], function () {
     
+    /**
+     * Dev only reset Database
+     */
+    Route::get('/Dataseed', function () {
+        Artisan::call('migrate:refresh', [
+            '--force' => true,
+            '--seed' => true,
+        ]);
+        return redirect('/');
+    });
+
     /**
      * Admin Pages
      */
