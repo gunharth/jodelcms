@@ -3,6 +3,6 @@
         'id' => 'createPage'
     ]) !!}
 	
-    @include('admin/forms/page/form')
+    @include('admin/page/form')
     
 {!! Form::close() !!}

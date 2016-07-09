@@ -33,7 +33,9 @@ class MenusController extends Controller
     public function create(Request $request, $id)
     {
         if ($request->ajax()) {
-            return view('admin.forms.menu.create', compact('id'));
+            $menu = new Menu;
+            //$menu->morpher_type_simple = 'Page';
+            return view('admin.menu.create', compact('id','menu'));
         }
     }
 
@@ -82,7 +84,7 @@ class MenusController extends Controller
     {
         $menu = Menu::findOrFail($id);
         $pages = Page::lists('title', 'id')->toArray();
-        return view('admin.forms.menu.edit', compact('menu', 'pages'));
+        return view('admin.menu.edit', compact('menu', 'pages'));
     }
 
     /**

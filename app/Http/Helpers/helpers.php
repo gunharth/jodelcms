@@ -119,7 +119,7 @@ if (!function_exists('renderEditorPages')) {
         }
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
                    '<button type="button" class="btn btn-link btn-xs load" data-toggle="tooltip" title="load in Browser"><i class="fa fa-external-link" data-url="/page/' . $page->slug . '"></i></button>' .
-                   '<button type="button" class="btn btn-link btn-xs edit" data-toggle="tooltip" title="settings"><i class="fa fa-gear"></i></button>' .
+                   '<button type="button" class="btn btn-link btn-xs settings" data-toggle="tooltip" title="settings"><i class="fa fa-gear"></i></button>' .
                    '<button type="button" class="btn btn-link btn-xs duplicate" data-toggle="tooltip" title="duplicate"><i class="fa fa-copy"></i></button>' .
                    $delete .
                    '</div>';

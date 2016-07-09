@@ -114,7 +114,7 @@ class Editor {
         /**
          *	Open edit page dialog
          */
-        $('#tab-pages', this.editorPanel).on('click', '.edit', (e) => {
+        $('#tab-pages', this.editorPanel).on('click', '.settings', (e) => {
             e.preventDefault();
             let parent = $(e.target).parents('.dd-item');
             this.page_id = parent.data('id');

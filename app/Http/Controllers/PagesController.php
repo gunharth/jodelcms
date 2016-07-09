@@ -45,7 +45,7 @@ class PagesController extends Controller
             $templates = Template::where('active', 1)->lists('name', 'id');
             $page = new Page;
             $page->template = Template::findOrFail(2);
-            return view('admin.forms.page.create', compact('templates', 'page'));
+            return view('admin.page.create', compact('templates', 'page'));
         }
     }
 
@@ -112,7 +112,7 @@ class PagesController extends Controller
     {
         $page = Page::findOrFail($id);
         $templates = Template::where('active', 1)->lists('name', 'id');
-        return view('admin.forms.page.edit', compact('page', 'templates'));
+        return view('admin.page.settings', compact('page', 'templates'));
     }
 
     /**
