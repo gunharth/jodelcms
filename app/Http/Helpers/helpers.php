@@ -14,7 +14,11 @@ if (!function_exists('renderMainMenu')) {
         $caret = '<i class="fa fa-caret-down"></i>';
         //$link = '';
         //$link = route('page', ['page_slug' => $node->slug]);
+        if($node->slug == "home") {
+        $link .= '/';
+    } else {
         $link .= '/' . $node->slug;
+    }
         $target = '';
         if($node->external_link != '') {
             $link = $node->external_link;
