@@ -338,6 +338,18 @@ class Editor {
             window.top.location.href = src;
         });
 
+        /**
+         *  Tab settings logs
+         *  Load collection in iframe
+         */
+        $('#tab-settings', this.editorPanel).on('click', '.openLogs', (e) => {
+            e.preventDefault();
+            let parent = $(e.target).parents('.dd-item');
+            this.setting = parent.data('setting');
+            console.log(this.setting)
+            this.editSetting(this.setting);
+        });
+
     }
 
     /**
@@ -350,6 +362,29 @@ class Editor {
             modal: false,
             width: 800,
             url: '/admin/'+collection+'/adminIndex',
+            type: 'ajax',
+            // callback: () => {
+            //     this.loadPages();
+            // },
+            buttons: {
+            //     ok: 'Save',
+            //     Cancel: () => {
+            //         this.dialog.dialog("close");
+            //     }
+            }
+        });
+    };
+
+    /**
+     *  Editor edit page window
+     */
+    editSetting(setting) {
+        this.openDialog({
+            id: 'setting-edit',
+            title: 'Edit',
+            modal: false,
+            width: 800,
+            url: '/admin/'+setting,
             type: 'ajax',
             // callback: () => {
             //     this.loadPages();
@@ -644,7 +679,6 @@ class Editor {
         var dialog = $('#' + options.id);
 
         var buttons = {};
-        console.log(options.buttons.ok);
         if(typeof(options.buttons.ok) !== 'undefined') {
             buttons[options.buttons.ok] = () => {
                 var form = $('form', dialog);

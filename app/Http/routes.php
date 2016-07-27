@@ -118,6 +118,14 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'], function () {
         $model = '\App\\'.$type;
         return $model::orderBy('title')->get();
     });
+
+    /**
+     * Editor: show event Log
+     * Fill the select filed on Menu Type change
+     * Type: ajax
+     */
+    Route::get('activity', 'LogsController@index');
+
 });
 
 /**

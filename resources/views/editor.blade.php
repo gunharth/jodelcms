@@ -89,7 +89,6 @@
 			            		</div>
 			            	</li>
 			            </ol>
-			             Blog <br>
 			             Image Slider <br>
 			             Directors <br>
 			             Spots <br>
@@ -113,6 +112,14 @@
 				</div>
 				<div class="tab-content">
 					<div class="dd">
+			             <ol class="dd-list">
+			            	<li class="dd-item" data-setting="activity">
+			            		<div class="dd-content"><span class="dd-title">Activity Log</span><div class="btn-group pull-right" role="group" aria-label="...">
+			            			<button type="button" class="btn btn-link btn-xs openLogs" data-toggle="tooltip" title="view"><i class="fa fa-eye"></i></button>
+			            		</div>
+			            		</div>
+			            	</li>
+			            </ol>
 			             <b>DEV ONLY: <a href="/admin/Dataseed">Reset Database</a></b> <br>
 			             Settings (Global Title, etc ... Mail Preferences)
 			             Users / Access <br>
