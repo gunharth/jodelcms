@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('meta_title')</title>
     <meta name="description" content="@yield('meta_description')">
-    <meta name="description" content="@yield('meta_keywords')">
+    <meta name="keywords" content="@yield('meta_keywords')">
     @if (Auth::check())
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @endif
