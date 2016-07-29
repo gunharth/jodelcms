@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         DB::table('templates')->insert([
             'name' => 'Homepage',
             'path' => 'page',
-            'active' => 0
+            'active' => 1
         ]);
         DB::table('templates')->insert([
             'name' => 'Standard',

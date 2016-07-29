@@ -31,7 +31,7 @@ class PagesController extends Controller
             $src = '/admin/page/'.$page->slug.'/edit';
             return $this->loadiFrame($src);
         }
-        return view('templates.index', compact('page'));
+        return view('index', compact('page'));
     }
 
     /**
@@ -74,7 +74,7 @@ class PagesController extends Controller
             $src = '/admin/page/'.$page->slug.'/edit';
             return $this->loadiFrame($src);
         }
-        return view('templates.' . $page->template->path . '.show', compact('page'));
+        return view($page->template->path . '.show', compact('page'));
     }
 
     public function showID($id)
@@ -84,7 +84,7 @@ class PagesController extends Controller
             $src = '/admin/page/'.$page->slug.'/edit';
             return $this->loadiFrame($src);
         }
-        return view('templates.' . $page->template->path . '.show', compact('page'));
+        return view($page->template->path . '.show', compact('page'));
     }
 
 
@@ -97,9 +97,9 @@ class PagesController extends Controller
     public function edit(Page $page)
     {
         if ($page->template->id == 1) {
-            return view('templates.index', compact('page'));
+            return view('index', compact('page'));
         }
-        return view('templates.' . $page->template->path . '.show', compact('page'));
+        return view($page->template->path . '.show', compact('page'));
     }
 
     /**

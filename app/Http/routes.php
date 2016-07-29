@@ -46,7 +46,6 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'], function () {
     /**
      * Admin Pages
      */
-    
     Route::post('page',         ['as' => 'admin.page.store',    'uses' => 'PagesController@store']);
     Route::get('page/create',   ['as' => 'admin.page.create',   'uses' => 'PagesController@create']);
     Route::get('page/{page}/edit', 'PagesController@edit');
