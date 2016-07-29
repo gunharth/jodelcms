@@ -26,7 +26,7 @@ class PostsController extends Controller
             return $this->loadiFrame($src);
         }
         $post = Post::findOrFail(1); // get blog home and settings?
-        return view('templates.blog.index', compact('post','posts'));
+        return view('blog.index', compact('post','posts'));
     }
 
 
@@ -34,7 +34,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail(1); // get blog home and settings?
         $posts = Post::where('id', '>', 1)->paginate(10);
-        return view('templates.blog.index', compact('post','posts'));
+        return view('blog.index', compact('post','posts'));
     }
 
     public function adminIndex()
@@ -50,7 +50,7 @@ class PostsController extends Controller
             $src = '/blog/'.$post->slug.'/edit';
             return $this->loadiFrame($src);
         }
-        return view('templates.blog.show', compact('post'));
+        return view('blog.show', compact('post'));
     }
 
     public function showID($id)
@@ -61,14 +61,14 @@ class PostsController extends Controller
                 $src = '/blog/indexEditor';
                 return $this->loadiFrame($src);
             }
-            return view('templates.blog.index', compact('posts'));
+            return view('blog.index', compact('posts'));
         }
         $post = Post::find($id);
         if (Auth::check()) {
             $src = '/blog/'.$post->slug.'/edit';
             return $this->loadiFrame($src);
         }
-        return view('templates.blog.show', compact('post'));
+        return view('blog.show', compact('post'));
     }
 
     /**
@@ -79,7 +79,7 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('templates.blog.show', compact('post'));
+        return view('blog.show', compact('post'));
     }
 
     /**

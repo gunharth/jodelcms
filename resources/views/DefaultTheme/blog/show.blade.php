@@ -9,6 +9,7 @@
 
 @section('content')
 @if (Auth::check()) <input type="hidden" id="url" value="/admin/blog/{!! $post->slug !!}/content"> @endif
+<h1>DefaultTheme</h1>
   <div class="container">
     <div class="row">
       <div class="col-md-6">

@@ -37,7 +37,7 @@ return [
 	|--------------------------------------------------------------------------
 	*/
 
-	'active' => 'BasicTheme',
+	'active' => 'DefaultTheme',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -62,7 +62,7 @@ return [
 			'views-path' 	=> '',
 			'asset-path' 	=> '',
 		],
-		'BasicTheme',
+		'DefaultTheme',
 
 		// Add your themes here...
 

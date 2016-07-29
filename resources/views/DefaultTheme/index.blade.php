@@ -7,12 +7,9 @@
 @section('body_start_code'){{ $page->body_start_code }}@endsection
 @section('body_end_code'){{ $page->body_end_code }}@endsection
 
-@section('templateStyles')
-@endsection
-
 @section('content')
   @if (Auth::check()) <input type="hidden" id="url" value="/admin/page/{!! $page->slug !!}/content"> @endif
-   <h1>Basic Theme</h1>
+  <h1>DefaultTheme</h1>
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -20,15 +17,9 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
           <div @if (Auth::check()) class="jodelTextarea" data-field="content02" @endif>{!! $page->content02 !!}</div>
       </div>
-      <div class="col-md-6">
-          <div @if (Auth::check()) class="jodelTextarea" data-field="content03" @endif>{!! $page->content03 !!}</div>
-        </div>
     </div>
   </div><!-- /.container -->
-@endsection
-
-@section('templateScripts')
 @endsection

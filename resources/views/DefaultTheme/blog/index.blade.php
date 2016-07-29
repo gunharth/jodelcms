@@ -8,6 +8,7 @@
 @section('body_end_code'){{ $post->body_end_code }}@endsection
 
 @section('content')
+<h1>DefaultTheme</h1>
   <div class="container">
     <div class="row">
       <div class="col-md-6">
