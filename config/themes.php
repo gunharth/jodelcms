@@ -19,7 +19,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'themes_path' => null, // eg: realpath(base_path('resources/themes'))
+    'themes_path' => realpath(base_path('resources/themes')), // eg: realpath(base_path('resources/themes'))
 
 	/*
 	|--------------------------------------------------------------------------
