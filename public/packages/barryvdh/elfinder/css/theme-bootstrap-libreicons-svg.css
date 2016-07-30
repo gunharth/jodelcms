@@ -7,7 +7,6 @@
  * @Required https://github.com/StudioJunkyard/LibreICONS
 **/
 body { margin: 0; }
-
 .elfinder{
 	display:block;
 	padding:0;
@@ -207,8 +206,7 @@ body { margin: 0; }
 	color:#fff
 }
 .elfinder .elfinder-navbar{
-	background:#fff;
-	width: 160px;
+	background:#fff
 }
 .elfinder .elfinder-navbar-dir{
 	padding:3px 3px 3px 38px;
@@ -231,8 +229,7 @@ body { margin: 0; }
 }
 .elfinder .elfinder-cwd-view-icons .elfinder-cwd-file{
 	padding:4px;
-	cursor:pointer;
-	border:1px solid #fff;
+	cursor:pointer
 }
 .elfinder .elfinder-cwd-view-icons .elfinder-cwd-file *,
 .elfinder .elfinder-cwd-view-icons .elfinder-cwd-file .elfinder-cwd-filename,

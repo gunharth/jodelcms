@@ -82,7 +82,7 @@ function setModalEvents(ed) {
 }
 
 function elFinderBrowser(field_name, url, type, win) {
-    console.log(type);
+    //console.log(type);
     tinymce.activeEditor.windowManager.open({
         file: '/elfinder/tinymce4', // use an absolute path!
         title: 'Files',

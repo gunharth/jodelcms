@@ -2,7 +2,7 @@
  * Japanese translation
  * @author Tomoaki Yoshida <info@yoshida-studio.jp>
  * @author Naoki Sawada <hypweb@gmail.com>
- * @version 2016-03-25
+ * @version 2016-06-30
  */
 if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object') {
 	elFinder.prototype.i18.jp = {
@@ -134,7 +134,7 @@ if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object'
 			'cmdplaces'    : 'お気に入りへ', // added 28.12.2014
 			'cmdchmod'     : '属性変更', // from v2.1 added 20.6.2015
 			'cmdopendir'   : 'フォルダを開く', // from v2.1 added 13.1.2016
-
+			'cmdcolwidth'  : '列幅リセット', // from v2.1.13 added 12.06.2016
 			/*********************************** buttons ***********************************/
 			'btnClose'  : '閉じる',
 			'btnSave'   : '保存',
@@ -233,6 +233,10 @@ if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object'
 			'sortsize'          : 'サイズ順',
 			'sortdate'          : '日付順',
 			'sortFoldersFirst'  : 'フォルダ優先',
+			'sortperm'          : '権限順',      // from v2.1.13 added 13.06.2016
+			'sortmode'          : '属性順',      // from v2.1.13 added 13.06.2016
+			'sortowner'         : 'オーナー順',  // from v2.1.13 added 13.06.2016
+			'sortgroup'         : 'グループ順',  // from v2.1.13 added 13.06.2016
 
 			/********************************** new items **********************************/
 			'untitled file.txt' : '新規ファイル.txt', // added 10.11.2015
@@ -342,6 +346,14 @@ if (elFinder && elFinder.prototype && typeof(elFinder.prototype.i18) == 'object'
 			'folderId'        : 'フォルダID', // from v2.1.10 added 3.25.2016
 			'offlineAccess'   : 'オフライン アクセスを可能にする', // from v2.1.10 added 3.25.2016
 			'reAuth'          : '再認証する', // from v2.1.10 added 3.25.2016
+			'nowLoading'      : '読み込んでいます...', // from v2.1.12 added 4.26.2016
+			'openMulti'       : '複数ファイルオープン', // from v2.1.12 added 5.14.2016
+			'openMultiConfirm': '$1 個のファイルを開こうとしています。このままブラウザで開きますか？', // from v2.1.12 added 5.14.2016
+			'emptySearch'     : '検索対象に該当するアイテムはありません', // from v2.1.12 added 5.16.2016
+			'editingFile'     : 'ファイルを編集中です', // from v2.1.13 added 6.3.2016
+			'hasSelected'     : '$1 個のアイテムを選択中です', // from v2.1.13 added 6.3.2016
+			'hasClipboard'    : '$1 個のアイテムがクリップボードに入っています', // from v2.1.13 added 6.3.2016
+			'incSearchOnly'   : '逐次検索は現在のビューからのみです', // from v2.1.13 added 6.30.2016
 
 			/********************************** mimetypes **********************************/
 			'kindUnknown'     : '不明',
