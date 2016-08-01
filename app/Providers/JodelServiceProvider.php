@@ -25,7 +25,8 @@ class JodelServiceProvider extends ServiceProvider
             if(!empty($_GET['menu'])) {
                 $path = $_GET['menu'];
             }
-            $view->with('menu', Menu::where('active', '=', 1)->where('menu_id',1)->get())->with('path',$path);
+            // $view->with('menu', Menu::where('active', '=', 1)->where('menu_id',1)->get())->with('path',$path);
+            $view->with('menu', Menu::whereActive(1)->whereMenuId(1)->get())->with('path',$path);
         });
 
         /**
@@ -34,7 +35,12 @@ class JodelServiceProvider extends ServiceProvider
         view()->composer('partials.footer', function($view)
         {
             // morper needed here?
-            $view->with('menu', Menu::with('morpher')->where('active', '=', 1)->where('menu_id',3)->get());
+            $view->with('menu', Menu::with('morpher')->where('active', '=', 1)->where('menu_id',2)->get());
+            // $path = Request::path();
+            // if(!empty($_GET['menu'])) {
+            //     $path = $_GET['menu'];
+            // }
+            // $view->with('menu', Menu::where('active', '=', 1)->where('menu_id',2)->get())->with('path',$path);
         });
     }
 
