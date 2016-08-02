@@ -5,12 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use Spatie\Translatable\HasTranslations;
 use App\Menu;
 use App\Template;
 
 class Post extends Model implements SluggableInterface
 {
     use SluggableTrait;
+    use HasTranslations;
 
     protected $sluggable = [
         'build_from' => 'title',
@@ -32,6 +34,8 @@ class Post extends Model implements SluggableInterface
         'body_start_code',
         'body_end_code'
     ];
+
+    public $translatable = ['content01'];
 
     protected $with = [
         'template',

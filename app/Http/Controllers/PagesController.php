@@ -8,15 +8,19 @@ use App\Http\Requests;
 use App\Template;
 use App\Page;
 use Auth;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class PagesController extends Controller
 {
 
     use Traits;
+
+    private $locale;
     
     public function __construct()
     {
         $this->middleware('auth', ['except' =>['show', 'index'] ]);
+        $this->locale = LaravelLocalization::getCurrentLocale();
     }
 
     /**
@@ -68,8 +72,13 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Page $page)
+    public function show($slug)
     {
+        //dd($slug);
+        $page = Page::with('template')->where('slug','LIKE', '%"' . $this->locale . '":"' . $slug . '"%')->first();
+        // App\Task::where('content','like', '%"en": "english"%')->get();
+        #$page = Page::find($id);
+        //dd($page);
         if (Auth::check()) {
             $src = '/admin/page/'.$page->slug.'/edit';
             return $this->loadiFrame($src);

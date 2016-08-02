@@ -14,7 +14,9 @@
         "baum/baum": "~1.1",
         "barryvdh/laravel-debugbar": "^2.2",
         "cviebrock/eloquent-sluggable": "^3.1",
-        "spatie/laravel-activitylog": "^1.2"
+        "spatie/laravel-activitylog": "^1.2",
+        "spatie/laravel-translatable": "^1.1",
+        "mcamara/laravel-localization": "1.1.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

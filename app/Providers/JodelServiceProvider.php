@@ -26,7 +26,7 @@ class JodelServiceProvider extends ServiceProvider
                 $path = $_GET['menu'];
             }
             // $view->with('menu', Menu::where('active', '=', 1)->where('menu_id',1)->get())->with('path',$path);
-            $view->with('menu', Menu::whereActive(1)->whereMenuId(1)->get())->with('path',$path);
+            $view->with('menu', Menu::with('morpher')->whereActive(1)->whereMenuId(1)->get())->with('path',$path);
         });
 
         /**

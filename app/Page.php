@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Translatable\HasTranslations;
 use App\Menu;
 use App\Template;
 
@@ -13,6 +14,7 @@ class Page extends Model implements SluggableInterface
 {
     use SluggableTrait;
     use LogsActivity;
+    use HasTranslations;
 
     protected $sluggable = [
         'build_from' => 'title',
@@ -41,6 +43,11 @@ class Page extends Model implements SluggableInterface
         'body_start_code',
         'body_end_code'
     ];
+
+    public $translatable = [
+        'content01',
+        'slug',
+        ];
 
     protected static $logAttributes = [
         'title',
@@ -78,10 +85,10 @@ class Page extends Model implements SluggableInterface
         return 'PagesController';
     }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    // public function getRouteKeyName()
+    // {
+    //     return 'slug';
+    // }
 
     public function menu()
     {

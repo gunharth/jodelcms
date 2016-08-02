@@ -2,21 +2,28 @@
 
 Route::auth();
 
-/**
- * Pages
- */
-Route::get('/', 'PagesController@index'); // Homepage
-Route::get('page/{page}', ['as' => 'page.show', 'uses' => 'PagesController@show']);
 
-/**
- * Blog
- */
-Route::get('blog/indexEditor', 'PostsController@indexEditor');
-Route::get('blog/{post}', 'PostsController@show');
-Route::get('blog/{post}/edit', 'PostsController@edit');
-Route::get('blog', 'PostsController@index');
-Route::post('blog/{post}', 'PostsController@update');
-Route::resource('blog', 'PostsController');
+Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
+    
+    /**
+     * Pages
+     */
+    Route::get('/', 'PagesController@index'); // Homepage
+    Route::get('page/{page}', ['as' => 'page.show', 'uses' => 'PagesController@show']);
+
+    /**
+     * Blog
+     */
+    Route::get('blog/indexEditor', 'PostsController@indexEditor');
+    Route::get('blog/{post}', 'PostsController@show');
+    Route::get('blog/{post}/edit', 'PostsController@edit');
+    Route::get('blog', 'PostsController@index');
+    Route::post('blog/{post}', 'PostsController@update');
+    Route::resource('blog', 'PostsController');
+
+});
+
+
 
 /**
  * Test for renaming blog to articles
@@ -30,7 +37,7 @@ Route::get('articles', 'PostsController@index');
  * Admin Routes
  */
 
-Route::group(['middleware' => 'auth','prefix' => 'admin'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     
     /**
      * Dev only reset Database
@@ -49,8 +56,8 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'], function () {
     Route::post('page',         ['as' => 'admin.page.store',    'uses' => 'PagesController@store']);
     Route::get('page/create',   ['as' => 'admin.page.create',   'uses' => 'PagesController@create']);
     Route::get('page/{page}/edit', 'PagesController@edit');
-    Route::match(['put','patch'],'page/{page}/content', ['as' => 'admin.page.content', 'uses' => 'PagesController@updateContent']);
-    Route::match(['put','patch'],'page/{page}', ['as' => 'admin.page.update', 'uses' => 'PagesController@update']);
+    Route::match(['put', 'patch'], 'page/{page}/content', ['as' => 'admin.page.content', 'uses' => 'PagesController@updateContent']);
+    Route::match(['put', 'patch'], 'page/{page}', ['as' => 'admin.page.update', 'uses' => 'PagesController@update']);
     Route::delete('page/{id}', 'PagesController@destroy');
     Route::post('page/duplicate', 'PagesController@duplicate');
     Route::get('page/{page}/settings', 'PagesController@settings');
@@ -60,7 +67,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'], function () {
      */
     Route::post('menu', ['as' => 'admin.menu.store', 'uses' => 'MenusController@store']);
     Route::get('menu/create/{id}', ['as' => 'admin.menu.create', 'uses' => 'MenusController@create']);
-    Route::match(['put','patch'],'menu/{menu}', ['as' => 'admin.menu.update', 'uses' => 'MenusController@update']);
+    Route::match(['put', 'patch'], 'menu/{menu}', ['as' => 'admin.menu.update', 'uses' => 'MenusController@update']);
     Route::delete('menu/{id}', 'MenusController@destroy');
     Route::post('menu/sortorder', 'MenusController@postOrder');
     Route::post('menu/active', 'MenusController@postActive');
@@ -69,7 +76,7 @@ Route::group(['middleware' => 'auth','prefix' => 'admin'], function () {
     /**
      * Admin Blog
      */
-    Route::match(['put','patch'],'blog/{post}/content', ['as' => 'admin.blog.content', 'uses' => 'PostsController@updateContent']);
+    Route::match(['put', 'patch'], 'blog/{post}/content', ['as' => 'admin.blog.content', 'uses' => 'PostsController@updateContent']);
     Route::get('blog/adminIndex', 'PostsController@adminIndex');
 
     
@@ -144,6 +151,7 @@ Route::group(['prefix' => 'elfinder'], function () {
 /**
  *  Catch all route for slugs
  */
+Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 Route::get('{slug}', function ($slug) {
     $categories = explode('/', $slug);
     $main = App\Menu::where('slug', end($categories))->first();
@@ -167,3 +175,4 @@ Route::get('{slug}', function ($slug) {
     }
     App::abort('404');
 })->where('slug', '^(?!_debugbar)[A-Za-z0-9_/-]+');
+});

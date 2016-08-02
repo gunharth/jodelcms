@@ -55,22 +55,22 @@ class DatabaseSeeder extends Seeder
          */
         DB::table('pages')->insert([
             'title' => 'Home',
-            'content01' => 'Welcome',
+            'content01' => '{"en":"english","de":"deutsch"}',
             'content02' => 'This is the homepage - uses 1 full column layout',
             'slug' => 'home',
             'template_id' => 1
         ]);
         DB::table('pages')->insert([
             'title' => 'Page 1',
-            'content01' => 'Page 1',
+            'content01' => '{"en":"english","de":"deutsch"}',
             'content02' => 'Page 1 uses the standard template with 2 columns',
             'content03' => 'Menu 1 links to Page 1',
-            'slug' => 'page-1',
+            'slug' => '{"en":"page-1","de":"seite-1"}',
             'template_id' => 2
         ]);
         DB::table('pages')->insert([
             'title' => 'Page 2',
-            'content01' => 'Page 2',
+            'content01' => '{"en":"english","de":"deutsch"}',
             'content02' => 'Page 2 uses the standard template with 4 columns',
             'content03' => 'Menu 2 links to Page 2',
             'slug' => 'page-2',
@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
          */
         DB::table('posts')->insert([
             'title' => 'Blog - a sample collection',
-            'content01' => 'Blog Home',
+            'content01' => '{"en":"english","de":"deutsch"}',
             'content02' => 'Blog Home',
             'content03' => 'Blog Home',
             'slug' => 'home',
@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('posts')->insert([
             'title' => 'My first Blog',
-            'content01' => 'My first Blog Mega Title',
+            'content01' => '{"en":"english","de":"deutsch"}',
             'content02' => 'My first Blog short description for blog homepage',
             'content03' => 'My first Blog content ...',
             'slug' => 'my-blog-1',
@@ -103,7 +103,7 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('posts')->insert([
             'title' => 'My second Blog',
-            'content01' => 'My second Blog Mega Title',
+            'content01' => '{"en":"english","de":"deutsch"}',
             'content02' => 'My second Blog short description for blog homepage',
             'content03' => 'My second Blog content ...',
             'slug' => 'my-blog-2',

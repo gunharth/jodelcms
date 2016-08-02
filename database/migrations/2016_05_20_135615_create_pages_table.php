@@ -27,7 +27,7 @@ class CreatePagesTable extends Migration
             $table->text('content09')->nullable();
             $table->text('content10')->nullable();
             // settings
-            $table->string('slug')->unique()->index();
+            $table->json('slug')->unique()->index();
             $table->integer('template_id')->nullable();
 
             $table->string('meta_title')->nullable();
