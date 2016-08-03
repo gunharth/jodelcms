@@ -14,16 +14,16 @@ if (!function_exists('renderMainMenu')) {
         $caret = '<i class="fa fa-caret-down"></i>';
         //$link = '';
         //$link = route('page', ['page_slug' => $node->slug]);
-        if($node->slug == "home") {
-        $link .= '/';
-    } else {
-        $link .= '/' . $node->slug;
-        $single  = '<a href="'. LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link) .'">' . $node->name  .'</a>';
-    }
+        if ($node->slug == "home") {
+            $link .= '/';
+        } else {
+            $link .= '/' . $node->slug;
+            $single  = '<a href="'. LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link) .'">' . $node->name  .'</a>';
+        }
 
     
         $target = '';
-        if($node->external_link != '') {
+        if ($node->external_link != '') {
             $link = $node->external_link;
             $target = ' target="_blank"';
             $single  = '<a href="'.  $link .'" '. $target .'>' . $node->name  .'</a>';
@@ -34,7 +34,7 @@ if (!function_exists('renderMainMenu')) {
        //echo $node->morpher->id;
         $active = '';
         $path = '/' . preg_replace('/\/edit$/', '', $path);
-        if($path == $link) {
+        if ($path == $link) {
             $active = ' class="active"';
         }
         $drop_down = '<a class="dropdown-toggle" data-toggle="dropdown" href="/#"
@@ -46,7 +46,7 @@ if (!function_exists('renderMainMenu')) {
             $html = '<li '.$class.'>' . $drop_down;
             $html .= '<ul '.$list.'>';
             foreach ($node->children as $child) {
-                $html .= renderMainMenu($child,$path, $link);
+                $html .= renderMainMenu($child, $path, $link);
             }
             $html .= '</ul>';
             $html .= '</li>';
@@ -72,12 +72,12 @@ if (!function_exists('renderEditorMenus')) {
         $handle = 'class="dd-handle"';
         $slug .= '/' . $node->slug;
         $target = '';
-        if($node->external_link != '') {
+        if ($node->external_link != '') {
             $slug = $node->external_link;
             $target = ' target="_blank"';
         }
         //$name  = '<span class="ol-buttons"> ' . get_ops($resource, $node->id, 'inline') . '</span>';
-        
+
         $active = ($node->active == 1) ? 'fa-circle' : 'fa-circle-o';
         $active_data = ($node->active == 1) ? 0 : 1;
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
@@ -95,7 +95,7 @@ if (!function_exists('renderEditorMenus')) {
             $html = '<li '.$class.' '.$id.'>' . $name;
             $html .= '<ol '.$list.'>';
             foreach ($node->children as $child) {
-                $html .= renderEditorMenus($child,$slug);
+                $html .= renderEditorMenus($child, $slug);
             }
             $html .= '</ol>';
             $html .= '</li>';
@@ -118,7 +118,7 @@ if (!function_exists('renderEditorPages')) {
         $list = 'class="dd-list"';
         $class = 'class="dd-item"';
         $delete = '<button type="button" class="btn btn-link btn-xs delete" data-toggle="tooltip" title="delete"><i class="fa fa-fw fa-times"></i></button>';
-        if($page->id == 1) {
+        if ($page->id == 1) {
             $delete = '<button type="button" class="btn btn-link btn-xs"><i class="fa fa-fw"></i></button>';
         }
         $actions = '<div class="btn-group pull-right" role="group" aria-label="...">' .
@@ -130,6 +130,5 @@ if (!function_exists('renderEditorPages')) {
         $name  = '<div class="dd-content"><span class="dd-title">' . $page->title . '</span>' . $actions . '</div>';
 
         return '<li '.$class.' '.$id.'>' . $name . '</li>';
-        
     }
 }

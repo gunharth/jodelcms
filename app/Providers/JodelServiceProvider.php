@@ -32,18 +32,20 @@ class JodelServiceProvider extends ServiceProvider
         /**
          * Language Switcher View Composer
          */
-        view()->composer('partials.lang-switcher', function($view)
-        {
-            /*$path = Request::path();
-            if(!empty($_GET['menu'])) {
-                $path = $_GET['menu'];
-            }*/
-            // $view->with('menu', Menu::where('active', '=', 1)->where('menu_id',1)->get())->with('path',$path);
-            //$view->with('menu', Menu::with('morpher')->whereActive(1)->whereMenuId(1)->get())->with('path',$path);
-            //dd($view->page->getOriginal('slug'));
-            dd($view);
-            //$view->with('yoyo');
-        });
+        // view()->composer('partials.lang-switcher', function($view)
+        // {
+        //     /*$path = Request::path();
+        //     if(!empty($_GET['menu'])) {
+        //         $path = $_GET['menu'];
+        //     }*/
+        //     // $view->with('menu', Menu::where('active', '=', 1)->where('menu_id',1)->get())->with('path',$path);
+        //     //$view->with('menu', Menu::with('morpher')->whereActive(1)->whereMenuId(1)->get())->with('path',$path);
+        //     //dd($view->page->getOriginal('slug'));
+        //     dd($view);
+        //     echo(Request::route()->getName() . ' ' . Request::path());
+        //     //$view->with('alldata',$view->path);
+        //     //$view->;
+        // });
 
         /**
          * Footer View Composer

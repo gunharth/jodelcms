@@ -3,7 +3,7 @@
 Route::auth();
 
 
-Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
+Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], function () {
     
     /**
      * Pages
@@ -21,17 +21,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::post('blog/{post}', 'PostsController@update');
     Route::resource('blog', 'PostsController');
 
+    /**
+     * Test for renaming blog to articles
+     * Guest view only
+     */
+    Route::get('articles/{post}', 'PostsController@show');
+    Route::get('articles', 'PostsController@index');
+
 });
-
-
-
-/**
- * Test for renaming blog to articles
- * Guest view only
- */
-Route::get('articles/{post}', 'PostsController@show');
-Route::get('articles', 'PostsController@index');
-
 
 /**
  * Admin Routes
@@ -151,7 +148,7 @@ Route::group(['prefix' => 'elfinder'], function () {
 /**
  *  Catch all route for slugs
  */
-Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
+Route::group(['as' => 'menu', 'prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('{slug}', function ($slug) {
         $categories = explode('/', $slug);
         // $menu = App\Menu::where('slug', end($categories))->first();
