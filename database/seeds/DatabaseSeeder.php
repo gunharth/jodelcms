@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
             'title' => 'Home',
             'content01' => '{"en":"english","de":"deutsch"}',
             'content02' => 'This is the homepage - uses 1 full column layout',
-            'slug' => 'home',
+            'slug' => '{"en":"home","de":"home"}',
             'template_id' => 1
         ]);
         DB::table('pages')->insert([
@@ -73,7 +73,7 @@ class DatabaseSeeder extends Seeder
             'content01' => '{"en":"english","de":"deutsch"}',
             'content02' => 'Page 2 uses the standard template with 4 columns',
             'content03' => 'Menu 2 links to Page 2',
-            'slug' => 'page-2',
+            'slug' => '{"en":"page-2","de":"seite-2"}',
             'template_id' => 3
         ]);
 
@@ -124,8 +124,8 @@ class DatabaseSeeder extends Seeder
          */
         DB::table('menus')->insert([
             'menu_id' => 1,
-            'name' => 'Home',
-            'slug' => '',
+            'name' => '{"en":"Home","de":"Start"}',
+            'slug' => '{"en":"","de":""}',
             'parent_id' => 0,
             'morpher_id' => 1,
             'morpher_type' => 'App\Page',
@@ -138,8 +138,8 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('menus')->insert([
             'menu_id' => 1,
-            'name' => 'Menu 1',
-            'slug' => 'menu-1',
+            'name' => '{"en":"Menu 1","de":"Punkt 1"}',
+            'slug' => '{"en":"menu-1","de":"punkt-1"}',
             'parent_id' => 0,
             'morpher_id' => 2,
             'morpher_type' => 'App\Page',
@@ -152,8 +152,8 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('menus')->insert([
             'menu_id' => 1,
-            'name' => 'Menu 2',
-            'slug' => 'menu-2',
+            'name' => '{"en":"Menu 2","de":"Punkt 2"}',
+            'slug' => '{"en":"menu-2","de":"punkt-2"}',
             'parent_id' => 0,
             'morpher_id' => 3,
             'morpher_type' => 'App\Page',
@@ -166,8 +166,8 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('menus')->insert([
             'menu_id' => 1,
-            'name' => 'Blog',
-            'slug' => 'blog',
+            'name' => '{"en":"Blog","de":"Blog"}',
+            'slug' => '{"en":"blog","de":"blog"}',
             'parent_id' => 0,
             'morpher_id' => 1,
             'morpher_type' => 'App\Post',
@@ -180,8 +180,8 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('menus')->insert([
             'menu_id' => 1,
-            'name' => 'Google',
-            'slug' => 'google',
+            'name' => '{"en":"Google","de":"Google Link"}',
+            'slug' => '{"en":"google","de":"google"}',
             'external_link' => 'http://www.google.com',
             'parent_id' => 0,
             'morpher_id' => 1,
@@ -195,8 +195,8 @@ class DatabaseSeeder extends Seeder
         ]);
         DB::table('menus')->insert([
             'menu_id' => 2,
-            'name' => 'Footer',
-            'slug' => 'footer',
+            'name' => '{"en":"Footer","de":"Fußzeile"}',
+            'slug' => '{"en":"footer","de":"fuss"}',
             'parent_id' => 0,
             'morpher_id' => 2,
             'morpher_type' => 'App\Page',

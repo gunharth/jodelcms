@@ -24,6 +24,8 @@
         </li>
     @endforeach
     
+
+    @include('partials.lang-switcher')
 </ul>
         </div><!--/.nav-collapse -->
       </div>

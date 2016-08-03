@@ -4,6 +4,7 @@ namespace App;
 
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use Spatie\Translatable\HasTranslations;
 use Baum\Node;
 
 /**
@@ -13,6 +14,7 @@ class Menu extends Node implements SluggableInterface
 {
 
     use SluggableTrait;
+    use HasTranslations;
 
     protected $sluggable = [
         'build_from' => 'name',
@@ -37,10 +39,15 @@ class Menu extends Node implements SluggableInterface
       'external_link'
     ];
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    public $translatable = [
+        'name',
+        'slug'
+        ];
+
+    // public function getRouteKeyName()
+    // {
+    //     return 'slug';
+    // }
 
   /*public function page()
   {
@@ -73,6 +80,10 @@ class Menu extends Node implements SluggableInterface
         return str_replace("App\\", "", $this->morpher_type);
     }
 
+/*    public function getSlugAttribute()
+    {
+        return $this->getTranslation('slug', 'en');
+    }*/
 
   //////////////////////////////////////////////////////////////////////////////
 

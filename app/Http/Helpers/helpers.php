@@ -18,6 +18,7 @@ if (!function_exists('renderMainMenu')) {
         $link .= '/';
     } else {
         $link .= '/' . $node->slug;
+        $single  = '<a href="'. LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link) .'">' . $node->name  .'</a>';
     }
 
     
@@ -25,6 +26,7 @@ if (!function_exists('renderMainMenu')) {
         if($node->external_link != '') {
             $link = $node->external_link;
             $target = ' target="_blank"';
+            $single  = '<a href="'.  $link .'" '. $target .'>' . $node->name  .'</a>';
         }
         //dd($node->getAncestorsAndSelf()->lists('slug'));
        // $link =  implode('/',$node->getAncestorsAndSelf()->lists('slug'));
@@ -37,7 +39,7 @@ if (!function_exists('renderMainMenu')) {
         }
         $drop_down = '<a class="dropdown-toggle" data-toggle="dropdown" href="/#"
                         role="button" aria-expanded="false">' . $node->name . ' ' . $caret . '</a>';
-        $single  = '<a href="'. LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link) .'" '. $target .'>' . $node->name  .'</a>';
+        // $single  = '<a href="'. LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link) .'" '. $target .'>' . $node->name  .'</a>';
         if ($node->isLeaf()) {
             return '<li' . $active .'>' . $single . '</li>';
         } else {

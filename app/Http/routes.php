@@ -152,27 +152,28 @@ Route::group(['prefix' => 'elfinder'], function () {
  *  Catch all route for slugs
  */
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
-Route::get('{slug}', function ($slug) {
-    $categories = explode('/', $slug);
-    $main = App\Menu::where('slug', end($categories))->first();
-    reset($categories);
+    Route::get('{slug}', function ($slug) {
+        $categories = explode('/', $slug);
+        // $menu = App\Menu::where('slug', end($categories))->first();
+        $menu = App\Menu::where('slug','LIKE', '%"' . LaravelLocalization::getCurrentLocale() . '":"' . end($categories) . '"%')->first();
+        reset($categories);
 
-    if ($main) {
-        $ancestors = $main->getAncestors();
-        $valid = true;
-        foreach ($ancestors as $i => $category) {
-            if ($category->slug !== $categories[$i]) {
-                $valid = false;
-                break;
+        if ($menu) {
+            $ancestors = $menu->getAncestors();
+            $valid = true;
+            foreach ($ancestors as $i => $category) {
+                if ($category->slug !== $categories[$i]) {
+                    $valid = false;
+                    break;
+                }
+            }
+            if ($valid) {
+                $app = app();
+                $model = new $menu->morpher_type;
+                $controller = $app->make('App\Http\Controllers\\'.$model->returnController());
+                return $controller->callAction('showID', $parameters = array($menu->morpher_id));
             }
         }
-        if ($valid) {
-            $app = app();
-            $model = new $main->morpher_type;
-            $controller = $app->make('App\Http\Controllers\\'.$model->returnController());
-            return $controller->callAction('showID', $parameters = array($main->morpher_id));
-        }
-    }
-    App::abort('404');
-})->where('slug', '^(?!_debugbar)[A-Za-z0-9_/-]+');
+        App::abort('404');
+    })->where('slug', '^(?!_debugbar)[A-Za-z0-9_/-]+');
 });
