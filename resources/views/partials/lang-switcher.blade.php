@@ -1,9 +1,10 @@
-<ul class="language_bar_chooser">
-    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-        <li>
-            <a rel="alternate" hreflang="{{$localeCode}}" href="{{LaravelLocalization::getLocalizedURL($localeCode) }}">
-                {{ $properties['native'] }}
-            </a>
-        </li>
-    @endforeach
-</ul>
+
+<ul class="nav navbar-nav navbar-right">
+	{!! buildLanguageSwitcher($slugs) !!}
+	{{-- <li class="dropdown">
+	  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+	  <ul class="dropdown-menu">
+	   {!! buildLanguageSwitcher($slugs) !!}
+	  </ul>
+	</li> --}}
+	</ul>

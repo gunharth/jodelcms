@@ -103,8 +103,9 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Page $page)
+    public function edit($slug)
     {
+        $page = Page::with('template')->where('slug','LIKE', '%"' . $this->locale . '":"' . $slug . '"%')->first();
         if ($page->template->id == 1) {
             return view('index', compact('page'));
         }
@@ -137,9 +138,14 @@ class PagesController extends Controller
         return $page;
     }
 
-    public function updateContent(PageRequest $request, Page $page)
+    public function updateContent(PageRequest $request, $slug)
     {
-        $page->fill($request->all())->save();
+        $page = Page::with('template')->where('slug','LIKE', '%"' . $this->locale . '":"' . $slug . '"%')->first();
+        //dd($page->getOriginal('slug'));
+        $page->setTranslation('slug', 'en', $page->slug);
+        $page->setTranslation('content01', 'en', $request->content01);
+        $page->save();
+        //$page->fill($request->all())->save();
         return $page;
     }
 

@@ -9,7 +9,7 @@ Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], f
      * Pages
      */
     Route::get('/', 'PagesController@index'); // Homepage
-    Route::get('page/{page}', ['as' => 'page.show', 'uses' => 'PagesController@show']);
+    Route::get('page/{slug}', ['as' => 'page.show', 'uses' => 'PagesController@show']);
 
     /**
      * Blog
@@ -52,8 +52,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
      */
     Route::post('page',         ['as' => 'admin.page.store',    'uses' => 'PagesController@store']);
     Route::get('page/create',   ['as' => 'admin.page.create',   'uses' => 'PagesController@create']);
-    Route::get('page/{page}/edit', 'PagesController@edit');
-    Route::match(['put', 'patch'], 'page/{page}/content', ['as' => 'admin.page.content', 'uses' => 'PagesController@updateContent']);
+    Route::get('page/{slug}/edit', 'PagesController@edit');
+    Route::match(['put', 'patch'], 'page/{slug}/content', ['as' => 'admin.page.content', 'uses' => 'PagesController@updateContent']);
     Route::match(['put', 'patch'], 'page/{page}', ['as' => 'admin.page.update', 'uses' => 'PagesController@update']);
     Route::delete('page/{id}', 'PagesController@destroy');
     Route::post('page/duplicate', 'PagesController@duplicate');

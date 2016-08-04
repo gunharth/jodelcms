@@ -132,3 +132,35 @@ if (!function_exists('renderEditorPages')) {
         return '<li '.$class.' '.$id.'>' . $name . '</li>';
     }
 }
+
+if (!function_exists('buildLanguageSwitcher')) {
+    /**
+     * Render nodes for nested sets
+     *
+     * @param $node
+     * @param $resource
+     * @return string
+     */
+    function buildLanguageSwitcher($slugs)
+    {
+        $html = "";
+        foreach ($slugs as $key => $slug) {
+            $links = json_decode($slug);
+            foreach ($links as $lang => $value) {
+                if($lang == config('app.fallback_locale')) {
+                    $link = $value;
+                    //echo $link;
+                } else {
+                    $link = $lang . '/' .$value;
+                }
+                $active = '';
+                if($lang == config('app.locale')) {
+                    $active = 'class="active"';
+                }
+                
+                $html .= '<li ' . $active . '>' .'<a rel="alternate" hreflang="' . $lang . '" href="/' . $link . '">' . $lang . '</a></li>';
+            }
+        }
+        return $html;
+    }
+}

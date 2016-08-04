@@ -19,7 +19,11 @@ class Page extends Model implements SluggableInterface
     protected $sluggable = [
         'build_from' => 'title',
         'save_to'    => 'slug',
-        'on_update'  => true
+        'on_update'  => false
+    ];
+
+    protected $casts = [
+        'slug' => 'json',
     ];
 
     protected $fillable = [
@@ -77,7 +81,8 @@ class Page extends Model implements SluggableInterface
     ];
 
     protected $appends = [
-        'link'
+        'link',
+        'translation'
     ];
 
     public function returnController()
@@ -101,6 +106,11 @@ class Page extends Model implements SluggableInterface
             return '/';
         }
         return '/page/'.$this->slug;
+    }
+
+    public function getTranslationAttribute()
+    {
+        return '/page/'.json_decode($this->slug);
     }
 
     public function template()
