@@ -100,6 +100,7 @@ function elFinderBrowser(field_name, url, type, win) {
 function savePage() {
     $('#editor-loading', window.parent.document).show();
     var data = { '_method': 'patch' };
+    data['lang'] = $('html').attr('lang');
     data['fields'] = '';
     var url = $('#url').val();
     for (i = 0; i < tinymce.editors.length; i++) {

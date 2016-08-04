@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Request;
 
 use App\Menu;
+use App\Page;
 
 class JodelServiceProvider extends ServiceProvider
 {
@@ -44,20 +45,38 @@ class JodelServiceProvider extends ServiceProvider
             //dd($view->page->slug);
             //echo(Request::route()->getName() . ' ' . Request::path());
             $slugs  = [];
+            //dd(Request::route()->getName());
             switch(Request::route()->getName()) {
                 case 'menu':
                     $categories = explode('/', $path);
                     $active = Menu::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
-                    //dd($active);
-                    //$active->getDescendantsAndSelf();
                     foreach($active->getDescendantsAndSelf() as $descendant) {
                       $slugs[] = $descendant->getOriginal('slug');
                     }
+                break;
+                case 'direct.homepage':
+                    //$categories = explode('/', $path);
+                    //$page = Page::where('slug','LIKE', '%"' . config('app.locale'). '":"home"%')->first();
+                    $slugs[] = '{"en":"","de":""}';
+                break;
+                case 'direct.showpage':
+                    $categories = explode('/', $path);
+                    $page = Page::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
+                    $slugs[] = $page->getOriginal('slug');
+                break;
+                case 'page.edit':
 
+                    //if(!empty($path)) {
+                    // $categories = explode('/', $path);
+                    // $active = Menu::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
+                    // foreach($active->getDescendantsAndSelf() as $descendant) {
+                    //   $slugs[] = $descendant->getOriginal('slug');
+                    // }
+                  //}
                 break;
             }
             //dd($slugs);
-            $view->with('slugs',$slugs);
+            $view->with('slugs',$slugs)->with('path',$path);
             //$view->with('slugs',$view->page->getOriginal('slug'));
             //$view->;
         });

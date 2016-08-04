@@ -9,9 +9,9 @@ use App\Http\Controllers\Controller;
 trait Traits
 {
 
-    public function loadiFrame($src)
+    public function loadiFrame($src, $menu, $lang)
     {
-        return view('editor', compact('src'));
+        return view('editor', compact('src','menu','lang'));
     }
     
 }

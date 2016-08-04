@@ -8,8 +8,8 @@ Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], f
     /**
      * Pages
      */
-    Route::get('/', 'PagesController@index'); // Homepage
-    Route::get('page/{slug}', ['as' => 'page.show', 'uses' => 'PagesController@show']);
+    Route::get('/', ['as' => '.homepage', 'uses' => 'PagesController@index']); // Homepage
+    Route::get('page/{slug}', ['as' => '.showpage', 'uses' => 'PagesController@show']);
 
     /**
      * Blog
@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
      */
     Route::post('page',         ['as' => 'admin.page.store',    'uses' => 'PagesController@store']);
     Route::get('page/create',   ['as' => 'admin.page.create',   'uses' => 'PagesController@create']);
-    Route::get('page/{slug}/edit', 'PagesController@edit');
+    Route::get('page/{slug}/edit', ['as' => 'page.edit', 'uses' => 'PagesController@edit']);
     Route::match(['put', 'patch'], 'page/{slug}/content', ['as' => 'admin.page.content', 'uses' => 'PagesController@updateContent']);
     Route::match(['put', 'patch'], 'page/{page}', ['as' => 'admin.page.update', 'uses' => 'PagesController@update']);
     Route::delete('page/{id}', 'PagesController@destroy');
@@ -168,7 +168,7 @@ Route::group(['as' => 'menu', 'prefix' => LaravelLocalization::setLocale()], fun
                 $app = app();
                 $model = new $menu->morpher_type;
                 $controller = $app->make('App\Http\Controllers\\'.$model->returnController());
-                return $controller->callAction('showID', $parameters = array($menu->morpher_id));
+                return $controller->callAction('showID', $parameters = array($menu->morpher_id,$slug));
             }
         }
         App::abort('404');

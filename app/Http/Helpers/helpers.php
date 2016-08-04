@@ -15,9 +15,15 @@ if (!function_exists('renderMainMenu')) {
         //$link = '';
         //$link = route('page', ['page_slug' => $node->slug]);
         if ($node->slug == "home") {
-            $link .= '/';
+            $link .= LaravelLocalization::getLocalizedURL($locale = null, $url = '/');
         } else {
-            $link .= '/' . $node->slug;
+            $locale = LaravelLocalization::getCurrentLocale();
+            if($locale != config('app.fallback_locale')) {
+                $link .= '/' . LaravelLocalization::getCurrentLocale() . '/' . $node->slug;
+            } else {
+                $link .= '/' . $node->slug;
+            }
+            
             $single  = '<a href="'. LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link) .'">' . $node->name  .'</a>';
         }
 
@@ -34,6 +40,8 @@ if (!function_exists('renderMainMenu')) {
        //echo $node->morpher->id;
         $active = '';
         $path = '/' . preg_replace('/\/edit$/', '', $path);
+        //echo($path);
+
         if ($path == $link) {
             $active = ' class="active"';
         }

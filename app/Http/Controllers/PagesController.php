@@ -33,7 +33,7 @@ class PagesController extends Controller
         $page = Page::findOrFail(1);
         if (Auth::check()) {
             $src = '/admin/page/'.$page->slug.'/edit';
-            return $this->loadiFrame($src);
+            return $this->loadiFrame($src,'',$this->locale);
         }
         return view('index', compact('page'));
     }
@@ -61,6 +61,7 @@ class PagesController extends Controller
      */
     public function store(PageRequest $request)
     {
+        
         $page = Page::create($request->all());
         return $page;
         //return redirect()->route('page.show', [$page->slug]);
@@ -81,17 +82,22 @@ class PagesController extends Controller
         //dd($page);
         if (Auth::check()) {
             $src = '/admin/page/'.$page->slug.'/edit';
-            return $this->loadiFrame($src);
+            return $this->loadiFrame($src, '', LaravelLocalization::getCurrentLocale());
         }
         return view($page->template->path . '.show', compact('page'));
     }
 
-    public function showID($id)
+    public function showID($id, $slug)
     {
         $page = Page::find($id);
         if (Auth::check()) {
             $src = '/admin/page/'.$page->slug.'/edit';
-            return $this->loadiFrame($src);
+            if(LaravelLocalization::getCurrentLocale() != config('app.fallback_locale')) {
+                $slug = LaravelLocalization::getCurrentLocale() . '/' . $slug;
+            } else {
+                $slug = $slug;
+            }
+            return $this->loadiFrame($src, $slug, LaravelLocalization::getCurrentLocale());
         }
         return view($page->template->path . '.show', compact('page'));
     }
@@ -103,8 +109,12 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($slug)
+    public function edit(Request $request, $slug)
     {
+        //dd($slug);
+        //$page = new Page;
+        //dd($page->getTranslatable());
+        $this->locale = LaravelLocalization::setLocale($request->input('lang'));
         $page = Page::with('template')->where('slug','LIKE', '%"' . $this->locale . '":"' . $slug . '"%')->first();
         if ($page->template->id == 1) {
             return view('index', compact('page'));
@@ -138,14 +148,21 @@ class PagesController extends Controller
         return $page;
     }
 
-    public function updateContent(PageRequest $request, $slug)
+    public function updateContent(PageRequest $request, $slug, Page $translatable)
     {
-        $page = Page::with('template')->where('slug','LIKE', '%"' . $this->locale . '":"' . $slug . '"%')->first();
-        //dd($page->getOriginal('slug'));
-        $page->setTranslation('slug', 'en', $page->slug);
-        $page->setTranslation('content01', 'en', $request->content01);
+        $lang = $request->lang;
+        $page = Page::with('template')->where('slug','LIKE', '%"' . $lang . '":"' . $slug . '"%')->first();
+        $translatables = $translatable->getTranslatable();
+        $protectedtranslatables = $translatable->getNotTranslatableOnUpdate();
+        foreach($translatables as $key => $value) {
+            if(in_array($value,$protectedtranslatables)) {
+                $orig = $page->getTranslation($value, $lang);
+                $page->setTranslation($value, $lang, $orig);
+            } else {
+                $page->setTranslation($value, $lang, $request->$value);
+            }
+        }
         $page->save();
-        //$page->fill($request->all())->save();
         return $page;
     }
 

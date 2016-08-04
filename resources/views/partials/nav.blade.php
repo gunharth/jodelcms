@@ -7,7 +7,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">jodelCMS</a>
+          <a class="navbar-brand" href="{{ LaravelLocalization::getLocalizedURL($locale = null, $url = '/') }}">jodelCMS</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">

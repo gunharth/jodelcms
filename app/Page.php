@@ -22,9 +22,9 @@ class Page extends Model implements SluggableInterface
         'on_update'  => false
     ];
 
-    protected $casts = [
-        'slug' => 'json',
-    ];
+    // protected $casts = [
+    //     'slug' => 'json',
+    // ];
 
     protected $fillable = [
         'title',
@@ -52,6 +52,20 @@ class Page extends Model implements SluggableInterface
         'content01',
         'slug',
         ];
+
+    public $nottranslatableonupdate = [
+        'slug',
+        ];
+
+    public function getTranslatable()
+    {
+        return $this->translatable;
+    }
+
+    public function getNotTranslatableOnUpdate()
+    {
+        return $this->nottranslatableonupdate;
+    }
 
     protected static $logAttributes = [
         'title',
