@@ -1,3 +1,4 @@
+<input type="hidden" name='locale' value="{{ config('app.locale') }}">
 <div class="form-group">
     {!! Form::label('name','Menu Title') !!}
     {!! Form::text('name',null,['class' => 'form-control', 'placeholder' => 'Menu Title']) !!}
@@ -6,6 +7,7 @@
     {!! Form::label('slug','Slug') !!}
     {!! Form::text('slug',null,['class' => 'form-control', 'placeholder' => 'slug']) !!}
 </div>
+@if (config('app.locale') == config('app.fallback_locale'))
 <div class="form-group">
     {!! Form::label('morpher_type','Link to') !!}
     {!! Form::select(
@@ -29,3 +31,4 @@
     {!! Form::text('external_link',null,['class' => 'form-control', 'placeholder' => 'http://', 'id' => 'external_link']) !!}
 </div>
 <div id="morpher_id_orig" style="display: none;">{{ $menu->morpher_id }}</div>
+@endif

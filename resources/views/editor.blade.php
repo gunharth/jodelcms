@@ -20,12 +20,12 @@
         <div class="col-sm-6">
         	<h4 class="modal-title">jodelCMS</h4>
         </div>
-        <div class="col-sm-2">
-            <!--<select class="all-langs">
-                <option value="en" selected="selected">EN</option>
-            </select>-->
-        </div>
-        <div class="col-sm-4 text-right">
+        <div class="col-sm-6 text-right">
+			<select id="editorLocales" class="editor-langs">
+			    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+			    <option value="{{$localeCode}}">{{ strtoupper($localeCode) }}</option>
+			    @endforeach
+            </select> 
 			<a class="tb-refresh" href="#" title="Refresh"><i class="fa fa-fw fa-lg fa-refresh"></i></a>
 			<a class="tb-collapse" href="#" title="Toggle"><i class="fa fa-fw fa-lg fa-caret-up"></i></a>
 			<a href="/logout" title="Sign out"><i class="fa fa-lg fa-sign-out"></i></a>
@@ -49,9 +49,7 @@
 				<div class="tab-content">
 					<div class="dd">
 			            <ol class="dd-list" id="pageItems">
-			            	@foreach(\App\Page::orderBy('title')->get() as $page)
-			                    {!! renderEditorPages($page) !!}
-			                @endforeach
+			            	
 			            </ol>
 			        </div> 
 		        </div>

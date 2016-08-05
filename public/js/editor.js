@@ -8,6 +8,7 @@ class Editor {
         this.editorFrame = $("#editorIFrame");
         this.data = '';
         this.collection;
+        this.editorLocale = 'en';
 
     }
 
@@ -67,6 +68,13 @@ class Editor {
                 $("#editor-panel").css({ top: newTop });
             }
             this.savePanelState();
+        });
+
+        $('.modal-header select', this.editorPanel).on('change', (e) => {
+            e.preventDefault();
+            this.editorLocale = $(e.target).val();
+            this.loadPages();
+            this.loadMenu( this.getMenuID() );
         });
 
         $('.modal-header .tb-collapse', this.editorPanel).on('click', (e) => {
@@ -446,7 +454,7 @@ class Editor {
         this.showLoadingIndicator();
         $.ajax({
             type: 'GET',
-            url: '/admin/page/listPages',
+            url: '/admin/page/listPages/'+ this.editorLocale,
             //data: 'id='+menu_id,
             error: (xhr, ajaxOptions, thrownError) => {
                 console.log(xhr.status);
@@ -512,11 +520,13 @@ class Editor {
      * save Editor State
      */
     savePanelState() {
+        let activeLanguage = this.editorLocale;
         let activeTab = $('#tabs').tabs("option", "active");
         // let active menu
         let activeMenu = $('#menuSelector', this.editorPanel).val();
         localStorage.setItem("editor-panel", JSON.stringify({
             position: this.editorPanel.position(),
+            locale: activeLanguage,
             tab: activeTab,
             menu: activeMenu,
             expanded: $('#modal-toggle:visible', this.editorPanel).length
@@ -533,6 +543,7 @@ class Editor {
         if (!localStorage.getItem("editor-panel")) {
             panelState = {
                 position: { left: 50, top: 150 },
+                locale: this.editorLocale,
                 tab: 0,
                 menu: 1,
                 expanded: true
@@ -541,8 +552,11 @@ class Editor {
             panelState = JSON.parse(localStorage.getItem("editor-panel"))
         }
         this.editorPanel.css(panelState.position);
+        this.editorLocale = panelState.locale;
+        $("#editorLocales > [value=" + panelState.locale + "]").attr("selected", "true");
         $('#tabs').tabs("option", "active", panelState.tab);
         $("#menuSelector > [value=" + panelState.menu + "]").attr("selected", "true");
+        this.loadPages();
         this.loadMenu(panelState.menu);
         if (!panelState.expanded) {
             this.editorPanelCollapse.hide();
@@ -565,7 +579,7 @@ class Editor {
         this.showLoadingIndicator();
         $.ajax({
             type: 'GET',
-            url: '/admin/menu/listMenus/' + menu_id,
+            url: '/admin/menu/listMenus/' + menu_id + '/' + this.editorLocale,
             //data: 'id='+menu_id,
             error: (xhr, ajaxOptions, thrownError) => {
                 console.log(xhr.status);
@@ -587,7 +601,7 @@ class Editor {
             id: 'menu-edit',
             title: 'Edit',
             modal: true,
-            url: '/admin/menu/' + this.menu_id + '/settings',
+            url: '/admin/menu/' + this.menu_id + '/settings'+ '/' + this.editorLocale,
             type: 'ajax',
             onAfterShow: () => {
                 this.renderMenuTypeSelect();

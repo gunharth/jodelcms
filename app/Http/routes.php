@@ -60,58 +60,37 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('page/{page}/settings', 'PagesController@settings');
 
     /**
+     * Editor: Tab Pages
+     * List and reload all pages
+     * Type: ajax
+     */
+    Route::get('page/listPages/{lang}', 'PagesController@editorList');
+    // Route::get('page/listPages', function () {
+    //     $html = '';
+    //     foreach (\App\Page::orderBy('title')->get() as $page) {
+    //         $html .= renderEditorPages($page);
+    //     }
+    //     return $html;
+    // });
+
+    /**
      * Admin Menus
      */
     Route::post('menu', ['as' => 'admin.menu.store', 'uses' => 'MenusController@store']);
     Route::get('menu/create/{id}', ['as' => 'admin.menu.create', 'uses' => 'MenusController@create']);
     Route::match(['put', 'patch'], 'menu/{menu}', ['as' => 'admin.menu.update', 'uses' => 'MenusController@update']);
     Route::delete('menu/{id}', 'MenusController@destroy');
+    
     Route::post('menu/sortorder', 'MenusController@postOrder');
     Route::post('menu/active', 'MenusController@postActive');
-    Route::get('menu/{menu}/settings', 'MenusController@settings');
-
-    /**
-     * Admin Blog
-     */
-    Route::match(['put', 'patch'], 'blog/{post}/content', ['as' => 'admin.blog.content', 'uses' => 'PostsController@updateContent']);
-    Route::get('blog/adminIndex', 'PostsController@adminIndex');
-
+    Route::get('menu/{menu}/settings/{locale}', 'MenusController@settings');
     
-
-    /**
-     *  Editor
-     *  Catch all route for create 
-     */
-    // Route::get('forms/{type}/{action}/{id?}', function ($type, $action, $id=null) {
-    //     $templates = \App\Template::where('active', 1)->lists('name', 'id');
-    //     return view('admin.forms.'.$type.'.'.$action, compact('templates', 'id', 'page'));
-    // });
-
     /**
      * Editor: Tab Menus
      * List and reload all Menus for selected nav
      * Type: ajax
      */
-    Route::get('menu/listMenus/{id}', function ($id) {
-        $html = '';
-        foreach (\App\Menu::where('menu_id', $id)->get()->toHierarchy() as $node) {
-            $html .= renderEditorMenus($node);
-        }
-        return $html;
-    });
-
-    /**
-     * Editor: Tab Pages
-     * List and reload all pages
-     * Type: ajax
-     */
-    Route::get('page/listPages', function () {
-        $html = '';
-        foreach (\App\Page::orderBy('title')->get() as $page) {
-            $html .= renderEditorPages($page);
-        }
-        return $html;
-    });
+    Route::get('menu/listMenus/{id}/{lang}', 'MenusController@editorList');
     /**
      * Editor: Menu Popup: create and edit
      * Fill the select filed on Menu Type change
@@ -121,6 +100,18 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
         $model = '\App\\'.$type;
         return $model::orderBy('title')->get();
     });
+
+
+    /**
+     * Admin Blog
+     */
+    Route::match(['put', 'patch'], 'blog/{post}/content', ['as' => 'admin.blog.content', 'uses' => 'PostsController@updateContent']);
+    Route::get('blog/adminIndex', 'PostsController@adminIndex');
+
+    
+
+    
+    
 
     /**
      * Editor: show event Log

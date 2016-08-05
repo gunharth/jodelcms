@@ -49,8 +49,20 @@ class Page extends Model implements SluggableInterface
     ];
 
     public $translatable = [
-        'content01',
         'slug',
+        'content01',
+        'content02',
+        'content03',
+        'content04',
+        'content05',
+        'content06',
+        'content07',
+        'content08',
+        'content09',
+        'content10',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
         ];
 
     public $nottranslatableonupdate = [

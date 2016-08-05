@@ -40,9 +40,21 @@ class Menu extends Node implements SluggableInterface
     ];
 
     public $translatable = [
+        'slug',
         'name',
-        'slug'
-        ];
+    ];
+
+    public $nottranslatableonupdate = [];
+
+    public function getTranslatable()
+    {
+        return $this->translatable;
+    }
+
+    public function getNotTranslatableOnUpdate()
+    {
+        return $this->nottranslatableonupdate;
+    }
 
     // public function getRouteKeyName()
     // {

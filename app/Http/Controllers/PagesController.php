@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Template;
 use App\Page;
 use Auth;
+use App;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class PagesController extends Controller
@@ -190,6 +191,23 @@ class PagesController extends Controller
             $page->delete();
             return ['success' => true, 'message' => 'Item deleted!'];
         }
+    }
+
+    /**
+     * Editor list all Pages
+     *
+     * @param Request $request
+     */
+    public function editorList($editorLocale)
+    {
+        $appLocale = config('app.locale');
+        App::setLocale($editorLocale);
+        $html = '';
+        foreach (Page::orderBy('title')->get() as $page) {
+            $html .= renderEditorPages($page, $editorLocale);
+        }
+        //App::setLocale($appLocale);
+        return $html;
     }
     
     // public function loadiFrame($src)

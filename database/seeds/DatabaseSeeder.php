@@ -55,24 +55,26 @@ class DatabaseSeeder extends Seeder
          */
         DB::table('pages')->insert([
             'title' => 'Home',
-            'content01' => '{"en":"english","de":"deutsch"}',
-            'content02' => 'This is the homepage - uses 1 full column layout',
+            'content01' => '{"en":"Homepage in English","de":"Startseite in Deutsch"}',
+            'content02' => '{"en":"Homepage content in English","de":"Startseite Text in Deutsch"}',
             'slug' => '{"en":"home","de":"home"}',
             'template_id' => 1
         ]);
         DB::table('pages')->insert([
             'title' => 'Page 1',
-            'content01' => '{"en":"english","de":"deutsch"}',
-            'content02' => 'Page 1 uses the standard template with 2 columns',
-            'content03' => 'Menu 1 links to Page 1',
+            'content01' => '{"en":"Page 1 in English","de":"Seite 1 in Deutsch"}',
+            'content02' => '{"en":"Page 1 first column in English","de":"Seite 1 erste Spalte in Deutsch"}',
+            'content03' => '{"en":"Page 1 second column in English","de":"Seite 1 zweite Spalte in Deutsch"}',
             'slug' => '{"en":"page-1","de":"seite-1"}',
             'template_id' => 2
         ]);
         DB::table('pages')->insert([
             'title' => 'Page 2',
-            'content01' => '{"en":"english","de":"deutsch"}',
-            'content02' => 'Page 2 uses the standard template with 4 columns',
-            'content03' => 'Menu 2 links to Page 2',
+            'content01' => '{"en":"Page 2 in English","de":"Seite 2 in Deutsch"}',
+            'content02' => '{"en":"Page 2 first column in English","de":"Seite 2 erste Spalte in Deutsch"}',
+            'content03' => '{"en":"Page 2 second column in English","de":"Seite 2 zweite Spalte in Deutsch"}',
+            'content04' => '{"en":"Page 2 third column in English","de":"Seite 2 dritte Spalte in Deutsch"}',
+            'content05' => '{"en":"Page 2 fourth column in English","de":"Seite 2 vierte Spalte in Deutsch"}',
             'slug' => '{"en":"page-2","de":"seite-2"}',
             'template_id' => 3
         ]);
