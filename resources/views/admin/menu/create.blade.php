@@ -2,7 +2,7 @@
         'route' => ['admin.menu.store'],
         'id' => 'createMenu'
     ]) !!}
-	{!! Form::hidden('menu_id',$id) !!}
+	{!! Form::hidden('menu_type_id',$id) !!}
 
     @include('admin/menu/form')
 

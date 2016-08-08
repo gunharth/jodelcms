@@ -50,34 +50,36 @@ class DatabaseSeeder extends Seeder
             'active' => 0
         ]);
 
-        /**
-         * Pages
-         */
-        DB::table('pages')->insert([
-            'title' => 'Home',
-            'content01' => '{"en":"Homepage in English","de":"Startseite in Deutsch"}',
-            'content02' => '{"en":"Homepage content in English","de":"Startseite Text in Deutsch"}',
-            'slug' => '{"en":"home","de":"home"}',
-            'template_id' => 1
-        ]);
-        DB::table('pages')->insert([
-            'title' => 'Page 1',
-            'content01' => '{"en":"Page 1 in English","de":"Seite 1 in Deutsch"}',
-            'content02' => '{"en":"Page 1 first column in English","de":"Seite 1 erste Spalte in Deutsch"}',
-            'content03' => '{"en":"Page 1 second column in English","de":"Seite 1 zweite Spalte in Deutsch"}',
-            'slug' => '{"en":"page-1","de":"seite-1"}',
-            'template_id' => 2
-        ]);
-        DB::table('pages')->insert([
-            'title' => 'Page 2',
-            'content01' => '{"en":"Page 2 in English","de":"Seite 2 in Deutsch"}',
-            'content02' => '{"en":"Page 2 first column in English","de":"Seite 2 erste Spalte in Deutsch"}',
-            'content03' => '{"en":"Page 2 second column in English","de":"Seite 2 zweite Spalte in Deutsch"}',
-            'content04' => '{"en":"Page 2 third column in English","de":"Seite 2 dritte Spalte in Deutsch"}',
-            'content05' => '{"en":"Page 2 fourth column in English","de":"Seite 2 vierte Spalte in Deutsch"}',
-            'slug' => '{"en":"page-2","de":"seite-2"}',
-            'template_id' => 3
-        ]);
+        $this->call(PageSeeder::class);
+
+        // /**
+        //  * Pages
+        //  */
+        // DB::table('pages')->insert([
+        //     'title' => 'Home',
+        //     'content01' => '{"en":"Homepage in English","de":"Startseite in Deutsch"}',
+        //     'content02' => '{"en":"Homepage content in English","de":"Startseite Text in Deutsch"}',
+        //     'slug' => '{"en":"home","de":"home"}',
+        //     'template_id' => 1
+        // ]);
+        // DB::table('pages')->insert([
+        //     'title' => 'Page 1',
+        //     'content01' => '{"en":"Page 1 in English","de":"Seite 1 in Deutsch"}',
+        //     'content02' => '{"en":"Page 1 first column in English","de":"Seite 1 erste Spalte in Deutsch"}',
+        //     'content03' => '{"en":"Page 1 second column in English","de":"Seite 1 zweite Spalte in Deutsch"}',
+        //     'slug' => '{"en":"page-1","de":"seite-1"}',
+        //     'template_id' => 2
+        // ]);
+        // DB::table('pages')->insert([
+        //     'title' => 'Page 2',
+        //     'content01' => '{"en":"Page 2 in English","de":"Seite 2 in Deutsch"}',
+        //     'content02' => '{"en":"Page 2 first column in English","de":"Seite 2 erste Spalte in Deutsch"}',
+        //     'content03' => '{"en":"Page 2 second column in English","de":"Seite 2 zweite Spalte in Deutsch"}',
+        //     'content04' => '{"en":"Page 2 third column in English","de":"Seite 2 dritte Spalte in Deutsch"}',
+        //     'content05' => '{"en":"Page 2 fourth column in English","de":"Seite 2 vierte Spalte in Deutsch"}',
+        //     'slug' => '{"en":"page-2","de":"seite-2"}',
+        //     'template_id' => 3
+        // ]);
 
         /**
          * Blog Pages
@@ -121,94 +123,96 @@ class DatabaseSeeder extends Seeder
             'title' => 'External Link',
         ]);
 
-        /**
-         * Menus
-         */
-        DB::table('menus')->insert([
-            'menu_id' => 1,
-            'name' => '{"en":"Home","de":"Start"}',
-            'slug' => '{"en":"","de":""}',
-            'parent_id' => 0,
-            'morpher_id' => 1,
-            'morpher_type' => 'App\Page',
-            'lft' => 1,
-            'rgt' => 2,
-            'depth' => 0,
-            'active' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
-        DB::table('menus')->insert([
-            'menu_id' => 1,
-            'name' => '{"en":"Menu 1","de":"Punkt 1"}',
-            'slug' => '{"en":"menu-1","de":"punkt-1"}',
-            'parent_id' => 0,
-            'morpher_id' => 2,
-            'morpher_type' => 'App\Page',
-            'lft' => 3,
-            'rgt' => 4,
-            'depth' => 0,
-            'active' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
-        DB::table('menus')->insert([
-            'menu_id' => 1,
-            'name' => '{"en":"Menu 2","de":"Punkt 2"}',
-            'slug' => '{"en":"menu-2","de":"punkt-2"}',
-            'parent_id' => 0,
-            'morpher_id' => 3,
-            'morpher_type' => 'App\Page',
-            'lft' => 5,
-            'rgt' => 6,
-            'depth' => 0,
-            'active' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
-        DB::table('menus')->insert([
-            'menu_id' => 1,
-            'name' => '{"en":"Blog","de":"Blog"}',
-            'slug' => '{"en":"blog","de":"blog"}',
-            'parent_id' => 0,
-            'morpher_id' => 1,
-            'morpher_type' => 'App\Post',
-            'lft' => 9,
-            'rgt' => 10,
-            'depth' => 0,
-            'active' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
-        DB::table('menus')->insert([
-            'menu_id' => 1,
-            'name' => '{"en":"Google","de":"Google Link"}',
-            'slug' => '{"en":"google","de":"google"}',
-            'external_link' => 'http://www.google.com',
-            'parent_id' => 0,
-            'morpher_id' => 1,
-            'morpher_type' => 'App\External',
-            'lft' => 11,
-            'rgt' => 12,
-            'depth' => 0,
-            'active' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
-        DB::table('menus')->insert([
-            'menu_id' => 2,
-            'name' => '{"en":"Footer","de":"Fußzeile"}',
-            'slug' => '{"en":"footer","de":"fuss"}',
-            'parent_id' => 0,
-            'morpher_id' => 2,
-            'morpher_type' => 'App\Page',
-            'lft' => 1,
-            'rgt' => 2,
-            'depth' => 0,
-            'active' => 1,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
+        $this->call(MenuSeeder::class);
+
+        // /**
+        //  * Menus
+        //  */
+        // DB::table('menus')->insert([
+        //     'menu_type_id' => 1,
+        //     'name' => '{"en":"Home","de":"Start"}',
+        //     'slug' => '{"en":"","de":""}',
+        //     'parent_id' => 0,
+        //     'morpher_id' => 1,
+        //     'morpher_type' => 'App\Page',
+        //     'lft' => 1,
+        //     'rgt' => 2,
+        //     'depth' => 0,
+        //     'active' => 1,
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now()
+        // ]);
+        // DB::table('menus')->insert([
+        //     'menu_type_id' => 1,
+        //     'name' => '{"en":"Menu 1","de":"Punkt 1"}',
+        //     'slug' => '{"en":"menu-1","de":"punkt-1"}',
+        //     'parent_id' => 0,
+        //     'morpher_id' => 2,
+        //     'morpher_type' => 'App\Page',
+        //     'lft' => 3,
+        //     'rgt' => 4,
+        //     'depth' => 0,
+        //     'active' => 1,
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now()
+        // ]);
+        // DB::table('menus')->insert([
+        //     'menu_type_id' => 1,
+        //     'name' => '{"en":"Menu 2","de":"Punkt 2"}',
+        //     'slug' => '{"en":"menu-2","de":"punkt-2"}',
+        //     'parent_id' => 0,
+        //     'morpher_id' => 3,
+        //     'morpher_type' => 'App\Page',
+        //     'lft' => 5,
+        //     'rgt' => 6,
+        //     'depth' => 0,
+        //     'active' => 1,
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now()
+        // ]);
+        // DB::table('menus')->insert([
+        //     'menu_type_id' => 1,
+        //     'name' => '{"en":"Blog","de":"Blog"}',
+        //     'slug' => '{"en":"blog","de":"blog"}',
+        //     'parent_id' => 0,
+        //     'morpher_id' => 1,
+        //     'morpher_type' => 'App\Post',
+        //     'lft' => 9,
+        //     'rgt' => 10,
+        //     'depth' => 0,
+        //     'active' => 1,
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now()
+        // ]);
+        // DB::table('menus')->insert([
+        //     'menu_type_id' => 1,
+        //     'name' => '{"en":"Google","de":"Google Link"}',
+        //     'slug' => '{"en":"google","de":"google"}',
+        //     'external_link' => 'http://www.google.com',
+        //     'parent_id' => 0,
+        //     'morpher_id' => 1,
+        //     'morpher_type' => 'App\External',
+        //     'lft' => 11,
+        //     'rgt' => 12,
+        //     'depth' => 0,
+        //     'active' => 1,
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now()
+        // ]);
+        // DB::table('menus')->insert([
+        //     'menu_type_id' => 2,
+        //     'name' => '{"en":"Footer","de":"Fußzeile"}',
+        //     'slug' => '{"en":"footer","de":"fuss"}',
+        //     'parent_id' => 0,
+        //     'morpher_id' => 2,
+        //     'morpher_type' => 'App\Page',
+        //     'lft' => 1,
+        //     'rgt' => 2,
+        //     'depth' => 0,
+        //     'active' => 1,
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now()
+        // ]);
 
     }
 }

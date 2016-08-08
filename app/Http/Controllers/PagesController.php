@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Template;
 use App\Page;
+use App\PageTranslation;
 use Auth;
 use App;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -74,17 +75,18 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($slug, PageTranslation $translations)
     {
-        //dd($slug);
-        $page = Page::with('template')->where('slug','LIKE', '%"' . $this->locale . '":"' . $slug . '"%')->first();
-        // App\Task::where('content','like', '%"en": "english"%')->get();
-        #$page = Page::find($id);
-        //dd($page);
-        if (Auth::check()) {
-            $src = '/admin/page/'.$page->slug.'/edit';
-            return $this->loadiFrame($src, '', LaravelLocalization::getCurrentLocale());
-        }
+        
+        $translation = $translations->getBySlug($slug);
+
+        // if ( ! $translation)
+        // {
+        //     return App::abort(404);
+        // }
+
+        $page = $translation->page;
+
         return view($page->template->path . '.show', compact('page'));
     }
 
@@ -110,13 +112,15 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $slug)
+    public function edit(Request $request, $slug, PageTranslation $translations)
     {
         //dd($slug);
         //$page = new Page;
         //dd($page->getTranslatable());
-        $this->locale = LaravelLocalization::setLocale($request->input('lang'));
-        $page = Page::with('template')->where('slug','LIKE', '%"' . $this->locale . '":"' . $slug . '"%')->first();
+        //$this->locale = LaravelLocalization::setLocale($request->input('lang'));
+        //$page = Page::with('template')->where('slug','LIKE', '%"' . $this->locale . '":"' . $slug . '"%')->first();
+        $translation = $translations->getBySlug($slug);
+        $page = $translation->page;
         if ($page->template->id == 1) {
             return view('index', compact('page'));
         }

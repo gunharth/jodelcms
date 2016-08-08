@@ -3,46 +3,51 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMenusTable extends Migration {
+class CreateMenusTable extends Migration
+{
 
-  /**
+    /**
    * Run the migrations.
    *
    * @return void
    */
-  public function up() {
-    Schema::create('menus', function(Blueprint $table) {
-      // These columns are needed for Baum's Nested Set implementation to work.
-      // Column names may be changed, but they *must* all exist and be modified
-      // in the model.
-      // Take a look at the model scaffold comments for details.
-      // We add indexes on parent_id, lft, rgt columns by default.
-      $table->increments('id');
-      $table->integer('menu_id')->nullable()->index();
-      $table->integer('morpher_id')->nullable();
-      $table->string('morpher_type')->nullable();
-      $table->integer('parent_id')->nullable()->index();
-      $table->integer('lft')->nullable()->index();
-      $table->integer('rgt')->nullable()->index();
-      $table->integer('depth')->nullable();
-      // Add needed columns here (f.ex: name, slug, path, etc.)
-      $table->string('name', 50);
-      $table->string('slug')->unique()->index();
-      $table->string('external_link')->nullable();
-      //$table->integer('page_id')->default(1);
-      $table->boolean('active')->default(0)->index();
+    public function up()
+    {
+        Schema::create('menus', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('menu_type_id')->nullable()->index();
+            $table->integer('morpher_id')->nullable();
+            $table->string('morpher_type')->nullable();
+            $table->string('external_link')->nullable();
+            $table->boolean('active')->default(0)->index();
+            $table->integer('parent_id')->nullable()->index();
+            $table->integer('lft')->nullable()->index();
+            $table->integer('rgt')->nullable()->index();
+            $table->integer('depth')->nullable();
+            $table->timestamps();
+        });
 
-      $table->timestamps();
-    });
-  }
+        Schema::create('menu_translations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('menu_id')->unsigned();
+            $table->string('locale')->index();
 
-  /**
-   * Reverse the migrations.
-   *
-   * @return void
-   */
-  public function down() {
-    Schema::drop('menus');
-  }
+            $table->string('name', 50);
+            $table->string('slug')->index();
 
+            $table->unique(['menu_id','locale']);
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
+        });
+    }
+
+    /**
+    * Reverse the migrations.
+    *
+    * @return void
+    */
+    public function down()
+    {
+        Schema::drop('menus');
+        Schema::drop('menu_translations');
+    }
 }

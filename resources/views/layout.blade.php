@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="/css/admin.css">
     @endif
     @yield('templateStyles')
-    @yield('head_code')
+    @yield('head_code') 
   </head>
   
   <body>
@@ -27,7 +27,7 @@
 
     @include('partials.nav')
     @yield('content')
-    @include('partials.footer')
+    {{-- @include('partials.footer') --}}
 
     <script src="/js/app.js"></script>
     <script src="/js/prism.js"></script>

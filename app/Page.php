@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Translatable\HasTranslations;
 use App\Menu;
 use App\Template;
 
@@ -14,7 +13,7 @@ class Page extends Model implements SluggableInterface
 {
     use SluggableTrait;
     use LogsActivity;
-    use HasTranslations;
+    use \Dimsav\Translatable\Translatable;
 
     protected $sluggable = [
         'build_from' => 'title',
@@ -48,7 +47,8 @@ class Page extends Model implements SluggableInterface
         'body_end_code'
     ];
 
-    public $translatable = [
+    public $translatedAttributes = [
+        'title',
         'slug',
         'content01',
         'content02',
@@ -63,21 +63,7 @@ class Page extends Model implements SluggableInterface
         'meta_title',
         'meta_description',
         'meta_keywords',
-        ];
-
-    public $nottranslatableonupdate = [
-        'slug',
-        ];
-
-    public function getTranslatable()
-    {
-        return $this->translatable;
-    }
-
-    public function getNotTranslatableOnUpdate()
-    {
-        return $this->nottranslatableonupdate;
-    }
+    ];
 
     protected static $logAttributes = [
         'title',
@@ -108,7 +94,7 @@ class Page extends Model implements SluggableInterface
 
     protected $appends = [
         'link',
-        'translation'
+        //'translation'
     ];
 
     public function returnController()
@@ -134,10 +120,10 @@ class Page extends Model implements SluggableInterface
         return '/page/'.$this->slug;
     }
 
-    public function getTranslationAttribute()
-    {
-        return '/page/'.json_decode($this->slug);
-    }
+    // public function getTranslationAttribute()
+    // {
+    //     return '/page/'.json_decode($this->slug);
+    // }
 
     public function template()
     {

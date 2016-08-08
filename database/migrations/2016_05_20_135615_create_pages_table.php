@@ -14,8 +14,22 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('template_id')->nullable();
+
+            $table->string('head_code')->nullable();
+            $table->string('body_start_code')->nullable();
+            $table->string('body_end_code')->nullable();
+
+            $table->timestamps();
+        });
+
+        Schema::create('page_translations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('page_id')->unsigned();
+            $table->string('locale')->index();
+
             $table->string('title');
-            //variable content blocks
+            $table->string('slug')->unique()->index();
             $table->text('content01')->nullable();
             $table->text('content02')->nullable();
             $table->text('content03')->nullable();
@@ -26,19 +40,13 @@ class CreatePagesTable extends Migration
             $table->text('content08')->nullable();
             $table->text('content09')->nullable();
             $table->text('content10')->nullable();
-            // settings
-            $table->json('slug')->unique()->index();
-            $table->integer('template_id')->nullable();
 
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
 
-            $table->string('head_code')->nullable();
-            $table->string('body_start_code')->nullable();
-            $table->string('body_end_code')->nullable();
-
-            $table->timestamps();
+            $table->unique(['page_id','locale']);
+            $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');
         });
     }
 
@@ -50,5 +58,6 @@ class CreatePagesTable extends Migration
     public function down()
     {
         Schema::drop('pages');
+        Schema::drop('page_translations');
     }
 }

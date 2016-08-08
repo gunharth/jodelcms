@@ -164,7 +164,7 @@ class MenusController extends Controller
         $appLocale = config('app.locale');
         App::setLocale($editorLocale);
         $html = '';
-        foreach (Menu::where('menu_id', $id)->get()->toHierarchy() as $node) {
+        foreach (Menu::where('menu_type_id', $id)->get()->toHierarchy() as $node) {
             $html .= renderEditorMenus($node, $editorLocale);
         }
         App::setLocale($appLocale);

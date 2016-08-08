@@ -143,7 +143,15 @@ Route::group(['as' => 'menu', 'prefix' => LaravelLocalization::setLocale()], fun
     Route::get('{slug}', function ($slug) {
         $categories = explode('/', $slug);
         // $menu = App\Menu::where('slug', end($categories))->first();
-        $menu = App\Menu::where('slug','LIKE', '%"' . LaravelLocalization::getCurrentLocale() . '":"' . end($categories) . '"%')->first();
+        //$menu = App\Menu::where('slug','LIKE', '%"' . LaravelLocalization::getCurrentLocale() . '":"' . end($categories) . '"%')->first();
+        $menus = new App\MenuTranslation;
+        $translation = $menus->getBySlug(end($categories));
+        if ( ! $translation)
+        {
+            return App::abort(404);
+        }
+
+        $menu = $translation->menu;
         reset($categories);
 
         if ($menu) {

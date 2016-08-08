@@ -222,7 +222,7 @@ class Editor {
          */
         $('#tab-menus', this.editorPanel).on('click', '.btn-create', (e) => {
             e.preventDefault();
-            //let menu_id = $('#menuSelector').find('option:selected').val();
+            //let menu_type_id = $('#menuSelector').find('option:selected').val();
             this.addMenu( this.getMenuID() );
         });
 
@@ -247,7 +247,7 @@ class Editor {
         $('#tab-menus', this.editorPanel).on('click', '.edit', (e) => {
             e.preventDefault();
             let parent = $(e.target).parents('.dd-item');
-            this.menu_id = parent.data('id');
+            this.menu_type_id = parent.data('id');
             this.editMenu();
         });
 
@@ -258,12 +258,12 @@ class Editor {
         $('#tab-menus', this.editorPanel).on('click', '.toggleActive', (e) => {
             e.preventDefault();
             this.showLoadingIndicator();
-            let menu_id = $(e.target).parents('.dd-item').data('id');
+            let menu_type_id = $(e.target).parents('.dd-item').data('id');
             let active = $(e.target).data('active');
             $.ajax({
                 type: 'POST',
                 url: '/admin/menu/active',
-                data: 'id=' + menu_id + '&active=' + active,
+                data: 'id=' + menu_type_id + '&active=' + active,
                 error: (xhr, ajaxOptions, thrownError) => {
                     console.log(xhr.status);
                     console.log(thrownError);
@@ -281,7 +281,7 @@ class Editor {
         $('#tab-menus', this.editorPanel).on('click', '.delete', (e) => {
             e.preventDefault();
             let parent = $(e.target).parents('.dd-item');
-            let menu_id = parent.data('id');
+            let menu_type_id = parent.data('id');
 
             let message = 'Are you sure you want to delete menu item?';
 
@@ -289,7 +289,7 @@ class Editor {
                 this.showLoadingIndicator();
                 $.ajax({
                     type: 'POST',
-                    url: '/admin/menu/'+menu_id,
+                    url: '/admin/menu/'+menu_type_id,
                     data: {
                         '_method': 'delete'
                     },
@@ -311,7 +311,7 @@ class Editor {
          *	Select a menu
          */
         $('#menuSelector', this.editorPanel).on('change', (e) => {
-            //let menu_id = $('#menuSelector').find('option:selected').val();
+            //let menu_type_id = $('#menuSelector').find('option:selected').val();
             this.loadMenu( this.getMenuID() );
         });
 
@@ -424,7 +424,7 @@ class Editor {
             $.ajax({
                 type: 'GET',
                 url: '/admin/menuSelectorType/' + selected,
-                //data: 'id='+menu_id,
+                //data: 'id='+menu_type_id,
                 error: (xhr, ajaxOptions, thrownError) => {
                     console.log(xhr.status);
                     console.log(thrownError);
@@ -455,7 +455,7 @@ class Editor {
         $.ajax({
             type: 'GET',
             url: '/admin/page/listPages/'+ this.editorLocale,
-            //data: 'id='+menu_id,
+            //data: 'id='+menu_type_id,
             error: (xhr, ajaxOptions, thrownError) => {
                 console.log(xhr.status);
                 console.log(thrownError);
@@ -575,12 +575,12 @@ class Editor {
    /**
      *  Editor load selected menu
      */
-    loadMenu(menu_id) {
+    loadMenu(menu_type_id) {
         this.showLoadingIndicator();
         $.ajax({
             type: 'GET',
-            url: '/admin/menu/listMenus/' + menu_id + '/' + this.editorLocale,
-            //data: 'id='+menu_id,
+            url: '/admin/menu/listMenus/' + menu_type_id + '/' + this.editorLocale,
+            //data: 'id='+menu_type_id,
             error: (xhr, ajaxOptions, thrownError) => {
                 console.log(xhr.status);
                 console.log(thrownError);
@@ -601,7 +601,7 @@ class Editor {
             id: 'menu-edit',
             title: 'Edit',
             modal: true,
-            url: '/admin/menu/' + this.menu_id + '/settings'+ '/' + this.editorLocale,
+            url: '/admin/menu/' + this.menu_type_id + '/settings'+ '/' + this.editorLocale,
             type: 'ajax',
             onAfterShow: () => {
                 this.renderMenuTypeSelect();
@@ -621,12 +621,12 @@ class Editor {
 
 
 
-    addMenu(menu_id) {
+    addMenu(menu_type_id) {
         this.openDialog({
             id: 'menu-add',
             title: 'Create a new menu',
             modal: true,
-            url: '/admin/menu/create/' + menu_id,
+            url: '/admin/menu/create/' + menu_type_id,
             type: 'ajax',
             onAfterShow: () => {
                 let ele = $('#menuTypeItemSelector');
@@ -634,7 +634,7 @@ class Editor {
                 $.ajax({
                     type: 'GET',
                     url: '/admin/menuSelectorType/' + selected,
-                    //data: 'id='+menu_id,
+                    //data: 'id='+menu_type_id,
                     error: (xhr, ajaxOptions, thrownError) => {
                         console.log(xhr.status);
                         console.log(thrownError);
@@ -653,7 +653,7 @@ class Editor {
                 });
             },
             callback: () => {
-                this.loadMenu(menu_id);
+                this.loadMenu(menu_type_id);
             },
             buttons: {
                 ok: 'Create',

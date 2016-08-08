@@ -182,7 +182,7 @@ if (!function_exists('buildLanguageSwitcher')) {
     {
         $html = "";
         foreach ($slugs as $key => $slug) {
-            $links = json_decode($slug);
+            $links = $slug;
             foreach ($links as $lang => $value) {
                 if($lang == config('app.fallback_locale')) {
                     $link = $value;

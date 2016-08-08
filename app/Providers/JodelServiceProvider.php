@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Request;
 
 use App\Menu;
+use App\MenuTranslation;
 use App\Page;
 
 class JodelServiceProvider extends ServiceProvider
@@ -26,8 +27,7 @@ class JodelServiceProvider extends ServiceProvider
             if(!empty($_GET['menu'])) {
                 $path = $_GET['menu'];
             }
-            // $view->with('menu', Menu::where('active', '=', 1)->where('menu_id',1)->get())->with('path',$path);
-            $view->with('menu', Menu::with('morpher')->whereActive(1)->whereMenuId(1)->get())->with('path',$path);
+            $view->with('menu', Menu::with('morpher')->whereActive(1)->whereMenuTypeId(1)->get())->with('path',$path);
         });
 
         /**
@@ -40,25 +40,37 @@ class JodelServiceProvider extends ServiceProvider
                 $path = $_GET['menu'];
             }
 
-            // $view->with('menu', Menu::where('active', '=', 1)->where('menu_id',1)->get())->with('path',$path);
-            //$view->with('menu', Menu::with('morpher')->whereActive(1)->whereMenuId(1)->get())->with('path',$path);
-            //dd($view->page->getOriginal('slug'));
-            //dd($view->page->slug);
-            //echo(Request::route()->getName() . ' ' . Request::path());
             $slugs  = [];
             // dd(Request::route()->getName());
             switch(Request::route()->getName()) {
                 case 'menu':
                     $categories = explode('/', $path);
-                    $active = Menu::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
-                    foreach($active->getDescendantsAndSelf() as $descendant) {
-                      $slugs[] = $descendant->getOriginal('slug');
+                   // $active = Menu::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
+                    $menus = new MenuTranslation;
+                    $translation = $menus->getBySlug(end($categories));
+                    $menu = $translation->menu;
+
+                    //dd($menu);
+                    //dd($menu->getDescendantsAndSelf());
+                    $slugs = array();
+                    foreach($menu->getDescendantsAndSelf() as $descendant) {
+                        $menuslugs = array();
+                        foreach($descendant->translations as $langs) {
+                            $menuslugs[] = [ $langs->locale => $langs->slug ];
+                        }
+                        $slugs = $slugs+$menuslugs;
+                      
                     }
+                    //dd($slugs);
                 break;
                 case 'direct.homepage':
                     //$categories = explode('/', $path);
                     //$page = Page::where('slug','LIKE', '%"' . config('app.locale'). '":"home"%')->first();
-                    $slugs[] = '{"en":"","de":""}';
+                    // $slugs[] = '{"en":"","de":""}';
+                    $slugs = array();
+                    $menuslugs[] = [ 'en' => '' ];
+                    $menuslugs[] = [ 'de' => '' ];
+                    $slugs = $slugs+$menuslugs;
                 break;
                 case 'direct.showpage':
                     $categories = explode('/', $path);
@@ -66,15 +78,35 @@ class JodelServiceProvider extends ServiceProvider
                     $slugs[] = $page->getOriginal('slug');
                 break;
                 case 'editpage':
-
                     if(!empty($path)) {
-                      $categories = explode('/', $path);
-                      $active = Menu::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
-                      foreach($active->getDescendantsAndSelf() as $descendant) {
-                        $slugs[] = $descendant->getOriginal('slug');
-                      }
+                      // $categories = explode('/', $path);
+                      // $active = Menu::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
+                      // foreach($active->getDescendantsAndSelf() as $descendant) {
+                      //   $slugs[] = $descendant->getOriginal('slug');
+                      // }
+                      
+                       $categories = explode('/', $path);
+                   // $active = Menu::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
+                    $menus = new MenuTranslation;
+                    $translation = $menus->getBySlug(end($categories));
+                    $menu = $translation->menu;
+
+                    //dd($menu);
+                    //dd($menu->getDescendantsAndSelf());
+                    $slugs = array();
+                    foreach($menu->getDescendantsAndSelf() as $descendant) {
+                        $menuslugs = array();
+                        foreach($descendant->translations as $langs) {
+                            $menuslugs[] = [ $langs->locale => $langs->slug ];
+                        }
+                        $slugs = $slugs+$menuslugs;
+                      
+                    }
                   } else {
-                    $slugs[] = '{"en":"","de":""}';
+                    $slugs = array();
+                    $menuslugs[] = [ 'en' => '' ];
+                    $menuslugs[] = [ 'de' => '' ];
+                    $slugs = $slugs+$menuslugs;
                   }
                 break;
             }
@@ -90,12 +122,7 @@ class JodelServiceProvider extends ServiceProvider
         view()->composer('partials.footer', function($view)
         {
             // morper needed here?
-            $view->with('menu', Menu::with('morpher')->where('active', '=', 1)->where('menu_id',2)->get());
-            // $path = Request::path();
-            // if(!empty($_GET['menu'])) {
-            //     $path = $_GET['menu'];
-            // }
-            // $view->with('menu', Menu::where('active', '=', 1)->where('menu_id',2)->get())->with('path',$path);
+            $view->with('menu', Menu::with('morpher')->where('active', '=', 1)->where('menu_type_id',2)->get());
         });
     }
 

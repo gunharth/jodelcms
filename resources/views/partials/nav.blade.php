@@ -19,7 +19,7 @@
     
     
 
-    @include('partials.lang-switcher')
+      @include('partials.lang-switcher')
 </ul>
         </div><!--/.nav-collapse -->
       </div>

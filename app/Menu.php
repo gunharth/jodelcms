@@ -4,7 +4,6 @@ namespace App;
 
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
-use Spatie\Translatable\HasTranslations;
 use Baum\Node;
 
 /**
@@ -14,7 +13,8 @@ class Menu extends Node implements SluggableInterface
 {
 
     use SluggableTrait;
-    use HasTranslations;
+    //use HasTranslations;
+    use \Dimsav\Translatable\Translatable;
 
     protected $sluggable = [
         'build_from' => 'name',
@@ -32,29 +32,17 @@ class Menu extends Node implements SluggableInterface
 
     protected $fillable = [
       'name',
-      'menu_id',
+      'menu_type_id',
       'slug',
       'morpher_id',
       'morpher_type',
       'external_link'
     ];
 
-    public $translatable = [
+    public $translatedAttributes = [
         'slug',
         'name',
     ];
-
-    public $nottranslatableonupdate = [];
-
-    public function getTranslatable()
-    {
-        return $this->translatable;
-    }
-
-    public function getNotTranslatableOnUpdate()
-    {
-        return $this->nottranslatableonupdate;
-    }
 
     // public function getRouteKeyName()
     // {
@@ -75,7 +63,7 @@ class Menu extends Node implements SluggableInterface
         return $this->morphTo();
     }
 
-    protected $scoped = array('menu_id');
+    protected $scoped = array('menu_type_id');
 
     public function setMorpherType()
     {
