@@ -1,7 +1,8 @@
 
 {!! Form::model($menu,[
         'method' => 'PATCH',
-        'route' => ['admin.menu.update', $menu->id],
+        //'route' => ['admin.menu.update', $menu->id],
+        'url' => ['/'.config('app.locale').'/admin/menu/'.$menu->id],
         'id' => 'updateMenu'
     ]) !!}
 

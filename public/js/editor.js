@@ -412,38 +412,40 @@ class Editor {
      */
     renderMenuTypeSelect() {
         let dropdown = $('#menuTypeItemSelector');
-        let external = $('#menuTypeExternalInput');
-        let selected = $('#menuTypeSelector').find('option:selected').val();
-        if(selected == 'External') {
-            dropdown.hide();
-            external.show();
-        } else {
-            dropdown.show();
-            external.hide();
-            $('#external_link').val('');
-            $.ajax({
-                type: 'GET',
-                url: '/admin/menuSelectorType/' + selected,
-                //data: 'id='+menu_type_id,
-                error: (xhr, ajaxOptions, thrownError) => {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                }
-            }).done((data) => {
-                dropdown.empty();
-                //ele.append('<option value="0">-- Auswahl --</option>');
-                let selected = 0;
-                if($('#morpher_id_orig').length) {
-                    selected = $('#morpher_id_orig').text();
-                }
-                for (var i = 0; i < data.length; i++) {
-                    let sel = '';
-                    if(data[i].id == selected) {
-                        sel = ' selected="selected"';
+        if(dropdown.length) {
+            let external = $('#menuTypeExternalInput');
+            let selected = $('#menuTypeSelector').find('option:selected').val();
+            if(selected == 'External') {
+                dropdown.hide();
+                external.show();
+            } else {
+                dropdown.show();
+                external.hide();
+                $('#external_link').val('');
+                $.ajax({
+                    type: 'GET',
+                    url: '/admin/menuSelectorType/' + selected,
+                    //data: 'id='+menu_type_id,
+                    error: (xhr, ajaxOptions, thrownError) => {
+                        console.log(xhr.status);
+                        console.log(thrownError);
                     }
-                    dropdown.append('<option value="' + data[i].id + '"' + sel + '>' + data[i].title + '</option>');
-                }
-            });
+                }).done((data) => {
+                    dropdown.empty();
+                    //ele.append('<option value="0">-- Auswahl --</option>');
+                    let selected = 0;
+                    if($('#morpher_id_orig').length) {
+                        selected = $('#morpher_id_orig').text();
+                    }
+                    for (var i = 0; i < data.length; i++) {
+                        let sel = '';
+                        if(data[i].id == selected) {
+                            sel = ' selected="selected"';
+                        }
+                        dropdown.append('<option value="' + data[i].id + '"' + sel + '>' + data[i].title + '</option>');
+                    }
+                });
+            }
         }
     }
 
@@ -474,7 +476,7 @@ class Editor {
             id: 'page-edit',
             title: 'Edit',
             modal: true,
-            url: '/admin/page/' + this.page_id + '/settings',
+            url: '/'+this.editorLocale+'/admin/page/' + this.page_id + '/settings',
             type: 'ajax',
             callback: () => {
                 this.loadPages();
@@ -629,30 +631,31 @@ class Editor {
             url: '/'+this.editorLocale+'/admin/menu/create/' + menu_type_id,
             type: 'ajax',
             onAfterShow: () => {
-                if($('#menuTypeItemSelector').length) {
-                let ele = $('#menuTypeItemSelector');
-                let selected = $('#menuTypeSelector').find('option:selected').val();
-                $.ajax({
-                    type: 'GET',
-                    url: '/'+this.editorLocale+'/admin/menuSelectorType/' + selected,
-                    //data: 'id='+menu_type_id,
-                    error: (xhr, ajaxOptions, thrownError) => {
-                        console.log(xhr.status);
-                        console.log(thrownError);
-                    }
-                }).done((data) => {
-                    ele.empty();
-                    //ele.append('<option value="0">-- Auswahl --</option>');
-                    let selected = $('#morpher_id_orig').text();
-                    for (var i = 0; i < data.length; i++) {
-                        let sel = '';
-                        if(data[i].id == selected) {
-                            sel = ' selected="selected"';
-                        }
-                        ele.append('<option value="' + data[i].id + '"' + sel + '>' + data[i].title + '</option>');
-                    }
-                });
-            }
+                this.renderMenuTypeSelect();
+                // if($('#menuTypeItemSelector').length) {
+                //     let ele = $('#menuTypeItemSelector');
+                //     let selected = $('#menuTypeSelector').find('option:selected').val();
+                //     $.ajax({
+                //         type: 'GET',
+                //         url: '/'+this.editorLocale+'/admin/menuSelectorType/' + selected,
+                //         //data: 'id='+menu_type_id,
+                //         error: (xhr, ajaxOptions, thrownError) => {
+                //             console.log(xhr.status);
+                //             console.log(thrownError);
+                //         }
+                //     }).done((data) => {
+                //         ele.empty();
+                //         //ele.append('<option value="0">-- Auswahl --</option>');
+                //         let selected = $('#morpher_id_orig').text();
+                //         for (var i = 0; i < data.length; i++) {
+                //             let sel = '';
+                //             if(data[i].id == selected) {
+                //                 sel = ' selected="selected"';
+                //             }
+                //             ele.append('<option value="' + data[i].id + '"' + sel + '>' + data[i].title + '</option>');
+                //         }
+                //     });
+                // }
             },
             callback: () => {
                 this.loadMenu(menu_type_id);

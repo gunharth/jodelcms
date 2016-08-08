@@ -16,9 +16,10 @@ if (!function_exists('renderMainMenu')) {
         //$link = route('page', ['page_slug' => $node->slug]);
         if ($node->slug == "home") {
             $link .= LaravelLocalization::getLocalizedURL($locale = null, $url = '/');
+            $single  = '<a href="'. LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link) .'">' . $node->name  .'</a>';
         } else {
             $locale = LaravelLocalization::getCurrentLocale();
-            if($locale != config('app.fallback_locale')) {
+            if($locale != config('app.fallback_locale') && $node->isRoot()) {
                 $link .= '/' . LaravelLocalization::getCurrentLocale() . '/' . $node->slug;
             } else {
                 $link .= '/' . $node->slug;

@@ -26,7 +26,7 @@ class PagesController extends Controller
     }
 
     /**
-     * Display main index page
+     * Display main index resource
      * If logged in redirect to iframe calling @edit
      * route: /
      * @return \Illuminate\Http\Response
@@ -35,16 +35,17 @@ class PagesController extends Controller
     {
         $page = Page::findOrFail(1);
         if (Auth::check()) {
-            $src = '/' . LaravelLocalization::getCurrentLocale() . '/admin/page/'.$page->slug.'/edit';
-            return $this->loadiFrame($src, '', $this->locale);
+            $src = '/' . $this->locale . '/admin/page/'.$page->slug.'/edit';
+            return $this->loadiFrame($src);
         }
         return view('index', compact('page'));
     }
 
     /**
-     * Display a specified page.
-     * route: page/{slug}
-     * @param  string $slug
+     * Display a specified resource
+     * If logged in redirect to iframe calling @edit
+     * route: resource/{slug}
+     * @param  string $slug,  $translations
      * @return \Illuminate\Http\Response
      */
     public function show($slug, PageTranslation $translations)
@@ -54,11 +55,15 @@ class PagesController extends Controller
             return App::abort(404);
         }
         $page = $translation->page;
+        if (Auth::check()) {
+            $src = '/' . $this->locale . '/admin/page/'.$page->slug.'/edit';
+            return $this->loadiFrame($src);
+        }
         return view($page->template->path . '.show', compact('page'));
     }
 
     /**
-     * Display a specified page from linked menu.
+     * Display a specified resource from linked menu.
      * If logged in redirect to iframe calling @admin edit
      * route: menu {slug}
      * @param  int $pageid, string $menuslug
@@ -71,16 +76,31 @@ class PagesController extends Controller
             $src = '/' . $this->locale . '/admin/page/'.$page->slug.'/edit';
             if ($this->locale != config('app.fallback_locale')) {
                 $slug = $this->locale . '/' . $slug;
-            } 
-            return $this->loadiFrame($src, $slug, $this->locale);
+            }
+            return $this->loadiFrame($src, $slug);
         }
         return view($page->template->path . '.show', compact('page'));
     }
 
     /**
-     * Update content areas of specified page.
+     * iframe content to edit resource
+     * @param  $request, $slug, $translations
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request, $slug, PageTranslation $translations)
+    {
+        $translation = $translations->getBySlug($slug);
+        $page = $translation->page;
+        if ($page->template->id == 1) {
+            return view('index', compact('page'));
+        }
+        return view($page->template->path . '.show', compact('page'));
+    }
+
+    /**
+     * Update content areas of specified resource
      * ajax route: @admin updateContent
-     * @param  int $pageid, string $menuslug
+     * @param  int $resourceid, string $menuslug
      * @return \Illuminate\Http\Response
      */
     public function updateContent(PageRequest $request, $slug, PageTranslation $translations)
@@ -102,8 +122,9 @@ class PagesController extends Controller
      */
 
     /**
-     * Show the form for creating a new page.
-     *
+     * Load editor create form
+     * ajax route
+     * @param  $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -117,70 +138,48 @@ class PagesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * Store new resource
+     * ajax route
+     * @param  $request
      * @return \Illuminate\Http\Response
      */
     public function store(PageRequest $request)
     {
-        $page = Page::create($request->all());
-        return $page;
-        //return redirect()->route('page.show', [$page->slug]);
-    }
-
-    
-
-
-    
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Request $request, $slug, PageTranslation $translations)
-    {
-        //dd($slug);
-        //$page = new Page;
-        //dd($page->getTranslatable());
-        //$this->locale = LaravelLocalization::setLocale($request->input('lang'));
-        //$page = Page::with('template')->where('slug','LIKE', '%"' . $this->locale . '":"' . $slug . '"%')->first();
-        //dd(App::getLocale());
-        $translation = $translations->getBySlug($slug);
-        $page = $translation->page;
-        if ($page->template->id == 1) {
-            return view('index', compact('page'));
+        if ($request->ajax()) {
+            $page = Page::create($request->all());
+            return $page;
         }
-        return view($page->template->path . '.show', compact('page'));
+    }
+    
+    /**
+     * Load editor settings form 
+     * ajax route
+     * @param  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function settings(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            //App::setLocale($editorLocale);
+            $page = Page::findOrFail($id);
+            $templates = Template::where('active', 1)->lists('name', 'id');
+            return view('admin.page.settings', compact('page', 'templates'));
+        }
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
+     * Store settings
+     * ajax route
+     * @param  $request
      * @return \Illuminate\Http\Response
      */
-    public function settings($id)
+    public function update(PageRequest $request, $id)
     {
-        $page = Page::findOrFail($id);
-        $templates = Template::where('active', 1)->lists('name', 'id');
-        return view('admin.page.settings', compact('page', 'templates'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(PageRequest $request, Page $page)
-    {
-        $page->fill($request->all())->save();
-        return $page;
+        if ($request->ajax()) {
+            $page = Page::findOrFail($id);
+            $page->fill($request->all())->save();
+            return $page;
+        }
     }
 
     
@@ -227,32 +226,4 @@ class PagesController extends Controller
         //App::setLocale($appLocale);
         return $html;
     }
-    
-    // public function loadiFrame($src)
-    // {
-    //     return view('editor', compact('src'));
-    // }
-
-    /**
-     * Save the menu ordering
-     *
-     * @param Request $request
-     */
-    // public function postActive(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $page = Page::findOrFail($request->id);
-    //         $page->active = $request->active;
-    //         $page->save();
-    //     }
-    // }
-
-
-    /*public function postDelete(Request $request)
-    {
-        if ($request->ajax()) {
-            $page = Page::findOrFail($request->id);
-            $page->delete();
-        }
-    }*/
 }

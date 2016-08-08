@@ -49,36 +49,7 @@ class MenusController extends Controller
      */
     public function store(MenuRequest $request)
     {
-        // $locale = config('app.fallback_locale');
-        // $translatables = $translatable->getTranslatable();
-        //$menu = new Menu;
-        //$slug = str_slug($request->slug, "-");
-        //$request->merge(array('slug' => $slug));
-        
-        //$menu->fill($request->all());
-        // $menu->save();
-        // $menu->translateOrNew('en')->name = $request->name;
-        // $menu->translateOrNew('en')->slug = $request->slug;
-        //$menu->translateOrNew($locale)->name = "Title {$locale}";
-        
-        //$request->merge(array('slug' => $slug));
-        // foreach($translatables as $key => $value) {
-        //     //dd($value);
-        //     //$menu->setTranslation($value, $locale, $menu->$value);
-        //     $menu->setTranslation($value, $locale, $request->$value);
-        // }
-        //dd($menu);
-        //dd(App::getLocale());
-        //$menu = Menu::create($request->all());
-        //$menu->create();
-        //
-        //$menu = new Menu;
-        //$menu->name = Input::get('name');
-        //$menu->fill($request->all());
-        //menu->save();
-        //$menu->fill($request->all());
         $menu = Menu::create($request->all());
-
         return $menu;
     }
 
@@ -88,10 +59,10 @@ class MenusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    // public function show($id)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -99,10 +70,10 @@ class MenusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+    // public function edit($id)
+    // {
+    //     //
+    // }
 
 
     /**
@@ -113,13 +84,10 @@ class MenusController extends Controller
      */
     public function settings($id, $editorLocale)
     {
-        $appLocale = config('app.locale');
+        //$appLocale = config('app.locale');
         App::setLocale($editorLocale);
         $menu = Menu::findOrFail($id);
-        //dd($menu->name);
         $pages = Page::lists('title', 'id')->toArray();
-        //App::setLocale($appLocale);
-
         return view('admin.menu.edit', compact('menu', 'pages'));
     }
 
@@ -130,26 +98,10 @@ class MenusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MenuRequest $request, $id, Menu $translatable)
+    public function update(MenuRequest $request, $id)
     {
-        // $locale = $request->lang;
-        $locale = $request->locale;
         $menu = Menu::findOrFail($id);
-        $slug = str_slug($request->slug, "-");
-        if ($id == 1) {
-            $slug = ' ';
-        }
-        $request->merge(array('slug' => $slug));
-        $translatables = $translatable->getTranslatable();
-        $protectedtranslatables = $translatable->getNotTranslatableOnUpdate();
-        foreach($translatables as $key => $value) {
-            if(in_array($value,$protectedtranslatables)) {
-                $orig = $menu->getTranslation($value, $locale);
-                $menu->setTranslation($value, $locale, $orig);
-            } else {
-                $menu->setTranslation($value, $locale, $request->$value);
-            }
-        }
+        $menu = $menu->fill($request->all());
         $menu->save();
         return $menu;
     }
@@ -176,13 +128,13 @@ class MenusController extends Controller
      */
     public function editorList($id, $editorLocale)
     {
-        $appLocale = config('app.locale');
+        //$appLocale = config('app.locale');
         App::setLocale($editorLocale);
         $html = '';
         foreach (Menu::where('menu_type_id', $id)->get()->toHierarchy() as $node) {
             $html .= renderEditorMenus($node, $editorLocale);
         }
-        App::setLocale($appLocale);
+        //App::setLocale($appLocale);
         return $html;
     }
 

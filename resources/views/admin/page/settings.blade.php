@@ -1,6 +1,7 @@
 {!! Form::model($page,[
         'method' => 'PATCH',
-        'route' => ['admin.page.update', $page->slug],
+        //'route' => ['admin.page.update', $page->slug],
+        'url' => ['/'.config('app.locale').'/admin/page/'.$page->id],
         'id' => 'updatePage'
     ]) !!}
 	

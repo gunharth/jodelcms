@@ -54,7 +54,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::get('page/create',   ['as' => 'admin.page.create',   'uses' => 'PagesController@create']);
     Route::get('page/{slug}/edit', ['as' => 'editpage', 'uses' => 'PagesController@edit']);
     Route::match(['put', 'patch'], 'page/{slug}/content', ['as' => 'admin.page.content', 'uses' => 'PagesController@updateContent']);
-    Route::match(['put', 'patch'], 'page/{page}', ['as' => 'admin.page.update', 'uses' => 'PagesController@update']);
+    Route::match(['put', 'patch'], 'page/{id}', ['as' => 'admin.page.update', 'uses' => 'PagesController@update']);
     Route::delete('page/{id}', 'PagesController@destroy');
     Route::post('page/duplicate', 'PagesController@duplicate');
     Route::get('page/{page}/settings', 'PagesController@settings');
