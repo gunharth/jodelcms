@@ -26,22 +26,83 @@ class PagesController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
+     * Display main index page
+     * If logged in redirect to iframe calling @edit
+     * route: /
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $page = Page::findOrFail(1);
         if (Auth::check()) {
-            $src = '/admin/page/'.$page->slug.'/edit';
-            return $this->loadiFrame($src,'',$this->locale);
+            $src = '/' . LaravelLocalization::getCurrentLocale() . '/admin/page/'.$page->slug.'/edit';
+            return $this->loadiFrame($src, '', $this->locale);
         }
         return view('index', compact('page'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a specified page.
+     * route: page/{slug}
+     * @param  string $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function show($slug, PageTranslation $translations)
+    {
+        $translation = $translations->getBySlug($slug);
+        if (! $translation) {
+            return App::abort(404);
+        }
+        $page = $translation->page;
+        return view($page->template->path . '.show', compact('page'));
+    }
+
+    /**
+     * Display a specified page from linked menu.
+     * If logged in redirect to iframe calling @admin edit
+     * route: menu {slug}
+     * @param  int $pageid, string $menuslug
+     * @return \Illuminate\Http\Response
+     */
+    public function showID($id, $slug)
+    {
+        $page = Page::find($id);
+        if (Auth::check()) {
+            $src = '/' . $this->locale . '/admin/page/'.$page->slug.'/edit';
+            if ($this->locale != config('app.fallback_locale')) {
+                $slug = $this->locale . '/' . $slug;
+            } 
+            return $this->loadiFrame($src, $slug, $this->locale);
+        }
+        return view($page->template->path . '.show', compact('page'));
+    }
+
+    /**
+     * Update content areas of specified page.
+     * ajax route: @admin updateContent
+     * @param  int $pageid, string $menuslug
+     * @return \Illuminate\Http\Response
+     */
+    public function updateContent(PageRequest $request, $slug, PageTranslation $translations)
+    {
+        if ($request->ajax()) {
+            $translation = $translations->getBySlug($slug);
+            if (! $translation) {
+                return App::abort(404);
+            }
+            $page = $translation->page;
+            $page->fill($request->all());
+            $page->save();
+            return $page;
+        }
+    }
+
+    /**
+     * Editor functions
+     */
+
+    /**
+     * Show the form for creating a new page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -63,47 +124,15 @@ class PagesController extends Controller
      */
     public function store(PageRequest $request)
     {
-        
         $page = Page::create($request->all());
         return $page;
         //return redirect()->route('page.show', [$page->slug]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($slug, PageTranslation $translations)
-    {
-        
-        $translation = $translations->getBySlug($slug);
+    
 
-        // if ( ! $translation)
-        // {
-        //     return App::abort(404);
-        // }
 
-        $page = $translation->page;
-
-        return view($page->template->path . '.show', compact('page'));
-    }
-
-    public function showID($id, $slug)
-    {
-        $page = Page::find($id);
-        if (Auth::check()) {
-            $src = '/admin/page/'.$page->slug.'/edit';
-            if(LaravelLocalization::getCurrentLocale() != config('app.fallback_locale')) {
-                $slug = LaravelLocalization::getCurrentLocale() . '/' . $slug;
-            } else {
-                $slug = $slug;
-            }
-            return $this->loadiFrame($src, $slug, LaravelLocalization::getCurrentLocale());
-        }
-        return view($page->template->path . '.show', compact('page'));
-    }
+    
 
 
     /**
@@ -119,6 +148,7 @@ class PagesController extends Controller
         //dd($page->getTranslatable());
         //$this->locale = LaravelLocalization::setLocale($request->input('lang'));
         //$page = Page::with('template')->where('slug','LIKE', '%"' . $this->locale . '":"' . $slug . '"%')->first();
+        //dd(App::getLocale());
         $translation = $translations->getBySlug($slug);
         $page = $translation->page;
         if ($page->template->id == 1) {
@@ -153,29 +183,7 @@ class PagesController extends Controller
         return $page;
     }
 
-    public function updateContent(PageRequest $request, $slug, PageTranslation $translations)
-    {
-        $translation = $translations->getBySlug($slug);
-        $page = $translation->page;
-        $page->fill($request->all());
-        $page->save();
-        return $page;
-
-        // $lang = $request->lang;
-        // $page = Page::with('template')->where('slug','LIKE', '%"' . $lang . '":"' . $slug . '"%')->first();
-        // $translatables = $translatable->getTranslatable();
-        // $protectedtranslatables = $translatable->getNotTranslatableOnUpdate();
-        // foreach($translatables as $key => $value) {
-        //     if(in_array($value,$protectedtranslatables)) {
-        //         $orig = $page->getTranslation($value, $lang);
-        //         $page->setTranslation($value, $lang, $orig);
-        //     } else {
-        //         $page->setTranslation($value, $lang, $request->$value);
-        //     }
-        // }
-        // $page->save();
-        // return $page;
-    }
+    
 
     public function duplicate(Request $request)
     {

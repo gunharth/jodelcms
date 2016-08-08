@@ -626,14 +626,15 @@ class Editor {
             id: 'menu-add',
             title: 'Create a new menu',
             modal: true,
-            url: '/admin/menu/create/' + menu_type_id,
+            url: '/'+this.editorLocale+'/admin/menu/create/' + menu_type_id,
             type: 'ajax',
             onAfterShow: () => {
+                if($('#menuTypeItemSelector').length) {
                 let ele = $('#menuTypeItemSelector');
                 let selected = $('#menuTypeSelector').find('option:selected').val();
                 $.ajax({
                     type: 'GET',
-                    url: '/admin/menuSelectorType/' + selected,
+                    url: '/'+this.editorLocale+'/admin/menuSelectorType/' + selected,
                     //data: 'id='+menu_type_id,
                     error: (xhr, ajaxOptions, thrownError) => {
                         console.log(xhr.status);
@@ -651,6 +652,7 @@ class Editor {
                         ele.append('<option value="' + data[i].id + '"' + sel + '>' + data[i].title + '</option>');
                     }
                 });
+            }
             },
             callback: () => {
                 this.loadMenu(menu_type_id);

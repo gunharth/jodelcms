@@ -34,7 +34,7 @@ Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], f
  * Admin Routes
  */
 
-Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale().'/admin'], function () {
     
     /**
      * Dev only reset Database
@@ -142,15 +142,12 @@ Route::group(['prefix' => 'elfinder'], function () {
 Route::group(['as' => 'menu', 'prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('{slug}', function ($slug) {
         $categories = explode('/', $slug);
-        // $menu = App\Menu::where('slug', end($categories))->first();
-        //$menu = App\Menu::where('slug','LIKE', '%"' . LaravelLocalization::getCurrentLocale() . '":"' . end($categories) . '"%')->first();
         $menus = new App\MenuTranslation;
         $translation = $menus->getBySlug(end($categories));
         if ( ! $translation)
         {
             return App::abort(404);
         }
-
         $menu = $translation->menu;
         reset($categories);
 

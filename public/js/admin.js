@@ -101,13 +101,13 @@ function savePage() {
     $('#editor-loading', window.parent.document).show();
     var data = { '_method': 'patch' };
     data['lang'] = $('html').attr('lang');
-    data['fields'] = '';
+    //data['fields'] = '';
     var url = $('#url').val();
     for (i = 0; i < tinymce.editors.length; i++) {
         var content = tinymce.editors[i].getContent();
         var field = document.getElementById(tinymce.editors[i].id).dataset.field;
         data[field] = content;
-        data['fields'] += field + ',';
+        //data['fields'] += field + ',';
     }
     $.ajax({
         dataType: 'json',

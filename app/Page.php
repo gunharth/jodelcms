@@ -15,15 +15,20 @@ class Page extends Model implements SluggableInterface
     use LogsActivity;
     use \Dimsav\Translatable\Translatable;
 
+    /**
+     * returnController for catch all route
+     * @return string
+     */
+    public function returnController()
+    {
+        return 'PagesController';
+    }
+
     protected $sluggable = [
         'build_from' => 'title',
         'save_to'    => 'slug',
         'on_update'  => false
     ];
-
-    // protected $casts = [
-    //     'slug' => 'json',
-    // ];
 
     protected $fillable = [
         'title',
@@ -97,10 +102,7 @@ class Page extends Model implements SluggableInterface
         //'translation'
     ];
 
-    public function returnController()
-    {
-        return 'PagesController';
-    }
+
 
     // public function getRouteKeyName()
     // {

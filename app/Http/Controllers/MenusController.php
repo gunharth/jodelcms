@@ -22,10 +22,10 @@ class MenusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+    // public function index()
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -46,22 +46,22 @@ class MenusController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MenuRequest $request, Menu $translatable)
+    public function store(MenuRequest $request)
     {
-        $locale = config('app.fallback_locale');
-        $translatables = $translatable->getTranslatable();
+        // $locale = config('app.fallback_locale');
+        // $translatables = $translatable->getTranslatable();
         $menu = new Menu;
         //$slug = str_slug($request->slug, "-");
         //$request->merge(array('slug' => $slug));
         $menu->fill($request->all());
         
         //$request->merge(array('slug' => $slug));
-        foreach($translatables as $key => $value) {
-            //dd($value);
-            //$menu->setTranslation($value, $locale, $menu->$value);
-            $menu->setTranslation($value, $locale, $request->$value);
-        }
-        dd($menu);
+        // foreach($translatables as $key => $value) {
+        //     //dd($value);
+        //     //$menu->setTranslation($value, $locale, $menu->$value);
+        //     $menu->setTranslation($value, $locale, $request->$value);
+        // }
+        //dd($menu);
         //$menu = Menu::create($request->all());
         $menu->save();
         return $menu;
