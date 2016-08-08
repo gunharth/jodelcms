@@ -173,6 +173,7 @@ return [
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+        Dimsav\Translatable\TranslatableServiceProvider::class,
 
     ],
 

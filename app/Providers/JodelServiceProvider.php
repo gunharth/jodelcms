@@ -8,6 +8,7 @@ use Request;
 use App\Menu;
 use App\MenuTranslation;
 use App\Page;
+use App\PageTranslation;
 
 class JodelServiceProvider extends ServiceProvider
 {
@@ -72,10 +73,28 @@ class JodelServiceProvider extends ServiceProvider
                     $menuslugs[] = [ 'de' => '' ];
                     $slugs = $slugs+$menuslugs;
                 break;
-                case 'direct.showpage':
+                case 'direct.showpage': //Public direct loading of a page 
                     $categories = explode('/', $path);
-                    $page = Page::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
-                    $slugs[] = $page->getOriginal('slug');
+                    // //$page = Page::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
+                    $translations = new PageTranslation;
+                    $translation = $translations->getBySlug(end($categories));
+                    $page = $translation->page;
+                    //dd($page);
+
+
+                    // $slugs[] = $page->getOriginal('slug');
+                    //  $slugs = array();
+                    // $menuslugs[] = [ 'en' => '' ];
+                    // $menuslugs[] = [ 'de' => '' ];
+                    // $slugs = $slugs+$menuslugs;
+                    // 
+                    // 
+                    $slugs = array();
+                    $menuslugs = array();
+                        foreach($page->translations as $langs) {
+                            $menuslugs[] = [ $langs->locale => $langs->slug ];
+                        }
+                        $slugs = $slugs+$menuslugs;
                 break;
                 case 'editpage':
                     if(!empty($path)) {

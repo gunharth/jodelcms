@@ -153,22 +153,28 @@ class PagesController extends Controller
         return $page;
     }
 
-    public function updateContent(PageRequest $request, $slug, Page $translatable)
+    public function updateContent(PageRequest $request, $slug, PageTranslation $translations)
     {
-        $lang = $request->lang;
-        $page = Page::with('template')->where('slug','LIKE', '%"' . $lang . '":"' . $slug . '"%')->first();
-        $translatables = $translatable->getTranslatable();
-        $protectedtranslatables = $translatable->getNotTranslatableOnUpdate();
-        foreach($translatables as $key => $value) {
-            if(in_array($value,$protectedtranslatables)) {
-                $orig = $page->getTranslation($value, $lang);
-                $page->setTranslation($value, $lang, $orig);
-            } else {
-                $page->setTranslation($value, $lang, $request->$value);
-            }
-        }
+        $translation = $translations->getBySlug($slug);
+        $page = $translation->page;
+        $page->fill($request->all());
         $page->save();
         return $page;
+
+        // $lang = $request->lang;
+        // $page = Page::with('template')->where('slug','LIKE', '%"' . $lang . '":"' . $slug . '"%')->first();
+        // $translatables = $translatable->getTranslatable();
+        // $protectedtranslatables = $translatable->getNotTranslatableOnUpdate();
+        // foreach($translatables as $key => $value) {
+        //     if(in_array($value,$protectedtranslatables)) {
+        //         $orig = $page->getTranslation($value, $lang);
+        //         $page->setTranslation($value, $lang, $orig);
+        //     } else {
+        //         $page->setTranslation($value, $lang, $request->$value);
+        //     }
+        // }
+        // $page->save();
+        // return $page;
     }
 
     public function duplicate(Request $request)
