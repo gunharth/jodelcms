@@ -12,6 +12,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class MenusController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -50,10 +51,15 @@ class MenusController extends Controller
     {
         // $locale = config('app.fallback_locale');
         // $translatables = $translatable->getTranslatable();
-        $menu = new Menu;
+        //$menu = new Menu;
         //$slug = str_slug($request->slug, "-");
         //$request->merge(array('slug' => $slug));
-        $menu->fill($request->all());
+        
+        //$menu->fill($request->all());
+        // $menu->save();
+        // $menu->translateOrNew('en')->name = $request->name;
+        // $menu->translateOrNew('en')->slug = $request->slug;
+        //$menu->translateOrNew($locale)->name = "Title {$locale}";
         
         //$request->merge(array('slug' => $slug));
         // foreach($translatables as $key => $value) {
@@ -62,8 +68,17 @@ class MenusController extends Controller
         //     $menu->setTranslation($value, $locale, $request->$value);
         // }
         //dd($menu);
+        //dd(App::getLocale());
         //$menu = Menu::create($request->all());
-        $menu->save();
+        //$menu->create();
+        //
+        //$menu = new Menu;
+        //$menu->name = Input::get('name');
+        //$menu->fill($request->all());
+        //menu->save();
+        //$menu->fill($request->all());
+        $menu = Menu::create($request->all());
+
         return $menu;
     }
 

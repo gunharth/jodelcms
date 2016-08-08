@@ -94,7 +94,8 @@ class Page extends Model implements SluggableInterface
 
     protected $with = [
         'template',
-        'menu'
+        'menu',
+        'translations'
     ];
 
     protected $appends = [
