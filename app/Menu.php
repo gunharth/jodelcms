@@ -17,7 +17,7 @@ class Menu extends Node implements SluggableInterface
     use SluggableTrait;
     use Translatable;
 
-    public $translationModel = 'App\MenuTranslation';
+    //public $translationModel = 'App\MenuTranslation';
     
 
     protected $sluggable = [
