@@ -27,7 +27,7 @@
 
     @include('partials.nav')
     @yield('content')
-    {{-- @include('partials.footer') --}}
+    @include('partials.footer')
 
     <script src="/js/app.js"></script>
     <script src="/js/prism.js"></script>

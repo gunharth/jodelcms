@@ -28,8 +28,8 @@ class CreatePagesTable extends Migration
             $table->integer('page_id')->unsigned();
             $table->string('locale')->index();
 
-            $table->string('title');
-            $table->string('slug')->unique()->index();
+            $table->string('title')->nullable();
+            $table->string('slug')->index();
             $table->text('content01')->nullable();
             $table->text('content02')->nullable();
             $table->text('content03')->nullable();
@@ -45,7 +45,7 @@ class CreatePagesTable extends Migration
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
 
-            $table->unique(['page_id','locale']);
+            $table->unique(['slug','locale']);
             $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');
         });
     }

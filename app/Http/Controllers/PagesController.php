@@ -64,7 +64,7 @@ class PagesController extends Controller
 
     /**
      * Display a specified resource from linked menu.
-     * If logged in redirect to iframe calling @admin edit
+     * If logged in redirect to iframe calling @admin.edit
      * route: menu {slug}
      * @param  int $pageid, string $menuslug
      * @return \Illuminate\Http\Response
@@ -111,6 +111,10 @@ class PagesController extends Controller
                 return App::abort(404);
             }
             $page = $translation->page;
+            if (!$page->hasTranslation($this->locale)) {
+                $page->title = $page->translateOrDefault($this->locale)->title;
+                $page->slug = $slug;
+            }
             $page->fill($request->all());
             $page->save();
             return $page;
@@ -177,13 +181,18 @@ class PagesController extends Controller
     {
         if ($request->ajax()) {
             $page = Page::findOrFail($id);
+            if (!$page->hasTranslation($this->locale)) {
+                $page->title = $page->translateOrDefault($this->locale)->title;
+                $page->slug = $page->translateOrDefault($this->locale)->slug;
+            }
+            //$page->fill($request->all());
             $page->fill($request->all())->save();
             return $page;
         }
     }
 
     
-
+    // maybe?
     public function duplicate(Request $request)
     {
         if ($request->ajax()) {
@@ -217,13 +226,11 @@ class PagesController extends Controller
      */
     public function editorList($editorLocale)
     {
-        $appLocale = config('app.locale');
         App::setLocale($editorLocale);
         $html = '';
         foreach (Page::orderBy('title')->get() as $page) {
             $html .= renderEditorPages($page, $editorLocale);
         }
-        //App::setLocale($appLocale);
         return $html;
     }
 }

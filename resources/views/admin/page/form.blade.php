@@ -12,6 +12,10 @@
     	    {!! Form::label('title','Page Title (internal)') !!}
     	    {!! Form::text('title',null,['class' => 'form-control', 'placeholder' => 'Page Title']) !!}
     	    </div>
+            <div class="form-group">
+            {!! Form::label('slug','Slug') !!}
+            {!! Form::text('slug',null,['class' => 'form-control', 'placeholder' => 'Slug']) !!}
+            </div>
 
             <div class="form-group">
             {!! Form::label('template_id','Design Template') !!}
