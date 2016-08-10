@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Requests\MenuRequest;
 use Illuminate\Http\Request;
 use App\Menu;
 use App\Page;
 use Config;
 use App;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class MenusController extends Controller
 {
@@ -18,18 +18,8 @@ class MenusController extends Controller
         $this->middleware('auth');
     }
 
-   /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function index()
-    // {
-    //     //
-    // }
-
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new menu.
      *
      * @return \Illuminate\Http\Response
      */
@@ -37,12 +27,12 @@ class MenusController extends Controller
     {
         if ($request->ajax()) {
             $menu = new Menu;
-            return view('admin.menu.create', compact('id','menu'));
+            return view('admin.menu.create', compact('id', 'menu'));
         }
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created menu in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -54,37 +44,13 @@ class MenusController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function show($id)
-    // {
-    //     //
-    // }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    // public function edit($id)
-    // {
-    //     //
-    // }
-
-
-    /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified menu.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function settings($id, $editorLocale)
     {
-        //$appLocale = config('app.locale');
         App::setLocale($editorLocale);
         $menu = Menu::findOrFail($id);
         $pages = Page::lists('title', 'id')->toArray();
@@ -92,7 +58,7 @@ class MenusController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified menu in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -101,13 +67,12 @@ class MenusController extends Controller
     public function update(MenuRequest $request, $id)
     {
         $menu = Menu::findOrFail($id);
-        $menu = $menu->fill($request->all());
-        $menu->save();
+        $menu = $menu->fill($request->all())->save();
         return $menu;
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified menu from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -160,7 +125,7 @@ class MenusController extends Controller
     }
 
     /**
-     * Save the menu ordering
+     * Store the status of the menu
      *
      * @param Request $request
      */
@@ -172,17 +137,4 @@ class MenusController extends Controller
             $menu->save();
         }
     }
-
-    /**
-     * Save the menu ordering
-     *
-     * @param Request $request
-     */
-    // public function postDelete(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $menu = Menu::findOrFail($request->id);
-    //         $menu->delete();
-    //     }
-    // }
 }

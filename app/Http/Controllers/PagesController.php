@@ -185,7 +185,6 @@ class PagesController extends Controller
                 $page->title = $page->translateOrDefault($this->locale)->title;
                 $page->slug = $page->translateOrDefault($this->locale)->slug;
             }
-            //$page->fill($request->all());
             $page->fill($request->all())->save();
             return $page;
         }
@@ -193,16 +192,16 @@ class PagesController extends Controller
 
     
     // maybe?
-    public function duplicate(Request $request)
-    {
-        if ($request->ajax()) {
-            $page = Page::findOrFail($request->id);
-            $page->title = $page->title . ' copy';
-            $clone = $page->replicate()->resluggify();
-            $clone->save();
-            return $clone;
-        }
-    }
+    // public function duplicate(Request $request)
+    // {
+    //     if ($request->ajax()) {
+    //         $page = Page::findOrFail($request->id);
+    //         $page->title = $page->title . ' copy';
+    //         $clone = $page->replicate()->resluggify();
+    //         $clone->save();
+    //         return $clone;
+    //     }
+    // }
 
     /**
      * Remove the specified resource from storage.

@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
+// use Cviebrock\EloquentSluggable\SluggableInterface;
+// use Cviebrock\EloquentSluggable\SluggableTrait;
 //use \Dimsav\Translatable\Translatable;
 use Baum\Node;
 use App\Translatable;
@@ -11,20 +11,20 @@ use App\Translatable;
 /**
 * Menue
 */
-class Menu extends Node implements SluggableInterface
+class Menu extends Node
 {
 
-    use SluggableTrait;
+    // use SluggableTrait;
     use Translatable;
 
     //public $translationModel = 'App\MenuTranslation';
     
 
-    protected $sluggable = [
-        'build_from' => 'name',
-        'save_to'    => 'slug',
-        'on_update'  => false
-    ];
+    // protected $sluggable = [
+    //     'build_from' => 'name',
+    //     'save_to'    => 'slug',
+    //     'on_update'  => false
+    // ];
 
 
     /**

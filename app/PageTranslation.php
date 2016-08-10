@@ -29,12 +29,21 @@ class PageTranslation extends Model
         
     ];
 
-    public function getBySlug($slug)
-	{
-	    return $this->where('slug', '=', $slug)->first();
-	}
+    public function setSlugAttribute($value)
+    {
+        if (empty($value)) {
+            $this->attributes['slug'] = str_slug($this->attributes['title']);
+        } else {
+            $this->attributes['slug'] = str_slug($value);
+        }
+    }
 
-	/**
+    public function getBySlug($slug)
+    {
+        return $this->where('slug', '=', $slug)->first();
+    }
+
+    /**
      * Get the original page.
      *
      * @return Post
@@ -43,5 +52,4 @@ class PageTranslation extends Model
     {
         return $this->belongsTo(Page::class, 'page_id');
     }
-
 }

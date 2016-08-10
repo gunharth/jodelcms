@@ -44,7 +44,7 @@ class MenuRequest extends Request
             case 'PATCH':
             {
                 $custom = [
-                    'slug'  => 'required|unique:menus,slug,'.$this->route('menu')
+                    //'slug'  => 'required|unique:menus,slug,'.$this->route('menu')
                 ];
                 return array_merge($global, $custom);
             }

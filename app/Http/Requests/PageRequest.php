@@ -41,9 +41,9 @@ class PageRequest extends Request
             case 'PATCH':
             {
                 $custom = [];
-                if (substr_compare($this->path(), "content", -1, 7)) {
-                    return [];
-                }
+                // if (substr_compare($this->path(), "content", -1, 7)) {
+                //     return [];
+                // }
                 return array_merge($global, $custom);
             }
             default:break;

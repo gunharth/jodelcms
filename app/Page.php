@@ -3,16 +3,17 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
-use Spatie\Activitylog\Traits\LogsActivity;
+// use Cviebrock\EloquentSluggable\SluggableInterface;
+// use Cviebrock\EloquentSluggable\SluggableTrait;
+//use Spatie\Activitylog\Traits\LogsActivity;
 use App\Menu;
 use App\Template;
 
-class Page extends Model implements SluggableInterface
+//class Page extends Model implements SluggableInterface
+class Page extends Model
 {
-    use SluggableTrait;
-    use LogsActivity;
+    // use SluggableTrait;
+    //use LogsActivity;
     use \Dimsav\Translatable\Translatable;
 
     /**
@@ -24,11 +25,11 @@ class Page extends Model implements SluggableInterface
         return 'PagesController';
     }
 
-    protected $sluggable = [
-        'build_from' => 'title',
-        'save_to'    => 'slug',
-        'on_update'  => false
-    ];
+    // protected $sluggable = [
+    //     'build_from' => 'title',
+    //     'save_to'    => 'slug',
+    //     'on_update'  => false
+    // ];
 
     protected $fillable = [
         'title',
@@ -70,27 +71,27 @@ class Page extends Model implements SluggableInterface
         'meta_keywords',
     ];
 
-    protected static $logAttributes = [
-        'title',
-        'slug',
-        'content01',
-        'content02',
-        'content03',
-        'content04',
-        'content05',
-        'content06',
-        'content07',
-        'content08',
-        'content09',
-        'content10',
-        'meta_title',
-        'meta_description',
-        'meta_keywords',
-        'template_id',
-        'head_code',
-        'body_start_code',
-        'body_end_code'
-    ];
+    // protected static $logAttributes = [
+    //     'title',
+    //     'slug',
+    //     'content01',
+    //     'content02',
+    //     'content03',
+    //     'content04',
+    //     'content05',
+    //     'content06',
+    //     'content07',
+    //     'content08',
+    //     'content09',
+    //     'content10',
+    //     'meta_title',
+    //     'meta_description',
+    //     'meta_keywords',
+    //     'template_id',
+    //     'head_code',
+    //     'body_start_code',
+    //     'body_end_code'
+    // ];
 
     protected $with = [
         'template',
@@ -110,10 +111,16 @@ class Page extends Model implements SluggableInterface
     //     return 'slug';
     // }
 
-    public function menu()
-    {
-        return $this->morphMany(Menu::class, 'morpher');
-    }
+    // public function setSlugAttribute($value)
+    // {
+    //     if (empty($this->attributes['slug'])) {
+    //         $this->attributes['slug'] = str_slug($this->attributes['title']);
+    //     } else {
+    //         $this->attributes['slug'] = str_slug($this->attributes['slug']);
+    //     }
+        
+    // }
+    
 
     public function getLinkAttribute()
     {
@@ -127,6 +134,12 @@ class Page extends Model implements SluggableInterface
     // {
     //     return '/page/'.json_decode($this->slug);
     // }
+    // 
+    // 
+    public function menu()
+    {
+        return $this->morphMany(Menu::class, 'morpher');
+    }
 
     public function template()
     {
