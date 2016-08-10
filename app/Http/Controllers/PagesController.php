@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Requests\PageRequest;
 use Illuminate\Http\Request;
+use App\PageTranslation;
 use App\Http\Requests;
 use App\Template;
 use App\Page;
-use App\PageTranslation;
 use Auth;
 use App;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class PagesController extends Controller
 {
@@ -103,7 +103,7 @@ class PagesController extends Controller
      * @param  int $resourceid, string $menuslug
      * @return \Illuminate\Http\Response
      */
-    public function updateContent(PageRequest $request, $slug, PageTranslation $translations)
+    public function updateContent(Request $request, $slug, PageTranslation $translations)
     {
         if ($request->ajax()) {
             $translation = $translations->getBySlug($slug);
@@ -142,7 +142,7 @@ class PagesController extends Controller
     }
 
     /**
-     * Store new resource
+     * Editor store new resource
      * ajax route
      * @param  $request
      * @return \Illuminate\Http\Response

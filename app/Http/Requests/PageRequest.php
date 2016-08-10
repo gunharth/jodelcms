@@ -17,6 +17,22 @@ class PageRequest extends Request
     }
 
     /**
+     * Request all() override function to pass in slug for validation
+     *
+     * @return array
+     */
+    public function all()
+    {
+        $input = parent::all();
+        if (empty($input['slug'])) {
+            $input['slug'] = str_slug($input['title']);
+        } else {
+            $input['slug'] = str_slug($input['slug']);
+        }
+        return $input;
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -34,7 +50,9 @@ class PageRequest extends Request
             }
             case 'POST':
             {
-                $custom = [];
+                $custom = [
+                    'slug'  => 'unique:page_translations,slug,NULL,page_id,locale,'.config('app.locale')
+                ];
                 return array_merge($global, $custom);
             }
             case 'PUT':

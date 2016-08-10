@@ -68,7 +68,7 @@ class MenusController extends Controller
     {
         $menu = Menu::findOrFail($id);
         $menu = $menu->fill($request->all())->save();
-        return $menu;
+        return 'true';
     }
 
     /**

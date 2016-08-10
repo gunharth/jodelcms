@@ -325,6 +325,7 @@ body {
     border: 0;
     outline: 1px solid #d9534f;
 }
+.has-error span { color: #d9534f; font-weight: normal; }
 
 .form-control, .form-control:focus {
     border: 1px solid rgba(240, 173, 78, 0.44);

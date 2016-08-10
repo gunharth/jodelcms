@@ -100,27 +100,8 @@ class Page extends Model
     ];
 
     protected $appends = [
-        'link',
-        //'translation'
+        'link'
     ];
-
-
-
-    // public function getRouteKeyName()
-    // {
-    //     return 'slug';
-    // }
-
-    // public function setSlugAttribute($value)
-    // {
-    //     if (empty($this->attributes['slug'])) {
-    //         $this->attributes['slug'] = str_slug($this->attributes['title']);
-    //     } else {
-    //         $this->attributes['slug'] = str_slug($this->attributes['slug']);
-    //     }
-        
-    // }
-    
 
     public function getLinkAttribute()
     {
@@ -130,12 +111,6 @@ class Page extends Model
         return '/page/'.$this->slug;
     }
 
-    // public function getTranslationAttribute()
-    // {
-    //     return '/page/'.json_decode($this->slug);
-    // }
-    // 
-    // 
     public function menu()
     {
         return $this->morphMany(Menu::class, 'morpher');

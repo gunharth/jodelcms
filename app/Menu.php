@@ -2,11 +2,8 @@
 
 namespace App;
 
-// use Cviebrock\EloquentSluggable\SluggableInterface;
-// use Cviebrock\EloquentSluggable\SluggableTrait;
-//use \Dimsav\Translatable\Translatable;
-use Baum\Node;
 use App\Translatable;
+use Baum\Node;
 
 /**
 * Menue
@@ -14,25 +11,7 @@ use App\Translatable;
 class Menu extends Node
 {
 
-    // use SluggableTrait;
     use Translatable;
-
-    //public $translationModel = 'App\MenuTranslation';
-    
-
-    // protected $sluggable = [
-    //     'build_from' => 'name',
-    //     'save_to'    => 'slug',
-    //     'on_update'  => false
-    // ];
-
-
-    /**
-   * Table name.
-   *
-   * @var string
-   */
-  protected $table = 'menus';
 
     protected $fillable = [
       'name',
@@ -48,28 +27,20 @@ class Menu extends Node
         'name',
     ];
 
-    // public function getRouteKeyName()
-    // {
-    //     return 'slug';
-    // }
+    protected $with = ['translations'];
 
-  /*public function page()
-  {
-      return $this->belongsTo('App\Page');
-  }*/
-
-  protected $with = ['translations'];
-
-  protected $appends = [
+    protected $appends = [
         'morpher_type_simple'
     ];
+
+    // Baum Scope for different Menus
+    protected $scoped = array('menu_type_id');
+
 
     public function morpher()
     {
         return $this->morphTo();
     }
-
-    protected $scoped = array('menu_type_id');
 
     public function setMorpherType()
     {
@@ -85,11 +56,6 @@ class Menu extends Node
     {
         return str_replace("App\\", "", $this->morpher_type);
     }
-
-/*    public function getSlugAttribute()
-    {
-        return $this->getTranslation('slug', 'en');
-    }*/
 
   //////////////////////////////////////////////////////////////////////////////
 

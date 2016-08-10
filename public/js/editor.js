@@ -354,7 +354,7 @@ class Editor {
             e.preventDefault();
             let parent = $(e.target).parents('.dd-item');
             this.setting = parent.data('setting');
-            console.log(this.setting)
+            //console.log(this.setting)
             this.editSetting(this.setting);
         });
 
@@ -748,11 +748,13 @@ class Editor {
                 encode: true,
                 error: (data) => {
                         $("input").parent().removeClass('has-error');
+                        $("input").prev().find('span').remove();
                         let errors = data.responseJSON;
-                        console.log(errors)
+                        console.log(errors);
                         $.each( errors, ( key, value ) => {
                             $("input[name="+key+"]").parent().addClass('has-error');
-                        });
+                            $("input[name="+key+"]").prev().append(' <span class="has-error">'+value+'</span>');
+                           })
                     }
             }).done((data) => {
                 this.data = data;

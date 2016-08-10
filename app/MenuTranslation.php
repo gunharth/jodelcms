@@ -15,14 +15,14 @@ class MenuTranslation extends Model
         
     ];
 
-    public function setSlugAttribute($value)
-    {
-        if (empty($value)) {
-            $this->attributes['slug'] = str_slug($this->attributes['name']);
-        } else {
-            $this->attributes['slug'] = str_slug($value);
-        }
-    }
+    // public function setSlugAttribute($value)
+    // {
+    //     if (empty($value)) {
+    //         $this->attributes['slug'] = str_slug($this->attributes['name']);
+    //     } else {
+    //         $this->attributes['slug'] = str_slug($value);
+    //     }
+    // }
 
     public function getBySlug($slug)
 	{

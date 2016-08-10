@@ -17,6 +17,22 @@ class MenuRequest extends Request
     }
 
     /**
+     * Request all() override function to pass in slug for validation
+     *
+     * @return array
+     */
+    public function all()
+    {
+        $input = parent::all();
+        if (empty($input['slug'])) {
+            $input['slug'] = str_slug($input['name']);
+        } else {
+            $input['slug'] = str_slug($input['slug']);
+        }
+        return $input;
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -36,7 +52,7 @@ class MenuRequest extends Request
             case 'POST':
             {
                 $custom = [
-                    //'slug'  => 'required|unique:menus'
+                    'slug'  => 'unique:menu_translations,slug,NULL,menu_id,locale,'.config('app.locale')
                 ];
                 return array_merge($global, $custom);
             }
@@ -44,7 +60,7 @@ class MenuRequest extends Request
             case 'PATCH':
             {
                 $custom = [
-                    //'slug'  => 'required|unique:menus,slug,'.$this->route('menu')
+                    'slug'  => 'unique:menu_translations,slug,'.$this->route('menu').',menu_id,locale,'.config('app.locale')
                 ];
                 return array_merge($global, $custom);
             }
