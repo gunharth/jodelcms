@@ -1,4 +1,3 @@
-
 {!! Form::model($menu,[
         'method' => 'PATCH',
         //'route' => ['admin.menu.update', $menu->id],

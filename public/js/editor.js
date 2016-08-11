@@ -8,6 +8,7 @@ class Editor {
         this.editorFrame = $("#editorIFrame");
         this.data = '';
         this.collection;
+        this.collection_id = 0;
         this.editorLocale = 'en';
 
     }
@@ -330,7 +331,7 @@ class Editor {
             e.preventDefault();
             let parent = $(e.target).parents('.dd-item');
             this.collection = parent.data('collection');
-            console.log(this.collection)
+            //console.log(this.collection)
             this.editCollection(this.collection);
         });
 
@@ -345,6 +346,21 @@ class Editor {
             // this.editorFrame.attr('src',src);
             window.top.location.href = src;
         });
+
+        $('body').on('click', '#collectionItems .edit', (e) => {
+            e.preventDefault();
+            let parent = $(e.target).parents('.dd-item');
+            this.collection_id = parent.data('id');
+            this.editCollectionItem();
+        });
+
+        $('body').on('click', '#collection-tab1-left button', (e) => {
+            e.preventDefault();
+            this.submitCollectionForm();
+        });
+        
+
+        
 
         /**
          *  Tab settings logs
@@ -361,15 +377,15 @@ class Editor {
     }
 
     /**
-     *  Editor edit page window
+     *  Editor edit collection window
      */
     editCollection(collection) {
         this.openDialog({
             id: 'collection-edit',
             title: 'Edit',
-            modal: false,
+            modal: true,
             width: 800,
-            url: '/admin/'+collection+'/adminIndex',
+            url: '/admin/'+collection+'/collectionIndex',
             type: 'ajax',
             // callback: () => {
             //     this.loadPages();
@@ -382,6 +398,64 @@ class Editor {
             }
         });
     };
+
+    /**
+     *  Editor edit collection window
+     */
+    editCollectionItem() {
+        this.showLoadingIndicator();
+        $.ajax({
+            type: 'GET',
+            url: '/' + this.editorLocale + '/admin/'+this.collection+'/' + this.collection_id + '/settings',
+            //data: 'id='+menu_type_id,
+            error: (xhr, ajaxOptions, thrownError) => {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        }).done((html) => {
+            $('#collection-tab1-left').html(html)
+            $('#collection-tab1-left .tabs').tabs();
+            this.hideLoadingIndicator();
+        });
+    };
+
+    submitCollectionForm() {
+        // if (options.type == 'ajax') {
+            this.showLoadingIndicator();
+            let form = $('#collection-tab1-left form');
+            let formData = form.serialize();
+            let action = form.attr('action');
+            $.ajax({
+                type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                url: action, // the url where we want to POST
+                data: formData, // our data object
+                dataType: 'json', // what type of data do we expect back from the server
+                encode: true,
+                error: (data) => {
+                        // $("input").parent().removeClass('has-error');
+                        // $("input").prev().find('span').remove();
+                        // let errors = data.responseJSON;
+                        // console.log(errors);
+                        // $.each( errors, ( key, value ) => {
+                        //     $("input[name="+key+"]").parent().addClass('has-error');
+                        //     $("input[name="+key+"]").prev().append(' <span class="has-error">'+value+'</span>');
+                        //    })
+                    }
+            }).done((data) => {
+                this.hideLoadingIndicator();
+                console.log('went trough')
+                //this.data = data;
+                //dialog.dialog('close');
+                //dialog.remove();
+                // if (typeof(options.callback) === 'function') {
+                //     options.callback();
+                // }
+
+            });
+        // } else {
+        //     form.submit()
+        // }
+    }
 
     /**
      *  Editor edit page window
@@ -768,8 +842,6 @@ class Editor {
         } else {
             form.submit()
         }
-
-
     }
 
     showConfirmationDialog(message, onConfirm, onCancel) {

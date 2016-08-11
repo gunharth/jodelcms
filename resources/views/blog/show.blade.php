@@ -8,7 +8,7 @@
 @section('body_end_code'){{ $post->body_end_code }}@endsection
 
 @section('content')
-@if (Auth::check()) <input type="hidden" id="url" value="/admin/blog/{!! $post->slug !!}/content"> @endif
+@if (Auth::check()) <input type="hidden" id="url" value="/{!! config('app.locale') !!}/admin/blog/{!! $post->slug !!}/content"> @endif
   <div class="container">
     <div class="row">
       <div class="col-md-6">

@@ -115,8 +115,7 @@ class PagesController extends Controller
                 $page->title = $page->translateOrDefault($this->locale)->title;
                 $page->slug = $slug;
             }
-            $page->fill($request->all());
-            $page->save();
+            $page->fill($request->all())->save();
             return $page;
         }
     }

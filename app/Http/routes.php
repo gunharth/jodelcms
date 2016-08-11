@@ -15,12 +15,7 @@ Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], f
      * Blog
      */
     Route::get('blog', 'PostsController@index');
-    //Route::get('blog/indexEditor', 'PostsController@indexEditor');
     Route::get('blog/{slug}', 'PostsController@show');
-    //Route::get('blog/{post}/edit', 'PostsController@edit');
-    
-    Route::post('blog/{post}', 'PostsController@update');
-    Route::resource('blog', 'PostsController');
 
     /**
      * Test for renaming blog to articles
@@ -58,31 +53,21 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::match(['put', 'patch'], 'page/{id}', ['as' => 'admin.page.update', 'uses' => 'PagesController@update']);
     Route::delete('page/{id}', 'PagesController@destroy');
     Route::post('page/duplicate', 'PagesController@duplicate');
-    Route::get('page/{page}/settings', 'PagesController@settings');
-
-    /**
-     * Editor: Tab Pages
-     * List and reload all pages
-     * Type: ajax
-     */
+    Route::get('page/{id}/settings', 'PagesController@settings');
     Route::get('page/listPages/{lang}', 'PagesController@editorList');
-    // Route::get('page/listPages', function () {
-    //     $html = '';
-    //     foreach (\App\Page::orderBy('title')->get() as $page) {
-    //         $html .= renderEditorPages($page);
-    //     }
-    //     return $html;
-    // });
+
     
     /**
      * Admin Blog
      */
-    Route::get('blog/indexEditor', 'PostsController@indexEditor');
+    Route::get('blog/editIndex', 'PostsController@editIndex');
+    Route::get('blog/create',   ['as' => 'admin.blog.create',   'uses' => 'PostsController@create']);
     Route::get('blog/{slug}/edit', 'PostsController@edit');
-
     Route::match(['put', 'patch'], 'blog/{post}/content', ['as' => 'admin.blog.content', 'uses' => 'PostsController@updateContent']);
-    Route::get('blog/adminIndex', 'PostsController@adminIndex');
-    
+    Route::match(['put', 'patch'], 'blog/{id}', ['as' => 'admin.blog.update', 'uses' => 'PostsController@update']);
+    Route::get('blog/collectionIndex', 'PostsController@collectionIndex');
+    Route::get('blog/{id}/settings', 'PostsController@settings');
+     
 
     /**
      * Admin Menus

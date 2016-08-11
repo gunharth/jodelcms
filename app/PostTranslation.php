@@ -19,9 +19,6 @@ class PostTranslation extends Model
         'meta_description',
         'meta_keywords',
         'template_id',
-        'head_code',
-        'body_start_code',
-        'body_end_code'
     ];
 
     // public function setSlugAttribute($value)
