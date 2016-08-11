@@ -19,7 +19,7 @@
   			@foreach($posts as $post)
   				<h2>{!! $post->content01 !!}</h2>
   				{!! $post->content02 !!}
-  				<a href="/blog/{!! $post->slug !!}">Full article</a>
+  				<a href="{!! $post->link !!}">Full article</a>
   			@endforeach
       </div>
     </div>

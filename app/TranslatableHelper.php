@@ -2,10 +2,14 @@
 
 namespace App;
 
-trait Translatable
+trait TranslatableHelper
 {
     use \Dimsav\Translatable\Translatable;
 
+    /**
+     * Overrides default dimsav save method
+     * etrepat/baum collission
+     */
     public function save(array $options = array())
     {
         $tempTranslations = $this->translations;

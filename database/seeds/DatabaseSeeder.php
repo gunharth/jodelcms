@@ -81,40 +81,42 @@ class DatabaseSeeder extends Seeder
         //     'template_id' => 3
         // ]);
 
+        $this->call(PostSeeder::class);
+
         /**
          * Blog Pages
          */
-        DB::table('posts')->insert([
-            'title' => 'Blog - a sample collection',
-            'content01' => '{"en":"english","de":"deutsch"}',
-            'content02' => 'Blog Home',
-            'content03' => 'Blog Home',
-            'slug' => 'home',
-            'template_id' => 3,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+        // DB::table('posts')->insert([
+        //     'title' => 'Blog - a sample collection',
+        //     'content01' => '{"en":"english","de":"deutsch"}',
+        //     'content02' => 'Blog Home',
+        //     'content03' => 'Blog Home',
+        //     'slug' => 'home',
+        //     'template_id' => 3,
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now()
 
-        ]);
-        DB::table('posts')->insert([
-            'title' => 'My first Blog',
-            'content01' => '{"en":"english","de":"deutsch"}',
-            'content02' => 'My first Blog short description for blog homepage',
-            'content03' => 'My first Blog content ...',
-            'slug' => 'my-blog-1',
-            'template_id' => 4,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
-        DB::table('posts')->insert([
-            'title' => 'My second Blog',
-            'content01' => '{"en":"english","de":"deutsch"}',
-            'content02' => 'My second Blog short description for blog homepage',
-            'content03' => 'My second Blog content ...',
-            'slug' => 'my-blog-2',
-            'template_id' => 4,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
-        ]);
+        // ]);
+        // DB::table('posts')->insert([
+        //     'title' => 'My first Blog',
+        //     'content01' => '{"en":"english","de":"deutsch"}',
+        //     'content02' => 'My first Blog short description for blog homepage',
+        //     'content03' => 'My first Blog content ...',
+        //     'slug' => 'my-blog-1',
+        //     'template_id' => 4,
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now()
+        // ]);
+        // DB::table('posts')->insert([
+        //     'title' => 'My second Blog',
+        //     'content01' => '{"en":"english","de":"deutsch"}',
+        //     'content02' => 'My second Blog short description for blog homepage',
+        //     'content03' => 'My second Blog content ...',
+        //     'slug' => 'my-blog-2',
+        //     'template_id' => 4,
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now()
+        // ]);
 
         /**
          * Pages

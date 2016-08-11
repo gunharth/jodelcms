@@ -2,23 +2,26 @@
 
 namespace App;
 
+//use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\SluggableInterface;
-use Cviebrock\EloquentSluggable\SluggableTrait;
-use Spatie\Translatable\HasTranslations;
-use App\Menu;
+use Dimsav\Translatable\Translatable;
 use App\Template;
+use App\Menu;
+use App;
 
-class Post extends Model implements SluggableInterface
+class Post extends Model
 {
-    use SluggableTrait;
-    use HasTranslations;
+    //use LogsActivity;
+    use Translatable;
 
-    protected $sluggable = [
-        'build_from' => 'title',
-        'save_to'    => 'slug',
-        'on_update'  => false
-    ];
+    /**
+     * returnController for catch all routes
+     * @return string
+     */
+    public static function returnController()
+    {
+        return 'PostsController';
+    }
 
     protected $fillable = [
         'title',
@@ -35,47 +38,54 @@ class Post extends Model implements SluggableInterface
         'body_end_code'
     ];
 
-    public $translatable = ['content01'];
+    protected $translatedAttributes = [
+        'title',
+        'slug',
+        'content01',
+        'content02',
+        'content03',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'template_id',
+        'head_code',
+        'body_start_code',
+        'body_end_code'
+    ];
 
     protected $with = [
         'template',
-        'menu'
+        'menu',
+        'translations'
     ];
 
     protected $appends = [
         'link'
     ];
 
-    public static function returnController()
+    public function getLinkAttribute()
     {
-        return 'PostsController';
+        $link = '';
+        $getlocale = App::getLocale();
+        $applocale = config('app.fallback_locale');
+        if($getlocale != $applocale) {
+            $link .= '/'. $getlocale;
+        }
+        $link .= '/blog';
+        if ($this->slug == 'blog') {
+            return $link;
+        }
+        return $link . '/'.$this->slug;
     }
 
-    /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
     
-
+    // Menu::class Morph Relation
     public function menu()
     {
         return $this->morphMany(Menu::class, 'morpher');
     }
 
-
-    public function getLinkAttribute()
-    {
-        if ($this->slug == 'blog') {
-            return '/blog';
-        }
-        return '/blog/'.$this->slug;
-    }
-
+    // Template::class Relation
     public function template()
     {
         return $this->belongsTo(Template::class);

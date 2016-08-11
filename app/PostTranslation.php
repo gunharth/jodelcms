@@ -3,9 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Page;
+use App\Post;
 
-class PageTranslation extends Model
+class PostTranslation extends Model
 {
     public $timestamps = false;
 
@@ -15,18 +15,13 @@ class PageTranslation extends Model
         'content01',
         'content02',
         'content03',
-        'content04',
-        'content05',
-        'content06',
-        'content07',
-        'content08',
-        'content09',
-        'content10',
         'meta_title',
         'meta_description',
         'meta_keywords',
         'template_id',
-        
+        'head_code',
+        'body_start_code',
+        'body_end_code'
     ];
 
     // public function setSlugAttribute($value)
@@ -48,8 +43,8 @@ class PageTranslation extends Model
      *
      * @return Post
      */
-    public function page()
+    public function post()
     {
-        return $this->belongsTo(Page::class, 'page_id');
+        return $this->belongsTo(Post::class);
     }
 }

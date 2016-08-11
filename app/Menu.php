@@ -2,16 +2,13 @@
 
 namespace App;
 
-use App\Translatable;
+use App\TranslatableHelper;
 use Baum\Node;
 
-/**
-* Menue
-*/
 class Menu extends Node
 {
 
-    use Translatable;
+    use TranslatableHelper;
 
     protected $fillable = [
       'name',
@@ -27,16 +24,19 @@ class Menu extends Node
         'name',
     ];
 
-    protected $with = ['translations'];
+    protected $with = [
+      'translations'
+      ];
 
     protected $appends = [
         'morpher_type_simple'
     ];
 
-    // Baum Scope for different Menus
+    // Baum Scope for multiple Menus
     protected $scoped = array('menu_type_id');
 
 
+    // Morph Relation
     public function morpher()
     {
         return $this->morphTo();

@@ -2,34 +2,25 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-// use Cviebrock\EloquentSluggable\SluggableInterface;
-// use Cviebrock\EloquentSluggable\SluggableTrait;
 //use Spatie\Activitylog\Traits\LogsActivity;
-use App\Menu;
+use Illuminate\Database\Eloquent\Model;
+use Dimsav\Translatable\Translatable;
 use App\Template;
+use App\Menu;
 
-//class Page extends Model implements SluggableInterface
 class Page extends Model
 {
-    // use SluggableTrait;
     //use LogsActivity;
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
 
     /**
-     * returnController for catch all route
+     * returnController for catch all routes
      * @return string
      */
     public function returnController()
     {
         return 'PagesController';
     }
-
-    // protected $sluggable = [
-    //     'build_from' => 'title',
-    //     'save_to'    => 'slug',
-    //     'on_update'  => false
-    // ];
 
     protected $fillable = [
         'title',
@@ -111,11 +102,13 @@ class Page extends Model
         return '/page/'.$this->slug;
     }
 
+    // Menu::class Morph Relation
     public function menu()
     {
         return $this->morphMany(Menu::class, 'morpher');
     }
 
+    // Template::class Relation
     public function template()
     {
         return $this->belongsTo(Template::class);

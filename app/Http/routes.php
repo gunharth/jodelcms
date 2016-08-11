@@ -14,10 +14,11 @@ Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], f
     /**
      * Blog
      */
-    Route::get('blog/indexEditor', 'PostsController@indexEditor');
-    Route::get('blog/{post}', 'PostsController@show');
-    Route::get('blog/{post}/edit', 'PostsController@edit');
     Route::get('blog', 'PostsController@index');
+    //Route::get('blog/indexEditor', 'PostsController@indexEditor');
+    Route::get('blog/{slug}', 'PostsController@show');
+    //Route::get('blog/{post}/edit', 'PostsController@edit');
+    
     Route::post('blog/{post}', 'PostsController@update');
     Route::resource('blog', 'PostsController');
 
@@ -72,6 +73,16 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     //     }
     //     return $html;
     // });
+    
+    /**
+     * Admin Blog
+     */
+    Route::get('blog/indexEditor', 'PostsController@indexEditor');
+    Route::get('blog/{slug}/edit', 'PostsController@edit');
+
+    Route::match(['put', 'patch'], 'blog/{post}/content', ['as' => 'admin.blog.content', 'uses' => 'PostsController@updateContent']);
+    Route::get('blog/adminIndex', 'PostsController@adminIndex');
+    
 
     /**
      * Admin Menus
@@ -102,11 +113,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     });
 
 
-    /**
-     * Admin Blog
-     */
-    Route::match(['put', 'patch'], 'blog/{post}/content', ['as' => 'admin.blog.content', 'uses' => 'PostsController@updateContent']);
-    Route::get('blog/adminIndex', 'PostsController@adminIndex');
+    
 
     
 
