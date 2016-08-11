@@ -3,11 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Menu;
 
 class External extends Model
 {
-        public function menu()
+    // Menu::class Morph Relation
+    public function menu()
     {
-        return $this->morphMany('App\Menu', 'morpher');
+        return $this->morphMany(Menu::class, 'morpher');
     }
 }

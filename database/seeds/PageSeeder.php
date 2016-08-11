@@ -14,9 +14,11 @@ class PageSeeder extends Seeder
         /**
          * Pages
          */
+        // index
         DB::table('pages')->insert([
             'template_id' => 1
         ]);
+        // page 1
          DB::table('pages')->insert([
             'template_id' => 2
         ]);
@@ -24,6 +26,7 @@ class PageSeeder extends Seeder
         /**
          * Page Translations
          */
+        // index
         DB::table('page_translations')->insert([
             'page_id' => 1,
             'locale' => 'en',
@@ -39,6 +42,7 @@ class PageSeeder extends Seeder
             'content01' => 'Startseite in Deutsch',
         ]);
 
+        // page 1
         DB::table('page_translations')->insert([
             'page_id' => 2,
             'locale' => 'en',
