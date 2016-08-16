@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123456'),
         ]);
 
+        $this->call(SettingSeeder::class);
+
         /**
          * Externals need one entry to morph correctly
          */

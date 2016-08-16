@@ -13,11 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Fix for enabling sqlite foreign key constraints
-        if(config('database.default') == 'sqlite'){
-            $db = app()->make('db');
-            $db->connection()->getPdo()->exec("pragma foreign_keys=1");
-        }
+        //
     }
 
     /**

@@ -3279,16 +3279,16 @@
     "packages-dev": [
         {
             "name": "caouecs/laravel-lang",
-            "version": "3.0.10",
+            "version": "3.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/caouecs/Laravel-lang.git",
-                "reference": "1d0034078611dd0b0e1955693d00e2edbec7d0df"
+                "reference": "812bedaea2c2fcf8bc2219cb0729116cf96380ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caouecs/Laravel-lang/zipball/1d0034078611dd0b0e1955693d00e2edbec7d0df",
-                "reference": "1d0034078611dd0b0e1955693d00e2edbec7d0df",
+                "url": "https://api.github.com/repos/caouecs/Laravel-lang/zipball/812bedaea2c2fcf8bc2219cb0729116cf96380ef",
+                "reference": "812bedaea2c2fcf8bc2219cb0729116cf96380ef",
                 "shasum": ""
             },
             "require-dev": {
@@ -3315,7 +3315,7 @@
                 "laravel",
                 "lpm"
             ],
-            "time": "2016-08-05 13:52:38"
+            "time": "2016-08-10 19:34:20"
         },
         {
             "name": "doctrine/instantiator",

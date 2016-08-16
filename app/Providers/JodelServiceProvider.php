@@ -3,12 +3,13 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Request;
-
-use App\Menu;
 use App\MenuTranslation;
-use App\Page;
 use App\PageTranslation;
+use App\Setting;
+use App\Page;
+use App\Menu;
+use Request;
+use Cache;
 
 class JodelServiceProvider extends ServiceProvider
 {
@@ -17,8 +18,22 @@ class JodelServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Setting $settings)
     {
+        
+        // Fix for enabling sqlite foreign key constraints
+        if(config('database.default') == 'sqlite'){
+            $db = app()->make('db');
+            $db->connection()->getPdo()->exec("pragma foreign_keys=1");
+        }
+
+        // Add settings to config and cache at boot
+        $settings = Cache::remember('settings', 60, function () use ($settings) {
+            return $settings->lists('value', 'name')->all();
+        });
+        config()->set('settings', $settings);
+
+
         /**
          * Main Menue View Composer
          */

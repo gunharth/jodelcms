@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
      * Admin Blog
      */
     Route::get('blog/editIndex', 'PostsController@editIndex');
+    Route::post('blog',         ['as' => 'admin.blog.store',    'uses' => 'PostsController@store']);
     Route::get('blog/create',   ['as' => 'admin.blog.create',   'uses' => 'PostsController@create']);
     Route::get('blog/{slug}/edit', 'PostsController@edit');
     Route::match(['put', 'patch'], 'blog/{post}/content', ['as' => 'admin.blog.content', 'uses' => 'PostsController@updateContent']);
@@ -68,6 +69,11 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::get('blog/collectionIndex', 'PostsController@collectionIndex');
     Route::get('blog/{id}/settings', 'PostsController@settings');
      
+
+     /**
+     * Admin Settings
+     */
+     Route::match(['put', 'patch'], 'settings', ['as' => 'admin.settings', 'uses' => 'SettingsController@update']);
 
     /**
      * Admin Menus

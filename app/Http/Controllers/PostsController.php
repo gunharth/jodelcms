@@ -33,7 +33,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('id', '>', 1)->paginate(10);
+        $posts = Post::where('id', '>', 1)->paginate(config('settings.post_paginate'));
         if (Auth::check()) {
             $src = '/' . $this->locale . '/admin/blog/editIndex';
             return $this->loadiFrame($src);
@@ -75,7 +75,7 @@ class PostsController extends Controller
     public function showID($id, $slug)
     {
         if ($id == 1) {
-            $posts = Post::where('id', '>', 1)->paginate(10);
+            $posts = Post::where('id', '>', 1)->paginate(config('settings.post_paginate'));
             if (Auth::check()) {
                 $src = '/blog/indexEditor';
                 return $this->loadiFrame($src);
@@ -101,7 +101,7 @@ class PostsController extends Controller
     public function editIndex()
     {
         $post = Post::findOrFail(1); // get blog home and settings?
-        $posts = Post::where('id', '>', 1)->paginate(10);
+        $posts = Post::where('id', '>', 1)->paginate(config('settings.post_paginate'));
         return view('blog.index', compact('post', 'posts'));
     }
 
@@ -136,6 +136,36 @@ class PostsController extends Controller
                 $post->slug = $slug;
             }
             $post->fill($request->all())->save();
+            return $post;
+        }
+    }
+
+    /**
+     * Load editor create form
+     * ajax route
+     * @param  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        if ($request->ajax()) {
+            //$templates = Template::where('active', 1)->lists('name', 'id');
+            $post = new Post;
+            //$page->template = Template::findOrFail(2);
+            return view('admin.blog.create', compact('post'));
+        }
+    }
+
+    /**
+     * Editor store new resource
+     * ajax route
+     * @param  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(PostRequest $request)
+    {
+        if ($request->ajax()) {
+            $post = Post::create($request->all());
             return $post;
         }
     }
@@ -189,7 +219,7 @@ class PostsController extends Controller
     // 
     public function collectionIndex()
     {
-        $posts = Post::where('id', '>', 1)->paginate(10);
+        $posts = Post::where('id', '>', 1)->get();
         return view('admin.blog.index', compact('posts'));
     }
 }

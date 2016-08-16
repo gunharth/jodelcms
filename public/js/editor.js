@@ -339,6 +339,16 @@ class Editor {
          *  Tab collections tab1
          *  Load collection in iframe
          */
+
+        $('body').on('click', '#collection-tab1 .btn-create', (e) => {
+            e.preventDefault();
+            this.addCollectionItem();
+        });
+
+        /**
+         *  Tab collections tab1
+         *  Load collection in iframe
+         */
         $('body').on('click', '#tab-collection-tab1 .load', (e) => {
             e.preventDefault();
             let src = $(e.target).data('url');
@@ -354,7 +364,7 @@ class Editor {
             this.editCollectionItem();
         });
 
-        $('body').on('click', '#collection-tab1-left button', (e) => {
+        $('body').on('click', '#collection-edit button', (e) => {
             e.preventDefault();
             this.submitCollectionForm();
         });
@@ -400,6 +410,26 @@ class Editor {
     };
 
     /**
+     *  Editor add collection item
+     */
+    addCollectionItem() {
+        this.showLoadingIndicator();
+        $.ajax({
+            type: 'GET',
+            url: '/' + this.editorLocale + '/admin/'+this.collection+'/create',
+            //data: 'id='+menu_type_id,
+            error: (xhr, ajaxOptions, thrownError) => {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        }).done((html) => {
+            $('#collection-tab1-left').html(html)
+            $('#collection-tab1-left .tabs').tabs();
+            this.hideLoadingIndicator();
+        });
+    };
+
+    /**
      *  Editor edit collection window
      */
     editCollectionItem() {
@@ -422,7 +452,7 @@ class Editor {
     submitCollectionForm() {
         // if (options.type == 'ajax') {
             this.showLoadingIndicator();
-            let form = $('#collection-tab1-left form');
+            let form = $('#collection-edit form:visible');
             let formData = form.serialize();
             let action = form.attr('action');
             $.ajax({
@@ -432,18 +462,26 @@ class Editor {
                 dataType: 'json', // what type of data do we expect back from the server
                 encode: true,
                 error: (data) => {
-                        // $("input").parent().removeClass('has-error');
-                        // $("input").prev().find('span').remove();
-                        // let errors = data.responseJSON;
-                        // console.log(errors);
-                        // $.each( errors, ( key, value ) => {
-                        //     $("input[name="+key+"]").parent().addClass('has-error');
-                        //     $("input[name="+key+"]").prev().append(' <span class="has-error">'+value+'</span>');
-                        //    })
+                        this.hideLoadingIndicator();
+                        $("input").parent().removeClass('has-error');
+                        $("input").prev().find('span').remove();
+                        let errors = data.responseJSON;
+                        console.log(errors);
+                        $.each( errors, ( key, value ) => {
+                            $("input[name="+key+"]").parent().addClass('has-error');
+                            $("input[name="+key+"]").prev().append(' <span class="has-error">'+value+'</span>');
+                           })
                     }
             }).done((data) => {
-                this.hideLoadingIndicator();
-                console.log('went trough')
+                //this.hideLoadingIndicator();
+                //console.log(data)
+                if(data == true) {
+                    this.hideLoadingIndicator();
+                } else {
+                     this.collection_id = data.id;
+                    this.editCollectionItem();
+                }
+               
                 //this.data = data;
                 //dialog.dialog('close');
                 //dialog.remove();
