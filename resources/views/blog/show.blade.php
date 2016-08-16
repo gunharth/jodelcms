@@ -20,5 +20,14 @@
         <div @if (Auth::check()) class="jodelTextarea" data-field="content03" @endif>{!! $post->content03 !!}</div>
       </div>
     </div>
-  </div><!-- /.container -->
+  </div>
+  @if (!Auth::check()) 
+  <hr>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        @include('blog.disqus')
+      </div>
+    </div>
+  <hr>
+  @endif
 @endsection
