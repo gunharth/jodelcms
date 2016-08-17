@@ -33,7 +33,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('id', '>', 1)->paginate(config('settings.post_paginate'));
+        $posts = Post::where('id', '>', 1)->latest('published_at')->published()->paginate(config('settings.post_paginate'));
         if (Auth::check()) {
             $src = '/' . $this->locale . '/admin/blog/editIndex';
             return $this->loadiFrame($src);
@@ -101,7 +101,7 @@ class PostsController extends Controller
     public function editIndex()
     {
         $post = Post::findOrFail(1); // get blog home and settings?
-        $posts = Post::where('id', '>', 1)->paginate(config('settings.post_paginate'));
+        $posts = Post::where('id', '>', 1)->latest('published_at')->paginate(config('settings.post_paginate'));
         return view('blog.index', compact('post', 'posts'));
     }
 
@@ -199,6 +199,7 @@ class PostsController extends Controller
                 $post->title = $post->translateOrDefault($this->locale)->title;
                 $post->slug = $post->translateOrDefault($this->locale)->slug;
             }
+            //dd($request->all());
             $post->fill($request->all())->save();
             return $post;
         }
@@ -219,7 +220,7 @@ class PostsController extends Controller
     // 
     public function collectionIndex()
     {
-        $posts = Post::where('id', '>', 1)->get();
+        $posts = Post::where('id', '>', 1)->latest('published_at')->get();
         return view('admin.blog.index', compact('posts'));
     }
 }

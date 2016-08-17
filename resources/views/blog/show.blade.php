@@ -13,6 +13,7 @@
     <div class="row">
       <div class="col-md-6">
         <h1 @if (Auth::check()) class="jodelText" data-field="content01" @endif>{!! $post->content01 !!}</h1>
+        {!! $post->published_at->format('Y') !!}
       </div>
     </div>
     <div class="row">

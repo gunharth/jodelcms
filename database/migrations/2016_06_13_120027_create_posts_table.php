@@ -21,6 +21,8 @@ class CreatePostsTable extends Migration {
             $table->string('body_start_code')->nullable();
             $table->string('body_end_code')->nullable();
 
+            $table->timestamp('published_at');
+
             $table->timestamps();
         });
 

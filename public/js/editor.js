@@ -359,12 +359,13 @@ class Editor {
 
         $('body').on('click', '#collectionItems .edit', (e) => {
             e.preventDefault();
+            console.log('caööed…');
             let parent = $(e.target).parents('.dd-item');
             this.collection_id = parent.data('id');
             this.editCollectionItem();
         });
 
-        $('body').on('click', '#collection-edit button', (e) => {
+        $('body').on('click', '#collection-tab1-left button', (e) => {
             e.preventDefault();
             this.submitCollectionForm();
         });

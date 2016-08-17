@@ -4,6 +4,6 @@
         'id' => 'updatePost'
     ]) !!}
 
-    @include('admin/blog/form')
+    @include('admin/blog/form', ['published_at' => $post->published_at])
 
 {!! Form::close() !!}

@@ -16,6 +16,10 @@
             {!! Form::label('slug','Slug') !!}
             {!! Form::text('slug',null,['class' => 'form-control', 'placeholder' => 'Slug']) !!}
             </div>
+            <div class="form-group">
+            {!! Form::label('published_at','Publish On') !!}
+            {!! Form::date('published_at',$published_at,['class' => 'form-control']) !!}
+            </div>
 
 
 	

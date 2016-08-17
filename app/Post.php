@@ -8,6 +8,7 @@ use Dimsav\Translatable\Translatable;
 use App\Template;
 use App\Menu;
 use App;
+use Carbon\Carbon;
 
 class Post extends Model
 {
@@ -23,6 +24,10 @@ class Post extends Model
         return 'PostsController';
     }
 
+    protected $dates = [
+        'published_at'
+    ];
+
     protected $fillable = [
         'title',
         'slug',
@@ -35,7 +40,8 @@ class Post extends Model
         'template_id',
         'head_code',
         'body_start_code',
-        'body_end_code'
+        'body_end_code',
+        'published_at'
     ];
 
     protected $translatedAttributes = [
@@ -59,6 +65,12 @@ class Post extends Model
     protected $appends = [
         'link'
     ];
+
+    public function scopePublished($query)
+    {
+        $query->where('published_at', '<=', Carbon::now());
+    }
+    
 
     public function getLinkAttribute()
     {

@@ -18,6 +18,7 @@
       <div class="col-md-12">
   			@foreach($posts as $post)
   				<h2>{!! $post->content01 !!}</h2>
+          {!! $post->published_at !!}
   				{!! $post->content02 !!}
   				<a href="{!! $post->link !!}">Full article</a>
   			@endforeach

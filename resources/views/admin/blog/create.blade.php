@@ -3,6 +3,6 @@
         'id' => 'createPost'
     ]) !!}
 	
-    @include('admin/blog/form')
+    @include('admin/blog/form', ['published_at' => Carbon\Carbon::now()])
     
 {!! Form::close() !!}

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class PostSeeder extends Seeder
 {
@@ -16,15 +17,18 @@ class PostSeeder extends Seeder
          */
         //index
         DB::table('posts')->insert([
-            'template_id' => 3
+            'template_id' => 3,
+            'published_at' => Carbon::now(),
         ]);
         // post 1
         DB::table('posts')->insert([
-            'template_id' => 4
+            'template_id' => 4,
+            'published_at' => Carbon::now(),
         ]);
         // post 2
         DB::table('posts')->insert([
-            'template_id' => 4
+            'template_id' => 4,
+            'published_at' => Carbon::now(),
         ]);
 
         /**
