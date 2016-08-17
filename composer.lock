@@ -59,16 +59,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.18.39",
+            "version": "3.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "85f1fddaeb40b95106b2a2764268e9c89fc258ce"
+                "reference": "204337efe872a0207781089833de0f8594fc5fd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/85f1fddaeb40b95106b2a2764268e9c89fc258ce",
-                "reference": "85f1fddaeb40b95106b2a2764268e9c89fc258ce",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/204337efe872a0207781089833de0f8594fc5fd7",
+                "reference": "204337efe872a0207781089833de0f8594fc5fd7",
                 "shasum": ""
             },
             "require": {
@@ -135,7 +135,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-08-11 16:40:35"
+            "time": "2016-08-16 20:55:18"
         },
         {
             "name": "barryvdh/elfinder-flysystem-driver",
@@ -409,16 +409,16 @@
         },
         {
             "name": "dimsav/laravel-translatable",
-            "version": "v5.6",
+            "version": "v5.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dimsav/laravel-translatable.git",
-                "reference": "4534a17da5494ac27cf5ce743e228533c66b7275"
+                "reference": "3e73600e4e66aaa69291c569ba3c5e4fd3f5f856"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dimsav/laravel-translatable/zipball/4534a17da5494ac27cf5ce743e228533c66b7275",
-                "reference": "4534a17da5494ac27cf5ce743e228533c66b7275",
+                "url": "https://api.github.com/repos/dimsav/laravel-translatable/zipball/3e73600e4e66aaa69291c569ba3c5e4fd3f5f856",
+                "reference": "3e73600e4e66aaa69291c569ba3c5e4fd3f5f856",
                 "shasum": ""
             },
             "require": {
@@ -456,7 +456,7 @@
                 "laravel",
                 "translation"
             ],
-            "time": "2016-04-21 22:12:50"
+            "time": "2016-08-17 07:40:38"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
