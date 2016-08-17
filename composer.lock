@@ -2221,16 +2221,16 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "1.6.0",
+            "version": "1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "199bc7b15ba2c87b0295475ceecd38d72c759e8a"
+                "reference": "f8f51367ef72c8331648a0f96dd62d6877ec9841"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/199bc7b15ba2c87b0295475ceecd38d72c759e8a",
-                "reference": "199bc7b15ba2c87b0295475ceecd38d72c759e8a",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/f8f51367ef72c8331648a0f96dd62d6877ec9841",
+                "reference": "f8f51367ef72c8331648a0f96dd62d6877ec9841",
                 "shasum": ""
             },
             "require": {
@@ -2280,7 +2280,7 @@
                 "spatie",
                 "user"
             ],
-            "time": "2016-08-11 15:35:43"
+            "time": "2016-08-17 10:12:39"
         },
         {
             "name": "spatie/string",
