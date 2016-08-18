@@ -2,7 +2,7 @@
 
 namespace App;
 
-//use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
 use Dimsav\Translatable\Translatable;
 use App\Template;
@@ -10,7 +10,7 @@ use App\Menu;
 
 class Page extends Model
 {
-    //use LogsActivity;
+    use LogsActivity;
     use Translatable;
 
     /**
@@ -62,27 +62,27 @@ class Page extends Model
         'meta_keywords',
     ];
 
-    // protected static $logAttributes = [
-    //     'title',
-    //     'slug',
-    //     'content01',
-    //     'content02',
-    //     'content03',
-    //     'content04',
-    //     'content05',
-    //     'content06',
-    //     'content07',
-    //     'content08',
-    //     'content09',
-    //     'content10',
-    //     'meta_title',
-    //     'meta_description',
-    //     'meta_keywords',
-    //     'template_id',
-    //     'head_code',
-    //     'body_start_code',
-    //     'body_end_code'
-    // ];
+    protected static $logAttributes = [
+        'title',
+        'slug',
+        'content01',
+        'content02',
+        'content03',
+        'content04',
+        'content05',
+        'content06',
+        'content07',
+        'content08',
+        'content09',
+        'content10',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'template_id',
+        'head_code',
+        'body_start_code',
+        'body_end_code'
+    ];
 
     protected $with = [
         'template',

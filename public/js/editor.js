@@ -365,9 +365,10 @@ class Editor {
             this.editCollectionItem();
         });
 
-        $('body').on('click', '#collection-tab1-left button', (e) => {
+        $('body').on('click', 'button.submit', (e) => {
             e.preventDefault();
-            this.submitCollectionForm();
+            let form = $(e.target).parents('form');
+            this.submitCollectionForm(form);
         });
         
 
@@ -450,10 +451,10 @@ class Editor {
         });
     };
 
-    submitCollectionForm() {
+    submitCollectionForm(form) {
         // if (options.type == 'ajax') {
             this.showLoadingIndicator();
-            let form = $('#collection-edit form:visible');
+            //let form = $('#collection-edit form:visible');
             let formData = form.serialize();
             let action = form.attr('action');
             $.ajax({

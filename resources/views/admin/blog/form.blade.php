@@ -20,8 +20,6 @@
             {!! Form::label('published_at','Publish On') !!}
             {!! Form::date('published_at',$published_at,['class' => 'form-control']) !!}
             </div>
-
-
 	
         </div>
         
@@ -63,6 +61,6 @@
 
         </div>
 
-        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button"><span class="ui-button-text">Save</span></button></div></div>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="submit ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button"><span class="ui-button-text">Save</span></button></div></div>
         
     </div>

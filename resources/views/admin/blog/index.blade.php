@@ -37,8 +37,6 @@
     </div>
 
     <div id="collection-tab3">
-		Todo: Blog settings (pagination, etc ....)
-		{{ config('settings.post_paginate') }}
 
 		{!! Form::open([
 	        'method' => 'PATCH',
@@ -51,7 +49,7 @@
             {!! Form::text('post_paginate',config('settings.post_paginate'),['class' => 'form-control']) !!}
         </div>
 
-		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button"><span class="ui-button-text">Save</span></button></div></div>
+		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="submit ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button"><span class="ui-button-text">Save</span></button></div></div>
 
 		{!! Form::close() !!}
     </div>
