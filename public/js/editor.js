@@ -29,7 +29,7 @@ class Editor {
             }
         });
 
-        this.editorFrame.load(() => {
+        this.editorFrame.on(() => {
             $('a[target!=_blank]', this.editorFrame.contents()).attr('target', '_top');
         });
 

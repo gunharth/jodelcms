@@ -35,8 +35,8 @@ if (!function_exists('renderMainMenu')) {
             $target = ' target="_blank"';
             $single  = '<a href="'.  $link .'" '. $target .'>' . $node->name  .'</a>';
         }
-        //dd($node->getAncestorsAndSelf()->lists('slug'));
-       // $link =  implode('/',$node->getAncestorsAndSelf()->lists('slug'));
+        //dd($node->getAncestorsAndSelf()->pluck('slug'));
+       // $link =  implode('/',$node->getAncestorsAndSelf()->pluck('slug'));
        //echo $node->morpher_id;
        //echo $node->morpher->id;
         $active = '';

@@ -53,7 +53,7 @@ class MenusController extends Controller
     {
         App::setLocale($editorLocale);
         $menu = Menu::findOrFail($id);
-        $pages = Page::lists('title', 'id')->toArray();
+        $pages = Page::pluck('title', 'id')->toArray();
         return view('admin.menu.edit', compact('menu', 'pages'));
     }
 

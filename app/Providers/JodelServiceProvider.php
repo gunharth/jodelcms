@@ -32,7 +32,7 @@ class JodelServiceProvider extends ServiceProvider
         // but only after migrattions are done
         if (Schema::hasTable('settings')) {
             $settings = Cache::remember('settings', 60, function () use ($settings) {
-                return $settings->lists('value', 'name')->all();
+                return $settings->pluck('value', 'name')->all();
             });
             config()->set('settings', $settings);
         }

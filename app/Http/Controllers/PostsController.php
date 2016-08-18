@@ -149,7 +149,7 @@ class PostsController extends Controller
     public function create(Request $request)
     {
         if ($request->ajax()) {
-            //$templates = Template::where('active', 1)->lists('name', 'id');
+            //$templates = Template::where('active', 1)->pluck('name', 'id');
             $post = new Post;
             //$page->template = Template::findOrFail(2);
             return view('admin.blog.create', compact('post'));
@@ -180,7 +180,7 @@ class PostsController extends Controller
     {
         if ($request->ajax()) {
             $post = Post::findOrFail($id);
-            //$templates = Template::where('active', 1)->lists('name', 'id');
+            //$templates = Template::where('active', 1)->pluck('name', 'id');
             return view('admin.blog.edit', compact('post'));
         }
     }

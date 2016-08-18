@@ -4,6 +4,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Application Name
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
+    */
+
+    'name' => 'My Application',
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
     |
@@ -110,6 +122,8 @@ return [
 
     'log' => env('APP_LOG', 'single'),
 
+    'log_level' => env('APP_LOG_LEVEL', 'debug'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -138,6 +152,7 @@ return [
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
@@ -146,25 +161,21 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
-        Illuminate\View\ViewServiceProvider::class,    
+        Illuminate\View\ViewServiceProvider::class,
+
+        
 
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-
         /*
-         * Application Custom Service Providers...
-         */
-        App\Providers\JodelServiceProvider::class,
-        App\Providers\HelperServiceProvider::class,
-
-        /*
-         * Additional Service Providers
+         * Package Service Providers...
          */
         Barryvdh\Elfinder\ElfinderServiceProvider::class,
         Baum\Providers\BaumServiceProvider::class,
@@ -173,6 +184,12 @@ return [
         Dimsav\Translatable\TranslatableServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+
+        /*
+         * Application Custom Service Providers...
+         */
+        App\Providers\JodelServiceProvider::class,
+        App\Providers\HelperServiceProvider::class,
 
     ],
 
@@ -206,6 +223,7 @@ return [
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
+        'Notification' => Illuminate\Support\Facades\Notification::class,
         'Password' => Illuminate\Support\Facades\Password::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,

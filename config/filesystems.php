@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => 'rackspace',
+    'default' => 'local',
 
     /*
     |--------------------------------------------------------------------------
@@ -56,19 +56,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key' => env('S3_KEY'),
-            'secret' => env('S3_SECRET'),
-            'region' => env('S3_REGION'),
-            'bucket' => env('S3_BUCKET'),
-        ],
-        'rackspace' => [
-            'driver'    => 'rackspace',
-            'username'  => env('RACKSPACE_USERNAME'),
-            'key'       => env('RACKSPACE_KEY'),
-            'container' => env('RACKSPACE_CONTAINER'),
-            'endpoint'  => 'https://lon.identity.api.rackspacecloud.com/v2.0',
-            'region'    => 'LON',
-            'url_type'  => 'publicURL',
+            'key' => 'your-key',
+            'secret' => 'your-secret',
+            'region' => 'your-region',
+            'bucket' => 'your-bucket',
         ],
 
     ],

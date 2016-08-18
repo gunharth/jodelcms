@@ -56,6 +56,10 @@ body {
     padding-bottom: 5px;
 }
 
+#editor-panel .modal-body {
+    padding: 5px;
+}
+
 .dd {
     position: relative;
     display: block;

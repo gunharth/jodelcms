@@ -133,7 +133,7 @@ class PagesController extends Controller
     public function create(Request $request)
     {
         if ($request->ajax()) {
-            $templates = Template::where('active', 1)->lists('name', 'id');
+            $templates = Template::where('active', 1)->pluck('name', 'id');
             $page = new Page;
             $page->template = Template::findOrFail(2);
             return view('admin.page.create', compact('templates', 'page'));
@@ -165,7 +165,7 @@ class PagesController extends Controller
         if ($request->ajax()) {
             //App::setLocale($editorLocale);
             $page = Page::findOrFail($id);
-            $templates = Template::where('active', 1)->lists('name', 'id');
+            $templates = Template::where('active', 1)->pluck('name', 'id');
             return view('admin.page.settings', compact('page', 'templates'));
         }
     }
