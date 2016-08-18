@@ -55,10 +55,20 @@ body {
 #editor-panel #tabs .buttons {
     padding-bottom: 5px;
 }
-
+/* boostrap overrides */
 #editor-panel .modal-body {
     padding: 5px;
 }
+/* end boostrap overrides */
+
+/* jquery ui overrides */
+.ui-tabs .ui-tabs-panel {
+    padding: 10px 5px;
+}
+.ui-helper-reset {
+    font-size: 85%;
+}
+/* end jquery ui overrides */
 
 .dd {
     position: relative;
