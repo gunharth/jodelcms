@@ -220,7 +220,7 @@ class PostsController extends Controller
     // 
     public function collectionIndex()
     {
-        $posts = Post::where('id', '>', 1)->latest('published_at')->get();
+        $posts = Post::where('id', '>', 1)->latest('published_at')->paginate(config('settings.post_paginate'));
         return view('admin.blog.index', compact('posts'));
     }
 }

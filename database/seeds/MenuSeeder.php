@@ -18,7 +18,7 @@ class MenuSeeder extends Seeder
         // Home
         DB::table('menus')->insert([
             'menu_type_id' => 1,
-            'parent_id' => 0,
+            'parent_id' => null,
             'morpher_id' => 1,
             'morpher_type' => 'App\Page',
             'lft' => 1,
@@ -32,7 +32,7 @@ class MenuSeeder extends Seeder
         // Menu 1 - Page 1
         DB::table('menus')->insert([
             'menu_type_id' => 1,
-            'parent_id' => 0,
+            'parent_id' => null,
             'morpher_id' => 2,
             'morpher_type' => 'App\Page',
             'lft' => 3,
@@ -46,7 +46,7 @@ class MenuSeeder extends Seeder
         // Blog
         DB::table('menus')->insert([
             'menu_type_id' => 1,
-            'parent_id' => 0,
+            'parent_id' => null,
             'morpher_id' => 1,
             'morpher_type' => 'App\Post',
             'lft' => 5,
@@ -60,7 +60,7 @@ class MenuSeeder extends Seeder
         // External
         DB::table('menus')->insert([
             'menu_type_id' => 1,
-            'parent_id' => 0,
+            'parent_id' => null,
             'morpher_id' => 1,
             'morpher_type' => 'App\External',
             'external_link' => 'http://google.com',

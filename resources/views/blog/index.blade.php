@@ -25,11 +25,11 @@
       </div>
     </div>
   
-  <div class="row">
+    <div class="row">
       <div class="col-md-12">
-			{!! $posts->render() !!}
+			{!! $posts->links() !!}
       </div>
     </div>
-  </div><!-- /.container -->
+  </div>
   
 @endsection

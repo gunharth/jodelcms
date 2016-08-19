@@ -28,7 +28,16 @@
             </select> 
 			<a class="tb-refresh" href="#" title="Refresh"><i class="fa fa-fw fa-lg fa-refresh"></i></a>
 			<a class="tb-collapse" href="#" title="Toggle"><i class="fa fa-fw fa-lg fa-caret-up"></i></a>
-			<a href="/logout" title="Sign out"><i class="fa fa-lg fa-sign-out"></i></a>
+			<!-- <a href="/logout" title="Sign out"><i class="fa fa-lg fa-sign-out"></i></a> -->
+			 <a href="{{ url('/logout') }}"
+                                        onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                                        <i class="fa fa-lg fa-sign-out"></i>
+                                    </a>
+
+                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
 		</div>
         
       </div>

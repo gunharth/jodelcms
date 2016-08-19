@@ -11,6 +11,7 @@ use App\Menu;
 use Request;
 use Cache;
 use Schema;
+use App;
 
 class JodelServiceProvider extends ServiceProvider
 {
@@ -29,12 +30,13 @@ class JodelServiceProvider extends ServiceProvider
         }
 
         // Add settings to config and cache at boot
-        // but only after migrattions are done
-        if (Schema::hasTable('settings')) {
-            $settings = Cache::remember('settings', 60, function () use ($settings) {
-                return $settings->pluck('value', 'name')->all();
-            });
-            config()->set('settings', $settings);
+        // but only after migrations are done, i.e in local env
+        if(App::environment() == "local") {
+            if (Schema::hasTable('settings')) {
+                $this->loadSettings($settings);
+            }
+        } else {
+            $this->loadSettings($settings);
         }
 
         /**
@@ -156,6 +158,18 @@ class JodelServiceProvider extends ServiceProvider
             // morper needed here?
             $view->with('menu', Menu::with('morpher')->where('active', '=', 1)->where('menu_type_id', 2)->get());
         });
+    }
+
+    /**
+     * load app settings
+     * @param  Settings $settings load settings
+     * @return settings and add to config
+     */
+    public function loadSettings($settings) {
+        $settings = Cache::remember('settings', 60, function () use ($settings) {
+            return $settings->pluck('value', 'name')->all();
+        });
+        config()->set('settings', $settings);
     }
 
     /**

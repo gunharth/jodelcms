@@ -12,6 +12,7 @@
 		        <div class="buttons">
 					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
 				</div>
+				
 				<ol class="dd-list" id="collectionItems">
 		        	 @foreach($posts as $post)
 		        	<li class="dd-item" data-collection="blog" data-id="{{ $post->id }}">
@@ -27,6 +28,10 @@
 		        	</li>
 		        	@endforeach
 		        </ol>
+				
+				
+			{!! $posts->links('admin.partials.pagination') !!}
+
 		  	</div>
 			<div class="col-sm-8" id="collection-tab1-left"></div>
 	 	</div>
