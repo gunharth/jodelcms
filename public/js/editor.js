@@ -476,7 +476,7 @@ class Editor {
                     }
             }).done((data) => {
                 //this.hideLoadingIndicator();
-                //console.log(data)
+                console.log(data)
                 if(data == true) {
                     this.hideLoadingIndicator();
                 } else {

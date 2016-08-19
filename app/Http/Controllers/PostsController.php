@@ -56,17 +56,12 @@ class PostsController extends Controller
             return App::abort(404);
         }
         $post = $translation->post;
-        // $pubDate = $post->published_at->format('Y-m-d H:i:s');
-        // $next = Post::orderBy("published_at")->where('published_at', '<', $pubDate)->where('id', '>', 1)->first();
-        // $prev = Post::orderBy("published_at")->where('published_at', '>', $pubDate)->where('id', '>', 1)->first();
 
         if (Auth::check()) {
             $src = '/' . $this->locale . '/admin/blog/'.$post->slug.'/edit';
             return $this->loadiFrame($src);
         }
-        //dd($post);
         return view('blog.show', compact('post'));
-        // return view('blog.show', compact('post','next','prev'));
     }
 
     /**
@@ -118,10 +113,7 @@ class PostsController extends Controller
     {
         $translation = $translations->getBySlug($slug);
         $post = $translation->post;
-        $pubDate = $post->published_at->format('Y-m-d H:i:s');
-        $next = Post::orderBy("published_at")->where('published_at', '<', $pubDate)->where('id', '>', 1)->first();
-        $prev = Post::orderBy("published_at")->where('published_at', '>', $pubDate)->where('id', '>', 1)->first();
-        return view('blog.show', compact('post','next','prev'));
+        return view('blog.show', compact('post'));
     }
 
     /**
@@ -220,19 +212,10 @@ class PostsController extends Controller
     //     return $post;
     // }
 
-    // public function loadiFrame($src)
-    // {
-    //     return view('editor', compact('src'));
-    // }
-    // 
     public function collectionIndex()
     {
         $posts = Post::where('id', '>', 1)->latest('published_at')->paginate(config('settings.post_paginate'));
         return view('admin.blog.index', compact('posts'));
     }
 
-    public function getNext()
-    {
-        
-    }
 }
