@@ -21,7 +21,7 @@
         	<h4 class="modal-title">jodelCMS</h4>
         </div>
         <div class="col-sm-6 text-right">
-			<select id="editorLocales" class="editor-langs">
+			<select id="editorLocales" class="editor-langs form-control" style="width: 30%; float: left;">
 			    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
 			    <option value="{{$localeCode}}">{{ strtoupper($localeCode) }}</option>
 			    @endforeach

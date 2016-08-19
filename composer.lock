@@ -356,16 +356,16 @@
         },
         {
             "name": "dimsav/laravel-translatable",
-            "version": "v6.0",
+            "version": "v6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dimsav/laravel-translatable.git",
-                "reference": "f2e00a4d0ff79309f5aa62be97f857af91b6c415"
+                "reference": "95c56bd6475d2f64b8b01e1b225a32b1c79dc8e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dimsav/laravel-translatable/zipball/f2e00a4d0ff79309f5aa62be97f857af91b6c415",
-                "reference": "f2e00a4d0ff79309f5aa62be97f857af91b6c415",
+                "url": "https://api.github.com/repos/dimsav/laravel-translatable/zipball/95c56bd6475d2f64b8b01e1b225a32b1c79dc8e4",
+                "reference": "95c56bd6475d2f64b8b01e1b225a32b1c79dc8e4",
                 "shasum": ""
             },
             "require": {
@@ -403,7 +403,7 @@
                 "laravel",
                 "translation"
             ],
-            "time": "2016-08-17 14:56:53"
+            "time": "2016-08-19 12:49:25"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

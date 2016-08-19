@@ -172,6 +172,7 @@ return [
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
         Dimsav\Translatable\TranslatableServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
+        //Spatie\Sitemap\Sitemap::class,
         Barryvdh\Debugbar\ServiceProvider::class,
 
         /*

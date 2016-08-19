@@ -59,11 +59,13 @@ class Post extends Model
     protected $with = [
         'template',
         'menu',
-        'translations'
+        'translations',
     ];
 
     protected $appends = [
-        'link'
+        'link',
+        'next',
+        'prev'
     ];
 
     public function scopePublished($query)
@@ -85,6 +87,22 @@ class Post extends Model
             return $link;
         }
         return $link . '/'.$this->slug;
+    }
+
+    public function getNextAttribute()
+    {
+        $pubDate = $this->published_at->format('Y-m-d H:i:s');
+        return $this->orderBy("published_at")->where('published_at', '>', $pubDate)->where('id', '>', 1)->first();
+        //return $this->merge(Post::orderBy("published_at")->where('published_at', '<', $pubDate)->where('id', '>', 1)->first());
+        // $prev = Post::orderBy("published_at")->where('published_at', '>', $pubDate)->where('id', '>', 1)->first();
+    }
+
+    public function getPrevAttribute()
+    {
+        $pubDate = $this->published_at->format('Y-m-d H:i:s');
+        return $this->orderBy("published_at")->where('published_at', '<', $pubDate)->where('id', '>', 1)->first();
+        //return $this->merge(Post::orderBy("published_at")->where('published_at', '<', $pubDate)->where('id', '>', 1)->first());
+        // $prev = Post::orderBy("published_at")->where('published_at', '>', $pubDate)->where('id', '>', 1)->first();
     }
 
     
