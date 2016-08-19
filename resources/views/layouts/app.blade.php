@@ -11,7 +11,7 @@
     <title>jodelCMS</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/superhero.css">
+    <link rel="stylesheet" href="/css/paper.css">
     <!-- <link href="/css/app.css" rel="stylesheet"> -->
 
     <!-- Scripts -->

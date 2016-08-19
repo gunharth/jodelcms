@@ -5,7 +5,7 @@
 	<title>jodelCMS</title>
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="stylesheet" href="/css/jquery-ui.css">
-	<link rel="stylesheet" href="/css/superhero.css">
+	<link rel="stylesheet" href="/css/paper.css">
 	<link rel="stylesheet" href="/css/editor.css">
 	<link rel="stylesheet" href="/font-awesome/css/font-awesome.css">
 </head>
