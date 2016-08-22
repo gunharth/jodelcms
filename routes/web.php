@@ -114,10 +114,11 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
         return $model::orderBy('title')->get();
     });
 
-
-    
-
-    
+    /**
+     * Editor: generate Sitemap
+     * wip
+     */
+    Route::get('sitemap', 'SitemapController@generateSitemap');
 
     
     

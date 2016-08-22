@@ -2,6 +2,7 @@
 /node_modules
 /public/storage
 /public/files
+/public/sitemap.xml
 Homestead.yaml
 Homestead.json
 .env
