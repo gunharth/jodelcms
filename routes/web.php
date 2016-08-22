@@ -13,7 +13,6 @@
 
 Route::auth();
 
-
 Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], function () {
     
     /**
@@ -34,7 +33,6 @@ Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], f
      */
     Route::get('articles/{post}', 'PostsController@show');
     Route::get('articles', 'PostsController@index');
-
 });
 
 /**
@@ -115,20 +113,12 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     });
 
 
-    
-
-    
-
-    
-    
-
     /**
      * Editor: show event Log
      * Fill the select filed on Menu Type change
      * Type: ajax
      */
     Route::get('activity', 'LogsController@index');
-
 });
 
 /**
@@ -153,8 +143,7 @@ Route::group(['as' => 'menu', 'prefix' => LaravelLocalization::setLocale()], fun
         $categories = explode('/', $slug);
         $menus = new App\MenuTranslation;
         $translation = $menus->getBySlug(end($categories));
-        if ( ! $translation)
-        {
+        if (! $translation) {
             return App::abort(404);
         }
         $menu = $translation->menu;
@@ -173,7 +162,7 @@ Route::group(['as' => 'menu', 'prefix' => LaravelLocalization::setLocale()], fun
                 $app = app();
                 $model = new $menu->morpher_type;
                 $controller = $app->make('App\Http\Controllers\\'.$model->returnController());
-                return $controller->callAction('showID', $parameters = array($menu->morpher_id,$slug));
+                return $controller->callAction('showID', $parameters = array($menu->morpher_id, $slug));
             }
         }
         App::abort('404');
