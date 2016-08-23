@@ -12,7 +12,6 @@ use App;
 
 class MenusController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -27,6 +26,7 @@ class MenusController extends Controller
     {
         if ($request->ajax()) {
             $menu = new Menu;
+
             return view('admin.menu.create', compact('id', 'menu'));
         }
     }
@@ -40,6 +40,7 @@ class MenusController extends Controller
     public function store(MenuRequest $request)
     {
         $menu = Menu::create($request->all());
+
         return $menu;
     }
 
@@ -54,6 +55,7 @@ class MenusController extends Controller
         App::setLocale($editorLocale);
         $menu = Menu::findOrFail($id);
         $pages = Page::pluck('title', 'id')->toArray();
+
         return view('admin.menu.edit', compact('menu', 'pages'));
     }
 
@@ -68,6 +70,7 @@ class MenusController extends Controller
     {
         $menu = Menu::findOrFail($id);
         $menu = $menu->fill($request->all())->save();
+
         return 'true';
     }
 
@@ -82,12 +85,13 @@ class MenusController extends Controller
         if ($request->ajax()) {
             $menu = Menu::findOrFail($request->id);
             $menu->delete();
+
             return ['success' => true, 'message' => 'Item deleted!'];
         }
     }
 
     /**
-     * Editor list all Menus
+     * Editor list all Menus.
      *
      * @param Request $request
      */
@@ -104,7 +108,7 @@ class MenusController extends Controller
     }
 
     /**
-     * Save the menu ordering
+     * Save the menu ordering.
      *
      * @param Request $request
      */
@@ -117,7 +121,7 @@ class MenusController extends Controller
                 $menu = Menu::findOrFail($p->id);
                 $menu->lft = $p->lft;
                 $menu->rgt = $p->rgt;
-                $menu->parent_id = $p->parent_id != "" ? $p->parent_id : null;
+                $menu->parent_id = $p->parent_id != '' ? $p->parent_id : null;
                 $menu->depth = $p->depth;
                 $menu->save();
             }
@@ -125,7 +129,7 @@ class MenusController extends Controller
     }
 
     /**
-     * Store the status of the menu
+     * Store the status of the menu.
      *
      * @param Request $request
      */

@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Page;
 
 class PageTranslation extends Model
 {
@@ -26,7 +25,7 @@ class PageTranslation extends Model
         'meta_description',
         'meta_keywords',
         'template_id',
-        
+
     ];
 
     // public function setSlugAttribute($value)

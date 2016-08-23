@@ -14,28 +14,28 @@ use App;
 
 class PostsController extends Controller
 {
-    
     use Traits;
 
     private $locale;
-    
+
     public function __construct()
     {
-        $this->middleware('auth', ['except' =>['show', 'index'] ]);
+        $this->middleware('auth', ['except' => ['show', 'index']]);
         $this->locale = LaravelLocalization::getCurrentLocale();
     }
 
     /**
      * Display main index resource
      * If logged in redirect to iframe calling @indexEditor
-     * route: /
+     * route: /.
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $posts = Post::where('id', '>', 1)->latest('published_at')->published()->paginate(config('settings.post_paginate'));
         if (Auth::check()) {
-            $src = '/' . $this->locale . '/admin/blog/editIndex';
+            $src = '/'.$this->locale.'/admin/blog/editIndex';
+
             return $this->loadiFrame($src);
         }
         $post = Post::findOrFail(1); // get blog home and settings?
@@ -45,7 +45,7 @@ class PostsController extends Controller
     /**
      * Display a specified resource
      * If logged in redirect to iframe calling @edit
-     * route: resource/{slug}
+     * route: resource/{slug}.
      * @param  string $slug,  $translations
      * @return \Illuminate\Http\Response
      */
@@ -58,16 +58,18 @@ class PostsController extends Controller
         $post = $translation->post;
 
         if (Auth::check()) {
-            $src = '/' . $this->locale . '/admin/blog/'.$post->slug.'/edit';
+            $src = '/'.$this->locale.'/admin/blog/'.$post->slug.'/edit';
+
             return $this->loadiFrame($src);
         }
+
         return view('blog.show', compact('post'));
     }
 
     /**
      * Display a specified resource from linked menu.
      * If logged in redirect to iframe calling @admin.edit
-     * route: menu {slug}
+     * route: menu {slug}.
      * @param  int $pageid, string $menuslug
      * @return \Illuminate\Http\Response
      */
@@ -77,23 +79,27 @@ class PostsController extends Controller
             $posts = Post::where('id', '>', 1)->paginate(config('settings.post_paginate'));
             if (Auth::check()) {
                 $src = '/blog/indexEditor';
+
                 return $this->loadiFrame($src);
             }
+
             return view('blog.index', compact('posts'));
         }
         $post = Post::find($id);
         if (Auth::check()) {
-            $src = '/' . $this->locale . '/admin/blog/'.$post->slug.'/edit';
+            $src = '/'.$this->locale.'/admin/blog/'.$post->slug.'/edit';
             if ($this->locale != config('app.fallback_locale')) {
-                $slug = $this->locale . '/' . $slug;
+                $slug = $this->locale.'/'.$slug;
             }
+
             return $this->loadiFrame($src, $slug);
         }
+
         return view('blog.show', compact('post'));
     }
 
     /**
-     * iframe content to edit index resource
+     * iframe content to edit index resource.
      * @param  $request, $slug, $translations
      * @return \Illuminate\Http\Response
      */
@@ -101,11 +107,12 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail(1); // get blog home and settings?
         $posts = Post::where('id', '>', 1)->latest('published_at')->paginate(config('settings.post_paginate'));
+
         return view('blog.index', compact('post', 'posts'));
     }
 
     /**
-     * iframe content to edit resource
+     * iframe content to edit resource.
      * @param  $request, $slug, $translations
      * @return \Illuminate\Http\Response
      */
@@ -113,12 +120,13 @@ class PostsController extends Controller
     {
         $translation = $translations->getBySlug($slug);
         $post = $translation->post;
+
         return view('blog.show', compact('post'));
     }
 
     /**
      * Update content areas of specified resource
-     * ajax route: @admin updateContent
+     * ajax route: @admin updateContent.
      * @param  int $resourceid, string $menuslug
      * @return \Illuminate\Http\Response
      */
@@ -130,18 +138,19 @@ class PostsController extends Controller
                 return App::abort(404);
             }
             $post = $translation->post;
-            if (!$post->hasTranslation($this->locale)) {
+            if (! $post->hasTranslation($this->locale)) {
                 $post->title = $post->translateOrDefault($this->locale)->title;
                 $post->slug = $slug;
             }
             $post->fill($request->all())->save();
+
             return $post;
         }
     }
 
     /**
      * Load editor create form
-     * ajax route
+     * ajax route.
      * @param  $request
      * @return \Illuminate\Http\Response
      */
@@ -157,7 +166,7 @@ class PostsController extends Controller
 
     /**
      * Editor store new resource
-     * ajax route
+     * ajax route.
      * @param  $request
      * @return \Illuminate\Http\Response
      */
@@ -165,13 +174,14 @@ class PostsController extends Controller
     {
         if ($request->ajax()) {
             $post = Post::create($request->all());
+
             return $post;
         }
     }
 
     /**
-     * Load editor settings form 
-     * ajax route
+     * Load editor settings form
+     * ajax route.
      * @param  $request
      * @return \Illuminate\Http\Response
      */
@@ -186,7 +196,7 @@ class PostsController extends Controller
 
     /**
      * Store settings
-     * ajax route
+     * ajax route.
      * @param  $request
      * @return \Illuminate\Http\Response
      */
@@ -194,17 +204,16 @@ class PostsController extends Controller
     {
         if ($request->ajax()) {
             $post = Post::findOrFail($id);
-            if (!$post->hasTranslation($this->locale)) {
+            if (! $post->hasTranslation($this->locale)) {
                 $post->title = $post->translateOrDefault($this->locale)->title;
                 $post->slug = $post->translateOrDefault($this->locale)->slug;
             }
             //dd($request->all());
             $post->fill($request->all())->save();
+
             return $post;
         }
     }
-
-
 
     // public function updateContent(Request $request, Post $post)
     // {
@@ -215,7 +224,7 @@ class PostsController extends Controller
     public function collectionIndex()
     {
         $posts = Post::where('id', '>', 1)->latest('published_at')->paginate(config('settings.post_paginate'));
+
         return view('admin.blog.index', compact('posts'));
     }
-
 }

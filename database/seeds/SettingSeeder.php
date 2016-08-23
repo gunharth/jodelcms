@@ -13,7 +13,7 @@ class SettingSeeder extends Seeder
     {
         DB::table('settings')->insert([
             'name' => 'post_paginate',
-            'value' => '10'
+            'value' => '10',
         ]);
     }
 }

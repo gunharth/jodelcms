@@ -11,19 +11,19 @@ class PageSeeder extends Seeder
      */
     public function run()
     {
-        /**
+        /*
          * Pages
          */
         // index
         DB::table('pages')->insert([
-            'template_id' => 1
+            'template_id' => 1,
         ]);
         // page 1
          DB::table('pages')->insert([
-            'template_id' => 2
+            'template_id' => 2,
         ]);
 
-        /**
+        /*
          * Page Translations
          */
         // index
@@ -57,7 +57,5 @@ class PageSeeder extends Seeder
             'title' => 'Seite 1',
             'content01' => 'Seite 1 in Deutsch',
         ]);
-        
-
     }
 }

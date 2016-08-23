@@ -22,16 +22,16 @@ class JodelServiceProvider extends ServiceProvider
      */
     public function boot(Setting $settings)
     {
-        
+
         // Fix for enabling sqlite foreign key constraints
         if (config('database.default') == 'sqlite') {
             $db = app()->make('db');
-            $db->connection()->getPdo()->exec("pragma foreign_keys=1");
+            $db->connection()->getPdo()->exec('pragma foreign_keys=1');
         }
 
         // Add settings to config and cache at boot
         // but only after migrations are done, i.e in local env
-        if(App::environment() == "local") {
+        if (App::environment() == 'local') {
             if (Schema::hasTable('settings')) {
                 $this->loadSettings($settings);
             }
@@ -39,18 +39,18 @@ class JodelServiceProvider extends ServiceProvider
             $this->loadSettings($settings);
         }
 
-        /**
+        /*
          * Main Menue View Composer
          */
         view()->composer('partials.nav', function ($view) {
             $path = Request::path();
-            if (!empty($_GET['menu'])) {
+            if (! empty($_GET['menu'])) {
                 $path = $_GET['menu'];
             }
             $view->with('menu', Menu::with('morpher')->whereActive(1)->whereMenuTypeId(1)->get())->with('path', $path);
         });
 
-        /**
+        /*
          * Language Switcher View Composer
          */
         view()->composer('partials.lang-switcher', function ($view) {
@@ -59,7 +59,7 @@ class JodelServiceProvider extends ServiceProvider
                 $path = $_GET['menu'];
             }
 
-            $slugs  = [];
+            $slugs = [];
             // dd(Request::route()->getName());
             switch (Request::route()->getName()) {
                 case 'menu':
@@ -71,13 +71,13 @@ class JodelServiceProvider extends ServiceProvider
 
                     //dd($menu);
                     //dd($menu->getDescendantsAndSelf());
-                    $slugs = array();
+                    $slugs = [];
                     foreach ($menu->getDescendantsAndSelf() as $descendant) {
-                        $menuslugs = array();
+                        $menuslugs = [];
                         foreach ($descendant->translations as $langs) {
-                            $menuslugs[] = [ $langs->locale => $langs->slug ];
+                            $menuslugs[] = [$langs->locale => $langs->slug];
                         }
-                        $slugs = $slugs+$menuslugs;
+                        $slugs = $slugs + $menuslugs;
                     }
                     //dd($slugs);
                 break;
@@ -85,12 +85,12 @@ class JodelServiceProvider extends ServiceProvider
                     //$categories = explode('/', $path);
                     //$page = Page::where('slug','LIKE', '%"' . config('app.locale'). '":"home"%')->first();
                     // $slugs[] = '{"en":"","de":""}';
-                    $slugs = array();
-                    $menuslugs[] = [ 'en' => '' ];
-                    $menuslugs[] = [ 'de' => '' ];
-                    $slugs = $slugs+$menuslugs;
+                    $slugs = [];
+                    $menuslugs[] = ['en' => ''];
+                    $menuslugs[] = ['de' => ''];
+                    $slugs = $slugs + $menuslugs;
                 break;
-                case 'direct.showpage': //Public direct loading of a page 
+                case 'direct.showpage': //Public direct loading of a page
                     $categories = explode('/', $path);
                     // //$page = Page::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
                     $translations = new PageTranslation;
@@ -104,17 +104,17 @@ class JodelServiceProvider extends ServiceProvider
                     // $menuslugs[] = [ 'en' => '' ];
                     // $menuslugs[] = [ 'de' => '' ];
                     // $slugs = $slugs+$menuslugs;
-                    // 
-                    // 
-                    $slugs = array();
-                    $menuslugs = array();
+                    //
+                    //
+                    $slugs = [];
+                    $menuslugs = [];
                         foreach ($page->translations as $langs) {
-                            $menuslugs[] = [ $langs->locale => $langs->slug ];
+                            $menuslugs[] = [$langs->locale => $langs->slug];
                         }
-                        $slugs = $slugs+$menuslugs;
+                        $slugs = $slugs + $menuslugs;
                 break;
                 case 'editpage':
-                    if (!empty($path)) {
+                    if (! empty($path)) {
                         // $categories = explode('/', $path);
                       // $active = Menu::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
                       // foreach($active->getDescendantsAndSelf() as $descendant) {
@@ -129,19 +129,19 @@ class JodelServiceProvider extends ServiceProvider
 
                     //dd($menu);
                     //dd($menu->getDescendantsAndSelf());
-                    $slugs = array();
+                    $slugs = [];
                         foreach ($menu->getDescendantsAndSelf() as $descendant) {
-                            $menuslugs = array();
+                            $menuslugs = [];
                             foreach ($descendant->translations as $langs) {
-                                $menuslugs[] = [ $langs->locale => $langs->slug ];
+                                $menuslugs[] = [$langs->locale => $langs->slug];
                             }
-                            $slugs = $slugs+$menuslugs;
+                            $slugs = $slugs + $menuslugs;
                         }
                     } else {
-                        $slugs = array();
-                        $menuslugs[] = [ 'en' => '' ];
-                        $menuslugs[] = [ 'de' => '' ];
-                        $slugs = $slugs+$menuslugs;
+                        $slugs = [];
+                        $menuslugs[] = ['en' => ''];
+                        $menuslugs[] = ['de' => ''];
+                        $slugs = $slugs + $menuslugs;
                     }
                 break;
             }
@@ -151,7 +151,7 @@ class JodelServiceProvider extends ServiceProvider
             //$view->;
         });
 
-        /**
+        /*
          * Footer View Composer
          */
         view()->composer('partials.footer', function ($view) {
@@ -161,11 +161,12 @@ class JodelServiceProvider extends ServiceProvider
     }
 
     /**
-     * load app settings
+     * load app settings.
      * @param  Settings $settings load settings
      * @return settings and add to config
      */
-    public function loadSettings($settings) {
+    public function loadSettings($settings)
+    {
         $settings = Cache::remember('settings', 60, function () use ($settings) {
             return $settings->pluck('value', 'name')->all();
         });

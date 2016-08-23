@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Menu;
 
 class MenuTranslation extends Model
 {
@@ -12,7 +11,7 @@ class MenuTranslation extends Model
     protected $fillable = [
         'slug',
         'name',
-        
+
     ];
 
     // public function setSlugAttribute($value)
@@ -25,11 +24,11 @@ class MenuTranslation extends Model
     // }
 
     public function getBySlug($slug)
-	{
-	    return $this->where('slug', '=', $slug)->first();
-	}
+    {
+        return $this->where('slug', '=', $slug)->first();
+    }
 
-	/**
+    /**
      * Get the original page.
      *
      * @return Post
@@ -38,5 +37,4 @@ class MenuTranslation extends Model
     {
         return $this->belongsTo(Menu::class, 'menu_id');
     }
-
 }

@@ -5,7 +5,6 @@ use Carbon\Carbon;
 
 class PostSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      *
@@ -13,7 +12,7 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        /**
+        /*
          * posts
          */
         //index
@@ -32,7 +31,7 @@ class PostSeeder extends Seeder
             'published_at' => Carbon::now(),
         ]);
 
-        /**
+        /*
          * Page Translations
          */
         //index

@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class PageRequest extends Request
 {
     /**
@@ -17,7 +15,7 @@ class PageRequest extends Request
     }
 
     /**
-     * Request all() override function to pass in slug for validation
+     * Request all() override function to pass in slug for validation.
      *
      * @return array
      */
@@ -29,6 +27,7 @@ class PageRequest extends Request
         } else {
             $input['slug'] = str_slug($input['slug']);
         }
+
         return $input;
     }
 
@@ -51,8 +50,9 @@ class PageRequest extends Request
             case 'POST':
             {
                 $custom = [
-                    'slug'  => 'unique:page_translations,slug,NULL,page_id,locale,'.config('app.locale')
+                    'slug'  => 'unique:page_translations,slug,NULL,page_id,locale,'.config('app.locale'),
                 ];
+
                 return array_merge($global, $custom);
             }
             case 'PUT':

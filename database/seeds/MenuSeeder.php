@@ -12,7 +12,7 @@ class MenuSeeder extends Seeder
      */
     public function run()
     {
-        /**
+        /*
          * Menus
          */
         // Home
@@ -26,7 +26,7 @@ class MenuSeeder extends Seeder
             'depth' => 0,
             'active' => 1,
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
         ]);
 
         // Menu 1 - Page 1
@@ -40,7 +40,7 @@ class MenuSeeder extends Seeder
             'depth' => 0,
             'active' => 1,
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
         ]);
 
         // Blog
@@ -54,7 +54,7 @@ class MenuSeeder extends Seeder
             'depth' => 0,
             'active' => 1,
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
         ]);
 
         // External
@@ -69,14 +69,14 @@ class MenuSeeder extends Seeder
             'depth' => 0,
             'active' => 1,
             'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now()
+            'updated_at' => Carbon::now(),
         ]);
 
 
-         /**
+         /*
          * Menus Translations
          */
-        
+
         // Home
         DB::table('menu_translations')->insert([
             'menu_id' => 1,

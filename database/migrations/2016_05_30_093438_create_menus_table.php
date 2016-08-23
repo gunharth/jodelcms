@@ -5,12 +5,11 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMenusTable extends Migration
 {
-
     /**
-   * Run the migrations.
-   *
-   * @return void
-   */
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
         Schema::create('menus', function (Blueprint $table) {
@@ -35,16 +34,16 @@ class CreateMenusTable extends Migration
             $table->string('name', 50);
             $table->string('slug')->index();
 
-            $table->unique(['slug','locale']);
+            $table->unique(['slug', 'locale']);
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
         });
     }
 
     /**
-    * Reverse the migrations.
-    *
-    * @return void
-    */
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::drop('menus');

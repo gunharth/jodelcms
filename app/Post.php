@@ -5,8 +5,6 @@ namespace App;
 //use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
 use Dimsav\Translatable\Translatable;
-use App\Template;
-use App\Menu;
 use App;
 use Carbon\Carbon;
 
@@ -16,7 +14,7 @@ class Post extends Model
     use Translatable;
 
     /**
-     * returnController for catch all routes
+     * returnController for catch all routes.
      * @return string
      */
     public static function returnController()
@@ -25,7 +23,7 @@ class Post extends Model
     }
 
     protected $dates = [
-        'published_at'
+        'published_at',
     ];
 
     protected $fillable = [
@@ -41,7 +39,7 @@ class Post extends Model
         'head_code',
         'body_start_code',
         'body_end_code',
-        'published_at'
+        'published_at',
     ];
 
     protected $translatedAttributes = [
@@ -72,27 +70,28 @@ class Post extends Model
     {
         $query->where('published_at', '<=', Carbon::now());
     }
-    
 
     public function getLinkAttribute()
     {
         $link = '';
         $getlocale = App::getLocale();
         $applocale = config('app.fallback_locale');
-        if($getlocale != $applocale) {
-            $link .= '/'. $getlocale;
+        if ($getlocale != $applocale) {
+            $link .= '/'.$getlocale;
         }
         $link .= '/blog';
         if ($this->slug == 'blog') {
             return $link;
         }
-        return $link . '/'.$this->slug;
+
+        return $link.'/'.$this->slug;
     }
 
     public function getNextAttribute()
     {
         $pubDate = $this->published_at->format('Y-m-d H:i:s');
-        return $this->orderBy("published_at")->where('published_at', '>', $pubDate)->where('id', '>', 1)->first();
+
+        return $this->orderBy('published_at')->where('published_at', '>', $pubDate)->where('id', '>', 1)->first();
         //return $this->merge(Post::orderBy("published_at")->where('published_at', '<', $pubDate)->where('id', '>', 1)->first());
         // $prev = Post::orderBy("published_at")->where('published_at', '>', $pubDate)->where('id', '>', 1)->first();
     }
@@ -100,12 +99,12 @@ class Post extends Model
     public function getPrevAttribute()
     {
         $pubDate = $this->published_at->format('Y-m-d H:i:s');
-        return $this->orderBy("published_at")->where('published_at', '<', $pubDate)->where('id', '>', 1)->first();
+
+        return $this->orderBy('published_at')->where('published_at', '<', $pubDate)->where('id', '>', 1)->first();
         //return $this->merge(Post::orderBy("published_at")->where('published_at', '<', $pubDate)->where('id', '>', 1)->first());
         // $prev = Post::orderBy("published_at")->where('published_at', '>', $pubDate)->where('id', '>', 1)->first();
     }
 
-    
     // Menu::class Morph Relation
     public function menu()
     {

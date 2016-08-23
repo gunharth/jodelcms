@@ -3,8 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsTable extends Migration {
-
+class CreatePostsTable extends Migration
+{
     /**
      * Run the migrations.
      *
@@ -12,8 +12,7 @@ class CreatePostsTable extends Migration {
      */
     public function up()
     {
-        Schema::create('posts', function($table)
-        {
+        Schema::create('posts', function ($table) {
             $table->increments('id');
             $table->integer('template_id')->nullable();
 
@@ -36,12 +35,12 @@ class CreatePostsTable extends Migration {
             $table->text('content01')->nullable();
             $table->text('content02')->nullable();
             $table->text('content03')->nullable();
-            
+
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
 
-            $table->unique(['slug','locale']);
+            $table->unique(['slug', 'locale']);
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });
     }
@@ -56,5 +55,4 @@ class CreatePostsTable extends Migration {
         Schema::dropIfExists('posts');
         Schema::dropIfExists('post_translations');
     }
-
 }

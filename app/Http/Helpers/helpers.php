@@ -1,8 +1,8 @@
 <?php
 
-if (!function_exists('renderMainMenu')) {
+if (! function_exists('renderMainMenu')) {
     /**
-     * Render nodes for nested sets
+     * Render nodes for nested sets.
      *
      * @param $node
      * @return string
@@ -14,45 +14,45 @@ if (!function_exists('renderMainMenu')) {
         $caret = '<i class="fa fa-caret-down"></i>';
         //$link = '';
         //$link = route('page', ['page_slug' => $node->slug]);
-        if ($node->slug == "home") {
+        if ($node->slug == 'home') {
             $link .= LaravelLocalization::getLocalizedURL($locale = null, $url = '/');
-            $single  = '<a href="'. LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link) .'">' . $node->name  .'</a>';
+            $single = '<a href="'.LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link).'">'.$node->name.'</a>';
         } else {
             $locale = LaravelLocalization::getCurrentLocale();
             if ($locale != config('app.fallback_locale') && $node->isRoot()) {
-                $link .= '/' . LaravelLocalization::getCurrentLocale() . '/' . $node->slug;
+                $link .= '/'.LaravelLocalization::getCurrentLocale().'/'.$node->slug;
             } else {
-                $link .= '/' . $node->slug;
+                $link .= '/'.$node->slug;
             }
-            
-            $single  = '<a href="'. LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link) .'">' . $node->name  .'</a>';
+
+            $single = '<a href="'.LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link).'">'.$node->name.'</a>';
         }
 
-    
+
         $target = '';
         if ($node->external_link != '') {
             $link = $node->external_link;
             $target = ' target="_blank"';
-            $single  = '<a href="'.  $link .'" '. $target .'>' . $node->name  .'</a>';
+            $single = '<a href="'.$link.'" '.$target.'>'.$node->name.'</a>';
         }
         //dd($node->getAncestorsAndSelf()->pluck('slug'));
        // $link =  implode('/',$node->getAncestorsAndSelf()->pluck('slug'));
        //echo $node->morpher_id;
        //echo $node->morpher->id;
         $active = '';
-        $path = '/' . preg_replace('/\/edit$/', '', $path);
+        $path = '/'.preg_replace('/\/edit$/', '', $path);
         //echo($path);
 
         if ($path == $link) {
             $active = ' class="active"';
         }
         $drop_down = '<a class="dropdown-toggle" data-toggle="dropdown" href="/#"
-                        role="button" aria-expanded="false">' . $node->name . ' ' . $caret . '</a>';
+                        role="button" aria-expanded="false">'.$node->name.' '.$caret.'</a>';
         // $single  = '<a href="'. LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link) .'" '. $target .'>' . $node->name  .'</a>';
         if ($node->isLeaf()) {
-            return '<li' . $active .'>' . $single . '</li>';
+            return '<li'.$active.'>'.$single.'</li>';
         } else {
-            $html = '<li '.$class.'>' . $drop_down;
+            $html = '<li '.$class.'>'.$drop_down;
             $html .= '<ul '.$list.'>';
             foreach ($node->children as $child) {
                 $html .= renderMainMenu($child, $path, $link);
@@ -60,14 +60,15 @@ if (!function_exists('renderMainMenu')) {
             $html .= '</ul>';
             $html .= '</li>';
         }
+
         return $html;
     }
 }
 
 
-if (!function_exists('renderEditorMenus')) {
+if (! function_exists('renderEditorMenus')) {
     /**
-     * Render nodes for nested sets
+     * Render nodes for nested sets.
      *
      * @param $node
      * @param $resource
@@ -77,14 +78,14 @@ if (!function_exists('renderEditorMenus')) {
     {
         if (empty($slug)) {
             if (config('app.fallback_locale') !== $editorLocale) {
-                $slug .= '/' . $editorLocale;
+                $slug .= '/'.$editorLocale;
             }
         }
-        $id = 'data-id="' . $node->id .'"';
+        $id = 'data-id="'.$node->id.'"';
         $list = 'class="dd-list"';
         $class = 'class="dd-item"';
         $handle = 'class="dd-handle"';
-        $slug .= '/' . $node->slug;
+        $slug .= '/'.$node->slug;
         $target = '';
         if ($node->external_link != '') {
             $slug = $node->external_link;
@@ -95,32 +96,32 @@ if (!function_exists('renderEditorMenus')) {
         $active = ($node->active == 1) ? 'fa-circle' : 'fa-circle-o';
         $active_data = ($node->active == 1) ? 0 : 1;
 
-        $actions =  '<div class="btn-group pull-right" role="group" aria-label="...">' .
-                    '<button type="button" class="btn btn-link btn-xs load" data-toggle="tooltip" title="load in Browser">' .
-                        '<i class="fa fa-external-link" data-url="' . $slug . '" data-target="' . $target . '"></i>' .
-                    '</button>' .
-                    '<button type="button" class="btn btn-link btn-xs edit" title="settings">' .
-                        '<i class="fa fa-gear"></i>' .
+        $actions = '<div class="btn-group pull-right" role="group" aria-label="...">'.
+                    '<button type="button" class="btn btn-link btn-xs load" data-toggle="tooltip" title="load in Browser">'.
+                        '<i class="fa fa-external-link" data-url="'.$slug.'" data-target="'.$target.'"></i>'.
+                    '</button>'.
+                    '<button type="button" class="btn btn-link btn-xs edit" title="settings">'.
+                        '<i class="fa fa-gear"></i>'.
                     '</button>';
 
         if (config('app.fallback_locale') == $editorLocale) {
             $actions .=
-                    '<button type="button" class="btn btn-link btn-xs toggleActive" title="status">' .
-                        '<i class="fa ' . $active . '" data-active="' . $active_data . '"></i>' .
-                    '</button>' .
-                    '<button type="button" class="btn btn-link btn-xs delete" title="delete">' .
-                        '<i class="fa fa-times"></i>' .
+                    '<button type="button" class="btn btn-link btn-xs toggleActive" title="status">'.
+                        '<i class="fa '.$active.'" data-active="'.$active_data.'"></i>'.
+                    '</button>'.
+                    '<button type="button" class="btn btn-link btn-xs delete" title="delete">'.
+                        '<i class="fa fa-times"></i>'.
                     '</button>';
         }
         $actions .= '</div>';
 
-        $name  = '<div '.$handle.'><i class="fa fa-arrows"></i></div>';
-        $name  .= '<div class="dd-content">' . $node->name . $actions . '</div>';
-        
+        $name = '<div '.$handle.'><i class="fa fa-arrows"></i></div>';
+        $name  .= '<div class="dd-content">'.$node->name.$actions.'</div>';
+
         if ($node->isLeaf()) {
-            return '<li '.$class.' '.$id.'>' . $name . '</li>';
+            return '<li '.$class.' '.$id.'>'.$name.'</li>';
         } else {
-            $html = '<li '.$class.' '.$id.'>' . $name;
+            $html = '<li '.$class.' '.$id.'>'.$name;
             $html .= '<ol '.$list.'>';
             foreach ($node->children as $child) {
                 $html .= renderEditorMenus($child, $editorLocale, $slug);
@@ -128,13 +129,14 @@ if (!function_exists('renderEditorMenus')) {
             $html .= '</ol>';
             $html .= '</li>';
         }
+
         return $html;
     }
 }
 
-if (!function_exists('renderEditorPages')) {
+if (! function_exists('renderEditorPages')) {
     /**
-     * Render nodes for nested sets
+     * Render nodes for nested sets.
      *
      * @param $node
      * @param $resource
@@ -142,7 +144,7 @@ if (!function_exists('renderEditorPages')) {
      */
     function renderEditorPages($page, $editorLocale)
     {
-        $id = 'data-id="' . $page->id .'"';
+        $id = 'data-id="'.$page->id.'"';
         $list = 'class="dd-list"';
         $class = 'class="dd-item"';
         $delete = '<button type="button" class="btn btn-link btn-xs delete" data-toggle="tooltip" title="delete"><i class="fa fa-fw fa-times"></i></button>';
@@ -151,34 +153,34 @@ if (!function_exists('renderEditorPages')) {
         }
         $url = '';
         if (config('app.fallback_locale') !== $editorLocale) {
-            $url .= '/' . $editorLocale;
+            $url .= '/'.$editorLocale;
         }
-        $url .= '/page/' . $page->slug;
+        $url .= '/page/'.$page->slug;
 
-        $actions =  '<div class="btn-group pull-right" role="group" aria-label="...">' .
-                    '<button type="button" class="btn btn-link btn-xs load" data-toggle="tooltip" title="load in Browser">' .
-                        '<i class="fa fa-external-link" data-url="' . $url . '"></i>' .
-                    '</button>' .
-                    '<button type="button" class="btn btn-link btn-xs settings" data-toggle="tooltip" title="settings">' .
-                        '<i class="fa fa-gear"></i>' .
+        $actions = '<div class="btn-group pull-right" role="group" aria-label="...">'.
+                    '<button type="button" class="btn btn-link btn-xs load" data-toggle="tooltip" title="load in Browser">'.
+                        '<i class="fa fa-external-link" data-url="'.$url.'"></i>'.
+                    '</button>'.
+                    '<button type="button" class="btn btn-link btn-xs settings" data-toggle="tooltip" title="settings">'.
+                        '<i class="fa fa-gear"></i>'.
                     '</button>';
         if (config('app.fallback_locale') == $editorLocale) {
-            $actions .=     '<!--<button type="button" class="btn btn-link btn-xs duplicate" data-toggle="tooltip" title="duplicate">' .
-                                    '<i class="fa fa-copy"></i>' .
-                                '</button>-->' .
+            $actions .=     '<!--<button type="button" class="btn btn-link btn-xs duplicate" data-toggle="tooltip" title="duplicate">'.
+                                    '<i class="fa fa-copy"></i>'.
+                                '</button>-->'.
                                 $delete;
         }
         $actions .= '</div>';
 
-        $name  = '<div class="dd-content"><span class="dd-title">' . $page->title . '</span>' . $actions . '</div>';
+        $name = '<div class="dd-content"><span class="dd-title">'.$page->title.'</span>'.$actions.'</div>';
 
-        return '<li '.$class.' '.$id.'>' . $name . '</li>';
+        return '<li '.$class.' '.$id.'>'.$name.'</li>';
     }
 }
 
-if (!function_exists('buildLanguageSwitcher')) {
+if (! function_exists('buildLanguageSwitcher')) {
     /**
-     * Render nodes for nested sets
+     * Render nodes for nested sets.
      *
      * @param $node
      * @param $resource
@@ -186,7 +188,7 @@ if (!function_exists('buildLanguageSwitcher')) {
      */
     function buildLanguageSwitcher($slugs)
     {
-        $html = "";
+        $html = '';
         foreach ($slugs as $key => $slug) {
             $links = $slug;
             foreach ($links as $lang => $value) {
@@ -194,16 +196,17 @@ if (!function_exists('buildLanguageSwitcher')) {
                     $link = $value;
                     //echo $link;
                 } else {
-                    $link = $lang . '/' .$value;
+                    $link = $lang.'/'.$value;
                 }
                 $active = '';
                 if ($lang == config('app.locale')) {
                     $active = 'class="active"';
                 }
-                
-                $html .= '<li ' . $active . '>' .'<a rel="alternate" hreflang="' . $lang . '" href="/' . $link . '">' . $lang . '</a></li>';
+
+                $html .= '<li '.$active.'>'.'<a rel="alternate" hreflang="'.$lang.'" href="/'.$link.'">'.$lang.'</a></li>';
             }
         }
+
         return $html;
     }
 }
