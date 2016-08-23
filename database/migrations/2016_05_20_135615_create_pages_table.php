@@ -45,7 +45,7 @@ class CreatePagesTable extends Migration
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
 
-            $table->unique(['slug','locale']);
+            $table->unique(['slug', 'locale']);
             $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');
         });
     }

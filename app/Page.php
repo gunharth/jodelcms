@@ -5,8 +5,6 @@ namespace App;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Model;
 use Dimsav\Translatable\Translatable;
-use App\Template;
-use App\Menu;
 
 class Page extends Model
 {
@@ -14,7 +12,7 @@ class Page extends Model
     use Translatable;
 
     /**
-     * returnController for catch all routes
+     * returnController for catch all routes.
      * @return string
      */
     public function returnController()
@@ -41,7 +39,7 @@ class Page extends Model
         'template_id',
         'head_code',
         'body_start_code',
-        'body_end_code'
+        'body_end_code',
     ];
 
     public $translatedAttributes = [
@@ -81,17 +79,17 @@ class Page extends Model
         'template_id',
         'head_code',
         'body_start_code',
-        'body_end_code'
+        'body_end_code',
     ];
 
     protected $with = [
         'template',
         'menu',
-        'translations'
+        'translations',
     ];
 
     protected $appends = [
-        'link'
+        'link',
     ];
 
     public function getLinkAttribute()
@@ -99,6 +97,7 @@ class Page extends Model
         if ($this->slug == 'home') {
             return '/';
         }
+
         return '/page/'.$this->slug;
     }
 

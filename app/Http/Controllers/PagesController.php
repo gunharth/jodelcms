@@ -6,7 +6,6 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Requests\PageRequest;
 use Illuminate\Http\Request;
 use App\PageTranslation;
-use App\Http\Requests;
 use App\Template;
 use App\Page;
 use Auth;
@@ -14,37 +13,38 @@ use App;
 
 class PagesController extends Controller
 {
-
     use Traits;
 
     private $locale;
-    
+
     public function __construct()
     {
-        $this->middleware('auth', ['except' =>['show', 'index'] ]);
+        $this->middleware('auth', ['except' => ['show', 'index']]);
         $this->locale = LaravelLocalization::getCurrentLocale();
     }
 
     /**
      * Display main index resource
      * If logged in redirect to iframe calling @edit
-     * route: /
+     * route: /.
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $page = Page::findOrFail(1);
         if (Auth::check()) {
-            $src = '/' . $this->locale . '/admin/page/'.$page->slug.'/edit';
+            $src = '/'.$this->locale.'/admin/page/'.$page->slug.'/edit';
+
             return $this->loadiFrame($src);
         }
+
         return view('index', compact('page'));
     }
 
     /**
      * Display a specified resource
      * If logged in redirect to iframe calling @edit
-     * route: resource/{slug}
+     * route: resource/{slug}.
      * @param  string $slug,  $translations
      * @return \Illuminate\Http\Response
      */
@@ -56,16 +56,18 @@ class PagesController extends Controller
         }
         $page = $translation->page;
         if (Auth::check()) {
-            $src = '/' . $this->locale . '/admin/page/'.$page->slug.'/edit';
+            $src = '/'.$this->locale.'/admin/page/'.$page->slug.'/edit';
+
             return $this->loadiFrame($src);
         }
-        return view($page->template->path . '.show', compact('page'));
+
+        return view($page->template->path.'.show', compact('page'));
     }
 
     /**
      * Display a specified resource from linked menu.
      * If logged in redirect to iframe calling @admin.edit
-     * route: menu {slug}
+     * route: menu {slug}.
      * @param  int $pageid, string $menuslug
      * @return \Illuminate\Http\Response
      */
@@ -73,17 +75,19 @@ class PagesController extends Controller
     {
         $page = Page::find($id);
         if (Auth::check()) {
-            $src = '/' . $this->locale . '/admin/page/'.$page->slug.'/edit';
+            $src = '/'.$this->locale.'/admin/page/'.$page->slug.'/edit';
             if ($this->locale != config('app.fallback_locale')) {
-                $slug = $this->locale . '/' . $slug;
+                $slug = $this->locale.'/'.$slug;
             }
+
             return $this->loadiFrame($src, $slug);
         }
-        return view($page->template->path . '.show', compact('page'));
+
+        return view($page->template->path.'.show', compact('page'));
     }
 
     /**
-     * iframe content to edit resource
+     * iframe content to edit resource.
      * @param  $request, $slug, $translations
      * @return \Illuminate\Http\Response
      */
@@ -94,12 +98,13 @@ class PagesController extends Controller
         if ($page->template->id == 1) {
             return view('index', compact('page'));
         }
-        return view($page->template->path . '.show', compact('page'));
+
+        return view($page->template->path.'.show', compact('page'));
     }
 
     /**
      * Update content areas of specified resource
-     * ajax route: @admin updateContent
+     * ajax route: @admin updateContent.
      * @param  int $resourceid, string $menuslug
      * @return \Illuminate\Http\Response
      */
@@ -111,22 +116,23 @@ class PagesController extends Controller
                 return App::abort(404);
             }
             $page = $translation->page;
-            if (!$page->hasTranslation($this->locale)) {
+            if (! $page->hasTranslation($this->locale)) {
                 $page->title = $page->translateOrDefault($this->locale)->title;
                 $page->slug = $slug;
             }
             $page->fill($request->all())->save();
+
             return $page;
         }
     }
 
     /**
-     * Editor functions
+     * Editor functions.
      */
 
     /**
      * Load editor create form
-     * ajax route
+     * ajax route.
      * @param  $request
      * @return \Illuminate\Http\Response
      */
@@ -136,13 +142,14 @@ class PagesController extends Controller
             $templates = Template::where('active', 1)->pluck('name', 'id');
             $page = new Page;
             $page->template = Template::findOrFail(2);
+
             return view('admin.page.create', compact('templates', 'page'));
         }
     }
 
     /**
      * Editor store new resource
-     * ajax route
+     * ajax route.
      * @param  $request
      * @return \Illuminate\Http\Response
      */
@@ -150,13 +157,14 @@ class PagesController extends Controller
     {
         if ($request->ajax()) {
             $page = Page::create($request->all());
+
             return $page;
         }
     }
-    
+
     /**
-     * Load editor settings form 
-     * ajax route
+     * Load editor settings form
+     * ajax route.
      * @param  $request
      * @return \Illuminate\Http\Response
      */
@@ -166,13 +174,14 @@ class PagesController extends Controller
             //App::setLocale($editorLocale);
             $page = Page::findOrFail($id);
             $templates = Template::where('active', 1)->pluck('name', 'id');
+
             return view('admin.page.settings', compact('page', 'templates'));
         }
     }
 
     /**
      * Store settings
-     * ajax route
+     * ajax route.
      * @param  $request
      * @return \Illuminate\Http\Response
      */
@@ -180,16 +189,16 @@ class PagesController extends Controller
     {
         if ($request->ajax()) {
             $page = Page::findOrFail($id);
-            if (!$page->hasTranslation($this->locale)) {
+            if (! $page->hasTranslation($this->locale)) {
                 $page->title = $page->translateOrDefault($this->locale)->title;
                 $page->slug = $page->translateOrDefault($this->locale)->slug;
             }
             $page->fill($request->all())->save();
+
             return $page;
         }
     }
 
-    
     // maybe?
     // public function duplicate(Request $request)
     // {
@@ -213,12 +222,13 @@ class PagesController extends Controller
         if ($request->ajax()) {
             $page = Page::findOrFail($id);
             $page->delete();
+
             return ['success' => true, 'message' => 'Item deleted!'];
         }
     }
 
     /**
-     * Editor list all Pages
+     * Editor list all Pages.
      *
      * @param Request $request
      */
@@ -229,6 +239,7 @@ class PagesController extends Controller
         foreach (Page::orderBy('title')->get() as $page) {
             $html .= renderEditorPages($page, $editorLocale);
         }
+
         return $html;
     }
 }

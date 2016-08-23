@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        /**
+        /*
          * Admin account
          */
         DB::table('users')->insert([
@@ -23,7 +22,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(SettingSeeder::class);
 
-        /**
+        /*
          * Externals need one entry to morph correctly
          */
         DB::table('externals')->insert([

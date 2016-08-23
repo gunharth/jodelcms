@@ -2,12 +2,10 @@
 
 namespace App;
 
-use App\TranslatableHelper;
 use Baum\Node;
 
 class Menu extends Node
 {
-
     use TranslatableHelper;
 
     protected $fillable = [
@@ -16,7 +14,7 @@ class Menu extends Node
       'slug',
       'morpher_id',
       'morpher_type',
-      'external_link'
+      'external_link',
     ];
 
     public $translatedAttributes = [
@@ -25,16 +23,15 @@ class Menu extends Node
     ];
 
     protected $with = [
-      'translations'
+      'translations',
       ];
 
     protected $appends = [
-        'morpher_type_simple'
+        'morpher_type_simple',
     ];
 
     // Baum Scope for multiple Menus
-    protected $scoped = array('menu_type_id');
-
+    protected $scoped = ['menu_type_id'];
 
     // Morph Relation
     public function morpher()
@@ -46,7 +43,7 @@ class Menu extends Node
     {
         return $this->morphTo();
     }
-    
+
     public function setMorpherTypeAttribute($value)
     {
         $this->attributes['morpher_type'] = 'App\\'.$value;
@@ -54,7 +51,7 @@ class Menu extends Node
 
     public function getMorpherTypeSimpleAttribute()
     {
-        return str_replace("App\\", "", $this->morpher_type);
+        return str_replace('App\\', '', $this->morpher_type);
     }
 
   //////////////////////////////////////////////////////////////////////////////

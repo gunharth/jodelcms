@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class PostRequest extends Request
 {
     /**
@@ -17,7 +15,7 @@ class PostRequest extends Request
     }
 
     /**
-     * Request all() override function to pass in slug for validation
+     * Request all() override function to pass in slug for validation.
      *
      * @return array
      */
@@ -29,6 +27,7 @@ class PostRequest extends Request
         } else {
             $input['slug'] = str_slug($input['slug']);
         }
+
         return $input;
     }
 
@@ -51,8 +50,9 @@ class PostRequest extends Request
             case 'POST':
             {
                 $custom = [
-                    'slug'  => 'unique:post_translations,slug,NULL,post_id,locale,'.config('app.locale')
+                    'slug'  => 'unique:post_translations,slug,NULL,post_id,locale,'.config('app.locale'),
                 ];
+
                 return array_merge($global, $custom);
             }
             case 'PUT':

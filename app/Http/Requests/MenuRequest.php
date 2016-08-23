@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\Request;
-
 class MenuRequest extends Request
 {
     /**
@@ -17,7 +15,7 @@ class MenuRequest extends Request
     }
 
     /**
-     * Request all() override function to pass in slug for validation
+     * Request all() override function to pass in slug for validation.
      *
      * @return array
      */
@@ -29,6 +27,7 @@ class MenuRequest extends Request
         } else {
             $input['slug'] = str_slug($input['slug']);
         }
+
         return $input;
     }
 
@@ -41,7 +40,7 @@ class MenuRequest extends Request
     {
         $global = [
             'name' => 'required|max:30',
-            'external_link' => 'required_if:morpher_type,External'
+            'external_link' => 'required_if:morpher_type,External',
         ];
         switch ($this->method()) {
             case 'GET':
@@ -52,16 +51,18 @@ class MenuRequest extends Request
             case 'POST':
             {
                 $custom = [
-                    'slug'  => 'unique:menu_translations,slug,NULL,menu_id,locale,'.config('app.locale')
+                    'slug'  => 'unique:menu_translations,slug,NULL,menu_id,locale,'.config('app.locale'),
                 ];
+
                 return array_merge($global, $custom);
             }
             case 'PUT':
             case 'PATCH':
             {
                 $custom = [
-                    'slug'  => 'unique:menu_translations,slug,'.$this->route('menu').',menu_id,locale,'.config('app.locale')
+                    'slug'  => 'unique:menu_translations,slug,'.$this->route('menu').',menu_id,locale,'.config('app.locale'),
                 ];
+
                 return array_merge($global, $custom);
             }
             default:break;
