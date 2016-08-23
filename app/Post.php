@@ -64,8 +64,8 @@ class Post extends Model
 
     protected $appends = [
         'link',
-        'next',
-        'prev'
+        // 'next',
+        // 'prev'
     ];
 
     public function scopePublished($query)

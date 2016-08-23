@@ -13,18 +13,18 @@
     <div class="row">
       <div class="col-md-6">
         <h1 @if (Auth::check()) class="jodelText" data-field="content01" @endif>{!! $post->content01 !!}</h1>
-        {!! $post->published_at->format('Y') !!}
+        {!! $post->published_at->format('d.m.Y') !!}
         
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div @if (Auth::check()) class="jodelTextarea" data-field="content03" @endif>{!! $post->content03 !!}</div>
+        <div @if (Auth::check()) class="jodelTextarea" data-field="content03" @endif>{!! $post->content02 !!}</div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6">@if (!empty($post->prev)) PREVIOUS POST <a href="/blog/{!! $post->prev->slug !!}">{!! $post->prev->content01 !!}</a>@endif</div>
-      <div class="col-md-6">@if (!empty($post->next)) NEXT POST <a href="/blog/{!! $post->next->slug !!}">{!! $post->next->content01 !!}</a>@endif</div>
+      <div class="col-md-6 text-right">@if (!empty($post->next)) NEXT POST <a href="/blog/{!! $post->next->slug !!}">{!! $post->next->content01 !!}</a>@endif</div>
     </div>
   </div>
   
