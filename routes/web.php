@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     /**
      * Dev only reset Database
      */
-    Route::get('/Dataseed', function () {
+    Route::get('/resetdb', function () {
         Artisan::call('migrate:refresh', [
             '--force' => true,
             '--seed' => true,

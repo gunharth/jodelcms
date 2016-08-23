@@ -13,5 +13,6 @@ class SitemapController extends Controller
     public function generateSitemap(Request $request)
     {
         SitemapGenerator::create($request->root())->writeToFile('sitemap.xml');
+        return redirect()->back();
     }
 }

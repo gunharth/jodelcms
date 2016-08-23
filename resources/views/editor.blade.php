@@ -126,10 +126,11 @@
 			            		</div>
 			            		</div>
 			            	</li>
+
 			            </ol>
-			             <b>DEV ONLY: <a href="/admin/Dataseed">Reset Database</a></b> <br>
+			             <b>DEV ONLY: <a href="/admin/resetdb">Reset Database L53 broken</a></b> <br>
+			             <b><a href="/admin/sitemap">Generate Sitemap</a> </b><br>
 			             spatie google analytics ! <br>
-			             spatie sitemap <br>
 			             Settings (Global Title, etc ... Mail Preferences)
 			             Users / Access <br>
 			             Global Code (GA, Google webmaster tools, Bing webmaster tools, keep open to enter scripts like page specific codes) <br>
