@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+//use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Requests\MenuRequest;
 use Illuminate\Http\Request;
 use App\Menu;

@@ -19,7 +19,7 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div @if (Auth::check()) class="jodelTextarea" data-field="content03" @endif>{!! $post->content02 !!}</div>
+        <div @if (Auth::check()) class="jodelTextarea" data-field="content02" @endif>{!! $post->content02 !!}</div>
       </div>
     </div>
     <div class="row">

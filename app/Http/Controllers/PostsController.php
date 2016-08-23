@@ -6,7 +6,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 use App\PostTranslation;
-use App\Http\Requests;
+// use App\Http\Requests;
 use App\Template;
 use App\Post;
 use Auth;
