@@ -46,10 +46,16 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
      * Dev only reset Database
      */
     Route::get('/resetdb', function () {
-        Artisan::call('migrate:refresh', [
-            '--force' => true,
-            '--seed' => true,
-        ]);
+        // Artisan::call('migrate:refresh', [
+        //     '--force' => true,
+        //     '--seed' => true,
+        // ]);
+
+        $exitCode = Artisan::call('migrate:refresh', [
+    '--force' => true,
+]);
+
+        echo($exitCode);
 
         return redirect('/');
     });

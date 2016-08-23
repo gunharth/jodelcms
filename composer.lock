@@ -978,16 +978,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.3.0-RC1",
+            "version": "v5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6b76cecef3fcbad07eb1ab7b15a05563a18d3e0a"
+                "reference": "7d116dc5a008e69c97f864af79ac46ab6a8d5895"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6b76cecef3fcbad07eb1ab7b15a05563a18d3e0a",
-                "reference": "6b76cecef3fcbad07eb1ab7b15a05563a18d3e0a",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/7d116dc5a008e69c97f864af79ac46ab6a8d5895",
+                "reference": "7d116dc5a008e69c97f864af79ac46ab6a8d5895",
                 "shasum": ""
             },
             "require": {
@@ -1101,7 +1101,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-08-17 15:05:00"
+            "time": "2016-08-23 13:04:04"
         },
         {
             "name": "laravelcollective/html",
@@ -2243,27 +2243,28 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "1.7.0",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "f8f51367ef72c8331648a0f96dd62d6877ec9841"
+                "reference": "027fbf39fd3cda3030e4e8314c9fbf9e700c7d98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/f8f51367ef72c8331648a0f96dd62d6877ec9841",
-                "reference": "f8f51367ef72c8331648a0f96dd62d6877ec9841",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/027fbf39fd3cda3030e4e8314c9fbf9e700c7d98",
+                "reference": "027fbf39fd3cda3030e4e8314c9fbf9e700c7d98",
                 "shasum": ""
             },
             "require": {
-                "illuminate/config": "^5.2",
-                "illuminate/database": "^5.2.6",
-                "illuminate/support": "^5.2",
+                "illuminate/config": "^5.2|^5.3",
+                "illuminate/database": "^5.2.6|^5.3",
+                "illuminate/support": "^5.2|^5.3",
                 "php": "^7.0",
                 "spatie/string": "^2.1"
             },
             "require-dev": {
-                "orchestra/testbench": "^3.2",
+                "orchestra/database": "3.3.x-dev",
+                "orchestra/testbench": "3.3.x-dev",
                 "phpunit/phpunit": "5.*"
             },
             "type": "library",
@@ -2302,7 +2303,7 @@
                 "spatie",
                 "user"
             ],
-            "time": "2016-08-17 10:12:39"
+            "time": "2016-08-23 14:01:54"
         },
         {
             "name": "spatie/laravel-sitemap",
@@ -3407,7 +3408,7 @@
     "packages-dev": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "dev-master",
+            "version": "V2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
