@@ -59,16 +59,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.19.1",
+            "version": "3.19.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "40d7696b738c1376d5c1d1462e113c2a5648156b"
+                "reference": "3cb90413129da42c9d3289d542bee0ae1049892c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/40d7696b738c1376d5c1d1462e113c2a5648156b",
-                "reference": "40d7696b738c1376d5c1d1462e113c2a5648156b",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3cb90413129da42c9d3289d542bee0ae1049892c",
+                "reference": "3cb90413129da42c9d3289d542bee0ae1049892c",
                 "shasum": ""
             },
             "require": {
@@ -135,7 +135,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-08-18 22:54:26"
+            "time": "2016-08-23 20:58:48"
         },
         {
             "name": "barryvdh/elfinder-flysystem-driver",
@@ -195,7 +195,7 @@
         },
         {
             "name": "barryvdh/laravel-elfinder",
-            "version": "dev-master",
+            "version": "v0.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-elfinder.git",
@@ -978,16 +978,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.3.0",
+            "version": "v5.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "7d116dc5a008e69c97f864af79ac46ab6a8d5895"
+                "reference": "1268b6249358a11d430f8b97ff820afdf099f103"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/7d116dc5a008e69c97f864af79ac46ab6a8d5895",
-                "reference": "7d116dc5a008e69c97f864af79ac46ab6a8d5895",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/1268b6249358a11d430f8b97ff820afdf099f103",
+                "reference": "1268b6249358a11d430f8b97ff820afdf099f103",
                 "shasum": ""
             },
             "require": {
@@ -1101,7 +1101,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-08-23 13:04:04"
+            "time": "2016-08-24 09:54:18"
         },
         {
             "name": "laravelcollective/html",
@@ -1389,16 +1389,16 @@
         },
         {
             "name": "mcamara/laravel-localization",
-            "version": "1.1.5",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "72d5e8bf48d10e59a0c47a708e28da9b3da734fe"
+                "reference": "024b58de07b895956e641e808596d34c9a3178e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/72d5e8bf48d10e59a0c47a708e28da9b3da734fe",
-                "reference": "72d5e8bf48d10e59a0c47a708e28da9b3da734fe",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/024b58de07b895956e641e808596d34c9a3178e3",
+                "reference": "024b58de07b895956e641e808596d34c9a3178e3",
                 "shasum": ""
             },
             "require": {
@@ -1433,7 +1433,7 @@
                 "localization",
                 "php"
             ],
-            "time": "2016-08-05 08:13:21"
+            "time": "2016-08-24 13:12:55"
         },
         {
             "name": "mikemccabe/json-patch-php",

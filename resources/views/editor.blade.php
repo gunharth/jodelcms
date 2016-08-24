@@ -128,7 +128,7 @@
 			            	</li>
 
 			            </ol>
-			             <b>DEV ONLY: <a href="/admin/resetdb">Reset Database L53 broken</a></b> <br>
+			             <b>DEV ONLY: <a href="/admin/resetdb">Reset Database</a></b> <br>
 			             <b><a href="/admin/sitemap">Generate Sitemap</a> </b><br>
 			             spatie google analytics ! <br>
 			             Settings (Global Title, etc ... Mail Preferences)
