@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
             '--force' => true,
             '--seed' => true,
         ]);
+
         return redirect('/');
     });
 
