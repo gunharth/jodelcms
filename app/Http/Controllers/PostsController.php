@@ -32,7 +32,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('id', '>', 1)->latest('published_at')->published()->paginate(config('settings.post_paginate'));
+        $posts = Post::where('id', '>', 1)->latest('published_at')->published()->paginate(config('settings.blog_paginate'));
         if (Auth::check()) {
             $src = '/'.$this->locale.'/admin/blog/editIndex';
 
@@ -76,7 +76,7 @@ class PostsController extends Controller
     public function showID($id, $slug)
     {
         if ($id == 1) {
-            $posts = Post::where('id', '>', 1)->paginate(config('settings.post_paginate'));
+            $posts = Post::where('id', '>', 1)->paginate(config('settings.blog_paginate'));
             if (Auth::check()) {
                 $src = '/blog/indexEditor';
 
@@ -106,7 +106,7 @@ class PostsController extends Controller
     public function editIndex()
     {
         $post = Post::findOrFail(1); // get blog home and settings?
-        $posts = Post::where('id', '>', 1)->latest('published_at')->paginate(config('settings.post_paginate'));
+        $posts = Post::where('id', '>', 1)->latest('published_at')->paginate(config('settings.blog_paginate'));
 
         return view('blog.index', compact('post', 'posts'));
     }
@@ -223,8 +223,24 @@ class PostsController extends Controller
 
     public function collectionIndex()
     {
-        $posts = Post::where('id', '>', 1)->latest('published_at')->paginate(config('settings.post_paginate'));
+        $posts = Post::where('id', '>', 1)->latest('published_at')->paginate(config('settings.blog_paginate'));
 
         return view('admin.blog.index', compact('posts'));
+    }
+
+    /**
+     * Editor list all collection items.
+     *
+     * @param Request $request
+     */
+    public function editorList()
+    {
+        $html = '';
+        $posts = Post::where('id', '>', 1)->latest('published_at')->paginate(config('settings.blog_paginate'));
+        foreach ($posts as $post) {
+            $html .= renderEditorPages($post, 'en');
+        }
+
+        return $html;
     }
 }

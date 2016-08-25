@@ -49,9 +49,14 @@
 	        'id' => 'settings'
 	    ]) !!}
 
+	    <div class="form-group">
+            {!! Form::label('blog_title','Blog Title') !!}
+            {!! Form::text('blog_title',config('settings.blog_title'),['class' => 'form-control']) !!}
+        </div>
+
  		<div class="form-group">
-            {!! Form::label('post_paginate','Pagination') !!}
-            {!! Form::text('post_paginate',config('settings.post_paginate'),['class' => 'form-control']) !!}
+            {!! Form::label('blog_paginate','Pagination') !!}
+            {!! Form::text('blog_paginate',config('settings.blog_paginate'),['class' => 'form-control']) !!}
         </div>
 
 		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"><div class="ui-dialog-buttonset"><button type="button" class="submit ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button"><span class="ui-button-text">Save</span></button></div></div>

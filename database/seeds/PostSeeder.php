@@ -23,12 +23,12 @@ class PostSeeder extends Seeder
         // post 1
         DB::table('posts')->insert([
             'template_id' => 4,
-            'published_at' => Carbon::yesterday(),
+            'published_at' => Carbon::now()->subDays(2),
         ]);
         // post 2
         DB::table('posts')->insert([
             'template_id' => 4,
-            'published_at' => Carbon::now(),
+            'published_at' => Carbon::yesterday(),
         ]);
 
         /*

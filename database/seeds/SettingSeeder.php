@@ -12,7 +12,11 @@ class SettingSeeder extends Seeder
     public function run()
     {
         DB::table('settings')->insert([
-            'name' => 'post_paginate',
+            'name' => 'blog_title',
+            'value' => 'Blog Home',
+        ]);
+        DB::table('settings')->insert([
+            'name' => 'blog_paginate',
             'value' => '10',
         ]);
     }

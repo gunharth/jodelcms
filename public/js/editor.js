@@ -412,6 +412,25 @@ class Editor {
     };
 
     /**
+     *  Editor load all collection items
+     */
+    loadCollectionItems(collection) {
+        this.showLoadingIndicator();
+        $.ajax({
+            type: 'GET',
+            url: '/admin/'+collection+'/listCollectionItems',
+            //data: 'id='+menu_type_id,
+            error: (xhr, ajaxOptions, thrownError) => {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        }).done((html) => {
+            $('#collectionItems').html(html)
+            this.hideLoadingIndicator();
+        });
+    }
+
+    /**
      *  Editor add collection item
      */
     addCollectionItem() {
@@ -481,6 +500,7 @@ class Editor {
                     this.hideLoadingIndicator();
                 } else {
                      this.collection_id = data.id;
+                     this.loadCollectionItems(this.collection);
                     this.editCollectionItem();
                 }
                

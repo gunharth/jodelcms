@@ -11,13 +11,13 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <h1>{{ $post->title }}</h1>
+        <h1>{{ config('settings.blog_title') }}</h1>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
   			@foreach($posts as $post)
-  				<h2>{!! $post->content01 !!}</h2>
+  				<h2><a href="{!! $post->link !!}">{!! $post->content01 !!}</a></h2>
           {!! $post->published_at !!}
   				{!! $post->content02 !!}
   				<a href="{!! $post->link !!}">Full article</a>
