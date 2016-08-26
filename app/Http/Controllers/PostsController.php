@@ -215,6 +215,23 @@ class PostsController extends Controller
         }
     }
 
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, $id)
+    {
+        if ($request->ajax()) {
+            $post = Post::findOrFail($id);
+            $post->delete();
+
+            return ['success' => true, 'message' => 'Item deleted!'];
+        }
+    }
+
     // public function updateContent(Request $request, Post $post)
     // {
     //     $post->fill($request->all())->save();
@@ -235,12 +252,8 @@ class PostsController extends Controller
      */
     public function editorList()
     {
-        $html = '';
         $posts = Post::where('id', '>', 1)->latest('published_at')->paginate(config('settings.blog_paginate'));
-        foreach ($posts as $post) {
-            $html .= renderEditorPages($post, 'en');
-        }
 
-        return $html;
+        return view('admin.blog.list', compact('posts'));
     }
 }

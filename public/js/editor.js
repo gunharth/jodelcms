@@ -359,16 +359,64 @@ class Editor {
 
         $('body').on('click', '#collectionItems .edit', (e) => {
             e.preventDefault();
-            console.log('caööed…');
             let parent = $(e.target).parents('.dd-item');
             this.collection_id = parent.data('id');
             this.editCollectionItem();
+        });
+
+        $('body').on('click', '#collectionItems .delete', (e) => {
+            e.preventDefault();
+            let parent = $(e.target).parents('.dd-item');
+            this.collection_id = parent.data('id');
+
+            let message = 'Are you sure you want to delete this item?';
+
+            this.showConfirmationDialog(message, () => {
+                this.showLoadingIndicator();
+                $.ajax({
+                    type: 'POST',
+                    url: '/admin/blog/'+this.collection_id,
+                    data: {
+                        '_method': 'delete'
+                    },
+                    dataType: 'json',
+                    error: (xhr, ajaxOptions, thrownError) => {
+                        console.log(xhr.status);
+                        console.log(thrownError);
+                    }
+                }).done(() => {
+                    this.loadCollectionItems();
+                    $('#collection-tab1-left').html('');
+                    // parent.slideUp(() => {
+                    //     parent.remove();
+                    //     this.hideLoadingIndicator();
+                    // });
+                });
+            });
         });
 
         $('body').on('click', 'button.submit', (e) => {
             e.preventDefault();
             let form = $(e.target).parents('form');
             this.submitCollectionForm(form);
+        });
+        
+        // collection pagination
+        $('body').on('click', '#collection-edit .pagination a', (e) => {
+            e.preventDefault();
+            this.showLoadingIndicator();
+            let href = $(e.target).attr('href');
+            $.ajax({
+                type: 'GET',
+                url: href,
+                error: (xhr, ajaxOptions, thrownError) => {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            }).done((html) => {
+                $('#collectionItemsOuter').html(html)
+                this.hideLoadingIndicator();
+            });
         });
         
 
@@ -391,16 +439,21 @@ class Editor {
     /**
      *  Editor edit collection window
      */
-    editCollection(collection) {
+    editCollection() {
         this.openDialog({
             id: 'collection-edit',
             title: 'Edit',
             modal: true,
             width: 800,
-            url: '/admin/'+collection+'/collectionIndex',
+            url: '/admin/'+this.collection+'/collectionIndex',
             type: 'ajax',
+            onAfterShow: () => {
+                this.loadCollectionItems();
+            },
             // callback: () => {
-            //     this.loadPages();
+            // //     //this.loadPages();
+            // //     // alert('yo');
+            // //this.loadCollectionItems(collection);
             // },
             buttons: {
             //     ok: 'Save',
@@ -414,18 +467,18 @@ class Editor {
     /**
      *  Editor load all collection items
      */
-    loadCollectionItems(collection) {
+    loadCollectionItems() {
         this.showLoadingIndicator();
         $.ajax({
             type: 'GET',
-            url: '/admin/'+collection+'/listCollectionItems',
+            url: '/admin/'+this.collection+'/listCollectionItems',
             //data: 'id='+menu_type_id,
             error: (xhr, ajaxOptions, thrownError) => {
                 console.log(xhr.status);
                 console.log(thrownError);
             }
         }).done((html) => {
-            $('#collectionItems').html(html)
+            $('#collectionItemsOuter').html(html)
             this.hideLoadingIndicator();
         });
     }

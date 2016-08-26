@@ -78,6 +78,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::match(['put', 'patch'], 'blog/{post}/content', ['as' => 'admin.blog.content', 'uses' => 'PostsController@updateContent']);
     Route::match(['put', 'patch'], 'blog/{id}', ['as' => 'admin.blog.update', 'uses' => 'PostsController@update']);
     Route::get('blog/collectionIndex', 'PostsController@collectionIndex');
+    Route::delete('blog/{id}', 'PostsController@destroy');
     Route::get('blog/{id}/settings', 'PostsController@settings');
     Route::get('blog/listCollectionItems', 'PostsController@editorList');
 
