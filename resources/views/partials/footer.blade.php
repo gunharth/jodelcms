@@ -4,7 +4,7 @@
             @foreach($menu->toHierarchy() as $node)
                 {!! renderMainMenu($node, Request::path()) !!}
             @endforeach
-            <li><a href="/sitemap.xml">Sitemap</a></li>
+            @include('partials.sitemap')
         </ul>
       </div>
     </footer>
