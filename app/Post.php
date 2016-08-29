@@ -98,7 +98,7 @@ class Post extends Model
     {
         $pubDate = $this->published_at->format('Y-m-d H:i:s');
 
-        return $this->orderBy('published_at','DESC')->where('published_at', '<', $pubDate)->where('id', '>', 1)->first();
+        return $this->orderBy('published_at', 'DESC')->where('published_at', '<', $pubDate)->where('id', '>', 1)->first();
     }
 
     // Menu::class Morph Relation
