@@ -1,5 +1,24 @@
 <?php
 
+use Symfony\Component\Debug\Exception\FatalThrowableError;
+
+function render($__php, $__data)
+{
+    $obLevel = ob_get_level();
+    ob_start();
+    extract($__data, EXTR_SKIP);
+    try {
+        eval('?' . '>' . $__php);
+    } catch (Exception $e) {
+        while (ob_get_level() > $obLevel) ob_end_clean();
+        throw $e;
+    } catch (Throwable $e) {
+        while (ob_get_level() > $obLevel) ob_end_clean();
+        throw new FatalThrowableError($e);
+    }
+    return ob_get_clean();
+}
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +34,15 @@ Route::auth();
 
 
 Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], function () {
+
+    //blade test
+    Route::get('/blade', function() {
+        //$planet = 'worl';
+        $blade = 'Hello, {{ $planet }}!';
+$php = Blade::compileString($blade);
+return render($php, ['planet' => 'World']);
+    }); // Homepage
+    
 
     /*
      * Pages
