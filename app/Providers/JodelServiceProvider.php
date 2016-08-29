@@ -30,8 +30,8 @@ class JodelServiceProvider extends ServiceProvider
         }
 
         // Add settings to config and cache at boot
-        // but only after migrations are done, i.e in local env
-        if (App::environment() == 'local') {
+        // but only after migrations are done, i.e in local & testing env
+        if (App::environment() == 'local' || App::environment() == 'testing') {
             if (Schema::hasTable('settings')) {
                 $this->loadSettings($settings);
             }
