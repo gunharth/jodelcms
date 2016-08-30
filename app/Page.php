@@ -112,4 +112,8 @@ class Page extends Model
     {
         return $this->belongsTo(Template::class);
     }
+    // public function translations()
+    // {
+    //     return $this->hasMany(PageTranslation::class);
+    // }
 }

@@ -199,17 +199,28 @@ class PagesController extends Controller
         }
     }
 
-    // maybe?
-    // public function duplicate(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $page = Page::findOrFail($request->id);
-    //         $page->title = $page->title . ' copy';
-    //         $clone = $page->replicate()->resluggify();
-    //         $clone->save();
-    //         return $clone;
-    //     }
-    // }
+    /**
+     * Duplicate the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function duplicate(Request $request)
+    {
+        if ($request->ajax()) {
+            $page = Page::findOrFail($request->id);
+            $clone = $page->replicate();
+            $clone->push();
+            foreach($clone->translations as $translation) {
+                $clonetranslation = $translation->replicate();
+                $clonetranslation->page_id = $clone->id;
+                $clonetranslation->title = $clonetranslation->title . ' copy';
+                $clonetranslation->slug = $clonetranslation->slug . '-copy';
+                $clonetranslation->push();
+            }
+            return $clone;
+        }
+    }
 
     /**
      * Remove the specified resource from storage.

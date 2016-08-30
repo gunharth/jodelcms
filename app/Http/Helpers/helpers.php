@@ -165,9 +165,9 @@ if (! function_exists('renderEditorPages')) {
                         '<i class="fa fa-gear"></i>'.
                     '</button>';
         if (config('app.fallback_locale') == $editorLocale) {
-            $actions .=     '<!--<button type="button" class="btn btn-link btn-xs duplicate" data-toggle="tooltip" title="duplicate">'.
+            $actions .=     '<button type="button" class="btn btn-link btn-xs duplicate" data-toggle="tooltip" title="duplicate">'.
                                     '<i class="fa fa-copy"></i>'.
-                                '</button>-->'.
+                                '</button>'.
                                 $delete;
         }
         $actions .= '</div>';
