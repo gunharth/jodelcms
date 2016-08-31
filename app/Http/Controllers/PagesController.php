@@ -247,8 +247,11 @@ class PagesController extends Controller
     {
         App::setLocale($editorLocale);
         $html = '';
-        foreach (Page::orderBy('title')->get() as $page) {
+        //$pages = Page::join('page_translations as t', 't.page_id', '=', 'pages.id')->where('locale', $editorLocale)->orderBy('t.title', 'asc')->get();
+        foreach (Page::all() as $page) {
+        //foreach ($pages as $page) {
             $html .= renderEditorPages($page, $editorLocale);
+        
         }
 
         return $html;
