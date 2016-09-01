@@ -7,9 +7,12 @@ $(function() {
     //$('a[target!=_blank]').attr('target', '_top');
     //editor.initRegions();
     $('title', window.parent.document).text($('title').text());
+
+    initTinyMCE();
 });
 
-tinymce.init({
+function initTinyMCE() {
+    tinymce.init({
     selector: '.jodelText',
     inline: true,
     menubar: false,
@@ -61,6 +64,8 @@ tinymce.init({
         });
     }
 });
+}
+
 
 function tinyMceChange(ed) {
     $(ed.targetElm).addClass('has-changed');

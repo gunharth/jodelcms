@@ -4,7 +4,8 @@ class Editor {
     constructor() {
         this.editorPanel = $('#editor-panel');
         this.editorPanelCollapse = $('#modal-toggle');
-        this.page;
+        //this.page = {};
+        this.page = {"widgets":{"content":[]}};
         this.page_id = 0;
         this.editorFrame = $("#editorIFrame");
         this.data = '';
@@ -1052,18 +1053,20 @@ class Editor {
 
             region.append(dropZone);
 
+            $('.drop-helper', region).hide();
+
             if (region.hasClass('inlinecms-region-fixed')) { return; }
 
             region.droppable({
                 accept: ".inlinecms-widget-element",
                 over: () => {
-                    $('.drop-helper', this).show();
+                    $('.drop-helper', region).show();
                 },
                 out: () => {
-                    $('.drop-helper', this).hide();
+                    $('.drop-helper', region).hide();
                 },
                 drop: ( event, ui ) => {
-                    $('.drop-helper', this).hide();
+                    $('.drop-helper', region).hide();
                     this.addWidget(region, ui.draggable.data('id'));
                 }
             });
@@ -1101,16 +1104,17 @@ class Editor {
     addWidget(regionDom, handlerId){
 
         var regionId = regionDom.data('region-id');
-        //var widgetId = this.getMaxWidgetId(regionId)+1;
-        var widgetId = 0;
+        var widgetId = this.getMaxWidgetId(regionId)+1;
+        //var widgetId = 1;
 
         var widget = {
             id: widgetId,
             handler: handlerId,
-            content: '',
+            content: 'Spme text',
             domId: 'inlinecms-widget-' + regionId + widgetId,
             options: []
         };
+        //console.log(widget);
 
         var dom = $('<div></div>')
                     .attr('id', widget.domId)
@@ -1118,7 +1122,7 @@ class Editor {
                     .addClass('inlinecms-widget-'+handlerId)
                     .data('id', widgetId);
 
-        dom.append('<div class="inlinecms-content"></div>');
+        dom.append('<div class="inlinecms-content"><div class="jodelTextarea" data-field="content02">fdsfsdfsdf</div></div>');
 
         $('.drop-helper', regionDom).before(dom);
 
@@ -1127,6 +1131,8 @@ class Editor {
         //handler.createWidget(regionId, widget, function(widget){
             //cms.buildWidgetToolbar(dom, handler);
             this.page.widgets[regionId].push(widget);
+
+            this.editorFrame.get(0).contentWindow.initTinyMCE();
         //});
 
         //this.setChanges();

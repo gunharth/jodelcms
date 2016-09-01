@@ -22,10 +22,11 @@
     </div>
   </div><!-- /.container -->
 
-<div class="inlinecms-region">
-<div class="inlinecms-widget inlinecms-widget-text">
-<h2>Content will be here</h2><h3>Subheaders always tell more</h3><p>Delightful remarkably mr on announcing themselves entreaties favourable. About to in so terms voice at. Sense child do state to defer mr of forty.</p><p>In by an appetite no humoured returned informed. Possession so comparison inquietude he conviction no decisively. Marianne jointure attended she hastened surprise but she. Ever lady son yet you very paid form away. Become latter but nor abroad wisdom waited. Equal an would is found seems of. The particular friendship one sufficient terminated frequently themselves. It more shed went up is roof if loud case. Delay music in lived noise an. Beyond genius really enough passed.</p>
-</div>
+<div class="inlinecms-region" data-region-id="content">
+dfsdf
+ 
+
+
 </div>
 
 
