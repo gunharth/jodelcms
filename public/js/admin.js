@@ -4,7 +4,8 @@ $(function() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    $('a[target!=_blank]').attr('target', '_top');
+    //$('a[target!=_blank]').attr('target', '_top');
+    //editor.initRegions();
     $('title', window.parent.document).text($('title').text());
 });
 

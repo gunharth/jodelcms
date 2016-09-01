@@ -4,6 +4,7 @@ class Editor {
     constructor() {
         this.editorPanel = $('#editor-panel');
         this.editorPanelCollapse = $('#modal-toggle');
+        this.page;
         this.page_id = 0;
         this.editorFrame = $("#editorIFrame");
         this.data = '';
@@ -29,8 +30,9 @@ class Editor {
             }
         });
 
-        this.editorFrame.on(() => {
+        this.editorFrame.on('load',() => {
             $('a[target!=_blank]', this.editorFrame.contents()).attr('target', '_top');
+            this.initRegions();
         });
 
         this.editorPanel.draggable({
@@ -43,6 +45,9 @@ class Editor {
                 this.editorPanel.css({ height: 'auto' });
             }
         });
+
+        this.buildWidgetsList();
+
 
         /**
          * Boostrap tooltips
@@ -982,6 +987,149 @@ class Editor {
                 $(this).closest('.ui-dialog').find(".ui-dialog-buttonset .ui-button:last").addClass("red");
             }
         });
+
+    };
+
+
+
+    buildWidgetsList() {
+
+        var widgetsList = $('#tab-elements .list ul' , this.editorPanel);
+
+        // for(var i in this.options.widgetsList){
+
+        //     var widgetId = this.options.widgetsList[i];
+
+        //     var title = this.widgetHandlers[widgetId].getTitle();
+        //     var icon = this.widgetHandlers[widgetId].getIcon();
+
+        //     var item = $('<li></li>').attr('data-id', widgetId).addClass('inlinecms-widget-element');
+        //     item.html('<i class="fa '+icon+'"></i>');
+        //     item.attr('title', title);
+        //     item.tooltip({
+        //         track: true,
+        //         show: false,
+        //         hide: false
+        //     });
+
+        //     widgetsList.append(item);
+
+        // }
+
+
+        //var widgetId = this.options.widgetsList['text'];
+
+       // var title = this.widgetHandlers[widgetId].getTitle();
+       //  var icon = this.widgetHandlers[widgetId].getIcon();
+
+        var item = $('<li></li>').attr('data-id', 'text').addClass('inlinecms-widget-element');
+                item.html('<i class="fa fa-font"></i>');
+                item.attr('title', 'Text');
+            item.tooltip({
+                track: true,
+                show: false,
+                hide: false
+            });
+
+             widgetsList.append(item);
+
+        // }
+
+        $('li', widgetsList).draggable({
+            helper: "clone",
+            iframeFix: true
+        });
+
+    };
+
+    initRegions() {
+        //alert('fsfs,');
+        $('.inlinecms-region', this.editorFrame.contents()).each((i,elm)=>{
+            var region = $(elm);
+
+            var dropZone = $('<div></div>').addClass('drop-helper').addClass('inlinecms');
+            dropZone.html('<i class="fa fa-plus-circle"></i>');
+
+            region.append(dropZone);
+
+            if (region.hasClass('inlinecms-region-fixed')) { return; }
+
+            region.droppable({
+                accept: ".inlinecms-widget-element",
+                over: () => {
+                    $('.drop-helper', this).show();
+                },
+                out: () => {
+                    $('.drop-helper', this).hide();
+                },
+                drop: ( event, ui ) => {
+                    $('.drop-helper', this).hide();
+                    this.addWidget(region, ui.draggable.data('id'));
+                }
+            });
+
+            region.sortable({
+                handle: '.b-move',
+                update: function( event, ui ){
+                    this.reorderWidgets(region.data('region-id'));
+                }
+            });
+
+        });
+
+    };
+
+    getMaxWidgetId(regionId){
+
+        var maxId = 0;
+
+        for (var index in this.page.widgets[regionId]){
+
+            var widget = this.page.widgets[regionId][index];
+
+            if (widget.id > maxId){
+                maxId = widget.id;
+            }
+
+        }
+
+        return maxId;
+
+    };
+
+
+    addWidget(regionDom, handlerId){
+
+        var regionId = regionDom.data('region-id');
+        //var widgetId = this.getMaxWidgetId(regionId)+1;
+        var widgetId = 0;
+
+        var widget = {
+            id: widgetId,
+            handler: handlerId,
+            content: '',
+            domId: 'inlinecms-widget-' + regionId + widgetId,
+            options: []
+        };
+
+        var dom = $('<div></div>')
+                    .attr('id', widget.domId)
+                    .addClass('inlinecms-widget')
+                    .addClass('inlinecms-widget-'+handlerId)
+                    .data('id', widgetId);
+
+        dom.append('<div class="inlinecms-content"></div>');
+
+        $('.drop-helper', regionDom).before(dom);
+
+        //var handler = this.widgetHandlers[ widget.handler ];
+        var handler = 'text';
+        //handler.createWidget(regionId, widget, function(widget){
+            //cms.buildWidgetToolbar(dom, handler);
+            this.page.widgets[regionId].push(widget);
+        //});
+
+        //this.setChanges();
 
     };
 
