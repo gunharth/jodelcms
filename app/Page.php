@@ -111,10 +111,10 @@ class Page extends Model
     /**
      * Get all of the posts for the country.
      */
-    public function elements()
-    {
-        return $this->hasManyThrough(Element::class, Region::class);
-    }
+    // public function elements()
+    // {
+    //     return $this->hasManyThrough(Element::class, Region::class);
+    // }
     
     // Menu::class Morph Relation
     public function menu()
