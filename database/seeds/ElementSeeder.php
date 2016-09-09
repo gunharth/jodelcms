@@ -19,7 +19,7 @@ class ElementSeeder extends Seeder
         DB::table('elements')->insert([
             'region_id' => 1,
         ]);
-        // element_id 2 
+        // element_id 2
         DB::table('elements')->insert([
             'region_id' => 1,
         ]);
@@ -54,7 +54,7 @@ class ElementSeeder extends Seeder
         DB::table('elements')->insert([
             'region_id' => 3,
         ]);
-        // element_id 2 
+        // element_id 2
         DB::table('elements')->insert([
             'region_id' => 3,
         ]);
@@ -82,6 +82,5 @@ class ElementSeeder extends Seeder
             'locale' => 'de',
             'content' => 'DE Homepage Text More',
         ]);
-        
     }
 }

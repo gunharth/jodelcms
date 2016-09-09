@@ -221,10 +221,11 @@ class PagesController extends Controller
             foreach ($clone->translations as $translation) {
                 $clonetranslation = $translation->replicate();
                 $clonetranslation->page_id = $clone->id;
-                $clonetranslation->title = $clonetranslation->title . ' copy';
-                $clonetranslation->slug = $clonetranslation->slug . '-copy';
+                $clonetranslation->title = $clonetranslation->title.' copy';
+                $clonetranslation->slug = $clonetranslation->slug.'-copy';
                 $clonetranslation->push();
             }
+
             return $clone;
         }
     }

@@ -22,22 +22,18 @@ class CreateElementsTable extends Migration
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
         });
 
-        Schema::create('element_translations', function(Blueprint $table)
-        {
+        Schema::create('element_translations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('element_id')->unsigned();
-            
+
             $table->text('content')->nullable();
 
             $table->string('locale')->index();
-            
-            $table->unique(['element_id','locale']);
+
+            $table->unique(['element_id', 'locale']);
             $table->foreign('element_id')->references('id')->on('elements')->onDelete('cascade');
         });
-
     }
-
-
 
     /**
      * Reverse the migrations.
@@ -48,6 +44,5 @@ class CreateElementsTable extends Migration
     {
         Schema::dropIfExists('element_translations');
         Schema::dropIfExists('elements');
-
     }
 }

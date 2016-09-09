@@ -19,7 +19,7 @@ trait Regionable
         return $this->hasMany(Element::class);
     }
 
-    /**
+    /*
      * Have the authenticated user favorite the model.
      *
      * @return void

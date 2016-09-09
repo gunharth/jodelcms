@@ -76,8 +76,8 @@ class Page extends Model
     public function regions()
     {
         return $this->morphMany(Region::class, 'regionable');
-    }   
-    
+    }
+
     // Menu::class Morph Relation
     public function menu()
     {
@@ -89,6 +89,7 @@ class Page extends Model
     {
         return $this->belongsTo(Template::class);
     }
+
     // public function translations()
     // {
     //     return $this->hasMany(PageTranslation::class);

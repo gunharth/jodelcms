@@ -10,7 +10,7 @@ class Element extends Model
     use Translatable;
 
     public $translatedAttributes = [
-        'content'
+        'content',
     ];
 
     public function region()
