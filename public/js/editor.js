@@ -1045,7 +1045,7 @@ class Editor {
 
     initRegions() {
         //alert('fsfs,');
-        $('.inlinecms-region', this.editorFrame.contents()).each((i,elm)=>{
+        $('.jodelRegion', this.editorFrame.contents()).each((i,elm)=>{
             var region = $(elm);
 
             var dropZone = $('<div></div>').addClass('drop-helper').addClass('inlinecms');

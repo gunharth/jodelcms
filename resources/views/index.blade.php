@@ -12,15 +12,17 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-
+        
         @foreach($page->regions as $region)
           @if($region->name == 'region01')
+          <div class="jodelRegion" data-region-id="0">
             @foreach($region->elements as $element)
               <div @if (Auth::check()) class="jodelTextarea" data-field="{{ $element->id }}" @endif>{!! $element->content !!}</div>
             @endforeach
+            </div>
           @endif
         @endforeach
-
+        
       </div>
     </div>
     <div class="row">
@@ -29,13 +31,4 @@
       </div>
     </div>
   </div><!-- /.container -->
-
-<div class="inlinecms-region" data-region-id="content">
-dfsdf
- 
-
-
-</div>
-
-
 @endsection
