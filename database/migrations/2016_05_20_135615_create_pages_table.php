@@ -30,16 +30,16 @@ class CreatePagesTable extends Migration
 
             $table->string('title')->nullable();
             $table->string('slug')->index();
-            $table->text('content01')->nullable();
-            $table->text('content02')->nullable();
-            $table->text('content03')->nullable();
-            $table->text('content04')->nullable();
-            $table->text('content05')->nullable();
-            $table->text('content06')->nullable();
-            $table->text('content07')->nullable();
-            $table->text('content08')->nullable();
-            $table->text('content09')->nullable();
-            $table->text('content10')->nullable();
+            // $table->text('content01')->nullable();
+            // $table->text('content02')->nullable();
+            // $table->text('content03')->nullable();
+            // $table->text('content04')->nullable();
+            // $table->text('content05')->nullable();
+            // $table->text('content06')->nullable();
+            // $table->text('content07')->nullable();
+            // $table->text('content08')->nullable();
+            // $table->text('content09')->nullable();
+            // $table->text('content10')->nullable();
 
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();

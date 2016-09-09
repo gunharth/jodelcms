@@ -32,6 +32,7 @@ class PagesController extends Controller
     public function index()
     {
         $page = Page::findOrFail(1);
+        //dd($page->regions);
         if (Auth::check()) {
             $src = '/'.$this->locale.'/admin/page/'.$page->slug.'/edit';
 
