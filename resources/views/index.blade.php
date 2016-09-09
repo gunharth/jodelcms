@@ -14,12 +14,12 @@
       <div class="col-md-6">
         <h1 @if (Auth::check()) class="jodelText" data-field="content01" @endif>{!! $page->content01 !!}</h1>
         @foreach($page->regions as $region)
-@if($region->region_name == 'content01')
-  @foreach($region->elements as $element)
-    {{ $element->content01 }}
-@endforeach
-@endif
-@endforeach
+          @if($region->name == 'region01')
+            @foreach($region->elements as $element)
+              {{ $element->content }}
+            @endforeach
+          @endif
+        @endforeach
       </div>
     </div>
     <div class="row">

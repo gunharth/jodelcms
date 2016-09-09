@@ -32,14 +32,12 @@ class PageSeeder extends Seeder
             'locale' => 'en',
             'slug' => 'home',
             'title' => 'Home',
-            'content01' => 'Homepage in English',
         ]);
         DB::table('page_translations')->insert([
             'page_id' => 1,
             'locale' => 'de',
             'slug' => 'start',
             'title' => 'Start',
-            'content01' => 'Startseite in Deutsch',
         ]);
 
         // page 1
@@ -48,14 +46,12 @@ class PageSeeder extends Seeder
             'locale' => 'en',
             'slug' => 'page-1',
             'title' => 'Page 1',
-            'content01' => 'Page 1',
         ]);
         DB::table('page_translations')->insert([
             'page_id' => 2,
             'locale' => 'de',
             'slug' => 'seite-1',
             'title' => 'Seite 1',
-            'content01' => 'Seite 1 in Deutsch',
         ]);
     }
 }

@@ -11,6 +11,7 @@ use App\Menu;
 use Request;
 use Cache;
 use Schema;
+use Blade;
 use App;
 
 class JodelServiceProvider extends ServiceProvider
@@ -158,9 +159,11 @@ class JodelServiceProvider extends ServiceProvider
             // morper needed here?
             $view->with('menu', Menu::with('morpher')->where('active', '=', 1)->where('menu_type_id', 2)->get());
         });
+
     }
 
     /**
+     * 
      * load app settings.
      * @param  Settings $settings load settings
      * @return settings and add to config

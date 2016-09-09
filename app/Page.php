@@ -86,6 +86,8 @@ class Page extends Model
         'template',
         'menu',
         //'translations',
+        //'regions',
+        //'regions.elements'
     ];
 
     protected $appends = [
@@ -104,6 +106,14 @@ class Page extends Model
     public function regions()
     {
         return $this->morphMany(Region::class, 'regionable');
+    }
+
+    /**
+     * Get all of the posts for the country.
+     */
+    public function elements()
+    {
+        return $this->hasManyThrough(Element::class, Region::class);
     }
     
     // Menu::class Morph Relation

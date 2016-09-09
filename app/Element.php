@@ -3,18 +3,23 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Dimsav\Translatable\Translatable;
 
 class Element extends Model
 {
 
-	use \Dimsav\Translatable\Translatable;
+	use Translatable;
 
 	public $translatedAttributes = [
-		'content01'
+		'content'
 	];
-    protected $fillable = ['code'];
+    // protected $fillable = [
+    //     'content'
+    // ];
     
-    protected $with = ['translations'];
+    // protected $with = [
+    //     'translations'
+    // ];
 
     
 
@@ -27,6 +32,6 @@ class Element extends Model
 class ElementTranslation extends Model {
 
     public $timestamps = false;
-    protected $fillable = ['title'];
+    protected $fillable = ['content'];
 
 }
