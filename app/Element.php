@@ -7,31 +7,20 @@ use Dimsav\Translatable\Translatable;
 
 class Element extends Model
 {
+    use Translatable;
 
-	use Translatable;
+    public $translatedAttributes = [
+        'content'
+    ];
 
-	public $translatedAttributes = [
-		'content'
-	];
-    // protected $fillable = [
-    //     'content'
-    // ];
-    
-    // protected $with = [
-    //     'translations'
-    // ];
-
-    
-
-    public function region() 
+    public function region()
     {
-    		$this->belongsTo(App\Region::class);
+        $this->belongsTo(App\Region::class);
     }
 }
 
-class ElementTranslation extends Model {
-
+class ElementTranslation extends Model
+{
     public $timestamps = false;
     protected $fillable = ['content'];
-
 }

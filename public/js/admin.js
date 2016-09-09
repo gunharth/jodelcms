@@ -12,25 +12,26 @@ $(function() {
 });
 
 function initTinyMCE() {
-    tinymce.init({
-        selector: '.jodelText',
-        inline: true,
-        menubar: false,
-        toolbar: false,
-        plugins: [
-            "save autosave"
-        ],
-        toolbar1: "save | undo redo",
-        save_onsavecallback: function() { savePage(); },
-        setup: function(ed) {
-            ed.on('keyup', function(e) {
-                tinyMceChange(ed);
-            });
-            ed.on('change', function(e) {
-                tinyMceChange(ed);
-            });
-        }
-    });
+    
+//     tinymce.init({
+//         selector: '.jodelText',
+//         inline: true,
+//         menubar: false,
+//         toolbar: false,
+//         plugins: [
+//             "save autosave"
+//         ],
+//         toolbar1: "save | undo redo",
+//         save_onsavecallback: function() { savePage(); },
+//         setup: function(ed) {
+//             ed.on('keyup', function(e) {
+//                 tinyMceChange(ed);
+//             });
+//             ed.on('change', function(e) {
+//                 tinyMceChange(ed);
+//             });
+//         }
+//     });
 
     tinymce.init({
         selector: '.jodelTextarea',
@@ -48,7 +49,7 @@ function initTinyMCE() {
         image_advtab: true,
         image_dimensions: false,
         file_browser_callback: elFinderBrowser,
-        save_onsavecallback: function() { savePage(); },
+        save_onsavecallback: function() { saveContent(); },
         video_template_callback: function(data) {
             return '<video' + (data.poster ? ' poster="' + data.poster + '"' : '') + ' controls="controls" data-type="test">\n' + '<source src="' + data.source1 + '"' + (data.source1mime ? ' type="' + data.source1mime + '"' : '') + ' />\n' + (data.source2 ? '<source src="' + data.source2 + '"' + (data.source2mime ? ' type="' + data.source2mime + '"' : '') + ' />\n' : '') + '</video>';
         },
@@ -103,19 +104,20 @@ function elFinderBrowser(field_name, url, type, win) {
     return false;
 }
 
-function savePage() {
+function saveContent() {
     $('#editor-loading', window.parent.document).show();
     var data = { '_method': 'patch' };
     data['lang'] = $('html').attr('lang');
-    data['fields'] = '';
+    var elements = {};
     var url = $('#url').val();
+
     for (i = 0; i < tinymce.editors.length; i++) {
         var content = tinymce.editors[i].getContent();
-        var field = document.getElementById(tinymce.editors[i].id).dataset.field;
-        data[field] = content;
-        // data['fields'] += field + ',';
-        //data['fields'] += field: content;
+        var element = document.getElementById(tinymce.editors[i].id).dataset.field;
+        elements[i] = { 'id': element, 'content': content };
     }
+    data['elements'] = elements;
+
     $.ajax({
         dataType: 'json',
         data: data,

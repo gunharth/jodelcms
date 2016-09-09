@@ -19,7 +19,7 @@
         @foreach($page->regions as $region)
           @if($region->name == 'region01')
             @foreach($region->elements as $element)
-              <div @if (Auth::check()) class="jodelTextarea" data-field="{{ $element->id }}" @endif>{{ $element->content }}</div>
+              <div @if (Auth::check()) class="jodelTextarea" data-field="{{ $element->id }}" @endif>{!! $element->content !!}</div>
             @endforeach
           @endif
         @endforeach

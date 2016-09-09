@@ -7,6 +7,7 @@ use App\Http\Requests\PageRequest;
 use Illuminate\Http\Request;
 use App\PageTranslation;
 use App\Template;
+use App\Element;
 use App\Page;
 use Auth;
 use App;
@@ -32,7 +33,6 @@ class PagesController extends Controller
     public function index()
     {
         $page = Page::findOrFail(1);
-        //dd($page->regions);
         if (Auth::check()) {
             $src = '/'.$this->locale.'/admin/page/'.$page->slug.'/edit';
 
@@ -121,15 +121,13 @@ class PagesController extends Controller
                 $page->title = $page->translateOrDefault($this->locale)->title;
                 $page->slug = $slug;
             }
-            //$page->fill($request->all())->save();
             $page->save();
-            dd($page);
 
-
-            // foreach($page->regions as $region) {
-            //     $elements = $region->elements;
-            // }
-
+            foreach ($request->elements as $elem) {
+                $element = Element::findOrFail($elem['id']);
+                $element->content = $elem['content'];
+                $element->save();
+            }
 
             return $page;
         }
@@ -220,7 +218,7 @@ class PagesController extends Controller
             $page = Page::findOrFail($request->id);
             $clone = $page->replicate();
             $clone->push();
-            foreach($clone->translations as $translation) {
+            foreach ($clone->translations as $translation) {
                 $clonetranslation = $translation->replicate();
                 $clonetranslation->page_id = $clone->id;
                 $clonetranslation->title = $clonetranslation->title . ' copy';
@@ -258,9 +256,8 @@ class PagesController extends Controller
         $html = '';
         //$pages = Page::join('page_translations as t', 't.page_id', '=', 'pages.id')->where('locale', $editorLocale)->orderBy('t.title', 'asc')->get();
         foreach (Page::all() as $page) {
-        //foreach ($pages as $page) {
+            //foreach ($pages as $page) {
             $html .= renderEditorPages($page, $editorLocale);
-        
         }
 
         return $html;

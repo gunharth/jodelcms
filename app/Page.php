@@ -23,16 +23,6 @@ class Page extends Model
     protected $fillable = [
         'title',
         'slug',
-        // 'content01',
-        // 'content02',
-        // 'content03',
-        // 'content04',
-        // 'content05',
-        // 'content06',
-        // 'content07',
-        // 'content08',
-        // 'content09',
-        // 'content10',
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -45,16 +35,6 @@ class Page extends Model
     public $translatedAttributes = [
         'title',
         'slug',
-        // 'content01',
-        // 'content02',
-        // 'content03',
-        // 'content04',
-        // 'content05',
-        // 'content06',
-        // 'content07',
-        // 'content08',
-        // 'content09',
-        // 'content10',
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -63,16 +43,6 @@ class Page extends Model
     protected static $logAttributes = [
         'title',
         'slug',
-        // 'content01',
-        // 'content02',
-        // 'content03',
-        // 'content04',
-        // 'content05',
-        // 'content06',
-        // 'content07',
-        // 'content08',
-        // 'content09',
-        // 'content10',
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -106,15 +76,7 @@ class Page extends Model
     public function regions()
     {
         return $this->morphMany(Region::class, 'regionable');
-    }
-
-    /**
-     * Get all of the posts for the country.
-     */
-    // public function elements()
-    // {
-    //     return $this->hasManyThrough(Element::class, Region::class);
-    // }
+    }   
     
     // Menu::class Morph Relation
     public function menu()
