@@ -19,6 +19,7 @@ class CreateRegionsTable extends Migration
             $table->integer('regionable_id');
             $table->integer('regionable_type');
             $table->timestamps();
+            
         });
     }
 

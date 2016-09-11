@@ -1130,9 +1130,11 @@ class Editor {
         var handler = 'text';
         //handler.createWidget(regionId, widget, function(widget){
             //cms.buildWidgetToolbar(dom, handler);
-            this.page.widgets[regionId].push(widget);
+            //this.page.widgets[regionId].push(widget);
 
             this.editorFrame.get(0).contentWindow.initTinyMCE();
+            //ajax to save new element to region
+            console.log(regionId);
         //});
 
         //this.setChanges();

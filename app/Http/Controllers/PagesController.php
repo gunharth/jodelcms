@@ -240,6 +240,7 @@ class PagesController extends Controller
     {
         if ($request->ajax()) {
             $page = Page::findOrFail($id);
+            $page->regions()->delete();
             $page->delete();
 
             return ['success' => true, 'message' => 'Item deleted!'];
