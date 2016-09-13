@@ -14,7 +14,7 @@
       <div class="col-md-6">
         
         @foreach($page->regions as $region)
-          @if($region->name == 'region01')
+          @if($region->name == 'region-1')
           <div class="jodelRegion" data-region-id="{{ $region->id }}">
             @foreach($region->elements as $element)
               <div @if (Auth::check()) class="jodelTextarea" data-field="{{ $element->id }}" @endif>{!! $element->content !!}</div>

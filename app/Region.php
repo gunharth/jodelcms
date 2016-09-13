@@ -17,6 +17,6 @@ class Region extends Model
 
     public function elements()
     {
-        return $this->hasMany(Element::class);
+        return $this->hasMany(Element::class)->orderBy('order');
     }
 }

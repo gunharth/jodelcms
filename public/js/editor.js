@@ -32,8 +32,10 @@ class Editor {
         });
 
         this.editorFrame.on('load',() => {
-            $('a[target!=_blank]', this.editorFrame.contents()).attr('target', '_top');
-            this.initRegions();
+            setTimeout(() => {
+                $('a[target!=_blank]', this.editorFrame.contents()).attr('target', '_top');
+                this.initRegions();
+            }, 1000);
         });
 
         this.editorPanel.draggable({
@@ -1073,8 +1075,16 @@ class Editor {
 
             region.sortable({
                 handle: '.b-move',
+                axis: 'y',
                 update: function( event, ui ){
-                    this.reorderWidgets(region.data('region-id'));
+                    var data = $(this).sortable('serialize');
+                    $.ajax({
+                        data: data,
+                        type: 'POST',
+                        dataType: 'json',
+                        url: '/admin/element/order'
+                    })
+                    //this.reorderWidgets(region.data('region-id'));
                 }
             });
 
@@ -1104,48 +1114,30 @@ class Editor {
     addWidget(regionDom, handlerId){
 
         var regionId = regionDom.data('region-id');
-        var widgetId = this.getMaxWidgetId(regionId)+1;
-        //var widgetId = 1;
+        let elementOrder = regionDom.find('>div').length-1;
+        $.ajax({
+            type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url: 'admin/element/addElement', // the url where we want to POST
+            data: {'id' : regionId, 'order' : elementOrder }, // our data object
+            dataType: 'json', // what type of data do we expect back from the server
+            encode: true,
+            error: (data) => {}
+        }).done((data) => {
+            let dom = $('<div></div>')
+                        .addClass('jodelTextarea')
+                        .attr('data-field', data.id);
+            let toolbar = '<div class="inline-toolbar inlinecms"><div class="button b-move" title="Drag to move"><i class="fa fa-arrows"></i></div><div class="button b-delete" title="Delete element"><i class="fa fa-trash"></i></div></div>';
+            dom.append(toolbar);
 
-        var widget = {
-            id: widgetId,
-            handler: handlerId,
-            content: 'Spme text',
-            domId: 'inlinecms-widget-' + regionId + widgetId,
-            options: []
-        };
-        //console.log(widget);
+            $('.drop-helper', regionDom).before(dom);
+            this.editorFrame.get(0).contentWindow.initTinyMCE();
 
-        var dom = $('<div></div>')
-                    .attr('id', widget.domId)
-                    .addClass('inlinecms-widget')
-                    .addClass('inlinecms-widget-'+handlerId)
-                    .data('id', widgetId);
-
-        dom.append('<div class="inlinecms-content"><div class="jodelTextarea" data-field="content02">fdsfsdfsdf</div></div>');
-
-        $('.drop-helper', regionDom).before(dom);
-
-        //var handler = this.widgetHandlers[ widget.handler ];
-        var handler = 'text';
+            //var handler = this.widgetHandlers[ widget.handler ];
+            //var handler = 'text';
         //handler.createWidget(regionId, widget, function(widget){
             //cms.buildWidgetToolbar(dom, handler);
             //this.page.widgets[regionId].push(widget);
-
-            this.editorFrame.get(0).contentWindow.initTinyMCE();
-            //ajax to save new element to region
-            console.log(regionId);
-            $.ajax({
-                type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-                url: 'admin/page/addElement', // the url where we want to POST
-                data: {'id' : regionId }, // our data object
-                dataType: 'json', // what type of data do we expect back from the server
-                encode: true,
-                error: (data) => {
-                    
-                    }
-            }).done((data) => {
-                return true;
+                //return true;
             });
         //});
 
@@ -1153,15 +1145,13 @@ class Editor {
 
     };
 
+    
 
 
 
 }
 
 $(function() {
-
     let editor = new Editor();
-    editor.initPanel()
-
-
+    editor.initPanel();
 });

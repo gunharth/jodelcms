@@ -1,71 +1,5 @@
 <?php
 
-if (! function_exists('renderMainMenu')) {
-    /**
-     * Render nodes for nested sets.
-     *
-     * @param $node
-     * @return string
-     */
-    function renderMainMenu($node, $path, $link = null)
-    {
-        $list = 'class="dropdown-menu"';
-        $class = 'class="dropdown"';
-        $caret = '<i class="fa fa-caret-down"></i>';
-        //$link = '';
-        //$link = route('page', ['page_slug' => $node->slug]);
-        if ($node->slug == 'home') {
-            $link .= LaravelLocalization::getLocalizedURL($locale = null, $url = '/');
-            $single = '<a href="'.LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link).'">'.$node->name.'</a>';
-        } else {
-            $locale = LaravelLocalization::getCurrentLocale();
-            if ($locale != config('app.fallback_locale') && $node->isRoot()) {
-                $link .= '/'.LaravelLocalization::getCurrentLocale().'/'.$node->slug;
-            } else {
-                $link .= '/'.$node->slug;
-            }
-
-            $single = '<a href="'.LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link).'">'.$node->name.'</a>';
-        }
-
-
-        $target = '';
-        if ($node->external_link != '') {
-            $link = $node->external_link;
-            $target = ' target="_blank"';
-            $single = '<a href="'.$link.'" '.$target.'>'.$node->name.'</a>';
-        }
-        //dd($node->getAncestorsAndSelf()->pluck('slug'));
-       // $link =  implode('/',$node->getAncestorsAndSelf()->pluck('slug'));
-       //echo $node->morpher_id;
-       //echo $node->morpher->id;
-        $active = '';
-        $path = '/'.preg_replace('/\/edit$/', '', $path);
-        //echo($path);
-
-        if ($path == $link) {
-            $active = ' class="active"';
-        }
-        $drop_down = '<a class="dropdown-toggle" data-toggle="dropdown" href="/#"
-                        role="button" aria-expanded="false">'.$node->name.' '.$caret.'</a>';
-        // $single  = '<a href="'. LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link) .'" '. $target .'>' . $node->name  .'</a>';
-        if ($node->isLeaf()) {
-            return '<li'.$active.'>'.$single.'</li>';
-        } else {
-            $html = '<li '.$class.'>'.$drop_down;
-            $html .= '<ul '.$list.'>';
-            foreach ($node->children as $child) {
-                $html .= renderMainMenu($child, $path, $link);
-            }
-            $html .= '</ul>';
-            $html .= '</li>';
-        }
-
-        return $html;
-    }
-}
-
-
 if (! function_exists('renderEditorMenus')) {
     /**
      * Render nodes for nested sets.
@@ -178,7 +112,7 @@ if (! function_exists('renderEditorPages')) {
     }
 }
 
-if (! function_exists('buildLanguageSwitcher')) {
+if (! function_exists('templateRegion')) {
     /**
      * Render nodes for nested sets.
      *
@@ -186,27 +120,42 @@ if (! function_exists('buildLanguageSwitcher')) {
      * @param $resource
      * @return string
      */
-    function buildLanguageSwitcher($slugs)
+    function templateRegion($page, $region)
     {
         $html = '';
-        foreach ($slugs as $key => $slug) {
-            $links = $slug;
-            foreach ($links as $lang => $value) {
-                if ($lang == config('app.fallback_locale')) {
-                    $link = $value;
-                    //echo $link;
-                } else {
-                    $link = $lang.'/'.$value;
+        if(Auth::check()) {
+            $findRegion = $page->regions->contains('name',$region);
+            if($findRegion) {
+                foreach($page->regions as $reg) {
+                    if($reg->name == $region) {
+                        $html .= '<div class="jodelRegion" data-region-id="'.$reg->id.'">';
+                        foreach($reg->elements as $element) {
+                            $html .= '<div class="inlinecms-widget" id="element_'.$element->id.'"><div class="jodelTextarea" data-field="'.$element->id.'">'.$element->content.'</div><div class="inline-toolbar inlinecms"><div class="button b-move" title="Drag to move"><i class="fa fa-arrows"></i></div><div class="button b-delete" title="Delete element"><i class="fa fa-trash"></i></div></div></div>';
+                        }
+                        $html .= '</div>';
+                    }
+                
                 }
-                $active = '';
-                if ($lang == config('app.locale')) {
-                    $active = 'class="active"';
-                }
-
-                $html .= '<li '.$active.'>'.'<a rel="alternate" hreflang="'.$lang.'" href="/'.$link.'">'.$lang.'</a></li>';
+                return $html;
             }
+
+            $newRegion = new App\Region;
+            $newRegion->name = $region;
+            $page->regions()->save($newRegion);
+            $html .= '<div class="jodelRegion" data-region-id="'.$newRegion->id.'"></div>';
+            return $html;
         }
 
+        foreach($page->regions as $reg) {
+            if($reg->name == $region) {
+                $html .= '<div>';
+                foreach($reg->elements as $element) {
+                    $html .= '<div>'.$element->content.'</div>';
+                }
+                $html .= '</div>';
+            }
+        
+        }
         return $html;
     }
 }

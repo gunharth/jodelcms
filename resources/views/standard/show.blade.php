@@ -12,38 +12,27 @@
 
 @section('content')
   @if (Auth::check()) <input type="hidden" id="url" value="/{!! config('app.locale') !!}/admin/page/{!! $page->slug !!}/content"> @endif
+  
   <div class="container">
+
     <div class="row">
       <div class="col-md-6">
-
-        @foreach($page->regions as $region)
-          @if($region->name == 'region01')
-          <div class="jodelRegion" data-region-id="{{ $region->id }}">
-            @foreach($region->elements as $element)
-              <div @if (Auth::check()) class="jodelTextarea" data-field="{{ $element->id }}" @endif>{!! $element->content !!}</div>
-            @endforeach
-            </div>
-          @endif
-        @endforeach
-          
+        {!! templateRegion($page, 'region-1') !!}
       </div>
       <div class="col-md-6">
-        
-          @foreach($page->regions as $region)
-          @if($region->name == 'region02')
-          
-          <div class="jodelRegion" data-region-id="{{ $region->id }}">
-          ss
-            @foreach($region->elements as $element)
-              <div @if (Auth::check()) class="jodelTextarea" data-field="{{ $element->id }}" @endif>{!! $element->content !!}</div>
-            @endforeach
-            </div>
-          @endif
-        @endforeach
-
-        </div>
-
+          {!! templateRegion($page, 'region-2') !!}
+      </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        {!! templateRegion($page, 'region-3') !!}
+      </div>
+      <div class="col-md-6">
+          {!! templateRegion($page, 'region-4') !!}
+      </div>
+    </div>
+
   </div><!-- /.container -->
 @endsection
 

@@ -16,24 +16,24 @@ class RegionSeeder extends Seeder
          */
         // index
         DB::table('regions')->insert([
-            'name' => 'region01',
+            'name' => 'region-1',
             'regionable_id' => 1,
             'regionable_type' => 'App\Page',
         ]);
         DB::table('regions')->insert([
-            'name' => 'region02',
+            'name' => 'region-2',
             'regionable_id' => 1,
             'regionable_type' => 'App\Page',
         ]);
 
         // page 1
         DB::table('regions')->insert([
-            'name' => 'region01',
+            'name' => 'region-1',
             'regionable_id' => 2,
             'regionable_type' => 'App\Page',
         ]);
         DB::table('regions')->insert([
-            'name' => 'region02',
+            'name' => 'region-2',
             'regionable_id' => 2,
             'regionable_type' => 'App\Page',
         ]);

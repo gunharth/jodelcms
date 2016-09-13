@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use App\PageTranslation;
 use App\Template;
 use App\Element;
-use App\Region;
 use App\Page;
 use Auth;
 use App;
@@ -266,19 +265,5 @@ class PagesController extends Controller
         return $html;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function addElement(Request $request)
-    {
-        //if ($request->ajax()) {
-            $region = Region::findOrFail($request->id);
-            $element = new Element();
-            $region->elements()->save($element);
-            //return ['success' => true, 'message' => 'Item deleted!'];
-        //}
-    }
+
 }
