@@ -1135,6 +1135,18 @@ class Editor {
             this.editorFrame.get(0).contentWindow.initTinyMCE();
             //ajax to save new element to region
             console.log(regionId);
+            $.ajax({
+                type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                url: 'admin/page/addElement', // the url where we want to POST
+                data: {'id' : regionId }, // our data object
+                dataType: 'json', // what type of data do we expect back from the server
+                encode: true,
+                error: (data) => {
+                    
+                    }
+            }).done((data) => {
+                return true;
+            });
         //});
 
         //this.setChanges();

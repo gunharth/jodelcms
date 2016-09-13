@@ -28,18 +28,21 @@
           
       </div>
       <div class="col-md-6">
-          
+        
           @foreach($page->regions as $region)
           @if($region->name == 'region02')
+          
           <div class="jodelRegion" data-region-id="{{ $region->id }}">
+          ss
             @foreach($region->elements as $element)
               <div @if (Auth::check()) class="jodelTextarea" data-field="{{ $element->id }}" @endif>{!! $element->content !!}</div>
             @endforeach
             </div>
           @endif
         @endforeach
-qqq
+
         </div>
+
     </div>
   </div><!-- /.container -->
 @endsection

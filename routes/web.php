@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::post('page/duplicate', 'PagesController@duplicate');
     Route::get('page/{id}/settings', 'PagesController@settings');
     Route::get('page/listPages/{lang}', 'PagesController@editorList');
+    Route::post('page/addElement', 'PagesController@addElement');
 
 
     /*
