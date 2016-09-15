@@ -32,10 +32,10 @@ class Editor {
         });
 
         this.editorFrame.on('load',() => {
-            setTimeout(() => {
+            //setTimeout(() => {
                 $('a[target!=_blank]', this.editorFrame.contents()).attr('target', '_top');
                 this.initRegions();
-            }, 1000);
+            //}, 1000);
         });
 
         this.editorPanel.draggable({
@@ -1124,10 +1124,11 @@ class Editor {
             error: (data) => {}
         }).done((data) => {
             let dom = $('<div></div>')
-                        .addClass('jodelTextarea')
-                        .attr('data-field', data.id);
-            let toolbar = '<div class="inline-toolbar inlinecms"><div class="button b-move" title="Drag to move"><i class="fa fa-arrows"></i></div><div class="button b-delete" title="Delete element"><i class="fa fa-trash"></i></div></div>';
+                        .addClass('inlinecms-widget')
+                        .attr('id', 'element_'+data.id);
+            let toolbar = '<div class="jodelTextarea" data-field="'+data.id+'"></div><div class="inline-toolbar inlinecms"><div class="button b-move" title="Drag to move"><i class="fa fa-arrows"></i></div><div class="button b-delete" title="Delete element"><i class="fa fa-trash"></i></div></div>';
             dom.append(toolbar);
+
 
             $('.drop-helper', regionDom).before(dom);
             this.editorFrame.get(0).contentWindow.initTinyMCE();
