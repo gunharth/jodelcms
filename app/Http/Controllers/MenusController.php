@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Menu;
 use App\Page;
 use Config;
+use Cache;
 use App;
 
 class MenusController extends Controller
@@ -41,6 +42,8 @@ class MenusController extends Controller
     {
         $menu = Menu::create($request->all());
 
+        Cache::forget('menus');
+
         return $menu;
     }
 
@@ -69,6 +72,7 @@ class MenusController extends Controller
     public function update(MenuRequest $request, $id)
     {
         $menu = Menu::findOrFail($id);
+        Cache::forget('menus');
         $menu = $menu->fill($request->all())->save();
 
         return 'true';
@@ -83,6 +87,8 @@ class MenusController extends Controller
     public function destroy(Request $request, $id)
     {
         if ($request->ajax()) {
+            
+            Cache::forget('menus');
             $menu = Menu::findOrFail($request->id);
             $menu->delete();
 
@@ -125,6 +131,7 @@ class MenusController extends Controller
                 $menu->depth = $p->depth;
                 $menu->save();
             }
+            Cache::forget('menus');
         }
     }
 
@@ -139,6 +146,7 @@ class MenusController extends Controller
             $menu = Menu::findOrFail($request->id);
             $menu->active = $request->active;
             $menu->save();
+            Cache::forget('menus');
         }
     }
 }
