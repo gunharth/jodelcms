@@ -8,23 +8,23 @@ function Element(){
     //     }
     // };
 
-    this.initElement = function(element, callback){
+    this.initElement = function(elementDom, callback){
 
         var handler = this;
 
         //this.loadLang(function(){
             if (typeof(handler.onInitElement) === 'function'){
                 // handler.onInitWidget(widget, regionId);
-                handler.onInitElement(element);
+                handler.onInitElement(elementDom);
             }
-            callback(element);
+            callback(elementDom);
         //});
 
         if (typeof(this.onClick) === 'function'){
-            this.dom(widget).click(function(e){
+            elementDom.click(function(e){
                 e.stopPropagation();
                 e.preventDefault();
-                handler.onClick(widget, regionId);
+                handler.onClick(elementDom);
             });
         }
 
@@ -42,7 +42,7 @@ function Element(){
         //});
 
         if (typeof(this.onClick) === 'function'){
-            this.elementDom.click(function(e){
+            elementDom.click(function(e){
                 e.stopPropagation();
                 e.preventDefault();
                 handler.onClick(elementDom, regionId);
@@ -90,7 +90,7 @@ function Element(){
 
     };
 
-	this.openOptionsForm = function(regionId, widgetId){
+	this.openOptionsForm = function(elementDom){
 
         var handler = this;
         var options = cms.getWidgetOptions(regionId, widgetId);

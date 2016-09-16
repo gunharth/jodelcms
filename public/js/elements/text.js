@@ -41,16 +41,23 @@ editor.registerElementHandler('text', new function() {
   //   };
 
 	this.onInitElement = function(elementDom){
-        elementDom.find('.inlinecms-content').addClass('jodelTextarea')
-        editor.editorFrame.get(0).contentWindow.initTinyMCE();
+        //elementDom.find('.inlinecms-content').addClass('jodelTextarea');
+        let elementId = elementDom.attr('id');
+        editor.editorFrame.get(0).contentWindow.initTinyMCE('#'+elementId+'_content');
+        //elementDom.find('.inlinecms-content')
+        //editor.editorFrame.get(0).contentWindow.initTinyMCE(elementDom.find('.inlinecms-content'));
 	};
 
 	this.onCreateElement = function(elementDom){
-        elementDom.find('.inlinecms-content').addClass('jodelTextarea')
-        editor.editorFrame.get(0).contentWindow.initTinyMCE();
-        let tinymceID = elementDom.find('.jodelTextarea').attr('id');
-        editor.editorFrame.get(0).contentWindow.tinymce.EditorManager.get(tinymceID).focus();
-		//return widget;
+        elementDom.attr('data-type','text');
+        //elementDom.find('.inlinecms-content').addClass('jodelTextarea');
+
+        let elementId = elementDom.attr('id');
+        let getTiny = editor.editorFrame.get(0).contentWindow;
+
+        getTiny.initTinyMCE('#'+elementId+'_content');
+        getTiny.tinyMCE.EditorManager.get(elementId+'_content').focus();
+       
 	};
 
 	this.getContent = function(widget){

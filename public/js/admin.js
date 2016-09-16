@@ -11,7 +11,14 @@ $(function() {
     //initTinyMCE();
 });
 
-function initTinyMCE() {
+$(document).keydown((e)=> {
+                if((e.ctrlKey || e.metaKey) && e.which == 83) {
+                    e.preventDefault();
+                    saveContent();
+                }
+            });
+
+function initTinyMCE(selector) {
     
 //     tinymce.init({
 //         selector: '.jodelText',
@@ -34,22 +41,22 @@ function initTinyMCE() {
 //     });
 
     tinymce.init({
-        selector: '.jodelTextarea',
+        selector: selector,
         inline: true,
         menubar: false,
         plugins: [
-            "save autosave advlist autolink link image imagetools lists charmap print preview hr anchor pagebreak",
+            "advlist autolink link image imagetools lists charmap print preview hr anchor pagebreak",
             "searchreplace wordcount visualblocks visualchars insertdatetime media nonbreaking",
             "table contextmenu directionality emoticons paste textcolor code codesample"
         ],
         //toolbar1: "save | undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
-        toolbar1: "save | undo redo | bold italic | alignleft aligncenter alignright alignjustify | styleselect",
+        toolbar1: "undo redo | bold italic | alignleft aligncenter alignright alignjustify | styleselect",
         //toolbar2: "link unlink anchor | image media | forecolor backcolor  | print preview code ",
         toolbar2: "link unlink anchor | image media | forecolor backcolor | bullist numlist |code codesample",
         image_advtab: true,
         image_dimensions: false,
         file_browser_callback: elFinderBrowser,
-        save_onsavecallback: function() { saveContent(); },
+        //save_onsavecallback: function() { saveContent(); },
         video_template_callback: function(data) {
             return '<video' + (data.poster ? ' poster="' + data.poster + '"' : '') + ' controls="controls" data-type="test">\n' + '<source src="' + data.source1 + '"' + (data.source1mime ? ' type="' + data.source1mime + '"' : '') + ' />\n' + (data.source2 ? '<source src="' + data.source2 + '"' + (data.source2mime ? ' type="' + data.source2mime + '"' : '') + ' />\n' : '') + '</video>';
         },
@@ -110,12 +117,24 @@ function saveContent() {
     data['lang'] = $('html').attr('lang');
     var elements = {};
     var url = $('#url').val();
-
+    var elms = 0;
     for (i = 0; i < tinymce.editors.length; i++) {
         var content = tinymce.editors[i].getContent();
         var element = document.getElementById(tinymce.editors[i].id).dataset.field;
         elements[i] = { 'id': element, 'content': content };
+        elms++;
     }
+
+    $('.inlinecms-widget').each( function() {
+        if ($(this).attr('data-type') !== 'text') {
+            var element_id = $(this).attr('id');
+            var eid = element_id.replace('element_','');
+            var content = $(this).find('.inlinecms-content').html();
+            elements[elms] = { 'id': eid, 'content': content };
+            elms++;
+        }
+    });
+
     data['elements'] = elements;
 
     $.ajax({

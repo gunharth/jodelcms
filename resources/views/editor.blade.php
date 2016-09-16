@@ -158,5 +158,6 @@
 	<script src="/js/editor.js"></script>
 	<script src="/js/elements.js"></script>
 	<script src="/js/elements/text.js"></script>
+	<script src="/js/elements/spacer.js"></script>
 </body>
 </html>

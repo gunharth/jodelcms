@@ -11,7 +11,7 @@ class Editor {
         this.collection_id = 0;
         this.editorLocale = 'en';
         //this.elementsList = ["text","image","gallery","video","file","form","map","share","spacer","code"];
-        this.elementsList = ["text"];
+        this.elementsList = ['text', 'spacer'];
         this.elementHandlers = {};
     }
 
@@ -37,12 +37,16 @@ class Editor {
         
 
         this.editorFrame.on('load',() => {
-            //setTimeout(() => {
-                console.log('iframe loaded');
-                $('a[target!=_blank]', this.editorFrame.contents()).attr('target', '_top');
-                //this.initElements();
-                this.initRegions();
-            //}, 1000);
+            
+            $('a[target!=_blank]', this.editorFrame.contents()).attr('target', '_top');
+            this.initRegions();
+
+            $(document).keydown((e)=> {
+                if((e.ctrlKey || e.metaKey) && e.which == 83) {
+                    e.preventDefault();
+                    this.editorFrame.get(0).contentWindow.saveContent();
+                }
+            });
         });
 
         this.editorPanel.draggable({
@@ -1036,7 +1040,7 @@ class Editor {
 
             let elementDom = $(elm);
 
-            let type = elementDom.data('handler');
+            let type = elementDom.data('type');
             let handler = this.elementHandlers[type];
 
             handler.initElement(elementDom, (elementDom,type) => {
@@ -1163,7 +1167,7 @@ class Editor {
      * Add an Element
      */
     addElement(regionDom, type){
-
+        //alert(type)
         let regionId = regionDom.data('region-id');
         let elementOrder = regionDom.find('>div').length-1;
 
@@ -1179,7 +1183,7 @@ class Editor {
                             .addClass('inlinecms-widget')
                             .attr('id', 'element_'+data.id);
 
-            elementDom.append('<div class="inlinecms-content" data-field="'+data.id+'"></div>');
+            elementDom.append('<div class="inlinecms-content" id="element_'+data.id+'_content" data-field="'+data.id+'"></div>');
 
             $('.drop-helper', regionDom).before(elementDom);
 
