@@ -1118,7 +1118,7 @@ class Editor {
         let elementOrder = regionDom.find('>div').length-1;
         $.ajax({
             type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url: 'admin/element/addElement', // the url where we want to POST
+            url: '/admin/element/addElement', // the url where we want to POST
             data: {'id' : regionId, 'order' : elementOrder }, // our data object
             dataType: 'json', // what type of data do we expect back from the server
             encode: true,

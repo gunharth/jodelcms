@@ -55,6 +55,15 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     });
 
     /*
+     * Dev only reset Database
+     */
+    Route::get('/clearcache', function () {
+        Artisan::call('cache:clear');
+
+        return redirect('/');
+    });
+
+    /*
      * Admin Pages
      */
     Route::post('page', ['as' => 'admin.page.store',    'uses' => 'PagesController@store']);
