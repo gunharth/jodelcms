@@ -12,8 +12,38 @@ class Editor {
         this.collection;
         this.collection_id = 0;
         this.editorLocale = 'en';
-
+        //this.elementsList = ["text","image","gallery","video","file","form","map","share","spacer","code"];
+        this.elementsList = ["text"];
+        this.elementHandlers = {};
     }
+
+    // for(var elementID in this.elementsList){
+
+    //         var handler = this.elementsList[ elementID ];
+
+    //         //handler.init();
+    //         console.log(handler);
+
+    //     }
+
+    //     var array = ['a', 'b', 'c'];
+
+// for (var i in this.elementsList) {
+//   alert(this.elementsList[i]);
+// }
+
+// var arrayLength = this.elementsList.length;
+// for (let i = 0; i < arrayLength; i++) {
+//     alert(this.elementsList[i]);
+//     //Do something
+// }
+
+//         for (var prop in obj) {
+//   if (obj.hasOwnProperty(prop)) { 
+//   // or if (Object.prototype.hasOwnProperty.call(obj,prop)) for safety...
+//     alert("prop: " + prop + " value: " + obj[prop])
+//   }
+// }
 
     showLoadingIndicator() {
         $('#editor-loading').show();
@@ -30,6 +60,9 @@ class Editor {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+        //alert(this.elementsList);
+        
 
         this.editorFrame.on('load',() => {
             //setTimeout(() => {
@@ -50,7 +83,7 @@ class Editor {
             }
         });
 
-        this.buildWidgetsList();
+        this.buildElementsList();
 
 
         /**
@@ -995,8 +1028,21 @@ class Editor {
     };
 
 
+    registerWidgetHandler(id, handler){
 
-    buildWidgetsList() {
+        handler.getTitle = function(){
+            //return cms.lang("widgetTitle_" + this.getName());
+            //return 'TextBlock';
+            return this.getName();
+        };
+
+        this.elementHandlers[id] = handler;
+
+    };
+
+
+
+    buildElementsList() {
 
         var widgetsList = $('#tab-elements .list ul' , this.editorPanel);
 
@@ -1025,10 +1071,28 @@ class Editor {
 
        // var title = this.widgetHandlers[widgetId].getTitle();
        //  var icon = this.widgetHandlers[widgetId].getIcon();
+       //  
+       for (var i in this.elementsList) {
+           
+           var elementId = this.elementsList[i];
 
-        var item = $('<li></li>').attr('data-id', 'text').addClass('inlinecms-widget-element');
-                item.html('<i class="fa fa-font"></i>');
-                item.attr('title', 'Text');
+        var title = this.elementHandlers[elementId].getTitle();
+        var icon = this.elementHandlers[elementId].getIcon();
+        
+
+        //     var item = $('<li></li>').attr('data-id', widgetId).addClass('inlinecms-widget-element');
+        //     item.html('<i class="fa '+icon+'"></i>');
+        //     item.attr('title', title);
+        //     item.tooltip({
+        //         track: true,
+        //         show: false,
+        //         hide: false
+        //     });
+         
+
+        var item = $('<li></li>').attr('data-id', elementId).addClass('inlinecms-widget-element');
+                item.html('<i class="fa '+icon+'"></i>');
+                item.attr('title', title);
             item.tooltip({
                 track: true,
                 show: false,
@@ -1037,7 +1101,7 @@ class Editor {
 
              widgetsList.append(item);
 
-        // }
+        }
 
         $('li', widgetsList).draggable({
             helper: "clone",
@@ -1148,14 +1212,11 @@ class Editor {
         //this.setChanges();
 
     };
-
-    
-
-
-
 }
 
+let editor = new Editor();
+
 $(function() {
-    let editor = new Editor();
     editor.initPanel();
+    //console.log(editor);
 });

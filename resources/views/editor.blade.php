@@ -45,12 +45,24 @@
       <div class="modal-body">
         <div id="tabs">
 			<ul class="list-inline">
+				<li><a href="#tab-elements">Elements</a></li>
 				<li><a href="#tab-pages">Pages</a></li>
 				<li><a href="#tab-menus">Menus</a></li>
 				<li><a href="#tab-collections">Collections</a></li>
-				<li><a href="#tab-elements">Elements</a></li>
 				<li><a href="#tab-settings"><i class="fa fa-gear"></i></a></li>
 			</ul>
+			<div id="tab-elements" class="tab">
+				<div class="buttons">
+					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
+				</div>
+				<div class="tab-content">
+					<div class="dd">
+			             <div class="list">
+							<ul></ul>
+						</div>
+			        </div> 
+		        </div>
+			</div>
 			<div id="tab-pages" class="tab">
 				<div class="buttons">
 					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
@@ -102,18 +114,6 @@
 			        </div> 
 		        </div>
 			</div>
-			<div id="tab-elements" class="tab">
-				<div class="buttons">
-					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
-				</div>
-				<div class="tab-content">
-					<div class="dd">
-			             <div class="list">
-					<ul></ul>
-				</div>
-			        </div> 
-		        </div>
-			</div>
             <div id="tab-settings" class="tab">
                 <div class="buttons">
 					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
@@ -156,5 +156,7 @@
 	<script src='/js/jquery-ui.js'></script>
 	<script src="/packages/nestable-fork/src/jquery.nestable.js"></script>
 	<script src="/js/editor.js"></script>
+	<script src="/js/elements.js"></script>
+	<script src="/js/elements/text.js"></script>
 </body>
 </html>
