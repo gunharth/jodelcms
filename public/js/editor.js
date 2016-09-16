@@ -4,6 +4,8 @@ class Editor {
     constructor() {
         this.editorPanel = $('#editor-panel');
         this.editorPanelCollapse = $('#modal-toggle');
+        //this.page = {};
+        this.page = {"widgets":{"content":[]}};
         this.page_id = 0;
         this.editorFrame = $("#editorIFrame");
         this.data = '';
@@ -29,8 +31,12 @@ class Editor {
             }
         });
 
-        this.editorFrame.on(() => {
-            $('a[target!=_blank]', this.editorFrame.contents()).attr('target', '_top');
+        this.editorFrame.on('load',() => {
+            //setTimeout(() => {
+                console.log('iframe loaded');
+                $('a[target!=_blank]', this.editorFrame.contents()).attr('target', '_top');
+                this.initRegions();
+            //}, 1000);
         });
 
         this.editorPanel.draggable({
@@ -43,6 +49,9 @@ class Editor {
                 this.editorPanel.css({ height: 'auto' });
             }
         });
+
+        this.buildWidgetsList();
+
 
         /**
          * Boostrap tooltips
@@ -987,13 +996,166 @@ class Editor {
 
 
 
+    buildWidgetsList() {
+
+        var widgetsList = $('#tab-elements .list ul' , this.editorPanel);
+
+        // for(var i in this.options.widgetsList){
+
+        //     var widgetId = this.options.widgetsList[i];
+
+        //     var title = this.widgetHandlers[widgetId].getTitle();
+        //     var icon = this.widgetHandlers[widgetId].getIcon();
+
+        //     var item = $('<li></li>').attr('data-id', widgetId).addClass('inlinecms-widget-element');
+        //     item.html('<i class="fa '+icon+'"></i>');
+        //     item.attr('title', title);
+        //     item.tooltip({
+        //         track: true,
+        //         show: false,
+        //         hide: false
+        //     });
+
+        //     widgetsList.append(item);
+
+        // }
+
+
+        //var widgetId = this.options.widgetsList['text'];
+
+       // var title = this.widgetHandlers[widgetId].getTitle();
+       //  var icon = this.widgetHandlers[widgetId].getIcon();
+
+        var item = $('<li></li>').attr('data-id', 'text').addClass('inlinecms-widget-element');
+                item.html('<i class="fa fa-font"></i>');
+                item.attr('title', 'Text');
+            item.tooltip({
+                track: true,
+                show: false,
+                hide: false
+            });
+
+             widgetsList.append(item);
+
+        // }
+
+        $('li', widgetsList).draggable({
+            helper: "clone",
+            iframeFix: true
+        });
+
+    };
+
+    initRegions() {
+        //alert('fsfs,');
+        $('.jodelRegion', this.editorFrame.contents()).each((i,elm)=>{
+            var region = $(elm);
+
+            var dropZone = $('<div></div>').addClass('drop-helper').addClass('inlinecms');
+            dropZone.html('<i class="fa fa-plus-circle"></i>');
+
+            region.append(dropZone);
+
+            $('.drop-helper', region).hide();
+
+            if (region.hasClass('inlinecms-region-fixed')) { return; }
+
+            region.droppable({
+                accept: ".inlinecms-widget-element",
+                over: () => {
+                    $('.drop-helper', region).show();
+                },
+                out: () => {
+                    $('.drop-helper', region).hide();
+                },
+                drop: ( event, ui ) => {
+                    $('.drop-helper', region).hide();
+                    this.addWidget(region, ui.draggable.data('id'));
+                }
+            });
+
+            region.sortable({
+                handle: '.b-move',
+                axis: 'y',
+                update: function( event, ui ){
+                    var data = $(this).sortable('serialize');
+                    $.ajax({
+                        data: data,
+                        type: 'POST',
+                        dataType: 'json',
+                        url: '/admin/element/order'
+                    })
+                    //this.reorderWidgets(region.data('region-id'));
+                }
+            });
+
+        });
+
+    };
+
+    getMaxWidgetId(regionId){
+
+        var maxId = 0;
+
+        for (var index in this.page.widgets[regionId]){
+
+            var widget = this.page.widgets[regionId][index];
+
+            if (widget.id > maxId){
+                maxId = widget.id;
+            }
+
+        }
+
+        return maxId;
+
+    };
+
+
+    addWidget(regionDom, handlerId){
+
+        var regionId = regionDom.data('region-id');
+        let elementOrder = regionDom.find('>div').length-1;
+        $.ajax({
+            type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url: '/admin/element/addElement', // the url where we want to POST
+            data: {'id' : regionId, 'order' : elementOrder }, // our data object
+            dataType: 'json', // what type of data do we expect back from the server
+            encode: true,
+            error: (data) => {}
+        }).done((data) => {
+            let dom = $('<div></div>')
+                        .addClass('inlinecms-widget')
+                        .attr('id', 'element_'+data.id);
+            let toolbar = '<div class="jodelTextarea" data-field="'+data.id+'"></div><div class="inline-toolbar inlinecms"><div class="button b-move" title="Drag to move"><i class="fa fa-arrows"></i></div><div class="button b-delete" title="Delete element"><i class="fa fa-trash"></i></div></div>';
+            dom.append(toolbar);
+
+            $('.drop-helper', regionDom).before(dom);
+            this.editorFrame.get(0).contentWindow.initTinyMCE();
+            let tinymceID = dom.find('.jodelTextarea').attr('id');
+            this.editorFrame.get(0).contentWindow.tinymce.EditorManager.get(tinymceID).focus();
+            //dom.find('.jodelTextarea').click();
+
+            //var handler = this.widgetHandlers[ widget.handler ];
+            //var handler = 'text';
+        //handler.createWidget(regionId, widget, function(widget){
+            //cms.buildWidgetToolbar(dom, handler);
+            //this.page.widgets[regionId].push(widget);
+                //return true;
+            });
+        //});
+
+        //this.setChanges();
+
+    };
+
+    
+
+
 
 }
 
 $(function() {
-
     let editor = new Editor();
-    editor.initPanel()
-
-
+    editor.initPanel();
 });

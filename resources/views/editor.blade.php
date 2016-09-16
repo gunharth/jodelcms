@@ -108,8 +108,9 @@
 				</div>
 				<div class="tab-content">
 					<div class="dd">
-			             Form Builder? <br>
-			             reusable blocks ?
+			             <div class="list">
+					<ul></ul>
+				</div>
 			        </div> 
 		        </div>
 			</div>
@@ -128,7 +129,9 @@
 			            	</li>
 
 			            </ol>
-			             <b>DEV ONLY: <a href="/admin/resetdb">Reset Database</a></b> <br>
+			             <b>DEV ONLY:</b> <br>
+			             <a href="/admin/resetdb">Reset Database</a> <br>
+			             <a href="/admin/clearcache">Clear Cache</a> <br><br>
 			             <b><a href="/admin/sitemap">Generate Sitemap</a> </b><br>
 			             spatie google analytics ! <br>
 			             realfavicongenerator package <br>

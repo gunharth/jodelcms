@@ -3,10 +3,15 @@
 // @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
 // Variables
-// @import "variables";
-
+//@import "variables";
+// 
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables";
+@import "node_modules/bootstrap-material-design/sass/_variables";
+@import "variables";
 // Bootstrap
+$font-size-base: 15px;
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/bootstrap-material-design/sass/bootstrap-material-design";
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -17,7 +22,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
-  margin-top: 50px;
+  margin-top: 80px;
 }
 .footer {
   position: absolute;

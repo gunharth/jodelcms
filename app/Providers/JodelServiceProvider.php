@@ -47,7 +47,12 @@ class JodelServiceProvider extends ServiceProvider
             if (! empty($_GET['menu'])) {
                 $path = $_GET['menu'];
             }
-            $view->with('menu', Menu::with('morpher')->whereActive(1)->whereMenuTypeId(1)->get())->with('path', $path);
+
+            $menus = Cache::remember('menus', 2, function() {
+                return Menu::with('morpher')->whereActive(1)->whereMenuTypeId(1)->get();
+            });
+
+            $view->with('menu', $menus)->with('path', $path);
         });
 
         /*

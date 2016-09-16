@@ -36,5 +36,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PostSeeder::class);
 
         $this->call(MenuSeeder::class);
+
+        $this->call(RegionSeeder::class);
+
+        $this->call(ElementSeeder::class);
     }
 }

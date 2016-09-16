@@ -7,6 +7,7 @@ use App\Http\Requests\PageRequest;
 use Illuminate\Http\Request;
 use App\PageTranslation;
 use App\Template;
+use App\Element;
 use App\Page;
 use Auth;
 use App;
@@ -120,7 +121,13 @@ class PagesController extends Controller
                 $page->title = $page->translateOrDefault($this->locale)->title;
                 $page->slug = $slug;
             }
-            $page->fill($request->all())->save();
+            $page->save();
+
+            foreach ($request->elements as $elem) {
+                $element = Element::findOrFail($elem['id']);
+                $element->content = $elem['content'];
+                $element->save();
+            }
 
             return $page;
         }
@@ -211,13 +218,14 @@ class PagesController extends Controller
             $page = Page::findOrFail($request->id);
             $clone = $page->replicate();
             $clone->push();
-            foreach($clone->translations as $translation) {
+            foreach ($clone->translations as $translation) {
                 $clonetranslation = $translation->replicate();
                 $clonetranslation->page_id = $clone->id;
-                $clonetranslation->title = $clonetranslation->title . ' copy';
-                $clonetranslation->slug = $clonetranslation->slug . '-copy';
+                $clonetranslation->title = $clonetranslation->title.' copy';
+                $clonetranslation->slug = $clonetranslation->slug.'-copy';
                 $clonetranslation->push();
             }
+
             return $clone;
         }
     }
@@ -232,6 +240,7 @@ class PagesController extends Controller
     {
         if ($request->ajax()) {
             $page = Page::findOrFail($id);
+            $page->regions()->delete();
             $page->delete();
 
             return ['success' => true, 'message' => 'Item deleted!'];
@@ -249,11 +258,12 @@ class PagesController extends Controller
         $html = '';
         //$pages = Page::join('page_translations as t', 't.page_id', '=', 'pages.id')->where('locale', $editorLocale)->orderBy('t.title', 'asc')->get();
         foreach (Page::all() as $page) {
-        //foreach ($pages as $page) {
+            //foreach ($pages as $page) {
             $html .= renderEditorPages($page, $editorLocale);
-        
         }
 
         return $html;
     }
+
+
 }

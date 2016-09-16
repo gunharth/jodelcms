@@ -23,16 +23,6 @@ class Page extends Model
     protected $fillable = [
         'title',
         'slug',
-        'content01',
-        'content02',
-        'content03',
-        'content04',
-        'content05',
-        'content06',
-        'content07',
-        'content08',
-        'content09',
-        'content10',
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -45,16 +35,6 @@ class Page extends Model
     public $translatedAttributes = [
         'title',
         'slug',
-        'content01',
-        'content02',
-        'content03',
-        'content04',
-        'content05',
-        'content06',
-        'content07',
-        'content08',
-        'content09',
-        'content10',
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -63,16 +43,6 @@ class Page extends Model
     protected static $logAttributes = [
         'title',
         'slug',
-        'content01',
-        'content02',
-        'content03',
-        'content04',
-        'content05',
-        'content06',
-        'content07',
-        'content08',
-        'content09',
-        'content10',
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -85,7 +55,9 @@ class Page extends Model
     protected $with = [
         'template',
         'menu',
-        'translations',
+        //'translations',
+        //'regions',
+        //'regions.elements'
     ];
 
     protected $appends = [
@@ -101,6 +73,11 @@ class Page extends Model
         return '/page/'.$this->slug;
     }
 
+    public function regions()
+    {
+        return $this->morphMany(Region::class, 'regionable');
+    }
+
     // Menu::class Morph Relation
     public function menu()
     {
@@ -112,6 +89,7 @@ class Page extends Model
     {
         return $this->belongsTo(Template::class);
     }
+
     // public function translations()
     // {
     //     return $this->hasMany(PageTranslation::class);

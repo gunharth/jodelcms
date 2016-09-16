@@ -12,12 +12,22 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <h1 @if (Auth::check()) class="jodelText" data-field="content01" @endif>{!! $page->content01 !!}</h1>
+        
+        @foreach($page->regions as $region)
+          @if($region->name == 'region-1')
+          <div class="jodelRegion" data-region-id="{{ $region->id }}">
+            @foreach($region->elements as $element)
+              <div @if (Auth::check()) class="jodelTextarea" data-field="{{ $element->id }}" @endif>{!! $element->content !!}</div>
+            @endforeach
+            </div>
+          @endif
+        @endforeach
+        
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-          <div @if (Auth::check()) class="jodelTextarea" data-field="content02" @endif>{!! $page->content02 !!}</div>
+          
       </div>
     </div>
   </div><!-- /.container -->
