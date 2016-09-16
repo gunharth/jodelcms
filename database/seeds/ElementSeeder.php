@@ -18,11 +18,13 @@ class ElementSeeder extends Seeder
         // element_id 1
         DB::table('elements')->insert([
             'region_id' => 1,
+            'type' => 'text',
             'order' => 0,
         ]);
         // element_id 2
         DB::table('elements')->insert([
             'region_id' => 1,
+            'type' => 'text',
             'order' => 1,
         ]);
 
@@ -55,12 +57,14 @@ class ElementSeeder extends Seeder
         // element_id 3
         DB::table('elements')->insert([
             'region_id' => 3,
+            'type' => 'text',
             'order' => 0,
 
         ]);
         // element_id 4
         DB::table('elements')->insert([
             'region_id' => 3,
+            'type' => 'text',
             'order' => 1,
         ]);
 

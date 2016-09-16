@@ -26,6 +26,7 @@
 
 
 
+
 .inlinecms {
     font-size:14px;
     font-weight:normal;
@@ -37,7 +38,7 @@
 }
 
 .inlinecms-region{
-    outline: dashed 1px #27ae60;
+    outline: dashed 1px #009788;
     min-height: 25px;
 }
 
@@ -58,6 +59,9 @@
     min-width: 40px;
 	overflow: hidden;
 	position: relative;
+}
+.inlinecms-widget.has-changed {
+    outline: 1px dashed #F44236 !important;
 }
 
 .inlinecms-widget .inlinecms-content {
@@ -115,7 +119,7 @@
 	text-align:center;
 	font-size:14px;
 	color:#FFF;
-	background: #27ae60;
+	background: #009788;
 	border:none;
 	border-radius: 0;
 	padding:0;
@@ -130,7 +134,7 @@
 }
 
 .inlinecms-widget .inline-toolbar .button:hover {
-	background:#2ecc71;
+	background: #00c5b2;
 }
 
 .inlinecms-widget .inline-toolbar .b-move {
@@ -138,11 +142,11 @@
 }
 
 .inlinecms-widget .inline-toolbar .b-delete {
-	background:#c0392b;
+	background:#F44236;
 }
 
 .inlinecms-widget .inline-toolbar .b-delete:hover {
-	background:#e74c3c;
+	background: #9a2c24;
 }
 
 .cke_focus { outline: none !important; }

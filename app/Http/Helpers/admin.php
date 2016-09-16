@@ -130,7 +130,7 @@ if (! function_exists('templateRegion')) {
                     if ($reg->name == $region) {
                         $html .= '<div class="jodelRegion" data-region-id="'.$reg->id.'">';
                         foreach ($reg->elements as $element) {
-                            $html .= '<div class="inlinecms-widget" id="element_'.$element->id.'"><div class="jodelTextarea" data-field="'.$element->id.'">'.$element->content.'</div><div class="inline-toolbar inlinecms"><div class="button b-move" title="Drag to move"><i class="fa fa-arrows"></i></div><div class="button b-delete" title="Delete element"><i class="fa fa-trash"></i></div></div></div>';
+                            $html .= '<div class="inlinecms-widget" id="element_'.$element->id.'" data-handler="'.$element->type.'"><div class="inlinecms-content" data-field="'.$element->id.'">'.$element->content.'</div></div>';
                         }
                         $html .= '</div>';
                     }

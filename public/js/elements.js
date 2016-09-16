@@ -1,23 +1,24 @@
-function InlineWidget(){
+function Element(){
 
 	this.isOptionsFormLoaded = false;
 
-    this.init = function(){
-        if (typeof(this.onInit) === 'function'){
-            this.onInit();
-        }
-    };
+    // this.init = function(){
+    //     if (typeof(this.onInit) === 'function'){
+    //         this.onInit();
+    //     }
+    // };
 
-    this.initWidget = function(widget, regionId, callback){
+    this.initElement = function(element, callback){
 
         var handler = this;
 
-        this.loadLang(function(){
-            if (typeof(handler.onInitWidget) === 'function'){
-                handler.onInitWidget(widget, regionId);
+        //this.loadLang(function(){
+            if (typeof(handler.onInitElement) === 'function'){
+                // handler.onInitWidget(widget, regionId);
+                handler.onInitElement(element);
             }
-            callback(widget);
-        });
+            callback(element);
+        //});
 
         if (typeof(this.onClick) === 'function'){
             this.dom(widget).click(function(e){
@@ -29,22 +30,22 @@ function InlineWidget(){
 
     };
 
-    this.createWidget = function(regionId, widget, callback){
+    this.createElement = function(regionId, elementDom, callback){
 
         var handler = this;
 
-        this.loadLang(function(){
-            if (typeof(handler.onCreateWidget) === 'function'){
-                widget = handler.onCreateWidget(widget, regionId);
+        //this.loadLang(function(){
+            if (typeof(handler.onCreateElement) === 'function'){
+                element = handler.onCreateElement(elementDom, regionId);
             }
-            callback(widget);
-        });
+            callback(elementDom);
+        //});
 
         if (typeof(this.onClick) === 'function'){
-            this.dom(widget).click(function(e){
+            this.elementDom.click(function(e){
                 e.stopPropagation();
                 e.preventDefault();
-                handler.onClick(widget, regionId);
+                handler.onClick(elementDom, regionId);
             });
         }
 
@@ -137,7 +138,7 @@ function InlineWidget(){
 
     this.dom = function(widget){
 
-        return $('#'+widget.domId+' .inlinecms-content', cms.pageFrame);
+        return $('#'+widget.domId+' .inlinecms-content', this.pageFrame);
 
     };
 

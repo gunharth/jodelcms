@@ -16,9 +16,8 @@ class CreateElementsTable extends Migration
         Schema::create('elements', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('region_id');
+            $table->string('type');
             $table->integer('order');
-            //$table->string('code');
-            //$table->string('title');
             $table->timestamps();
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
         });
@@ -26,11 +25,8 @@ class CreateElementsTable extends Migration
         Schema::create('element_translations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('element_id')->unsigned();
-
             $table->text('content')->nullable();
-
             $table->string('locale')->index();
-
             $table->unique(['element_id', 'locale']);
             $table->foreign('element_id')->references('id')->on('elements')->onDelete('cascade');
         });

@@ -8,7 +8,7 @@ $(function() {
     //editor.initRegions();
     $('title', window.parent.document).text($('title').text());
 
-    initTinyMCE();
+    //initTinyMCE();
 });
 
 function initTinyMCE() {
@@ -69,7 +69,7 @@ function initTinyMCE() {
 
 
 function tinyMceChange(ed) {
-    $(ed.targetElm).addClass('has-changed');
+    $(ed.targetElm).parent().addClass('has-changed');
 }
 
 function setModalEvents(ed) {

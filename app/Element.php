@@ -9,6 +9,8 @@ class Element extends Model
 {
     use Translatable;
 
+    protected $fillable = ['type','order'];
+
     public $translatedAttributes = [
         'content',
     ];

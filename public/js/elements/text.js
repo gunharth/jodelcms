@@ -1,6 +1,6 @@
-editor.registerWidgetHandler('text', new function() {
+editor.registerElementHandler('text', new function() {
 
-    InlineWidget.apply(this, arguments);
+    Element.apply(this, arguments);
 
     this.editor;
     this.editors = {};
@@ -21,37 +21,36 @@ editor.registerWidgetHandler('text', new function() {
 
     this.onClick = false;
 
-    this.onInit = function(){
+  //   this.onInit = function(){
 
-        this.editor = $('#page-frame').prop('contentWindow').CKEDITOR;
+  //       this.editor = $('#page-frame').prop('contentWindow').CKEDITOR;
 
-        this.editor.dtd.$removeEmpty['i'] = false;
+  //       this.editor.dtd.$removeEmpty['i'] = false;
 
-        this.editor.config = $.extend(this.editor.config, {
-            language: cms.getLanguage(),
-            allowedContent: true,
-            fillEmptyBlocks: false,
-            autoParagraph: false,
-            stylesSet: false,
-            startupShowBorders: false,
-        });
+  //       this.editor.config = $.extend(this.editor.config, {
+  //           language: cms.getLanguage(),
+  //           allowedContent: true,
+  //           fillEmptyBlocks: false,
+  //           autoParagraph: false,
+  //           stylesSet: false,
+  //           startupShowBorders: false,
+  //       });
 
-		this.editor.disableAutoInline = true;
+		// this.editor.disableAutoInline = true;
 
-    };
+  //   };
 
-	this.onInitWidget = function(widget){
-
-        this.appendEditor(widget.domId, this.dom(widget));
-
+	this.onInitElement = function(elementDom){
+        elementDom.find('.inlinecms-content').addClass('jodelTextarea')
+        editor.editorFrame.get(0).contentWindow.initTinyMCE();
 	};
 
-	this.onCreateWidget = function(widget){
-
-        this.appendEditor(widget.domId, this.dom(widget), '<p>'+this.lang("defaultText")+'</p>');
-
-		return widget;
-
+	this.onCreateElement = function(elementDom){
+        elementDom.find('.inlinecms-content').addClass('jodelTextarea')
+        editor.editorFrame.get(0).contentWindow.initTinyMCE();
+        let tinymceID = elementDom.find('.jodelTextarea').attr('id');
+        editor.editorFrame.get(0).contentWindow.tinymce.EditorManager.get(tinymceID).focus();
+		//return widget;
 	};
 
 	this.getContent = function(widget){

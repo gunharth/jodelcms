@@ -14,11 +14,12 @@ class ElementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function addElement(Request $request)
+    public function store(Request $request)
     {
         //if ($request->ajax()) {
-            $region = Region::findOrFail($request->id);
+        $region = Region::findOrFail($request->id);
         $element = new Element();
+        $element->type = $request->type;
         $element->order = $request->order;
         $region->elements()->save($element);
 
@@ -32,7 +33,7 @@ class ElementController extends Controller
      *
      * @param Request $request
      */
-    public function orderElements(Request $request)
+    public function sort(Request $request)
     {
         if ($request->ajax()) {
             $elements = $request->element;
@@ -42,6 +43,16 @@ class ElementController extends Controller
                 //return $elm;
                 $elm->save();
             }
+        }
+    }
+
+    public function destroy(Request $request)
+    {
+        if ($request->ajax()) {
+            $element = Element::findOrFail($request->id);
+            $element->delete();
+
+            return ['success' => true, 'message' => 'Item deleted!'];
         }
     }
 }

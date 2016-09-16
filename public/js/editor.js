@@ -4,8 +4,6 @@ class Editor {
     constructor() {
         this.editorPanel = $('#editor-panel');
         this.editorPanelCollapse = $('#modal-toggle');
-        //this.page = {};
-        this.page = {"widgets":{"content":[]}};
         this.page_id = 0;
         this.editorFrame = $("#editorIFrame");
         this.data = '';
@@ -17,37 +15,11 @@ class Editor {
         this.elementHandlers = {};
     }
 
-    // for(var elementID in this.elementsList){
-
-    //         var handler = this.elementsList[ elementID ];
-
-    //         //handler.init();
-    //         console.log(handler);
-
-    //     }
-
-    //     var array = ['a', 'b', 'c'];
-
-// for (var i in this.elementsList) {
-//   alert(this.elementsList[i]);
-// }
-
-// var arrayLength = this.elementsList.length;
-// for (let i = 0; i < arrayLength; i++) {
-//     alert(this.elementsList[i]);
-//     //Do something
-// }
-
-//         for (var prop in obj) {
-//   if (obj.hasOwnProperty(prop)) { 
-//   // or if (Object.prototype.hasOwnProperty.call(obj,prop)) for safety...
-//     alert("prop: " + prop + " value: " + obj[prop])
-//   }
-// }
 
     showLoadingIndicator() {
         $('#editor-loading').show();
     };
+
 
     hideLoadingIndicator() {
         $('#editor-loading').fadeOut();
@@ -68,6 +40,7 @@ class Editor {
             //setTimeout(() => {
                 console.log('iframe loaded');
                 $('a[target!=_blank]', this.editorFrame.contents()).attr('target', '_top');
+                //this.initElements();
                 this.initRegions();
             //}, 1000);
         });
@@ -373,7 +346,6 @@ class Editor {
             e.preventDefault();
             let parent = $(e.target).parents('.dd-item');
             this.collection = parent.data('collection');
-            //console.log(this.collection)
             this.editCollection(this.collection);
         });
 
@@ -828,6 +800,7 @@ class Editor {
      *  Editor edit menu window
      */
     editMenu() {
+
         this.openDialog({
             id: 'menu-edit',
             title: 'Edit',
@@ -851,8 +824,11 @@ class Editor {
     };
 
 
-
+    /**
+     *  Editor new menu window
+     */
     addMenu(menu_type_id) {
+
         this.openDialog({
             id: 'menu-add',
             title: 'Create a new menu',
@@ -861,30 +837,6 @@ class Editor {
             type: 'ajax',
             onAfterShow: () => {
                 this.renderMenuTypeSelect();
-                // if($('#menuTypeItemSelector').length) {
-                //     let ele = $('#menuTypeItemSelector');
-                //     let selected = $('#menuTypeSelector').find('option:selected').val();
-                //     $.ajax({
-                //         type: 'GET',
-                //         url: '/'+this.editorLocale+'/admin/menuSelectorType/' + selected,
-                //         //data: 'id='+menu_type_id,
-                //         error: (xhr, ajaxOptions, thrownError) => {
-                //             console.log(xhr.status);
-                //             console.log(thrownError);
-                //         }
-                //     }).done((data) => {
-                //         ele.empty();
-                //         //ele.append('<option value="0">-- Auswahl --</option>');
-                //         let selected = $('#morpher_id_orig').text();
-                //         for (var i = 0; i < data.length; i++) {
-                //             let sel = '';
-                //             if(data[i].id == selected) {
-                //                 sel = ' selected="selected"';
-                //             }
-                //             ele.append('<option value="' + data[i].id + '"' + sel + '>' + data[i].title + '</option>');
-                //         }
-                //     });
-                // }
             },
             callback: () => {
                 this.loadMenu(menu_type_id);
@@ -899,8 +851,11 @@ class Editor {
     };
     
 
+    /**
+     * Global Modal open window
+     */
     openDialog(options) {
-        //$('#'+options.id).remove();
+
         var formDom = $('<div></div>').attr('id', options.id);
         $.ajax({
                 url: options.url,
@@ -1027,8 +982,10 @@ class Editor {
 
     };
 
-
-    registerWidgetHandler(id, handler){
+    /**
+     * Registers all Elements
+     */
+    registerElementHandler(id, handler){
 
         handler.getTitle = function(){
             //return cms.lang("widgetTitle_" + this.getName());
@@ -1041,79 +998,125 @@ class Editor {
     };
 
 
-
+    /**
+     * Build the Editor list of Elements
+     */
     buildElementsList() {
 
-        var widgetsList = $('#tab-elements .list ul' , this.editorPanel);
+        let elementsList = $('#tab-elements .list ul' , this.editorPanel);
 
-        // for(var i in this.options.widgetsList){
+        for (let i in this.elementsList) {
+            let elementId = this.elementsList[i];
 
-        //     var widgetId = this.options.widgetsList[i];
-
-        //     var title = this.widgetHandlers[widgetId].getTitle();
-        //     var icon = this.widgetHandlers[widgetId].getIcon();
-
-        //     var item = $('<li></li>').attr('data-id', widgetId).addClass('inlinecms-widget-element');
-        //     item.html('<i class="fa '+icon+'"></i>');
-        //     item.attr('title', title);
-        //     item.tooltip({
-        //         track: true,
-        //         show: false,
-        //         hide: false
-        //     });
-
-        //     widgetsList.append(item);
-
-        // }
-
-
-        //var widgetId = this.options.widgetsList['text'];
-
-       // var title = this.widgetHandlers[widgetId].getTitle();
-       //  var icon = this.widgetHandlers[widgetId].getIcon();
-       //  
-       for (var i in this.elementsList) {
-           
-           var elementId = this.elementsList[i];
-
-        var title = this.elementHandlers[elementId].getTitle();
-        var icon = this.elementHandlers[elementId].getIcon();
-        
-
-        //     var item = $('<li></li>').attr('data-id', widgetId).addClass('inlinecms-widget-element');
-        //     item.html('<i class="fa '+icon+'"></i>');
-        //     item.attr('title', title);
-        //     item.tooltip({
-        //         track: true,
-        //         show: false,
-        //         hide: false
-        //     });
+            let title = this.elementHandlers[elementId].getTitle();
+            let icon = this.elementHandlers[elementId].getIcon();
          
-
-        var item = $('<li></li>').attr('data-id', elementId).addClass('inlinecms-widget-element');
-                item.html('<i class="fa '+icon+'"></i>');
-                item.attr('title', title);
+            let item = $('<li></li>').attr('data-id', elementId).addClass('editor-element');
+            item.html('<i class="fa '+icon+'"></i>');
+            item.attr('title', title);
             item.tooltip({
                 track: true,
                 show: false,
                 hide: false
             });
-
-             widgetsList.append(item);
-
+            elementsList.append(item);
         }
 
-        $('li', widgetsList).draggable({
+        $('li', elementsList).draggable({
             helper: "clone",
             iframeFix: true
         });
+    };
+
+    /**
+     * Initialize the editable Elements
+     */
+    initElements(region){
+        region.find('>div').each((i,elm)=>{
+
+            let elementDom = $(elm);
+
+            let type = elementDom.data('handler');
+            let handler = this.elementHandlers[type];
+
+            handler.initElement(elementDom, (elementDom,type) => {
+                this.buildElementToolbar(elementDom, handler);
+            });
+        });
+    };
+
+    /**
+     * Build elements Toolbar
+     */
+    buildElementToolbar(elementDom, handler){
+
+        if (typeof(handler.toolbarButtons) === 'undefined') {
+
+            var defaultToolbarButtons = {
+                "options": {
+                    icon: "fa-wrench",
+                    title: 'Options'
+                },
+                "move": {
+                    icon: "fa-arrows",
+                    title: 'Move'
+                },
+                "delete": {
+                    icon: "fa-trash",
+                    title: 'Delete',
+                    click: (elementDom)=>{
+                        this.deleteElement(elementDom);
+                    }
+                }
+            };
+
+            var buttons = {};
+
+            if (typeof(handler.getToolbarButtons) === 'function'){
+                buttons = handler.getToolbarButtons();
+            }
+
+            handler.toolbarButtons = $.extend(true, {}, defaultToolbarButtons, buttons);
+
+        }
+
+        var toolbar = $('<div />').addClass('inline-toolbar').addClass('inlinecms');
+        var isFixedRegion = elementDom.parents('.inlinecms-region-fixed').length > 0;
+
+        $.map(handler.toolbarButtons, function(button, buttonId){
+
+            if (button === false) { return button; }
+            if (buttonId == 'move' && isFixedRegion) { return button; }
+            if (buttonId == 'delete' && isFixedRegion) { return button; }
+
+            var buttonDom = $('<div></div>').addClass('button').addClass('b-'+buttonId);
+            buttonDom.attr('title', button.title);
+            buttonDom.html('<i class="fa '+button.icon+'"></i>');
+
+            toolbar.append(buttonDom);
+
+            if (typeof(button.click) === 'function'){
+                buttonDom.click(function(){
+                    button.click(elementDom);
+                });
+            }
+
+            return button;
+
+        });
+
+        elementDom.append(toolbar);
 
     };
 
+    /**
+     * Initialize the editable Regions
+     */
     initRegions() {
-        //alert('fsfs,');
+
         $('.jodelRegion', this.editorFrame.contents()).each((i,elm)=>{
-            var region = $(elm);
+            let region = $(elm);
+            this.initElements(region);
 
             var dropZone = $('<div></div>').addClass('drop-helper').addClass('inlinecms');
             dropZone.html('<i class="fa fa-plus-circle"></i>');
@@ -1125,7 +1128,7 @@ class Editor {
             if (region.hasClass('inlinecms-region-fixed')) { return; }
 
             region.droppable({
-                accept: ".inlinecms-widget-element",
+                accept: ".editor-element",
                 over: () => {
                     $('.drop-helper', region).show();
                 },
@@ -1134,7 +1137,7 @@ class Editor {
                 },
                 drop: ( event, ui ) => {
                     $('.drop-helper', region).hide();
-                    this.addWidget(region, ui.draggable.data('id'));
+                    this.addElement(region, ui.draggable.data('id'));
                 }
             });
 
@@ -1147,9 +1150,8 @@ class Editor {
                         data: data,
                         type: 'POST',
                         dataType: 'json',
-                        url: '/admin/element/order'
+                        url: '/admin/element/sort'
                     })
-                    //this.reorderWidgets(region.data('region-id'));
                 }
             });
 
@@ -1157,66 +1159,69 @@ class Editor {
 
     };
 
-    getMaxWidgetId(regionId){
+    /**
+     * Add an Element
+     */
+    addElement(regionDom, type){
 
-        var maxId = 0;
-
-        for (var index in this.page.widgets[regionId]){
-
-            var widget = this.page.widgets[regionId][index];
-
-            if (widget.id > maxId){
-                maxId = widget.id;
-            }
-
-        }
-
-        return maxId;
-
-    };
-
-
-    addWidget(regionDom, handlerId){
-
-        var regionId = regionDom.data('region-id');
+        let regionId = regionDom.data('region-id');
         let elementOrder = regionDom.find('>div').length-1;
+
         $.ajax({
             type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url: '/admin/element/addElement', // the url where we want to POST
-            data: {'id' : regionId, 'order' : elementOrder }, // our data object
+            url: '/admin/element/store', // the url where we want to POST
+            data: {'id' : regionId, 'type' : type, 'order' : elementOrder }, // our data object
             dataType: 'json', // what type of data do we expect back from the server
             encode: true,
             error: (data) => {}
         }).done((data) => {
-            let dom = $('<div></div>')
-                        .addClass('inlinecms-widget')
-                        .attr('id', 'element_'+data.id);
-            let toolbar = '<div class="jodelTextarea" data-field="'+data.id+'"></div><div class="inline-toolbar inlinecms"><div class="button b-move" title="Drag to move"><i class="fa fa-arrows"></i></div><div class="button b-delete" title="Delete element"><i class="fa fa-trash"></i></div></div>';
-            dom.append(toolbar);
+            let elementDom = $('<div></div>')
+                            .addClass('inlinecms-widget')
+                            .attr('id', 'element_'+data.id);
 
-            $('.drop-helper', regionDom).before(dom);
-            this.editorFrame.get(0).contentWindow.initTinyMCE();
-            let tinymceID = dom.find('.jodelTextarea').attr('id');
-            this.editorFrame.get(0).contentWindow.tinymce.EditorManager.get(tinymceID).focus();
-            //dom.find('.jodelTextarea').click();
+            elementDom.append('<div class="inlinecms-content" data-field="'+data.id+'"></div>');
 
-            //var handler = this.widgetHandlers[ widget.handler ];
-            //var handler = 'text';
-        //handler.createWidget(regionId, widget, function(widget){
-            //cms.buildWidgetToolbar(dom, handler);
-            //this.page.widgets[regionId].push(widget);
-                //return true;
+            $('.drop-helper', regionDom).before(elementDom);
+
+            let handler = this.elementHandlers[ type ]
+
+            handler.createElement(regionId, elementDom, (elementDom, type)=>{
+                this.buildElementToolbar(elementDom, handler);
+                return true;
             });
-        //});
-
-        //this.setChanges();
-
+        });
     };
+
+    /**
+     * Delete an Element
+     */
+    deleteElement(elementDom){
+        
+        let elementId = elementDom.attr('id');
+        let eid = elementId.replace('element_', '');
+
+        this.showConfirmationDialog('Delete this Element', function(){
+            $.ajax({
+                type: 'POST',
+                url: '/admin/element/'+eid,
+                data: {
+                    '_method': 'delete'
+                },
+                dataType: 'json',
+                error: (xhr, ajaxOptions, thrownError) => {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            }).done((data) => {
+                elementDom.remove();
+            });
+        });
+    };
+
 }
 
 let editor = new Editor();
 
 $(function() {
     editor.initPanel();
-    //console.log(editor);
 });
