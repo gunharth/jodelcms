@@ -123,19 +123,19 @@ if (! function_exists('templateRegion')) {
     function templateRegion($page, $region)
     {
         $html = '';
-        if(Auth::check()) {
-            $findRegion = $page->regions->contains('name',$region);
-            if($findRegion) {
-                foreach($page->regions as $reg) {
-                    if($reg->name == $region) {
+        if (Auth::check()) {
+            $findRegion = $page->regions->contains('name', $region);
+            if ($findRegion) {
+                foreach ($page->regions as $reg) {
+                    if ($reg->name == $region) {
                         $html .= '<div class="jodelRegion" data-region-id="'.$reg->id.'">';
-                        foreach($reg->elements as $element) {
+                        foreach ($reg->elements as $element) {
                             $html .= '<div class="inlinecms-widget" id="element_'.$element->id.'"><div class="jodelTextarea" data-field="'.$element->id.'">'.$element->content.'</div><div class="inline-toolbar inlinecms"><div class="button b-move" title="Drag to move"><i class="fa fa-arrows"></i></div><div class="button b-delete" title="Delete element"><i class="fa fa-trash"></i></div></div></div>';
                         }
                         $html .= '</div>';
                     }
-                
                 }
+
                 return $html;
             }
 
@@ -143,19 +143,20 @@ if (! function_exists('templateRegion')) {
             $newRegion->name = $region;
             $page->regions()->save($newRegion);
             $html .= '<div class="jodelRegion" data-region-id="'.$newRegion->id.'"></div>';
+
             return $html;
         }
 
-        foreach($page->regions as $reg) {
-            if($reg->name == $region) {
+        foreach ($page->regions as $reg) {
+            if ($reg->name == $region) {
                 $html .= '<div>';
-                foreach($reg->elements as $element) {
+                foreach ($reg->elements as $element) {
                     $html .= '<div>'.$element->content.'</div>';
                 }
                 $html .= '</div>';
             }
-        
         }
+
         return $html;
     }
 }

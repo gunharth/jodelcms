@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Region;
 use App\Element;
 
@@ -20,10 +18,11 @@ class ElementController extends Controller
     {
         //if ($request->ajax()) {
             $region = Region::findOrFail($request->id);
-            $element = new Element();
-            $element->order = $request->order;
-            $region->elements()->save($element);
-            return $element;
+        $element = new Element();
+        $element->order = $request->order;
+        $region->elements()->save($element);
+
+        return $element;
             //return ['success' => true, 'message' => 'Item deleted!'];
         //}
     }

@@ -264,6 +264,4 @@ class PagesController extends Controller
 
         return $html;
     }
-
-
 }

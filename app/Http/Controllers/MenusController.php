@@ -87,7 +87,6 @@ class MenusController extends Controller
     public function destroy(Request $request, $id)
     {
         if ($request->ajax()) {
-            
             Cache::forget('menus');
             $menu = Menu::findOrFail($request->id);
             $menu->delete();

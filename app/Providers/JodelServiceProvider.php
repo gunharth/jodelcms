@@ -48,7 +48,7 @@ class JodelServiceProvider extends ServiceProvider
                 $path = $_GET['menu'];
             }
 
-            $menus = Cache::remember('menus', 2, function() {
+            $menus = Cache::remember('menus', 2, function () {
                 return Menu::with('morpher')->whereActive(1)->whereMenuTypeId(1)->get();
             });
 
