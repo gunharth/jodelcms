@@ -63,7 +63,7 @@ class ElementSeeder extends Seeder
         ]);
         // element_id 4
         DB::table('elements')->insert([
-            'region_id' => 3,
+            'region_id' => 4,
             'type' => 'text',
             'order' => 1,
         ]);
@@ -72,12 +72,12 @@ class ElementSeeder extends Seeder
         DB::table('element_translations')->insert([
             'element_id' => 3,
             'locale' => 'en',
-            'content' => '<h1>Lorem</h1><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non mi leo. Vivamus lacus lorem, molestie sit amet nunc eget, ullamcorper porttitor dui. Mauris condimentum pretium erat, eu faucibus tortor auctor nec. Curabitur sed enim quis ante auctor gravida. Aenean metus est, tristique id purus ac, commodo sagittis justo. Mauris condimentum lobortis egestas. Sed egestas dui dolor, non varius neque auctor a. Cras et congue lectus. Aliquam sollicitudin efficitur sem, ac convallis libero vestibulum ut. Vivamus at libero porta, vestibulum urna vitae, commodo magna. Vivamus ut sapien sit amet velit aliquam sagittis non quis ante. Nullam sed rutrum lacus. Maecenas pulvinar fermentum faucibus. Integer ut magna egestas, suscipit erat eget, porttitor nisl.</p>',
+            'content' => '<h1>Lorem</h1>',
         ]);
         DB::table('element_translations')->insert([
             'element_id' => 4,
             'locale' => 'en',
-            'content' => 'Page 1, EN, Region 1, Element 4',
+            'content' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non mi leo. Vivamus lacus lorem, molestie sit amet nunc eget, ullamcorper porttitor dui. Mauris condimentum pretium erat, eu faucibus tortor auctor nec. Curabitur sed enim quis ante auctor gravida. Aenean metus est, tristique id purus ac, commodo sagittis justo. Mauris condimentum lobortis egestas. Sed egestas dui dolor, non varius neque auctor a. Cras et congue lectus. Aliquam sollicitudin efficitur sem, ac convallis libero vestibulum ut. Vivamus at libero porta, vestibulum urna vitae, commodo magna. Vivamus ut sapien sit amet velit aliquam sagittis non quis ante. Nullam sed rutrum lacus. Maecenas pulvinar fermentum faucibus. Integer ut magna egestas, suscipit erat eget, porttitor nisl.</p>',
         ]);
 
         //DE

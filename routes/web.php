@@ -59,6 +59,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
      */
     Route::get('/clearcache', function () {
         Artisan::call('cache:clear');
+        Artisan::call('view:clear');
 
         return redirect('/');
     });

@@ -14,13 +14,19 @@
   @if (Auth::check()) <input type="hidden" id="url" value="/{!! config('app.locale') !!}/admin/page/{!! $page->slug !!}/content"> @endif
   
   <div class="container">
+  
+    <div class="row">
+      <div class="col-md-12">
+        {!! templateRegion($page, 'region-1') !!}
+      </div>
+    </div>
 
     <div class="row">
       <div class="col-md-6">
-        {!! templateRegion($page, 'region-1') !!}
+        {!! templateRegion($page, 'region-2') !!}
       </div>
       <div class="col-md-6">
-          {!! templateRegion($page, 'region-2') !!}
+          {!! templateRegion($page, 'region-3') !!}
       </div>
     </div>
     
