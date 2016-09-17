@@ -4,11 +4,7 @@ $(function() {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    //$('a[target!=_blank]').attr('target', '_top');
-    //editor.initRegions();
     $('title', window.parent.document).text($('title').text());
-
-    //initTinyMCE();
 });
 
 $(document).keydown((e)=> {
@@ -19,26 +15,6 @@ $(document).keydown((e)=> {
             });
 
 function initTinyMCE(selector) {
-    
-//     tinymce.init({
-//         selector: '.jodelText',
-//         inline: true,
-//         menubar: false,
-//         toolbar: false,
-//         plugins: [
-//             "save autosave"
-//         ],
-//         toolbar1: "save | undo redo",
-//         save_onsavecallback: function() { savePage(); },
-//         setup: function(ed) {
-//             ed.on('keyup', function(e) {
-//                 tinyMceChange(ed);
-//             });
-//             ed.on('change', function(e) {
-//                 tinyMceChange(ed);
-//             });
-//         }
-//     });
 
     tinymce.init({
         selector: selector,
