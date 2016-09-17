@@ -30,7 +30,7 @@ editor.registerElementHandler('spacer', new function() {
         //var dom = this.dom(widget);
         elementDom.attr('data-type','spacer');
         var content = $('<div></div>').css('height', '25px').css('width', '25px');
-        var dom = elementDom.find('.inlinecms-content');
+        var dom = elementDom.find('.jodelcms-content');
         dom.append(content);
 
 		//return widget;

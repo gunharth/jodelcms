@@ -27,7 +27,7 @@
 
 
 
-.inlinecms {
+.jodelcms {
     font-size:14px;
     font-weight:normal;
     line-height: normal;
@@ -37,7 +37,7 @@
     text-transform: none;
 }
 
-.inlinecms-region{
+.jodelcms-region{
     outline: dashed 1px #009788;
     min-height: 25px;
 }
@@ -53,64 +53,64 @@
     text-align: center;
 }
 
-.inlinecms-widget {
+.jodelcms-element {
     outline: dashed 1px #27ae60;
     /*min-height: 25px;*/
     min-width: 40px;
 	overflow: hidden;
 	position: relative;
 }
-.inlinecms-widget.has-changed {
+.jodelcms-element.has-changed {
     outline: 1px dashed #F44236 !important;
 }
 
-.inlinecms-widget .inlinecms-content {
+.jodelcms-element .jodelcms-content {
     overflow: hidden;
 }
 
-.inlinecms-widget:hover {
+.jodelcms-element:hover {
     outline: solid 1px #27ae60;
 }
 
-.inlinecms-region-fixed{
+.jodelcms-region-fixed{
     outline: dashed 1px #3498db;
 }
 
-.inlinecms-region-fixed .inlinecms-widget {
+.jodelcms-region-fixed .jodelcms-element {
     outline: dashed 1px #3498db;
 }
 
-.inlinecms-region-fixed .inlinecms-widget:hover {
+.jodelcms-region-fixed .jodelcms-element:hover {
     outline: solid 2px #3498db;
     box-shadow: 0 0 20px #3498db;
 }
 
-.inlinecms-collection{
+.jodelcms-collection{
     outline: dashed 1px #9b59b6;
 }
 
-.inlinecms-collection .inlinecms-widget {
+.jodelcms-collection .jodelcms-element {
     outline: dashed 1px #9b59b6;
 }
 
-.inlinecms-collection .inlinecms-widget:hover {
+.jodelcms-collection .jodelcms-element:hover {
     outline: solid 2px #9b59b6;
     box-shadow: 0 0 20px #9b59b6;
 }
 
-.inlinecms-widget .inline-toolbar {
+.jodelcms-element .inline-toolbar {
 	position: absolute;
 	right:0;
 	top:0;
 	display: none;
 }
 
-.inlinecms-widget:hover .inline-toolbar,
-.inlinecms-widget:focus .inline-toolbar{
+.jodelcms-element:hover .inline-toolbar,
+.jodelcms-element:focus .inline-toolbar{
 	display:block;
 }
 
-.inlinecms-widget .inline-toolbar .button {
+.jodelcms-element .inline-toolbar .button {
 	width: 24px;
 	min-width: 24px;
 	height: 24px;
@@ -133,19 +133,19 @@
 	transition: background 0.3s;
 }
 
-.inlinecms-widget .inline-toolbar .button:hover {
+.jodelcms-element .inline-toolbar .button:hover {
 	background: #00c5b2;
 }
 
-.inlinecms-widget .inline-toolbar .b-move {
+.jodelcms-element .inline-toolbar .b-move {
 	cursor:move;
 }
 
-.inlinecms-widget .inline-toolbar .b-delete {
+.jodelcms-element .inline-toolbar .b-delete {
 	background:#F44236;
 }
 
-.inlinecms-widget .inline-toolbar .b-delete:hover {
+.jodelcms-element .inline-toolbar .b-delete:hover {
 	background: #9a2c24;
 }
 

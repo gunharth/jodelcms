@@ -41,16 +41,16 @@ editor.registerElementHandler('text', new function() {
   //   };
 
 	this.onInitElement = function(elementDom){
-        //elementDom.find('.inlinecms-content').addClass('jodelTextarea');
+        //elementDom.find('.jodelcms-content').addClass('jodelTextarea');
         let elementId = elementDom.attr('id');
         editor.editorFrame.get(0).contentWindow.initTinyMCE('#'+elementId+'_content');
-        //elementDom.find('.inlinecms-content')
-        //editor.editorFrame.get(0).contentWindow.initTinyMCE(elementDom.find('.inlinecms-content'));
+        //elementDom.find('.jodelcms-content')
+        //editor.editorFrame.get(0).contentWindow.initTinyMCE(elementDom.find('.jodelcms-content'));
 	};
 
 	this.onCreateElement = function(elementDom){
         elementDom.attr('data-type','text');
-        //elementDom.find('.inlinecms-content').addClass('jodelTextarea');
+        //elementDom.find('.jodelcms-content').addClass('jodelTextarea');
 
         let elementId = elementDom.attr('id');
         let getTiny = editor.editorFrame.get(0).contentWindow;

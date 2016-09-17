@@ -126,7 +126,7 @@ function Element(){
 
         var widget = cms.getWidget(regionId, widgetId);
 
-        widget.domId = 'inlinecms-widget-' + regionId + widget.id;
+        widget.domId = 'jodelcms-element-' + regionId + widget.id;
 
         newOptions = $.extend({}, newOptions, this.applyOptions(widget, newOptions, form));
 
@@ -138,7 +138,7 @@ function Element(){
 
     this.dom = function(widget){
 
-        return $('#'+widget.domId+' .inlinecms-content', this.pageFrame);
+        return $('#'+widget.domId+' .jodelcms-content', this.pageFrame);
 
     };
 

@@ -972,7 +972,7 @@ class Editor {
             $(this).dialog('close');
         };
 
-        $('<div class="message-text inlinecms"></div>').append(message).dialog({
+        $('<div class="message-text jodelcms"></div>').append(message).dialog({
             title: "confirmation",
             modal: true,
             resizable: false,
@@ -1084,8 +1084,8 @@ class Editor {
 
         }
 
-        var toolbar = $('<div />').addClass('inline-toolbar').addClass('inlinecms');
-        var isFixedRegion = elementDom.parents('.inlinecms-region-fixed').length > 0;
+        var toolbar = $('<div />').addClass('inline-toolbar').addClass('jodelcms');
+        var isFixedRegion = elementDom.parents('.jodelcms-region-fixed').length > 0;
 
         $.map(handler.toolbarButtons, function(button, buttonId){
 
@@ -1122,14 +1122,14 @@ class Editor {
             let region = $(elm);
             this.initElements(region);
 
-            var dropZone = $('<div></div>').addClass('drop-helper').addClass('inlinecms');
+            var dropZone = $('<div></div>').addClass('drop-helper').addClass('jodelcms');
             dropZone.html('<i class="fa fa-plus-circle"></i>');
 
             region.append(dropZone);
 
             $('.drop-helper', region).hide();
 
-            if (region.hasClass('inlinecms-region-fixed')) { return; }
+            if (region.hasClass('jodelcms-region-fixed')) { return; }
 
             region.droppable({
                 accept: ".editor-element",
@@ -1180,10 +1180,10 @@ class Editor {
             error: (data) => {}
         }).done((data) => {
             let elementDom = $('<div></div>')
-                            .addClass('inlinecms-widget')
+                            .addClass('jodelcms-element')
                             .attr('id', 'element_'+data.id);
 
-            elementDom.append('<div class="inlinecms-content" id="element_'+data.id+'_content" data-field="'+data.id+'"></div>');
+            elementDom.append('<div class="jodelcms-content" id="element_'+data.id+'_content" data-field="'+data.id+'"></div>');
 
             $('.drop-helper', regionDom).before(elementDom);
 

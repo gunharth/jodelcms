@@ -125,11 +125,11 @@ function saveContent() {
         elms++;
     }
 
-    $('.inlinecms-widget').each( function() {
+    $('.jodelcms-element').each( function() {
         if ($(this).attr('data-type') !== 'text') {
             var element_id = $(this).attr('id');
             var eid = element_id.replace('element_','');
-            var content = $(this).find('.inlinecms-content').html();
+            var content = $(this).find('.jodelcms-content').html();
             elements[elms] = { 'id': eid, 'content': content };
             elms++;
         }
