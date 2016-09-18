@@ -93,23 +93,28 @@ function Element(){
 	this.openOptionsForm = function(elementDom){
 
         var handler = this;
-        var options = cms.getWidgetOptions(regionId, widgetId);
+        var elementId = elementDom.attr('id').replace('element_', '');
+
+        //var options = editor.getElementOptions();
 
         var formSettings = {
 			id: this.getName() + '-options',
-            title: cms.lang("widgetOptions") + ': ' + this.getTitle(),
-			values: options,
-			source: {
-				module: 'widgets',
-				action: 'loadOptionsForm',
-                data: {
-                    handler: this.getName()
-                }
-			},
+            title: 'Settings: ' + this.getTitle(),
+            modal: true,
+            url: '/admin/element/' + this.getName() + '/' + elementId + '/settings'+ '/' + editor.editorLocale,
+            //type: 'ajax',
+			//values: options,
+			// source: {
+			// 	module: 'widgets',
+			// 	action: 'loadOptionsForm',
+   //              data: {
+   //                  handler: this.getName()
+   //              }
+			// },
 			buttons: {
-				ok: cms.lang("apply"),
+				ok: 'Apply',
 			},
-			onSubmit: function(options, form){
+			onSubmit: function(form){
 				handler.saveOptions(regionId, widgetId, options, form);
 			}
 		};
@@ -117,8 +122,29 @@ function Element(){
         if (typeof(this.getOptionsFormSettings) !== 'undefined'){
             formSettings = $.extend(formSettings, this.getOptionsFormSettings(regionId, widgetId));
         }
+        //alert(formSettings)
 
-        cms.openForm(formSettings);
+        editor.openDialog(formSettings);
+
+
+        // this.openDialog({
+
+        //     modal: true,
+        //     url: '/'+this.editorLocale+'/admin/menu/create/' + menu_type_id,
+        //     type: 'ajax',
+        //     onAfterShow: () => {
+        //         this.renderMenuTypeSelect();
+        //     },
+        //     callback: () => {
+        //         this.loadMenu(menu_type_id);
+        //     },
+        //     buttons: {
+        //         ok: 'Create',
+        //         Cancel: () => {
+        //             this.dialog.dialog("close");
+        //         }
+        //     }
+        // });
 
 	};
 

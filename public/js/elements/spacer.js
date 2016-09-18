@@ -25,6 +25,8 @@ editor.registerElementHandler('spacer', new function() {
 
 	};
 
+	this.onClick = false;
+
 	this.onCreateElement = function(elementDom){
 
         //var dom = this.dom(widget);

@@ -80,6 +80,8 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::post('element/store', 'ElementController@store');
     Route::delete('element/{id}', 'ElementController@destroy');
     Route::post('element/sort', 'ElementController@sort');
+    //Route::match(['put', 'patch'], 'element/{id}', ['as' => 'admin.element.update', 'uses' => 'ElementController@update']);
+    Route::get('element/{element}/{id}/settings/{locale}', 'ElementController@settings');
 
 
     /*

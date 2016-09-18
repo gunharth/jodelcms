@@ -925,7 +925,9 @@ class Editor {
     };
 
     submitForm(dialog, form, options) {
-        if (options.type == 'ajax') {
+        if (typeof(options.onSubmit) === 'function'){
+            options.onSubmit(values, form);
+        } else if (options.type == 'ajax') {
             var formData = form.serialize();
             let action = form.attr('action');
             $.ajax({
@@ -983,6 +985,14 @@ class Editor {
                 $(this).closest('.ui-dialog').find(".ui-dialog-buttonset .ui-button:last").addClass("red");
             }
         });
+
+    };
+
+    getElementOptions(){
+
+        // var widget = this.getWidget(regionId, widgetId);
+        // return widget.options;
+        return '{"size":"60"}';
 
     };
 
