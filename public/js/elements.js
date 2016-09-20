@@ -96,6 +96,7 @@ function Element(){
         var elementId = elementDom.attr('id').replace('element_', '');
 
         //var options = editor.getElementOptions();
+        var options = editor.getElementOptions(elementId);
 
         var formSettings = {
 			id: this.getName() + '-options',
@@ -103,7 +104,7 @@ function Element(){
             modal: true,
             url: '/admin/element/' + this.getName() + '/' + elementId + '/settings'+ '/' + editor.editorLocale,
             //type: 'ajax',
-			//values: options,
+			values: options,
 			// source: {
 			// 	module: 'widgets',
 			// 	action: 'loadOptionsForm',
@@ -114,13 +115,14 @@ function Element(){
 			buttons: {
 				ok: 'Apply',
 			},
-			onSubmit: function(form){
-				handler.saveOptions(regionId, widgetId, options, form);
+			onSubmit: function(options, form){
+                //console.log(elementId)
+				handler.applyOptions(elementDom, options, form);
 			}
 		};
 
         if (typeof(this.getOptionsFormSettings) !== 'undefined'){
-            formSettings = $.extend(formSettings, this.getOptionsFormSettings(regionId, widgetId));
+            formSettings = $.extend(formSettings, this.getOptionsFormSettings(elementDom));
         }
         //alert(formSettings)
 
@@ -148,19 +150,19 @@ function Element(){
 
 	};
 
-	this.saveOptions = function(regionId, widgetId, newOptions, form){
+	this.saveOptions = function(elementId, newOptions, form){
+        //console.log(elementId)
+  //       var widget = cms.getWidget(regionId, widgetId);
 
-        var widget = cms.getWidget(regionId, widgetId);
+  //       widget.domId = 'jodelcms-element-' + regionId + widget.id;
 
-        widget.domId = 'jodelcms-element-' + regionId + widget.id;
+  //       newOptions = $.extend({}, newOptions, this.applyOptions(widget, newOptions, form));
 
-        newOptions = $.extend({}, newOptions, this.applyOptions(widget, newOptions, form));
-
-		cms.setWidgetOptions(regionId, widgetId, newOptions);
+		// cms.setWidgetOptions(regionId, widgetId, newOptions);
 
 	};
 
-	this.applyOptions = function(widget, options, form){};
+	//this.applyOptions = function(widget, options, form){};
 
     this.dom = function(widget){
 

@@ -2,6 +2,8 @@ editor.registerElementHandler('spacer', new function() {
 
     Element.apply(this, arguments);
 
+    this.editor;
+
 	this.getName = function(){
 		return 'spacer';
 	};
@@ -16,7 +18,7 @@ editor.registerElementHandler('spacer', new function() {
 
 		return {
 			options: {
-                icon: "fa-arrows-v",
+                icon: "fa-gear",
                 click: function(elementDom){
 					handler.openOptionsForm(elementDom);
 				}
@@ -39,13 +41,15 @@ editor.registerElementHandler('spacer', new function() {
 
 	};
 
-    this.applyOptions = function(widget, options){
+    this.applyOptions = function(elementDom, options, form){
+    	form = form.serializeArray();
+    	console.log(form.size)
+        //var dom = this.dom(widget);
+        //var elementDom = $('#element_'+elementId, editor.editorIFrame);
+        //elementDom.hide();
+        //if (!options.size) { options.size = 20; }
 
-        var dom = this.dom(widget);
-
-        if (!options.size) { options.size = 20; }
-
-        $('div', dom).css('height', Number(options.size)+'px').css('width', Number(options.size)+'px');
+        $('div', elementDom).css('height', Number(60)+'px').css('width', Number(60)+'px');
 
     };
 

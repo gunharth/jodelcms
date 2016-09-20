@@ -11,7 +11,7 @@ class Editor {
         this.collection_id = 0;
         this.editorLocale = 'en';
         //this.elementsList = ["text","image","gallery","video","file","form","map","share","spacer","code"];
-        this.elementsList = ['text', 'spacer'];
+        this.elementsList = ['text', 'spacer','form'];
         this.elementHandlers = {};
     }
 
@@ -32,9 +32,6 @@ class Editor {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
-        //alert(this.elementsList);
-        
 
         this.editorFrame.on('load',() => {
             
@@ -875,6 +872,11 @@ class Editor {
                         }*/
                     });
                 }
+
+                if (typeof(options.onCreate) === 'function'){
+                    options.onCreate(formDom);
+                }
+
                 $('body').append(formDom);
                 this.showDialog(options);
             });
@@ -884,11 +886,32 @@ class Editor {
 
     showDialog(options) {
         var dialog = $('#' + options.id);
+        var form = $('form', dialog);
+
+        if (form.find('.tabs').length === 1){
+            $('.tabs ul li a', form).eq(0).click();
+        }
+
+        // options += {
+        //   "email_type": "default",
+        //   "email": "",
+        //   "subject": "",
+        //   "thanks_msg": "",
+        //   "submit": "fsdfsfd",
+        //   "style": "s-horizontal",
+        //   "fields": [
+        //     {
+        //       "type": "text",
+        //       "title": "Test",
+        //       "isMandatory": false
+        //     }
+        //   ]};
+
 
         var buttons = {};
+
         if(typeof(options.buttons.ok) !== 'undefined') {
             buttons[options.buttons.ok] = () => {
-                var form = $('form', dialog);
                 this.submitForm(dialog, form, options);
             };
         }
@@ -896,6 +919,10 @@ class Editor {
         //     dialog.dialog('close');
         //     dialog.remove();
         // };
+        // 
+        if (typeof(options.onShow) === 'function'){
+            options.onShow(form, options.values);
+        }
 
         dialog.dialog({
             title: options.title,
@@ -926,7 +953,9 @@ class Editor {
 
     submitForm(dialog, form, options) {
         if (typeof(options.onSubmit) === 'function'){
-            options.onSubmit(values, form);
+            //console.log(options)
+            options.onSubmit(options, form);
+            dialog.dialog('close');
         } else if (options.type == 'ajax') {
             var formData = form.serialize();
             let action = form.attr('action');
@@ -988,11 +1017,28 @@ class Editor {
 
     };
 
-    getElementOptions(){
+    getElementOptions(elementId){
+        console.log(elementId)
+        
+
 
         // var widget = this.getWidget(regionId, widgetId);
         // return widget.options;
-        return '{"size":"60"}';
+        //return '{"size":"60"}';
+        //
+        return {"email_type": "default",
+          "email": "",
+          "subject": "",
+          "thanks_msg": "",
+          "submit": "fsdfsfd",
+          "style": "s-horizontal",
+          "fields": [
+            {
+              "type": "text",
+              "title": "Test",
+              "isMandatory": false
+            }
+          ]};
 
     };
 

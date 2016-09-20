@@ -36,12 +36,12 @@ class ElementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function settings($element, $id, $editorLocale)
+    public function settings($handler, $id, $editorLocale)
     {
         App::setLocale($editorLocale);
         $element = Element::findOrFail($id);
 
-        return view('admin.elements.spacer', compact('element'));
+        return view('admin.elements.'.$handler, compact('element'));
     }
 
     // /**

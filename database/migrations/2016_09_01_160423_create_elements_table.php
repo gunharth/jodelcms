@@ -26,6 +26,7 @@ class CreateElementsTable extends Migration
             $table->increments('id');
             $table->integer('element_id')->unsigned();
             $table->text('content')->nullable();
+            $table->text('options')->nullable();
             $table->string('locale')->index();
             $table->unique(['element_id', 'locale']);
             $table->foreign('element_id')->references('id')->on('elements')->onDelete('cascade');

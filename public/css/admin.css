@@ -55,7 +55,7 @@
 
 .jodelcms-element {
     outline: dashed 1px #27ae60;
-    /*min-height: 25px;*/
+    min-height: 25px;
     min-width: 40px;
 	overflow: hidden;
 	position: relative;
