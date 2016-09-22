@@ -43,13 +43,13 @@ editor.registerElementHandler('spacer', new function() {
 
     this.applyOptions = function(elementDom, options, form){
     	form = form.serializeArray();
-    	console.log(form.size)
+    	console.log(options.size)
         //var dom = this.dom(widget);
         //var elementDom = $('#element_'+elementId, editor.editorIFrame);
         //elementDom.hide();
         //if (!options.size) { options.size = 20; }
 
-        $('div', elementDom).css('height', Number(60)+'px').css('width', Number(60)+'px');
+        $('div.jodelcms-content div', elementDom).css('height', Number(80)+'px').css('width', Number(80)+'px');
 
     };
 

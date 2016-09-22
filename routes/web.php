@@ -78,11 +78,11 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::get('page/listPages/{lang}', 'PagesController@editorList');
 
     //Route::get('element/{id}', 'ElementController@@show');
-    Route::post('element/store', 'ElementController@store');
-    Route::delete('element/{id}', 'ElementController@destroy');
-    Route::post('element/sort', 'ElementController@sort');
+    Route::post('element/store', 'ElementsController@store');
+    Route::delete('element/{id}', 'ElementsController@destroy');
+    Route::post('element/sort', 'ElementsController@sort');
     //Route::match(['put', 'patch'], 'element/{id}', ['as' => 'admin.element.update', 'uses' => 'ElementController@update']);
-    Route::get('element/{element}/{id}/settings/{locale}', 'ElementController@settings');
+    Route::get('element/{element}/{id}/settings/{locale}', 'ElementsController@settings');
 
 
     /*

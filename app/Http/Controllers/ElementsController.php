@@ -7,9 +7,32 @@ use App\Region;
 use App\Element;
 use App;
 
-class ElementController extends Controller
+class ElementsController extends Controller
 {
     
+    public static function renderElementView($element)
+    {
+        $element->options = json_decode($element->options);
+
+        return view('elements.'.$element->type, compact('element'))->render();
+    }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request)
+    {
+        $element = Element::findOrFail($request->id);
+
+        return $element;
+            //return ['success' => true, 'message' => 'Item deleted!'];
+        //}
+    }
+
     /**
      * Remove the specified resource from storage.
      *

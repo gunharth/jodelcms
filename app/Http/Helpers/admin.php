@@ -130,7 +130,7 @@ if (! function_exists('templateRegion')) {
                     if ($reg->name == $region) {
                         $html .= '<div class="jodelRegion" data-region-id="'.$reg->id.'">';
                         foreach ($reg->elements as $element) {
-                            $html .= '<div class="jodelcms-element" id="element_'.$element->id.'" data-type="'.$element->type.'"><div class="jodelcms-content" id="element_'.$element->id.'_content" data-field="'.$element->id.'">'.$element->content.'</div></div>';
+                            $html .= \App\Http\Controllers\ElementsController::renderElementView($element);
                         }
                         $html .= '</div>';
                     }
@@ -151,7 +151,7 @@ if (! function_exists('templateRegion')) {
             if ($reg->name == $region) {
                 $html .= '<div>';
                 foreach ($reg->elements as $element) {
-                    $html .= '<div>'.$element->content.'</div>';
+                    $html .= \App\Http\Controllers\ElementsController::renderElementView($element);
                 }
                 $html .= '</div>';
             }

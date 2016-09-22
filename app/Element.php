@@ -13,6 +13,7 @@ class Element extends Model
 
     public $translatedAttributes = [
         'content',
+        'options'
     ];
 
     public function region()
@@ -24,5 +25,5 @@ class Element extends Model
 class ElementTranslation extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['content'];
+    protected $fillable = ['content,options'];
 }

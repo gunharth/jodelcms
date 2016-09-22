@@ -117,7 +117,8 @@ function Element(){
 			},
 			onSubmit: function(options, form){
                 //console.log(elementId)
-				handler.applyOptions(elementDom, options, form);
+				//handler.applyOptions(elementDom, options, form);
+                handler.saveOptions(elementDom, options, form);
 			}
 		};
 
@@ -150,7 +151,7 @@ function Element(){
 
 	};
 
-	this.saveOptions = function(elementId, newOptions, form){
+	this.saveOptions = function(elementDom, options, form){
         //console.log(elementId)
   //       var widget = cms.getWidget(regionId, widgetId);
 

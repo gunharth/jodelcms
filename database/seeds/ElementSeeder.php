@@ -67,10 +67,16 @@ class ElementSeeder extends Seeder
             'type' => 'text',
             'order' => 1,
         ]);
-        // element_id 4
+        // element_id 5
         DB::table('elements')->insert([
             'region_id' => 4,
             'type' => 'form',
+            'order' => 1,
+        ]);
+        // element_id 6
+        DB::table('elements')->insert([
+            'region_id' => 4,
+            'type' => 'spacer',
             'order' => 1,
         ]);
 
@@ -90,6 +96,12 @@ class ElementSeeder extends Seeder
             'locale' => 'en',
             'content' => '',
             'options' => '{"email_type": "default","email": "","subject": "","thanks_msg": "","submit": "fsdfsfd","style": "s-horizontal","fields": [{"type": "text","title": "Test","isMandatory": false}]}',
+        ]);
+        DB::table('element_translations')->insert([
+            'element_id' => 6,
+            'locale' => 'en',
+            'content' => '',
+            'options' => '{"size": "60"}',
         ]);
 
         //DE
