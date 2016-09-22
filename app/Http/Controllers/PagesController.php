@@ -126,6 +126,7 @@ class PagesController extends Controller
             foreach ($request->elements as $elem) {
                 $element = Element::findOrFail($elem['id']);
                 $element->content = $elem['content'];
+                $element->options = $elem['options'];
                 $element->save();
             }
 

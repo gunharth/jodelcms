@@ -97,7 +97,7 @@ function saveContent() {
     for (i = 0; i < tinymce.editors.length; i++) {
         var content = tinymce.editors[i].getContent();
         var element = document.getElementById(tinymce.editors[i].id).dataset.field;
-        elements[i] = { 'id': element, 'content': content };
+        elements[i] = { 'id': element, 'content': content, 'options': '' };
         elms++;
     }
 
@@ -106,7 +106,7 @@ function saveContent() {
             var element_id = $(this).attr('id');
             var eid = element_id.replace('element_','');
             var content = $(this).find('.jodelcms-content').html();
-            elements[elms] = { 'id': eid, 'content': content };
+            elements[elms] = { 'id': eid, 'content': content, 'options': JSON.stringify(options[element_id]) };
             elms++;
         }
     });

@@ -13,6 +13,7 @@ class Editor {
         //this.elementsList = ["text","image","gallery","video","file","form","map","share","spacer","code"];
         this.elementsList = ['text', 'spacer','form'];
         this.elementHandlers = {};
+        this.elementOptions = {};
     }
 
 
@@ -37,6 +38,7 @@ class Editor {
             
             $('a[target!=_blank]', this.editorFrame.contents()).attr('target', '_top');
             this.initRegions();
+            // alert(JSON.stringify(this.editorFrame.get(0).contentWindow.eoptions));
 
             $(document).keydown((e)=> {
                 if((e.ctrlKey || e.metaKey) && e.which == 83) {
@@ -1018,27 +1020,39 @@ class Editor {
     };
 
     getElementOptions(elementId){
-        console.log(elementId)
         
-
+        // alert(JSON.stringify(this.editorFrame.get(0).contentWindow.options));
+        console.log(elementId)
+        return '{"size": "60" }';
+        $.ajax({
+                type: 'GET', // define the type of HTTP verb we want to use (POST for our form)
+                url: '/admin/element/'+elementId, // the url where we want to POST
+                dataType: 'json', // what type of data do we expect back from the server
+                encode: true,
+                error: (data) => {
+                        
+                    }
+            }).done((data) => {
+                return '{"size": 60 }';
+            });
 
         // var widget = this.getWidget(regionId, widgetId);
         // return widget.options;
         //return '{"size":"60"}';
         //
-        return {"email_type": "default",
-          "email": "",
-          "subject": "",
-          "thanks_msg": "",
-          "submit": "fsdfsfd",
-          "style": "s-horizontal",
-          "fields": [
-            {
-              "type": "text",
-              "title": "Test",
-              "isMandatory": false
-            }
-          ]};
+        // return {"email_type": "default",
+        //   "email": "",
+        //   "subject": "",
+        //   "thanks_msg": "",
+        //   "submit": "fsdfsfd",
+        //   "style": "s-horizontal",
+        //   "fields": [
+        //     {
+        //       "type": "text",
+        //       "title": "Test",
+        //       "isMandatory": false
+        //     }
+        //   ]};
 
     };
 

@@ -27,6 +27,22 @@ editor.registerElementHandler('spacer', new function() {
 
 	};
 
+    this.getOptionsFormSettings = function(){
+
+        var handler = this;
+
+        return {
+            onShow: function(form, options){
+
+                if (!options || !options.size) { return; }
+
+                $('#size', form).val(options.size);
+
+            }
+        };
+
+    };
+
 	this.onClick = false;
 
 	this.onCreateElement = function(elementDom){
@@ -42,14 +58,22 @@ editor.registerElementHandler('spacer', new function() {
 	};
 
     this.applyOptions = function(elementDom, options, form){
-    	form = form.serializeArray();
-    	console.log(options.size)
+    	//let form = form.serializeArray();
+    	//console.log(options.values.size)
         //var dom = this.dom(widget);
         //var elementDom = $('#element_'+elementId, editor.editorIFrame);
         //elementDom.hide();
         //if (!options.size) { options.size = 20; }
+        
+        let size = $('#size',form).val();
 
-        $('div.jodelcms-content div', elementDom).css('height', Number(80)+'px').css('width', Number(80)+'px');
+        var elementId = elementDom.attr('id');
+
+        editor.editorFrame.get(0).contentWindow.options[elementId]['size'] = size;
+
+
+
+        $('div.jodelcms-content div', elementDom).css('height', Number(size)+'px');
 
     };
 

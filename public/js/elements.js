@@ -94,60 +94,51 @@ function Element(){
 
         var handler = this;
         var elementId = elementDom.attr('id').replace('element_', '');
+        //console.log(editor.editorFrame.get(0).contentWindow.options['element_'+elementId])
+        //alert(JSON.stringify(editor.editorFrame.get(0).contentWindow.options));
+        let options = editor.editorFrame.get(0).contentWindow.options['element_'+elementId];
+        // $.ajax({
+        //         type: 'GET', // define the type of HTTP verb we want to use (POST for our form)
+        //         url: '/admin/element/'+elementId, // the url where we want to POST
+        //         dataType: 'json', // what type of data do we expect back from the server
+        //         encode: true,
+        //         error: (data) => {
+        //                 $.each( errors, ( key, value ) => {
+        //                     $("input[name="+key+"]").parent().addClass('has-error');
+        //                     $("input[name="+key+"]").prev().append(' <span class="has-error">'+value+'</span>');
+        //                    })
+        //             }
+        //     }).done((data) => {
+        //         let options = JSON.parse(data.options);
 
-        //var options = editor.getElementOptions();
-        var options = editor.getElementOptions(elementId);
+                var formSettings = {
+                    id: this.getName() + '-options',
+                    title: 'Settings: ' + this.getTitle(),
+                    modal: true,
+                    url: '/admin/element/' + this.getName() + '/' + elementId + '/settings'+ '/' + editor.editorLocale,
+                    type: 'ajax',
+                    values: options,
+                    // source: {
+                    //  module: 'widgets',
+                    //  action: 'loadOptionsForm',
+           //              data: {
+           //                  handler: this.getName()
+           //              }
+                    // },
+                    buttons: {
+                        ok: 'Apply',
+                    },
+                    onSubmit: function(options, form){
+                        handler.applyOptions(elementDom, options, form);
+                    }
+                };
 
-        var formSettings = {
-			id: this.getName() + '-options',
-            title: 'Settings: ' + this.getTitle(),
-            modal: true,
-            url: '/admin/element/' + this.getName() + '/' + elementId + '/settings'+ '/' + editor.editorLocale,
-            //type: 'ajax',
-			values: options,
-			// source: {
-			// 	module: 'widgets',
-			// 	action: 'loadOptionsForm',
-   //              data: {
-   //                  handler: this.getName()
-   //              }
-			// },
-			buttons: {
-				ok: 'Apply',
-			},
-			onSubmit: function(options, form){
-                //console.log(elementId)
-				//handler.applyOptions(elementDom, options, form);
-                handler.saveOptions(elementDom, options, form);
-			}
-		};
+                if (typeof(this.getOptionsFormSettings) !== 'undefined'){
+                    formSettings = $.extend(formSettings, this.getOptionsFormSettings(elementDom));
+                }
 
-        if (typeof(this.getOptionsFormSettings) !== 'undefined'){
-            formSettings = $.extend(formSettings, this.getOptionsFormSettings(elementDom));
-        }
-        //alert(formSettings)
-
-        editor.openDialog(formSettings);
-
-
-        // this.openDialog({
-
-        //     modal: true,
-        //     url: '/'+this.editorLocale+'/admin/menu/create/' + menu_type_id,
-        //     type: 'ajax',
-        //     onAfterShow: () => {
-        //         this.renderMenuTypeSelect();
-        //     },
-        //     callback: () => {
-        //         this.loadMenu(menu_type_id);
-        //     },
-        //     buttons: {
-        //         ok: 'Create',
-        //         Cancel: () => {
-        //             this.dialog.dialog("close");
-        //         }
-        //     }
-        // });
+                editor.openDialog(formSettings);
+            // });
 
 	};
 
@@ -163,7 +154,7 @@ function Element(){
 
 	};
 
-	//this.applyOptions = function(widget, options, form){};
+	//this.applyOptions = function(elementDom, options, form){};
 
     this.dom = function(widget){
 

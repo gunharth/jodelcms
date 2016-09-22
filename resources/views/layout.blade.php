@@ -22,6 +22,11 @@
     @yield('head_code') 
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  @if (Auth::check())
+        <script>
+            var options = {};
+        </script>
+    @endif
   </head>
   
   <body>

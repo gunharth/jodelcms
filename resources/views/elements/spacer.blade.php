@@ -4,3 +4,7 @@
 		<div style="height: {{ $element->options->size }}px; width: 100%;"></div>
 	</div>
 </div>
+
+<script>    
+options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
+</script>

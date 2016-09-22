@@ -59,21 +59,6 @@ editor.registerElementHandler('form', new function() {
             },
             onShow: function(form, options){
 
-                // options += {
-        //   "email_type": "default",
-        //   "email": "",
-        //   "subject": "",
-        //   "thanks_msg": "",
-        //   "submit": "fsdfsfd",
-        //   "style": "s-horizontal",
-        //   "fields": [
-        //     {
-        //       "type": "text",
-        //       "title": "Test",
-        //       "isMandatory": false
-        //     }
-        //   ]};
-
                 $('.f-email-type select', form).change();
 
                 var list = $('.fields-list', form);

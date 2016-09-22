@@ -14,3 +14,7 @@
 		</form>
 	</div>
 </div>
+
+<script>    
+options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
+</script>
