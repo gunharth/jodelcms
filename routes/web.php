@@ -83,6 +83,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::post('element/sort', 'ElementsController@sort');
     //Route::match(['put', 'patch'], 'element/{id}', ['as' => 'admin.element.update', 'uses' => 'ElementController@update']);
     Route::get('element/{element}/{id}/settings/{locale}', 'ElementsController@settings');
+    Route::post('element/{element}/{id}/apply', 'ElementsController@apply');
 
 
     /*

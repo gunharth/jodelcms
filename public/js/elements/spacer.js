@@ -1,4 +1,4 @@
-editor.registerElementHandler('spacer', new function() {
+ editor.registerElementHandler('spacer', new function() {
 
     Element.apply(this, arguments);
 
@@ -48,6 +48,9 @@ editor.registerElementHandler('spacer', new function() {
 	this.onCreateElement = function(elementDom){
 
         //var dom = this.dom(widget);
+        var elementId = elementDom.attr('id');
+        editor.editorFrame.get(0).contentWindow.options[elementId] = { 'size': '25' };
+
         elementDom.attr('data-type','spacer');
         var content = $('<div></div>').css('height', '25px').css('width', '25px');
         var dom = elementDom.find('.jodelcms-content');
@@ -58,20 +61,12 @@ editor.registerElementHandler('spacer', new function() {
 	};
 
     this.applyOptions = function(elementDom, options, form){
-    	//let form = form.serializeArray();
-    	//console.log(options.values.size)
-        //var dom = this.dom(widget);
-        //var elementDom = $('#element_'+elementId, editor.editorIFrame);
-        //elementDom.hide();
-        //if (!options.size) { options.size = 20; }
         
         let size = $('#size',form).val();
 
         var elementId = elementDom.attr('id');
 
         editor.editorFrame.get(0).contentWindow.options[elementId]['size'] = size;
-
-
 
         $('div.jodelcms-content div', elementDom).css('height', Number(size)+'px');
 

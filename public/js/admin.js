@@ -8,11 +8,12 @@ $(function() {
 });
 
 $(document).keydown((e)=> {
-                if((e.ctrlKey || e.metaKey) && e.which == 83) {
-                    e.preventDefault();
-                    saveContent();
-                }
-            });
+    if((e.ctrlKey || e.metaKey) && e.which == 83) {
+        e.preventDefault();
+        saveContent();
+        console.log('aminjs Save fired')
+    }
+});
 
 function initTinyMCE(selector) {
 

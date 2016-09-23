@@ -90,6 +90,15 @@ editor.registerElementHandler('form', new function() {
 
 	this.onCreateElement = function(elementDom){
 
+        var elementId = elementDom.attr('id');
+        editor.editorFrame.get(0).contentWindow.options[elementId] = {"email_type": "default",
+          "email": "",
+          "subject": "",
+          "thanks_msg": "",
+          "submit": "fsdfsfd",
+          "style": "s-horizontal",
+          "fields": []};
+
         elementDom.attr('data-type','form');
         var content = $('<div></div>').css('height', '25px').css('width', '25px');
         var dom = elementDom.find('.jodelcms-content');
@@ -105,13 +114,14 @@ editor.registerElementHandler('form', new function() {
     //     var handler = this;
     // };
 
-    this.applyOptions = function(widget, options, form){
+    this.applyOptions = function(elementDom, options, form){
 
-        cms.showLoadingIndicator();
+        editor.showLoadingIndicator();
 
-        var dom = this.dom(widget);
+        //var dom = this.dom(widget);
+        var elementId = elementDom.attr('id');
         
-        options.fields = [];
+        editor.editorFrame.get(0).contentWindow.options[elementId]['fields'] = [];
 
         $('.fields-list .form-field', form).each(function(index){
 
@@ -123,7 +133,7 @@ editor.registerElementHandler('form', new function() {
             var type = $('select.field-type', field).val();
             var isMandatory = $('.b-mandatory', field).hasClass('active');
 
-            options.fields.push({
+            editor.editorFrame.get(0).contentWindow.options[elementId]['fields'].push({
                 type: type,
                 title: title,
                 isMandatory: isMandatory
@@ -131,10 +141,31 @@ editor.registerElementHandler('form', new function() {
 
         });
 
-        this.runBackend('buildForm', {id: widget.domId, options: JSON.stringify(options)}, function(result){
-            dom.empty().append(result.html);
-            cms.hideLoadingIndicator();
-        });
+        options = editor.editorFrame.get(0).contentWindow.options[elementId];
+        var elementIdDb = elementId.replace('element_', '');
+
+        $.ajax({
+                type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                url: '/admin/element/form/'+elementIdDb+'/apply', // the url where we want to POST
+                data: { 'options': JSON.stringify(options) },
+                error: (xhr, ajaxOptions, thrownError) => {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            }).done((data) => {
+                //let options = JSON.parse(data.options);
+                console.log(elementDom)
+                elementDom.find('form').replaceWith(data);
+                editor.hideLoadingIndicator();
+            
+         });
+
+        //console.log(options)
+
+        // this.runBackend('buildForm', {id: widget.domId, options: JSON.stringify(options)}, function(result){
+        //     dom.empty().append(result.html);
+        //     cms.hideLoadingIndicator();
+        // });
 
         return options;
 

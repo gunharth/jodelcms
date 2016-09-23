@@ -34,6 +34,9 @@ function Element(){
 
         var handler = this;
 
+        
+        
+
         //this.loadLang(function(){
             if (typeof(handler.onCreateElement) === 'function'){
                 element = handler.onCreateElement(elementDom, regionId);

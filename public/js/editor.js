@@ -40,12 +40,15 @@ class Editor {
             this.initRegions();
             // alert(JSON.stringify(this.editorFrame.get(0).contentWindow.eoptions));
 
-            $(document).keydown((e)=> {
-                if((e.ctrlKey || e.metaKey) && e.which == 83) {
-                    e.preventDefault();
-                    this.editorFrame.get(0).contentWindow.saveContent();
-                }
-            });
+
+        });
+
+        $(document).keydown((e)=> {
+            if((e.ctrlKey || e.metaKey) && e.which == 83) {
+                e.preventDefault();
+                this.editorFrame.get(0).contentWindow.saveContent();
+                console.log('editorjs Save fired')
+            }
         });
 
         this.editorPanel.draggable({

@@ -17,6 +17,14 @@ class ElementsController extends Controller
         return view('elements.'.$element->type, compact('element'))->render();
     }
 
+    public static function apply(Request $request, $element, $id)
+    {
+        $options = json_decode($request->options);
+        //return $options;
+
+        return view('elements.updateForm', compact('options'))->render();
+    }
+
 
     /**
      * Remove the specified resource from storage.
