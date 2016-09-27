@@ -37,8 +37,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(MenuSeeder::class);
 
-        $this->call(RegionSeeder::class);
+        //$this->call(RegionSeeder::class);
 
-        $this->call(ElementSeeder::class);
+        //$this->call(ElementSeeder::class);
     }
 }
