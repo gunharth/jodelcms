@@ -52,9 +52,9 @@
 				<li><a href="#tab-settings"><i class="fa fa-gear"></i></a></li>
 			</ul>
 			<div id="tab-elements" class="tab">
-				<div class="buttons">
+				<!-- <div class="buttons">
 					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
-				</div>
+				</div> -->
 				<div class="tab-content">
 					<div class="dd">
 			             <div class="list">

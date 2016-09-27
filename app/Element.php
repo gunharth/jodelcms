@@ -9,11 +9,17 @@ class Element extends Model
 {
     use Translatable;
 
+    public $useTranslationFallback = true;
+
     protected $fillable = ['type','order'];
 
     public $translatedAttributes = [
         'content',
         'options'
+    ];
+
+    protected $with = [
+        //'translations'
     ];
 
     public function region()

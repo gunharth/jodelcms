@@ -11,6 +11,8 @@ class Page extends Model
     use LogsActivity;
     use Translatable;
 
+    public $useTranslationFallback = true;
+
     /**
      * returnController for catch all routes.
      * @return string

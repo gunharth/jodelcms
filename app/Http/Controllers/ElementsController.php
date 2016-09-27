@@ -10,11 +10,11 @@ use App;
 class ElementsController extends Controller
 {
     
-    public static function renderElementView($element)
+    public static function renderElementView($element, $content)
     {
         $element->options = json_decode($element->options);
-
-        return view('elements.'.$element->type, compact('element'))->render();
+        //dd($element);
+        return view('elements.'.$element->type, compact('element','content'))->render();
     }
 
     public static function apply(Request $request, $element, $id)
