@@ -16,12 +16,25 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-  			@foreach($posts as $post)
-  				<h2><a href="{!! $post->link !!}">{!! $post->content01 !!}</a></h2>
-          {!! $post->published_at !!}
-  				{!! $post->content02 !!}
-  				<a href="{!! $post->link !!}">Full article</a>
-  			@endforeach
+  			
+        @foreach($posts as $post)
+        @foreach ($post->regions as $reg) 
+            @if ($reg->name == 'region-1')
+                @foreach ($reg->elements as $element)
+                    {!! \App\Http\Controllers\ElementsController::renderElementView($element, $element->content) !!}
+                    {{ $post->published_at }}
+                @endforeach
+            @endif
+            @if ($reg->name == 'region-2')
+                @foreach ($reg->elements as $element)
+                    {!! \App\Http\Controllers\ElementsController::renderElementView($element, $element->content) !!}
+                    <a href="{!! $post->link !!}">Full article</a>
+                @endforeach
+            @endif
+        @endforeach
+        @endforeach
+
+
       </div>
     </div>
   
