@@ -120,17 +120,16 @@ if (! function_exists('templateRegion')) {
      * @param $resource
      * @return string
      */
-    function templateRegion($page, $region)
+    function templateRegion($resource, $region)
     {
         $html = '';
         if (Auth::check()) {
-            $findRegion = $page->regions->contains('name', $region);
+            $findRegion = $resource->regions->contains('name', $region);
             if ($findRegion) {
-                foreach ($page->regions as $reg) {
+                foreach ($resource->regions as $reg) {
                     if ($reg->name == $region) {
                         $html .= '<div class="jodelRegion" data-region-id="'.$reg->id.'">';
                         foreach ($reg->elements as $element) {
-                            //echo $element->content;
                             $html .= \App\Http\Controllers\ElementsController::renderElementView($element, $element->content);
                         }
                         $html .= '</div>';
@@ -142,13 +141,13 @@ if (! function_exists('templateRegion')) {
 
             $newRegion = new App\Region;
             $newRegion->name = $region;
-            $page->regions()->save($newRegion);
+            $resource->regions()->save($newRegion);
             $html .= '<div class="jodelRegion" data-region-id="'.$newRegion->id.'"></div>';
 
             return $html;
         }
 
-        foreach ($page->regions as $reg) {
+        foreach ($resource->regions as $reg) {
             if ($reg->name == $region) {
                 $html .= '<div>';
                 foreach ($reg->elements as $element) {

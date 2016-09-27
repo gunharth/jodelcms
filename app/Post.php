@@ -29,9 +29,6 @@ class Post extends Model
     protected $fillable = [
         'title',
         'slug',
-        'content01',
-        'content02',
-        'content03',
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -45,9 +42,6 @@ class Post extends Model
     protected $translatedAttributes = [
         'title',
         'slug',
-        'content01',
-        'content02',
-        'content03',
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -57,7 +51,7 @@ class Post extends Model
     protected $with = [
         'template',
         'menu',
-        'translations',
+        // 'translations',
     ];
 
     protected $appends = [
@@ -99,6 +93,12 @@ class Post extends Model
         $pubDate = $this->published_at->format('Y-m-d H:i:s');
 
         return $this->orderBy('published_at', 'DESC')->where('published_at', '<', $pubDate)->where('id', '>', 1)->first();
+    }
+
+    // Region::class Morph Relation
+    public function regions()
+    {
+        return $this->morphMany(Region::class, 'regionable');
     }
 
     // Menu::class Morph Relation

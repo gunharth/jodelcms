@@ -11,9 +11,9 @@ class PostTranslation extends Model
     protected $fillable = [
         'title',
         'slug',
-        'content01',
-        'content02',
-        'content03',
+        // 'content01',
+        // 'content02',
+        // 'content03',
         'meta_title',
         'meta_description',
         'meta_keywords',

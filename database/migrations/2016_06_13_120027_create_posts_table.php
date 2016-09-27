@@ -32,9 +32,9 @@ class CreatePostsTable extends Migration
 
             $table->string('title')->nullable();
             $table->string('slug')->index();
-            $table->text('content01')->nullable();
-            $table->text('content02')->nullable();
-            $table->text('content03')->nullable();
+            // $table->text('content01')->nullable();
+            // $table->text('content02')->nullable();
+            // $table->text('content03')->nullable();
 
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();

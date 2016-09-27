@@ -9,22 +9,25 @@
 
 @section('content')
 @if (Auth::check()) <input type="hidden" id="url" value="/{!! config('app.locale') !!}/admin/blog/{!! $post->slug !!}/content"> @endif
+
   <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h1 @if (Auth::check()) class="jodelText" data-field="content01" @endif>{!! $post->content01 !!}</h1>
-        {!! $post->published_at->format('d.m.Y') !!}
-        
-      </div>
-    </div>
+
     <div class="row">
       <div class="col-md-12">
-        <div @if (Auth::check()) class="jodelTextarea" data-field="content02" @endif>{!! $post->content02 !!}</div>
+        {!! templateRegion($post, 'region-1') !!}
+        {!! $post->published_at->format('d.m.Y') !!}
       </div>
     </div>
+
     <div class="row">
-      <div class="col-md-6">@if (!empty($post->prev)) PREVIOUS POST <br><a href="/blog/{!! $post->prev->slug !!}">{!! $post->prev->content01 !!}</a>@endif</div>
-      <div class="col-md-6 text-right">@if (!empty($post->next)) NEXT POST <br><a href="/blog/{!! $post->next->slug !!}">{!! $post->next->content01 !!}</a>@endif</div>
+      <div class="col-md-12">
+        {!! templateRegion($post, 'region-2') !!}
+      </div>
+    </div>
+      
+    <div class="row">
+      <div class="col-md-6">@if (!empty($post->prev)) <a href="/blog/{!! $post->prev->slug !!}">PREVIOUS POST<br> {!! $post->prev->content01 !!}</a>@endif</div>
+      <div class="col-md-6 text-right">@if (!empty($post->next)) <a href="/blog/{!! $post->next->slug !!}">NEXT POST<br> {!! $post->next->content01 !!}</a>@endif</div>
     </div>
   </div>
   

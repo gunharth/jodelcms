@@ -11,7 +11,7 @@ class Page extends Model
     use LogsActivity;
     use Translatable;
 
-    public $useTranslationFallback = true;
+    //public $useTranslationFallback = true;
 
     /**
      * returnController for catch all routes.
@@ -75,6 +75,7 @@ class Page extends Model
         return '/page/'.$this->slug;
     }
 
+    // Region::class Morph Relation
     public function regions()
     {
         return $this->morphMany(Region::class, 'regionable');

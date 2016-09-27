@@ -58,7 +58,7 @@
 				<div class="tab-content">
 					<div class="dd">
 			             <div class="list">
-							<ul></ul>
+							<ul style="padding:0"></ul>
 						</div>
 			        </div> 
 		        </div>

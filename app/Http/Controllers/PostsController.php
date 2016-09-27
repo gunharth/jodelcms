@@ -6,8 +6,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 use App\PostTranslation;
-// use App\Http\Requests;
 use App\Template;
+use App\Element;
 use App\Post;
 use Auth;
 use App;
@@ -142,7 +142,14 @@ class PostsController extends Controller
                 $post->title = $post->translateOrDefault($this->locale)->title;
                 $post->slug = $slug;
             }
-            $post->fill($request->all())->save();
+            $post->save();
+
+            foreach ($request->elements as $elem) {
+                $element = Element::findOrFail($elem['id']);
+                $element->content = $elem['content'];
+                $element->options = $elem['options'];
+                $element->save();
+            }
 
             return $post;
         }
