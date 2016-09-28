@@ -9,12 +9,11 @@ use App;
 
 class ElementsController extends Controller
 {
-    
     public static function renderElementView($element, $content)
     {
         $element->options = json_decode($element->options);
         //dd($element);
-        return view('elements.'.$element->type, compact('element','content'))->render();
+        return view('elements.'.$element->type, compact('element', 'content'))->render();
     }
 
     public static function apply(Request $request, $element, $id)
@@ -24,7 +23,6 @@ class ElementsController extends Controller
 
         return view('elements.updateForm', compact('options'))->render();
     }
-
 
     /**
      * Remove the specified resource from storage.

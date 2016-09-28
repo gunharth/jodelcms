@@ -50,7 +50,7 @@ if (! function_exists('renderEditorMenus')) {
         $actions .= '</div>';
 
         $name = '<div '.$handle.'><i class="fa fa-arrows"></i></div>';
-        $name  .= '<div class="dd-content">'.$node->name.$actions.'</div>';
+        $name .= '<div class="dd-content">'.$node->name.$actions.'</div>';
 
         if ($node->isLeaf()) {
             return '<li '.$class.' '.$id.'>'.$name.'</li>';
@@ -99,7 +99,7 @@ if (! function_exists('renderEditorPages')) {
                         '<i class="fa fa-gear"></i>'.
                     '</button>';
         if (config('app.fallback_locale') == $editorLocale) {
-            $actions .=     '<button type="button" class="btn btn-link btn-xs duplicate" data-toggle="tooltip" title="duplicate">'.
+            $actions .= '<button type="button" class="btn btn-link btn-xs duplicate" data-toggle="tooltip" title="duplicate">'.
                                     '<i class="fa fa-copy"></i>'.
                                 '</button>'.
                                 $delete;
