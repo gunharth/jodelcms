@@ -11,11 +11,11 @@ class Element extends Model
 
     public $useTranslationFallback = true;
 
-    protected $fillable = ['type','order'];
+    protected $fillable = ['type', 'order'];
 
     public $translatedAttributes = [
         'content',
-        'options'
+        'options',
     ];
 
     protected $with = [
