@@ -10,6 +10,18 @@ editor.registerElementHandler('form', new function() {
 		return "fa-envelope-o";
 	};
 
+    this.getDefault = function() {
+        return {
+            "email_type": "default",
+            "email": "",
+            "subject": "",
+            "thanks_msg": "",
+            "submit": "fsdfsfd",
+            "style": "s-horizontal",
+            "fields": []
+        };
+    }
+
     this.getToolbarButtons = function(){
 
         var handler = this;
@@ -90,23 +102,9 @@ editor.registerElementHandler('form', new function() {
 
 	this.onCreateElement = function(elementDom){
 
-        var elementId = elementDom.attr('id');
-        editor.editorFrame.get(0).contentWindow.options[elementId] = {"email_type": "default",
-          "email": "",
-          "subject": "",
-          "thanks_msg": "",
-          "submit": "fsdfsfd",
-          "style": "s-horizontal",
-          "fields": []};
+        this.openOptionsForm(elementDom);
 
-        elementDom.attr('data-type','form');
-        var content = $('<div></div>').css('height', '25px').css('width', '25px');
-        var dom = elementDom.find('.jodelcms-content');
-        dom.append(content);
-
-        //this.openOptionsForm(elementDom);
-
-		//return widget;
+        //return elementDom;
 
 	};
 

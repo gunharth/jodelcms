@@ -12,6 +12,10 @@
 		return "fa-arrows-v";
 	};
 
+    this.getDefault = function() {
+        return { 'size': '25' };
+    }
+
     this.getToolbarButtons = function(){
 
         var handler = this;
@@ -47,14 +51,15 @@
 
 	this.onCreateElement = function(elementDom){
 
+        this.openOptionsForm(elementDom);
         //var dom = this.dom(widget);
-        var elementId = elementDom.attr('id');
-        editor.editorFrame.get(0).contentWindow.options[elementId] = { 'size': '25' };
+        // var elementId = elementDom.attr('id');
+        // editor.editorFrame.get(0).contentWindow.options[elementId] = this.getDefault();
 
-        elementDom.attr('data-type','spacer');
-        var content = $('<div></div>').css('height', '25px').css('width', '25px');
-        var dom = elementDom.find('.jodelcms-content');
-        dom.append(content);
+        // elementDom.attr('data-type','spacer');
+        // var content = $('<div></div>').css('height', '25px').css('width', '25px');
+        // var dom = elementDom.find('.jodelcms-content');
+        // dom.append(content);
 
 		//return widget;
 

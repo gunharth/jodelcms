@@ -51,10 +51,12 @@ class ElementsController extends Controller
         $region = Region::findOrFail($request->id);
         $element = new Element();
         $element->type = $request->type;
+        $element->options = $request->options;
         $element->order = $request->order;
         $region->elements()->save($element);
 
-        return $element;
+        return $this->renderElementView($element,'');
+        //return $element;
             //return ['success' => true, 'message' => 'Item deleted!'];
         //}
     }

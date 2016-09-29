@@ -1022,42 +1022,42 @@ class Editor {
 
     };
 
-    getElementOptions(elementId){
+    // getElementOptions(elementId){
         
-        // alert(JSON.stringify(this.editorFrame.get(0).contentWindow.options));
-        console.log(elementId)
-        return '{"size": "60" }';
-        $.ajax({
-                type: 'GET', // define the type of HTTP verb we want to use (POST for our form)
-                url: '/admin/element/'+elementId, // the url where we want to POST
-                dataType: 'json', // what type of data do we expect back from the server
-                encode: true,
-                error: (data) => {
+    //     // alert(JSON.stringify(this.editorFrame.get(0).contentWindow.options));
+    //     console.log(elementId)
+    //     return '{"size": "60" }';
+    //     $.ajax({
+    //             type: 'GET', // define the type of HTTP verb we want to use (POST for our form)
+    //             url: '/admin/element/'+elementId, // the url where we want to POST
+    //             dataType: 'json', // what type of data do we expect back from the server
+    //             encode: true,
+    //             error: (data) => {
                         
-                    }
-            }).done((data) => {
-                return '{"size": 60 }';
-            });
+    //                 }
+    //         }).done((data) => {
+    //             return '{"size": 60 }';
+    //         });
 
-        // var widget = this.getWidget(regionId, widgetId);
-        // return widget.options;
-        //return '{"size":"60"}';
-        //
-        // return {"email_type": "default",
-        //   "email": "",
-        //   "subject": "",
-        //   "thanks_msg": "",
-        //   "submit": "fsdfsfd",
-        //   "style": "s-horizontal",
-        //   "fields": [
-        //     {
-        //       "type": "text",
-        //       "title": "Test",
-        //       "isMandatory": false
-        //     }
-        //   ]};
+    //     // var widget = this.getWidget(regionId, widgetId);
+    //     // return widget.options;
+    //     //return '{"size":"60"}';
+    //     //
+    //     // return {"email_type": "default",
+    //     //   "email": "",
+    //     //   "subject": "",
+    //     //   "thanks_msg": "",
+    //     //   "submit": "fsdfsfd",
+    //     //   "style": "s-horizontal",
+    //     //   "fields": [
+    //     //     {
+    //     //       "type": "text",
+    //     //       "title": "Test",
+    //     //       "isMandatory": false
+    //     //     }
+    //     //   ]};
 
-    };
+    // };
 
     /**
      * Registers all Elements
@@ -1244,23 +1244,19 @@ class Editor {
         let regionId = regionDom.data('region-id');
         let elementOrder = regionDom.find('>div').length-1;
 
+        let handler = this.elementHandlers[ type ];
+        let options = handler.getDefault();
+
         $.ajax({
             type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
             url: '/admin/element/store', // the url where we want to POST
-            data: {'id' : regionId, 'type' : type, 'order' : elementOrder }, // our data object
-            dataType: 'json', // what type of data do we expect back from the server
+            data: {'id' : regionId, 'type' : type, 'options' : JSON.stringify(options), 'order' : elementOrder }, // our data object
+            //dataType: 'json', // what type of data do we expect back from the server
             encode: true,
             error: (data) => {}
         }).done((data) => {
-            let elementDom = $('<div></div>')
-                            .addClass('jodelcms-element')
-                            .attr('id', 'element_'+data.id);
-
-            elementDom.append('<div class="jodelcms-content" id="element_'+data.id+'_content" data-field="'+data.id+'"></div>');
-
+            let elementDom = $(data);
             $('.drop-helper', regionDom).before(elementDom);
-
-            let handler = this.elementHandlers[ type ]
 
             handler.createElement(regionId, elementDom, (elementDom, type)=>{
                 this.buildElementToolbar(elementDom, handler);
