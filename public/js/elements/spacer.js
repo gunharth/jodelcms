@@ -1,14 +1,14 @@
- editor.registerElementHandler('spacer', new function() {
+editor.registerElementHandler('spacer', new function() {
 
     Element.apply(this, arguments);
 
     this.editor;
 
-	this.getName = function(){
+	this.getName = function() {
 		return 'spacer';
 	};
 
-	this.getIcon = function(){
+	this.getIcon = function() {
 		return "fa-arrows-v";
 	};
 
@@ -16,11 +16,9 @@
         return { 'size': '25' };
     }
 
-    this.getToolbarButtons = function(){
-
-        var handler = this;
-
-		return {
+    this.getToolbarButtons = function() {
+		let handler = this;
+        return {
 			options: {
                 icon: "fa-gear",
                 click: function(elementDom){
@@ -28,53 +26,28 @@
 				}
 			}
 		};
-
 	};
 
-    this.getOptionsFormSettings = function(){
-
-        var handler = this;
-
+    this.getOptionsFormSettings = function() {
         return {
             onShow: function(form, options){
-
                 if (!options || !options.size) { return; }
-
                 $('#size', form).val(options.size);
-
             }
         };
-
     };
 
 	this.onClick = false;
 
-	this.onCreateElement = function(elementDom){
-
+	this.onCreateElement = function(elementDom) {
         this.openOptionsForm(elementDom);
-        //var dom = this.dom(widget);
-        // var elementId = elementDom.attr('id');
-        // editor.editorFrame.get(0).contentWindow.options[elementId] = this.getDefault();
-
-        // elementDom.attr('data-type','spacer');
-        // var content = $('<div></div>').css('height', '25px').css('width', '25px');
-        // var dom = elementDom.find('.jodelcms-content');
-        // dom.append(content);
-
-		//return widget;
-
 	};
 
-    this.applyOptions = function(elementDom, options, form){
-        
+    this.applyOptions = function(elementDom, options, form) {
         let size = $('#size',form).val();
-
-        var elementId = elementDom.attr('id');
-
+        let elementId = elementDom.attr('id');
         editor.editorFrame.get(0).contentWindow.options[elementId]['size'] = size;
-
         $('div.jodelcms-content div', elementDom).css('height', Number(size)+'px');
-
     };
 
 });

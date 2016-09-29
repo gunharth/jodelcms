@@ -11,21 +11,18 @@ class Editor {
         this.collection_id = 0;
         this.editorLocale = 'en';
         //this.elementsList = ["text","image","gallery","video","file","form","map","share","spacer","code"];
-        this.elementsList = ['text', 'spacer','form'];
+        this.elementsList = ['text', 'spacer', 'form', 'map'];
         this.elementHandlers = {};
         this.elementOptions = {};
     }
-
 
     showLoadingIndicator() {
         $('#editor-loading').show();
     };
 
-
     hideLoadingIndicator() {
         $('#editor-loading').fadeOut();
     };
-
 
     initPanel() {
         $.ajaxSetup({
@@ -34,8 +31,8 @@ class Editor {
             }
         });
 
-        this.editorFrame.on('load',() => {
-            
+        this.editorFrame.on('load', () => {
+
             $('a[target!=_blank]', this.editorFrame.contents()).attr('target', '_top');
             this.initRegions();
             // alert(JSON.stringify(this.editorFrame.get(0).contentWindow.eoptions));
@@ -43,8 +40,8 @@ class Editor {
 
         });
 
-        $(document).keydown((e)=> {
-            if((e.ctrlKey || e.metaKey) && e.which == 83) {
+        $(document).keydown((e) => {
+            if ((e.ctrlKey || e.metaKey) && e.which == 83) {
                 e.preventDefault();
                 this.editorFrame.get(0).contentWindow.saveContent();
                 console.log('editorjs Save fired')
@@ -96,7 +93,7 @@ class Editor {
             e.preventDefault();
             this.editorLocale = $(e.target).val();
             this.loadPages();
-            this.loadMenu( this.getMenuID() );
+            this.loadMenu(this.getMenuID());
         });
 
         $('.modal-header .tb-collapse', this.editorPanel).on('click', (e) => {
@@ -125,7 +122,7 @@ class Editor {
 
 
         /**
-         *	Open new page dialog
+         *  Open new page dialog
          */
         $('#tab-pages', this.editorPanel).on('click', '.btn-create', (e) => {
             e.preventDefault();
@@ -133,7 +130,7 @@ class Editor {
         });
 
         /**
-         *	Load page in window
+         *  Load page in window
          */
         $('#tab-pages', this.editorPanel).on('click', '.load', (e) => {
             e.preventDefault();
@@ -142,7 +139,7 @@ class Editor {
         });
 
         /**
-         *	Open edit page dialog
+         *  Open edit page dialog
          */
         $('#tab-pages', this.editorPanel).on('click', '.settings', (e) => {
             e.preventDefault();
@@ -174,7 +171,7 @@ class Editor {
         });
 
         /**
-         *	Delete a page
+         *  Delete a page
          */
         $('#tab-pages', this.editorPanel).on('click', '.delete', (e) => {
             e.preventDefault();
@@ -187,7 +184,7 @@ class Editor {
                 this.showLoadingIndicator();
                 $.ajax({
                     type: 'POST',
-                    url: '/admin/page/'+page_id,
+                    url: '/admin/page/' + page_id,
                     data: {
                         '_method': 'delete'
                     },
@@ -204,15 +201,6 @@ class Editor {
                 });
             });
         });
-
-
-
-
-
-
-
-
-
 
         /**
         /* Menu funtions
@@ -240,12 +228,12 @@ class Editor {
 
 
         /**
-         *	Open new menu dialog
+         *  Open new menu dialog
          */
         $('#tab-menus', this.editorPanel).on('click', '.btn-create', (e) => {
             e.preventDefault();
             //let menu_type_id = $('#menuSelector').find('option:selected').val();
-            this.addMenu( this.getMenuID() );
+            this.addMenu(this.getMenuID());
         });
 
         /**
@@ -255,7 +243,7 @@ class Editor {
             e.preventDefault();
             let src = $(e.target).data('url');
             let target = $(e.target).data('target');
-            if(target == '') {
+            if (target == '') {
                 window.top.location.href = src;
             } else {
                 window.open(src);
@@ -275,7 +263,7 @@ class Editor {
 
 
         /**
-         *	Toggle menu active state
+         *  Toggle menu active state
          */
         $('#tab-menus', this.editorPanel).on('click', '.toggleActive', (e) => {
             e.preventDefault();
@@ -298,7 +286,7 @@ class Editor {
 
 
         /**
-         *	Delete a menu
+         *  Delete a menu
          */
         $('#tab-menus', this.editorPanel).on('click', '.delete', (e) => {
             e.preventDefault();
@@ -311,7 +299,7 @@ class Editor {
                 this.showLoadingIndicator();
                 $.ajax({
                     type: 'POST',
-                    url: '/admin/menu/'+menu_type_id,
+                    url: '/admin/menu/' + menu_type_id,
                     data: {
                         '_method': 'delete'
                     },
@@ -330,17 +318,17 @@ class Editor {
         });
 
         /**
-         *	Select a menu
+         *  Select a menu
          */
         $('#menuSelector', this.editorPanel).on('change', (e) => {
             //let menu_type_id = $('#menuSelector').find('option:selected').val();
-            this.loadMenu( this.getMenuID() );
+            this.loadMenu(this.getMenuID());
         });
 
         /**
          *  Menu item type form select
          */
-        $('body').on('change','#menuTypeSelector', (e) => {
+        $('body').on('change', '#menuTypeSelector', (e) => {
             this.renderMenuTypeSelect();
         });
 
@@ -395,7 +383,7 @@ class Editor {
                 this.showLoadingIndicator();
                 $.ajax({
                     type: 'POST',
-                    url: '/admin/blog/'+this.collection_id,
+                    url: '/admin/blog/' + this.collection_id,
                     data: {
                         '_method': 'delete'
                     },
@@ -420,7 +408,7 @@ class Editor {
             let form = $(e.target).parents('form');
             this.submitCollectionForm(form);
         });
-        
+
         // collection pagination
         $('body').on('click', '#collection-edit .pagination a', (e) => {
             e.preventDefault();
@@ -438,9 +426,6 @@ class Editor {
                 this.hideLoadingIndicator();
             });
         });
-        
-
-        
 
         /**
          *  Tab settings logs
@@ -456,6 +441,7 @@ class Editor {
 
     }
 
+
     /**
      *  Editor edit collection window
      */
@@ -465,7 +451,7 @@ class Editor {
             title: 'Edit',
             modal: true,
             width: 800,
-            url: '/admin/'+this.collection+'/collectionIndex',
+            url: '/admin/' + this.collection + '/collectionIndex',
             type: 'ajax',
             onAfterShow: () => {
                 this.loadCollectionItems();
@@ -476,10 +462,10 @@ class Editor {
             // //this.loadCollectionItems(collection);
             // },
             buttons: {
-            //     ok: 'Save',
-            //     Cancel: () => {
-            //         this.dialog.dialog("close");
-            //     }
+                //     ok: 'Save',
+                //     Cancel: () => {
+                //         this.dialog.dialog("close");
+                //     }
             }
         });
     };
@@ -491,7 +477,7 @@ class Editor {
         this.showLoadingIndicator();
         $.ajax({
             type: 'GET',
-            url: '/admin/'+this.collection+'/listCollectionItems',
+            url: '/admin/' + this.collection + '/listCollectionItems',
             //data: 'id='+menu_type_id,
             error: (xhr, ajaxOptions, thrownError) => {
                 console.log(xhr.status);
@@ -510,7 +496,7 @@ class Editor {
         this.showLoadingIndicator();
         $.ajax({
             type: 'GET',
-            url: '/' + this.editorLocale + '/admin/'+this.collection+'/create',
+            url: '/' + this.editorLocale + '/admin/' + this.collection + '/create',
             //data: 'id='+menu_type_id,
             error: (xhr, ajaxOptions, thrownError) => {
                 console.log(xhr.status);
@@ -530,7 +516,7 @@ class Editor {
         this.showLoadingIndicator();
         $.ajax({
             type: 'GET',
-            url: '/' + this.editorLocale + '/admin/'+this.collection+'/' + this.collection_id + '/settings',
+            url: '/' + this.editorLocale + '/admin/' + this.collection + '/' + this.collection_id + '/settings',
             //data: 'id='+menu_type_id,
             error: (xhr, ajaxOptions, thrownError) => {
                 console.log(xhr.status);
@@ -545,46 +531,46 @@ class Editor {
 
     submitCollectionForm(form) {
         // if (options.type == 'ajax') {
-            this.showLoadingIndicator();
-            //let form = $('#collection-edit form:visible');
-            let formData = form.serialize();
-            let action = form.attr('action');
-            $.ajax({
-                type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-                url: action, // the url where we want to POST
-                data: formData, // our data object
-                dataType: 'json', // what type of data do we expect back from the server
-                encode: true,
-                error: (data) => {
-                        this.hideLoadingIndicator();
-                        $("input").parent().removeClass('has-error');
-                        $("input").prev().find('span').remove();
-                        let errors = data.responseJSON;
-                        console.log(errors);
-                        $.each( errors, ( key, value ) => {
-                            $("input[name="+key+"]").parent().addClass('has-error');
-                            $("input[name="+key+"]").prev().append(' <span class="has-error">'+value+'</span>');
-                           })
-                    }
-            }).done((data) => {
-                //this.hideLoadingIndicator();
-                console.log(data)
-                if(data == true) {
-                    this.hideLoadingIndicator();
-                } else {
-                     this.collection_id = data.id;
-                     this.loadCollectionItems(this.collection);
-                    this.editCollectionItem();
-                }
-               
-                //this.data = data;
-                //dialog.dialog('close');
-                //dialog.remove();
-                // if (typeof(options.callback) === 'function') {
-                //     options.callback();
-                // }
+        this.showLoadingIndicator();
+        //let form = $('#collection-edit form:visible');
+        let formData = form.serialize();
+        let action = form.attr('action');
+        $.ajax({
+            type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            url: action, // the url where we want to POST
+            data: formData, // our data object
+            dataType: 'json', // what type of data do we expect back from the server
+            encode: true,
+            error: (data) => {
+                this.hideLoadingIndicator();
+                $("input").parent().removeClass('has-error');
+                $("input").prev().find('span').remove();
+                let errors = data.responseJSON;
+                console.log(errors);
+                $.each(errors, (key, value) => {
+                    $("input[name=" + key + "]").parent().addClass('has-error');
+                    $("input[name=" + key + "]").prev().append(' <span class="has-error">' + value + '</span>');
+                })
+            }
+        }).done((data) => {
+            //this.hideLoadingIndicator();
+            console.log(data)
+            if (data == true) {
+                this.hideLoadingIndicator();
+            } else {
+                this.collection_id = data.id;
+                this.loadCollectionItems(this.collection);
+                this.editCollectionItem();
+            }
 
-            });
+            //this.data = data;
+            //dialog.dialog('close');
+            //dialog.remove();
+            // if (typeof(options.callback) === 'function') {
+            //     options.callback();
+            // }
+
+        });
         // } else {
         //     form.submit()
         // }
@@ -599,16 +585,16 @@ class Editor {
             title: 'Edit',
             modal: false,
             width: 800,
-            url: '/admin/'+setting,
+            url: '/admin/' + setting,
             type: 'ajax',
             // callback: () => {
             //     this.loadPages();
             // },
             buttons: {
-            //     ok: 'Save',
-            //     Cancel: () => {
-            //         this.dialog.dialog("close");
-            //     }
+                //     ok: 'Save',
+                //     Cancel: () => {
+                //         this.dialog.dialog("close");
+                //     }
             }
         });
     };
@@ -619,10 +605,10 @@ class Editor {
      */
     renderMenuTypeSelect() {
         let dropdown = $('#menuTypeItemSelector');
-        if(dropdown.length) {
+        if (dropdown.length) {
             let external = $('#menuTypeExternalInput');
             let selected = $('#menuTypeSelector').find('option:selected').val();
-            if(selected == 'External') {
+            if (selected == 'External') {
                 dropdown.hide();
                 external.show();
             } else {
@@ -641,12 +627,12 @@ class Editor {
                     dropdown.empty();
                     //ele.append('<option value="0">-- Auswahl --</option>');
                     let selected = 0;
-                    if($('#morpher_id_orig').length) {
+                    if ($('#morpher_id_orig').length) {
                         selected = $('#morpher_id_orig').text();
                     }
                     for (var i = 0; i < data.length; i++) {
                         let sel = '';
-                        if(data[i].id == selected) {
+                        if (data[i].id == selected) {
                             sel = ' selected="selected"';
                         }
                         dropdown.append('<option value="' + data[i].id + '"' + sel + '>' + data[i].title + '</option>');
@@ -663,7 +649,7 @@ class Editor {
         this.showLoadingIndicator();
         $.ajax({
             type: 'GET',
-            url: '/admin/page/listPages/'+ this.editorLocale,
+            url: '/admin/page/listPages/' + this.editorLocale,
             //data: 'id='+menu_type_id,
             error: (xhr, ajaxOptions, thrownError) => {
                 console.log(xhr.status);
@@ -676,14 +662,14 @@ class Editor {
     }
 
     /**
-     *	Editor edit page window
+     *  Editor edit page window
      */
     editPage() {
         this.openDialog({
             id: 'page-edit',
             title: 'Edit',
             modal: true,
-            url: '/'+this.editorLocale+'/admin/page/' + this.page_id + '/settings',
+            url: '/' + this.editorLocale + '/admin/page/' + this.page_id + '/settings',
             type: 'ajax',
             callback: () => {
                 this.loadPages();
@@ -721,7 +707,7 @@ class Editor {
     };
 
     loadPageURL() {
-        window.top.location.href = '/page/'+this.data.slug;
+        window.top.location.href = '/page/' + this.data.slug;
     }
 
 
@@ -773,15 +759,15 @@ class Editor {
         }
     };
 
-    
-    /**
-    *  Get active Menu id
-    */
-   getMenuID() {
-        return $('#menuSelector').find('option:selected').val();
-   }
 
-   /**
+    /**
+     *  Get active Menu id
+     */
+    getMenuID() {
+        return $('#menuSelector').find('option:selected').val();
+    }
+
+    /**
      *  Editor load selected menu
      */
     loadMenu(menu_type_id) {
@@ -811,13 +797,13 @@ class Editor {
             id: 'menu-edit',
             title: 'Edit',
             modal: true,
-            url: '/admin/menu/' + this.menu_type_id + '/settings'+ '/' + this.editorLocale,
+            url: '/admin/menu/' + this.menu_type_id + '/settings' + '/' + this.editorLocale,
             type: 'ajax',
             onAfterShow: () => {
                 this.renderMenuTypeSelect();
             },
             callback: () => {
-                this.loadMenu( this.getMenuID() );
+                this.loadMenu(this.getMenuID());
             },
             cache: false,
             buttons: {
@@ -839,7 +825,7 @@ class Editor {
             id: 'menu-add',
             title: 'Create a new menu',
             modal: true,
-            url: '/'+this.editorLocale+'/admin/menu/create/' + menu_type_id,
+            url: '/' + this.editorLocale + '/admin/menu/create/' + menu_type_id,
             type: 'ajax',
             onAfterShow: () => {
                 this.renderMenuTypeSelect();
@@ -855,7 +841,7 @@ class Editor {
             }
         });
     };
-    
+
 
     /**
      * Global Modal open window
@@ -878,7 +864,7 @@ class Editor {
                     });
                 }
 
-                if (typeof(options.onCreate) === 'function'){
+                if (typeof(options.onCreate) === 'function') {
                     options.onCreate(formDom);
                 }
 
@@ -893,7 +879,7 @@ class Editor {
         var dialog = $('#' + options.id);
         var form = $('form', dialog);
 
-        if (form.find('.tabs').length === 1){
+        if (form.find('.tabs').length === 1) {
             $('.tabs ul li a', form).eq(0).click();
         }
 
@@ -915,7 +901,7 @@ class Editor {
 
         var buttons = {};
 
-        if(typeof(options.buttons.ok) !== 'undefined') {
+        if (typeof(options.buttons.ok) !== 'undefined') {
             buttons[options.buttons.ok] = () => {
                 this.submitForm(dialog, form, options);
             };
@@ -925,7 +911,7 @@ class Editor {
         //     dialog.remove();
         // };
         // 
-        if (typeof(options.onShow) === 'function'){
+        if (typeof(options.onShow) === 'function') {
             options.onShow(form, options.values);
         }
 
@@ -941,23 +927,23 @@ class Editor {
                 at: "center top+50",
                 of: window
             },*/
-            open:function () {
+            open: function() {
 
                 //$(this).closest('.ui-dialog').find(".ui-dialog-buttonset .ui-button:first").addClass("green");
 
-                if (typeof(options.onAfterShow) === 'function'){
+                if (typeof(options.onAfterShow) === 'function') {
                     options.onAfterShow();
                 }
 
             },
-            close: function( event, ui ) {
+            close: function(event, ui) {
                 dialog.remove();
             }
         });
     };
 
     submitForm(dialog, form, options) {
-        if (typeof(options.onSubmit) === 'function'){
+        if (typeof(options.onSubmit) === 'function') {
             //console.log(options)
             options.onSubmit(options, form);
             dialog.dialog('close');
@@ -971,15 +957,15 @@ class Editor {
                 dataType: 'json', // what type of data do we expect back from the server
                 encode: true,
                 error: (data) => {
-                        $("input").parent().removeClass('has-error');
-                        $("input").prev().find('span').remove();
-                        let errors = data.responseJSON;
-                        console.log(errors);
-                        $.each( errors, ( key, value ) => {
-                            $("input[name="+key+"]").parent().addClass('has-error');
-                            $("input[name="+key+"]").prev().append(' <span class="has-error">'+value+'</span>');
-                           })
-                    }
+                    $("input").parent().removeClass('has-error');
+                    $("input").prev().find('span').remove();
+                    let errors = data.responseJSON;
+                    console.log(errors);
+                    $.each(errors, (key, value) => {
+                        $("input[name=" + key + "]").parent().addClass('has-error');
+                        $("input[name=" + key + "]").prev().append(' <span class="has-error">' + value + '</span>');
+                    })
+                }
             }).done((data) => {
                 this.data = data;
                 dialog.dialog('close');
@@ -1023,7 +1009,7 @@ class Editor {
     };
 
     // getElementOptions(elementId){
-        
+
     //     // alert(JSON.stringify(this.editorFrame.get(0).contentWindow.options));
     //     console.log(elementId)
     //     return '{"size": "60" }';
@@ -1033,7 +1019,7 @@ class Editor {
     //             dataType: 'json', // what type of data do we expect back from the server
     //             encode: true,
     //             error: (data) => {
-                        
+
     //                 }
     //         }).done((data) => {
     //             return '{"size": 60 }';
@@ -1062,9 +1048,9 @@ class Editor {
     /**
      * Registers all Elements
      */
-    registerElementHandler(id, handler){
+    registerElementHandler(id, handler) {
 
-        handler.getTitle = function(){
+        handler.getTitle = function() {
             //return cms.lang("widgetTitle_" + this.getName());
             //return 'TextBlock';
             return this.getName();
@@ -1080,16 +1066,16 @@ class Editor {
      */
     buildElementsList() {
 
-        let elementsList = $('#tab-elements .list ul' , this.editorPanel);
+        let elementsList = $('#tab-elements .list ul', this.editorPanel);
 
         for (let i in this.elementsList) {
             let elementId = this.elementsList[i];
 
             let title = this.elementHandlers[elementId].getTitle();
             let icon = this.elementHandlers[elementId].getIcon();
-         
+
             let item = $('<li></li>').attr('data-id', elementId).addClass('editor-element');
-            item.html('<i class="fa '+icon+'"></i>');
+            item.html('<i class="fa ' + icon + '"></i>');
             item.attr('title', title);
             item.tooltip({
                 track: true,
@@ -1108,15 +1094,15 @@ class Editor {
     /**
      * Initialize the editable Elements
      */
-    initElements(region){
-        region.find('>div').each((i,elm)=>{
+    initElements(region) {
+        region.find('>div').each((i, elm) => {
 
             let elementDom = $(elm);
 
             let type = elementDom.data('type');
             let handler = this.elementHandlers[type];
 
-            handler.initElement(elementDom, (elementDom,type) => {
+            handler.initElement(elementDom, (elementDom, type) => {
                 this.buildElementToolbar(elementDom, handler);
             });
         });
@@ -1125,7 +1111,7 @@ class Editor {
     /**
      * Build elements Toolbar
      */
-    buildElementToolbar(elementDom, handler){
+    buildElementToolbar(elementDom, handler) {
 
         if (typeof(handler.toolbarButtons) === 'undefined') {
 
@@ -1141,7 +1127,7 @@ class Editor {
                 "delete": {
                     icon: "fa-trash",
                     title: 'Delete',
-                    click: (elementDom)=>{
+                    click: (elementDom) => {
                         this.deleteElement(elementDom);
                     }
                 }
@@ -1149,7 +1135,7 @@ class Editor {
 
             var buttons = {};
 
-            if (typeof(handler.getToolbarButtons) === 'function'){
+            if (typeof(handler.getToolbarButtons) === 'function') {
                 buttons = handler.getToolbarButtons();
             }
 
@@ -1160,20 +1146,23 @@ class Editor {
         var toolbar = $('<div />').addClass('inline-toolbar').addClass('jodelcms');
         var isFixedRegion = elementDom.parents('.jodelcms-region-fixed').length > 0;
 
-        $.map(handler.toolbarButtons, function(button, buttonId){
+        $.map(handler.toolbarButtons, function(button, buttonId) {
 
-            if (button === false) { return button; }
-            if (buttonId == 'move' && isFixedRegion) { return button; }
-            if (buttonId == 'delete' && isFixedRegion) { return button; }
+            if (button === false) {
+                return button; }
+            if (buttonId == 'move' && isFixedRegion) {
+                return button; }
+            if (buttonId == 'delete' && isFixedRegion) {
+                return button; }
 
-            var buttonDom = $('<div></div>').addClass('button').addClass('b-'+buttonId);
+            var buttonDom = $('<div></div>').addClass('button').addClass('b-' + buttonId);
             buttonDom.attr('title', button.title);
-            buttonDom.html('<i class="fa '+button.icon+'"></i>');
+            buttonDom.html('<i class="fa ' + button.icon + '"></i>');
 
             toolbar.append(buttonDom);
 
-            if (typeof(button.click) === 'function'){
-                buttonDom.click(function(){
+            if (typeof(button.click) === 'function') {
+                buttonDom.click(function() {
                     button.click(elementDom);
                 });
             }
@@ -1190,8 +1179,7 @@ class Editor {
      * Initialize the editable Regions
      */
     initRegions() {
-
-        $('.jodelRegion', this.editorFrame.contents()).each((i,elm)=>{
+        $('.jodelRegion', this.editorFrame.contents()).each((i, elm) => {
             let region = $(elm);
             this.initElements(region);
 
@@ -1202,7 +1190,8 @@ class Editor {
 
             $('.drop-helper', region).hide();
 
-            if (region.hasClass('jodelcms-region-fixed')) { return; }
+            if (region.hasClass('jodelcms-region-fixed')) {
+                return; }
 
             region.droppable({
                 accept: ".editor-element",
@@ -1212,7 +1201,7 @@ class Editor {
                 out: () => {
                     $('.drop-helper', region).hide();
                 },
-                drop: ( event, ui ) => {
+                drop: (event, ui) => {
                     $('.drop-helper', region).hide();
                     this.addElement(region, ui.draggable.data('id'));
                 }
@@ -1221,7 +1210,7 @@ class Editor {
             region.sortable({
                 handle: '.b-move',
                 axis: 'y',
-                update: function( event, ui ){
+                update: function(event, ui) {
                     var data = $(this).sortable('serialize');
                     $.ajax({
                         data: data,
@@ -1231,7 +1220,6 @@ class Editor {
                     })
                 }
             });
-
         });
 
     };
@@ -1239,18 +1227,18 @@ class Editor {
     /**
      * Add an Element
      */
-    addElement(regionDom, type){
+    addElement(regionDom, type) {
         //alert(type)
         let regionId = regionDom.data('region-id');
-        let elementOrder = regionDom.find('>div').length-1;
+        let elementOrder = regionDom.find('>div').length - 1;
 
-        let handler = this.elementHandlers[ type ];
+        let handler = this.elementHandlers[type];
         let options = handler.getDefault();
 
         $.ajax({
             type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
             url: '/admin/element/store', // the url where we want to POST
-            data: {'id' : regionId, 'type' : type, 'options' : JSON.stringify(options), 'order' : elementOrder }, // our data object
+            data: { 'id': regionId, 'type': type, 'options': JSON.stringify(options), 'order': elementOrder }, // our data object
             //dataType: 'json', // what type of data do we expect back from the server
             encode: true,
             error: (data) => {}
@@ -1258,7 +1246,7 @@ class Editor {
             let elementDom = $(data);
             $('.drop-helper', regionDom).before(elementDom);
 
-            handler.createElement(regionId, elementDom, (elementDom, type)=>{
+            handler.createElement(regionId, elementDom, (elementDom, type) => {
                 this.buildElementToolbar(elementDom, handler);
                 return true;
             });
@@ -1268,15 +1256,15 @@ class Editor {
     /**
      * Delete an Element
      */
-    deleteElement(elementDom){
-        
+    deleteElement(elementDom) {
+
         let elementId = elementDom.attr('id');
         let eid = elementId.replace('element_', '');
 
-        this.showConfirmationDialog('Delete this Element', function(){
+        this.showConfirmationDialog('Delete this Element', function() {
             $.ajax({
                 type: 'POST',
-                url: '/admin/element/'+eid,
+                url: '/admin/element/' + eid,
                 data: {
                     '_method': 'delete'
                 },
@@ -1292,6 +1280,7 @@ class Editor {
     };
 
 }
+
 
 let editor = new Editor();
 
