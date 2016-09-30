@@ -10,17 +10,15 @@ editor.registerElementHandler('map', new function() {
         return "fa-globe";
     };
 
-    this.getDefault = function() {
-        return {
-            "email_type": "default",
-            "email": "",
-            "subject": "",
-            "thanks_msg": "",
-            "submit": "fsdfsfd",
-            "style": "s-horizontal",
-            "fields": []
-        };
-    }
+    this.defaultOptions = {
+        "email_type": "default",
+        "email": "",
+        "subject": "",
+        "thanks_msg": "",
+        "submit": "fsdfsfd",
+        "style": "s-horizontal",
+        "fields": []
+    };
 
     this.getToolbarButtons = function() {
         let handler = this;

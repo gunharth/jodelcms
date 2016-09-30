@@ -6,7 +6,13 @@
     		<div class="form-group">
 	            <label for="{{ $field->title}}" class="col-sm-2 control-label">{{ $field->title}}</label>
 	            <div class="col-sm-10">
+	            @if($field->type == 'textarea')
+	            	<textarea class="form-control" placeholder="{{ $field->title}}" name="{{ $field->title}}" id="{{ $field->title}}"></textarea>
+	            @endif
+	            @if($field->type == 'text')
 	            	<input class="form-control" placeholder="{{ $field->title}}" name="{{ $field->title}}" type="{{ $field->type}}" id="{{ $field->title}}">
+	            @endif
+	            	
 	            </div>
             </div>
 		@endforeach
@@ -14,7 +20,7 @@
 			<div class="form-group">
 	            <label for="" class="col-sm-2 control-label"></label>
 	            <div class="col-sm-10">
-	            	<input type="submit" name="submit" value="Submit">
+	            	<input type="submit" name="submit" value="{{ $element->options->submit }}">
 	            </div>
             </div>
 

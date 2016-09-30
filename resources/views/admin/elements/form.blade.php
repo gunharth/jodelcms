@@ -68,12 +68,12 @@
 
                 <div class="field f-thanks-msg">
                     <label for="thanks_msg">Thank you Mesage:</label>
-                    <textarea name="thanks_msg"></textarea>
+                    <textarea name="thanks_msg">{{ $element->options->thanks_msg }}</textarea>
                 </div>
 
                 <div class="field">
                     <label for="submit">Subit Button:</label>
-                    <input type="text" name="submit">
+                    <input type="text" name="submit" value="{{ $element->options->submit }}">
                 </div>
 
                 <div class="field">

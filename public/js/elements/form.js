@@ -10,17 +10,15 @@ editor.registerElementHandler('form', new function() {
         return "fa-envelope-o";
     };
 
-    this.getDefault = function() {
-        return {
-            "email_type": "default",
-            "email": "",
-            "subject": "",
-            "thanks_msg": "",
-            "submit": "fsdfsfd",
-            "style": "s-horizontal",
-            "fields": []
-        };
-    }
+    this.defaultOptions = {
+        "email_type": "default",
+        "email": "",
+        "subject": "",
+        "thanks_msg": "Thank you for your message",
+        "submit": "Submit",
+        "style": "s-horizontal",
+        "fields": []
+    };
 
     this.getToolbarButtons = function() {
         let handler = this;

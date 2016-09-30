@@ -1233,7 +1233,7 @@ class Editor {
         let elementOrder = regionDom.find('>div').length - 1;
 
         let handler = this.elementHandlers[type];
-        let options = handler.getDefault();
+        let options = handler.defaultOptions;
 
         $.ajax({
             type: 'POST', // define the type of HTTP verb we want to use (POST for our form)

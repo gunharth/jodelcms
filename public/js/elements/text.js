@@ -13,9 +13,7 @@ editor.registerElementHandler('text', new function() {
         return "fa-font";
     };
 
-    this.getDefault = function() {
-        return {};
-    }
+    this.defaultOptions = {};
 
     this.getToolbarButtons = function() {
         return {

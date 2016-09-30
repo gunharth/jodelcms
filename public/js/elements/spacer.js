@@ -12,9 +12,7 @@ editor.registerElementHandler('spacer', new function() {
 		return "fa-arrows-v";
 	};
 
-    this.getDefault = function() {
-        return { 'size': '25' };
-    }
+    this.defaultOptions = { 'size': '25' };
 
     this.getToolbarButtons = function() {
 		let handler = this;

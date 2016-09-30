@@ -18,20 +18,20 @@
       <div class="col-md-12">
   			
         @foreach($posts as $post)
-        @foreach ($post->regions as $reg) 
-            @if ($reg->name == 'region-1')
-                @foreach ($reg->elements as $element)
-                    {!! \App\Http\Controllers\ElementsController::renderElementView($element, $element->content) !!}
-                    {{ $post->published_at }}
-                @endforeach
-            @endif
-            @if ($reg->name == 'region-2')
-                @foreach ($reg->elements as $element)
-                    {!! \App\Http\Controllers\ElementsController::renderElementView($element, $element->content) !!}
-                    <a href="{!! $post->link !!}">Full article</a>
-                @endforeach
-            @endif
-        @endforeach
+          @foreach ($post->regions as $reg) 
+              @if ($reg->name == 'region-1')
+                  @foreach ($reg->elements as $element)
+                      {!! \App\Http\Controllers\ElementsController::renderElementView($element, $element->content) !!}
+                      {{ $post->published_at }}
+                  @endforeach
+              @endif
+              @if ($reg->name == 'region-2')
+                  @foreach ($reg->elements as $element)
+                      {!! \App\Http\Controllers\ElementsController::renderElementView($element, $element->content) !!}
+                      <a href="{!! $post->link !!}">Full article</a>
+                  @endforeach
+              @endif
+          @endforeach
         @endforeach
 
 

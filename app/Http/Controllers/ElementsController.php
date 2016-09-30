@@ -71,6 +71,7 @@ class ElementsController extends Controller
     {
         App::setLocale($editorLocale);
         $element = Element::findOrFail($id);
+        $element->options = json_decode($element->options);
 
         return view('admin.elements.'.$handler, compact('element'));
     }
