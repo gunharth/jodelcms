@@ -18,6 +18,9 @@
 	    {!! Form::text('zoom',null,['class' => 'form-control', 'placeholder' => '12']) !!}
 	</div>
 	<div class="form-group">
+	    <a href="#" class="find-coords">Find Adress</a> <br>
+	</div>
+	<div class="form-group">
 	    {!! Form::label('lat','Latitude') !!}
 	    {!! Form::text('lat',null,['class' => 'form-control']) !!}
 	</div>
@@ -28,12 +31,6 @@
 	<div class="form-group">
 	    {!! Form::label('title','Marker') !!}
 	    {!! Form::text('title',null,['class' => 'form-control']) !!}
-	</div>
-
-	<div class="form-group">
-	    <a href="#" class="find-coords">Find Adress</a> <br>
-	    <label>Lat: <input type="text" name="lat" class="m-lat"></label>
-                <label>Lng: <input type="text" name="lng" class="m-lng"></label>
 	</div>
 
 {!! Form::close() !!}

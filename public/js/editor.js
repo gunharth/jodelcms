@@ -14,6 +14,7 @@ class Editor {
         this.elementsList = ['text', 'spacer', 'form', 'map'];
         this.elementHandlers = {};
         this.elementOptions = {};
+        this.isGoogleMapsApiLoaded = false;
     }
 
     showLoadingIndicator() {
@@ -993,6 +994,65 @@ class Editor {
             form.submit()
         }
     }
+
+    showMessageDialog(message, title) {
+
+        var messageHtml = message;
+
+        if (typeof(message) === 'object'){
+            messageHtml = $('<ul></ul>').addClass('messages-list');
+            for (var i in message){
+                var itemDom = $('<li></li>').html(message[i]);
+                messageHtml.append(itemDom);
+            }
+        }
+
+        var buttons = {};
+
+        buttons["ok"] = function(){
+            $(this).dialog('close');
+        };
+
+        $('<div class="message-text inlinecms"></div>').append(messageHtml).dialog({
+            title: title,
+            modal: true,
+            resizable: false,
+            width: 350,
+            buttons: buttons
+        });
+
+    };
+
+    showPromptDialog(message, title, onSubmit, defaultValue) {
+
+        var form = $('<div/>').addClass('message-prompt inlinecms');
+        var prompt = $('<div/>').addClass('prompt').html(message);
+        var input = $('<input/>').attr('type', 'text').val(defaultValue);
+
+        var buttons = {};
+
+        buttons['ok'] = function(){
+            onSubmit(input.val());
+            $(this).dialog('close');
+        };
+
+        buttons['cancel'] = function(){
+            $(this).dialog('close');
+        };
+
+        form.append(prompt).append(input).dialog({
+            title: title,
+            modal: true,
+            resizable: false,
+            width: 350,
+            buttons: buttons,
+            open: function(){
+                setTimeout(function(){
+                    input.focus();
+                }, 10);
+            }
+        });
+    };
 
     showConfirmationDialog(message, onConfirm, onCancel) {
 

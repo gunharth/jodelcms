@@ -18,12 +18,14 @@ options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
 </script>
 @endif
 
-<!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?language=en&key=AIzaSyCRqfUKokTWoFg77sAhHOBew_NLgepcTOM"></script>
+@if (! Auth::check())
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?language=en&key=AIzaSyCRqfUKokTWoFg77sAhHOBew_NLgepcTOM"></script>
 <script>new google.maps.Marker({
-    position: new google.maps.LatLng(48.856614, 2.3522219),
-    title: "Paris",
+    position: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),
+    title: "aaa",
     map: new google.maps.Map(document.getElementById("element_{{ $element->id }}_map"), {
-        center: new google.maps.LatLng(48.856614, 2.3522219),
-        zoom: 12
+        center: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),
+        zoom: {{ $element->options->zoom }}
     })
-});</script> -->
+});</script>
+@endif

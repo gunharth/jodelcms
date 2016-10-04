@@ -2,8 +2,8 @@ editor.registerElementHandler('map', new function() {
 
     Element.apply(this, arguments);
 
-    this.isApiLoaded = false;
-    this.isApiLoadInProgress = false;
+    //this.isApiLoaded = false;
+    this.isGoogleMapsApiLoadInProgress = false;
     this.callbacks = [];
 
     this.mapsObjects = {};
@@ -52,14 +52,14 @@ editor.registerElementHandler('map', new function() {
                             geocoder.geocode( { 'address': address }, function(results, status) {
 
                                 if (status !== google.maps.GeocoderStatus.OK) {
-                                   editor.showMessageDialog(handler.lang('addressError')); return;
+                                   editor.showMessageDialog('addressError'); return;
                                 }
 
                                 var lat = results[0].geometry.location.lat();
                                 var lng = results[0].geometry.location.lng();
 
-                                $('.m-lat', form).val(lat);
-                                $('.m-lng', form).val(lng);
+                                $('#lat', form).val(lat);
+                                $('#lng', form).val(lng);
 
                             });
 
@@ -142,6 +142,11 @@ editor.registerElementHandler('map', new function() {
         let zoom = $('#zoom',form).val();
         let lat = $('#lat',form).val();
         let lng = $('#lng',form).val();
+
+        editor.editorFrame.get(0).contentWindow.options[elementId]['width'] = width;
+        editor.editorFrame.get(0).contentWindow.options[elementId]['zoom'] = zoom;
+        editor.editorFrame.get(0).contentWindow.options[elementId]['lat'] = lat;
+        editor.editorFrame.get(0).contentWindow.options[elementId]['lng'] = lng;
         
         if (height){
             editor.editorFrame.get(0).contentWindow.options[elementId]['height'] = height;
@@ -165,7 +170,8 @@ editor.registerElementHandler('map', new function() {
 
     this.loaded = function() {
 
-        this.isApiLoaded = true;
+        editor.isGoogleMapsApiLoaded = true;
+        this.isGoogleMapsApiLoadInProgress = false;
 
         var google = window.frames[0].google;
 
@@ -177,17 +183,16 @@ editor.registerElementHandler('map', new function() {
     };
 
     this.loadApi = function(callback) {
-
-        if (this.isApiLoaded) {
+        if (editor.isGoogleMapsApiLoaded) {
             var google = window.frames[0].google;
             callback(google); return;
         }
 
         this.callbacks.push(callback);
 
-        if (!this.isApiLoadInProgress){
+        if (!this.isGoogleMapsApiLoadInProgress){
             editor.injectScript('http://maps.googleapis.com/maps/api/js?callback=parent.editor.elementHandlers.map.loaded&language=en&key=AIzaSyCRqfUKokTWoFg77sAhHOBew_NLgepcTOM');
-            this.isApiLoadInProgress = true;
+            this.isGoogleMapsApiLoadInProgress = true;
         }
 
     };

@@ -123,6 +123,7 @@ function saveContent() {
         success: function(data) {
             setTimeout(function() {
                 $('#editor-loading', window.parent.document).hide();
+                window.parent.editor.isGoogleMapsApiLoaded = false;
                 document.location.reload();
             }, 500);
         }
