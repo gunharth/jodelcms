@@ -11,7 +11,7 @@ $(document).keydown((e)=> {
     if((e.ctrlKey || e.metaKey) && e.which == 83) {
         e.preventDefault();
         saveContent();
-        console.log('aminjs Save fired')
+        //console.log('aminjs Save fired')
     }
 });
 

@@ -73,6 +73,8 @@ class ElementsController extends Controller
         $element = Element::findOrFail($id);
         $element->options = json_decode($element->options);
 
+        //foreach $element->options
+
         return view('admin.elements.'.$handler, compact('element'));
     }
 

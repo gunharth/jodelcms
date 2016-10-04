@@ -1,4 +1,4 @@
-{!! Form::model($element,[
+{!! Form::model($element->options,[
         'method' => 'PATCH',
         'url' => ['/'.config('app.locale').'/admin/element/'.$element->id],
         'id' => 'updateElement'

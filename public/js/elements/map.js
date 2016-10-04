@@ -2,6 +2,12 @@ editor.registerElementHandler('map', new function() {
 
     Element.apply(this, arguments);
 
+    this.isApiLoaded = false;
+    this.isApiLoadInProgress = false;
+    this.callbacks = [];
+
+    this.mapsObjects = {};
+
     this.getName = function() {
         return 'map';
     };
@@ -11,13 +17,11 @@ editor.registerElementHandler('map', new function() {
     };
 
     this.defaultOptions = {
-        "email_type": "default",
-        "email": "",
-        "subject": "",
-        "thanks_msg": "",
-        "submit": "fsdfsfd",
-        "style": "s-horizontal",
-        "fields": []
+        width: '100%',
+        height: 200,
+        lat: '48.856614',
+        lng: '2.3522219',
+        zoom: 12
     };
 
     this.getToolbarButtons = function() {
@@ -33,42 +37,35 @@ editor.registerElementHandler('map', new function() {
     };
 
     this.getOptionsFormSettings = function() {
+        let handler = this;
         return {
             onCreate: function(form) {
-                $('.fields-list', form).sortable({
-                    handle: '.drag-handle'
-                });
-                $('.f-email-type select', form).on('change', function() {
-                    $('.f-email', form).toggle($(this).val() == 'custom');
-                }).change();
-                form.on('click', '.actions .b-mandatory', function(e) {
+                $('a.find-coords', form).click(function(e){
+
                     e.preventDefault();
-                    $(this).toggleClass('active');
-                });
-                form.on('click', '.actions .b-delete', function(e) {
-                    e.preventDefault();
-                    $(this).parents('.form-field').remove();
-                });
-                $('.f-add button', form).click(function(e) {
-                    e.preventDefault();
-                    var list = $('.fields-list', form);
-                    $('.field-template', form).clone().removeClass('field-template').addClass('form-field').appendTo(list);
-                });
-            },
-            onShow: function(form, options) {
-                $('.f-email-type select', form).change();
-                var list = $('.fields-list', form);
-                $('.form-field', list).remove();
-                if (!options || !options.fields) {
-                    return; }
-                $.each(options.fields, function(index, field) {
-                    var item = $('.field-template', form).clone().removeClass('field-template').addClass('form-field').appendTo(list);
-                    $('.field-title', item).val(field.title);
-                    $('.field-type', item).val(field.type);
-                    if (field.isMandatory) {
-                        $('.b-mandatory', item).addClass('active');
-                    }
-                    list.append(item);
+
+                    editor.showPromptDialog('Enter Address', 'address', function(address){
+                        handler.loadApi(function(google){
+
+                            var geocoder = new google.maps.Geocoder();
+
+                            geocoder.geocode( { 'address': address }, function(results, status) {
+
+                                if (status !== google.maps.GeocoderStatus.OK) {
+                                   editor.showMessageDialog(handler.lang('addressError')); return;
+                                }
+
+                                var lat = results[0].geometry.location.lat();
+                                var lng = results[0].geometry.location.lng();
+
+                                $('.m-lat', form).val(lat);
+                                $('.m-lng', form).val(lng);
+
+                            });
+
+                        });
+                    });
+
                 });
             }
         };
@@ -76,44 +73,124 @@ editor.registerElementHandler('map', new function() {
 
     this.onClick = false;
 
+    this.onInitElement = function(elementDom) {
+        let elementId = elementDom.attr('id');
+        let mapId = elementId+'_map';
+
+        let handler = this;
+
+        this.loadApi(function(google){
+
+            handler.initElementMap(mapId, elementDom, google);
+
+        });
+        
+    };
+
+    this.initElementMap = function(mapId, elementDom, google){
+
+        let elementId = elementDom.attr('id');
+
+        options = editor.editorFrame.get(0).contentWindow.options[elementId];
+
+        var center = new google.maps.LatLng(options.lat, options.lng);
+
+        var map = new google.maps.Map(elementDom.find('#'+mapId)[0], {
+            center: center,
+            zoom: Number(options.zoom)
+        });
+
+        map.marker =  new google.maps.Marker({
+            map: map,
+            position: center,
+            draggable: true
+        });
+
+        google.maps.event.addListener(map, 'zoom_changed', function() {
+            map.element.options.zoom = map.getZoom();
+        });
+
+        google.maps.event.addListener(map.marker, 'dragend', function() {
+            var coords = map.marker.getPosition();
+            map.widget.options.lat = coords.lat();
+            map.widget.options.lng = coords.lng();
+            map.setCenter(coords);
+        });
+
+        map.elementDom = elementDom;
+
+        this.mapsObjects[mapId] = map;
+
+    };
+
+
     this.onCreateElement = function(elementDom) {
         this.openOptionsForm(elementDom);
     };
 
     this.applyOptions = function(elementDom, options, form) {
-        editor.showLoadingIndicator();
+        //editor.showLoadingIndicator();
+        //console.log(options)
         var elementId = elementDom.attr('id');
-        editor.editorFrame.get(0).contentWindow.options[elementId]['fields'] = [];
+        var mapObject = $('#' + elementId + '_map', elementDom);
+        //alert(elementId);
+        //var mapId = $('#' + elementId + '_map', $("#editorIFrame"));
+        //
+        let width = $('#width',form).val();
+        let height = $('#height',form).val();
+        let zoom = $('#zoom',form).val();
+        let lat = $('#lat',form).val();
+        let lng = $('#lng',form).val();
+        
+        if (height){
+            editor.editorFrame.get(0).contentWindow.options[elementId]['height'] = height;
+            $('#' + elementId + '_map', elementDom).css('height', Number(height)+'px');
+            //mapId.css({height: options.height});
+        } else {
+            editor.editorFrame.get(0).contentWindow.options[elementId]['height'] = 200;
+            $('#' + elementId + '_map', elementDom).css('height', Number(200)+'px');
+        }
 
-        $('.fields-list .form-field', form).each(function(index) {
-            var field = $(this);
-            var title = $('input.field-title', field).val();
-            if (!title) { return; }
-            var type = $('select.field-type', field).val();
-            var isMandatory = $('.b-mandatory', field).hasClass('active');
-            editor.editorFrame.get(0).contentWindow.options[elementId]['fields'].push({
-                type: type,
-                title: title,
-                isMandatory: isMandatory
-            });
+        this.loadApi(function(google){
+
+            var center = new google.maps.LatLng(lat, lng);
+            google.maps.event.trigger($('#' + elementId + '_map', elementDom), "resize");
+
+            //mapObject.setZoom(Number(zoom));
+            // mapObject.setCenter(center);
+            // mapObject.marker.setPosition(center);
+
         });
 
-        options = editor.editorFrame.get(0).contentWindow.options[elementId];
-        var elementIdDb = elementId.replace('element_', '');
+    };
 
-        $.ajax({
-            type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url: '/admin/element/form/' + elementIdDb + '/apply', // the url where we want to POST
-            data: { 'options': JSON.stringify(options) },
-            error: (xhr, ajaxOptions, thrownError) => {
-                console.log(xhr.status);
-                console.log(thrownError);
-            }
-        }).done((data) => {
-            elementDom.find('form').replaceWith(data);
-            editor.hideLoadingIndicator();
-        });
-        return options;
+    this.loaded = function() {
+
+        this.isApiLoaded = true;
+
+        var google = window.frames[0].google;
+
+        while(this.callbacks.length > 0) {
+            var callback = this.callbacks.pop();
+            callback(google);
+        }
+
+    };
+
+    this.loadApi = function(callback) {
+
+        if (this.isApiLoaded) {
+            var google = window.frames[0].google;
+            callback(google); return;
+        }
+
+        this.callbacks.push(callback);
+
+        if (!this.isApiLoadInProgress){
+            editor.injectScript('http://maps.googleapis.com/maps/api/js?callback=parent.editor.elementHandlers.map.loaded&language=en&key=AIzaSyCRqfUKokTWoFg77sAhHOBew_NLgepcTOM');
+            this.isApiLoadInProgress = true;
+        }
+
     };
 
 });

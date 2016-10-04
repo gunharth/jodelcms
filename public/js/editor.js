@@ -24,6 +24,20 @@ class Editor {
         $('#editor-loading').fadeOut();
     };
 
+    injectScript(url, callback) {
+
+        let doc = this.editorFrame.get(0).contentWindow.document;
+
+        let head = doc.getElementsByTagName('body')[0];
+        let script = doc.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        script.onreadystatechange = callback;
+        script.onload = callback;
+        head.appendChild(script);
+
+    };
+
     initPanel() {
         $.ajaxSetup({
             headers: {
@@ -1282,7 +1296,7 @@ class Editor {
 }
 
 
-let editor = new Editor();
+var editor = new Editor();
 
 $(function() {
     editor.initPanel();
