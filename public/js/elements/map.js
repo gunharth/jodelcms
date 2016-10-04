@@ -106,18 +106,18 @@ editor.registerElementHandler('map', new function() {
             draggable: true
         });
 
-        google.maps.event.addListener(map, 'zoom_changed', function() {
-            map.element.options.zoom = map.getZoom();
-        });
+        // google.maps.event.addListener(map, 'zoom_changed', function() {
+        //     map.elementDom.options.zoom = map.getZoom();
+        // });
 
-        google.maps.event.addListener(map.marker, 'dragend', function() {
-            var coords = map.marker.getPosition();
-            map.widget.options.lat = coords.lat();
-            map.widget.options.lng = coords.lng();
-            map.setCenter(coords);
-        });
+        // google.maps.event.addListener(map.marker, 'dragend', function() {
+        //     var coords = map.marker.getPosition();
+        //     map.elementDom.options.lat = coords.lat();
+        //     map.elementDom.options.lng = coords.lng();
+        //     map.setCenter(coords);
+        // });
 
-        map.elementDom = elementDom;
+        //map.elementDom = elementDom;
 
         this.mapsObjects[mapId] = map;
 
@@ -132,7 +132,8 @@ editor.registerElementHandler('map', new function() {
         //editor.showLoadingIndicator();
         //console.log(options)
         var elementId = elementDom.attr('id');
-        var mapObject = $('#' + elementId + '_map', elementDom);
+        //var mapObject = $('#' + elementId + '_map', elementDom);
+        var mapObject = this.mapsObjects[elementId + '_map'];
         //alert(elementId);
         //var mapId = $('#' + elementId + '_map', $("#editorIFrame"));
         //
@@ -152,13 +153,11 @@ editor.registerElementHandler('map', new function() {
         }
 
         this.loadApi(function(google){
-
             var center = new google.maps.LatLng(lat, lng);
-            google.maps.event.trigger($('#' + elementId + '_map', elementDom), "resize");
-
-            //mapObject.setZoom(Number(zoom));
-            // mapObject.setCenter(center);
-            // mapObject.marker.setPosition(center);
+            google.maps.event.trigger(mapObject, "resize");
+            mapObject.setZoom(Number(zoom));
+            mapObject.setCenter(center);
+            mapObject.marker.setPosition(center);
 
         });
 
