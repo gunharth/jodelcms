@@ -29,6 +29,16 @@
       <div class="col-md-6">@if (!empty($post->prev)) <a href="/blog/{!! $post->prev->slug !!}">PREVIOUS POST<br> {!! $post->prev->content01 !!}</a>@endif</div>
       <div class="col-md-6 text-right">@if (!empty($post->next)) <a href="/blog/{!! $post->next->slug !!}">NEXT POST<br> {!! $post->next->content01 !!}</a>@endif</div>
     </div>
+
+    @if (Auth::check()) 
+      <div class="row">
+       <div class="col-md-12">
+       <h2>Description for Blog Home</h2>
+        {!! templateRegion($post, 'region-3') !!}
+      </div>
+      </div>
+    @endif
+
   </div>
   
   @if (!Auth::check()) 

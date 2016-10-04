@@ -135,12 +135,10 @@
 			             <b><a href="/admin/sitemap">Generate Sitemap</a> </b><br>
 			             spatie google analytics ! <br>
 			             realfavicongenerator package <br>
-			             Settings (Global Title, etc ... Mail Preferences)
+			             Settings (Global Title, etc ... Mail Preferences) <br>
 			             Users / Access <br>
 			             Global Code (GA, Google webmaster tools, Bing webmaster tools, keep open to enter scripts like page specific codes) <br>
 			             Need for Recycle bin ? <br>
-			             
-
 			        </div> 
 		        </div>
             </div>

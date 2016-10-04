@@ -357,7 +357,7 @@ class Editor {
          *  Tab collections tab1
          *  Load collection in iframe
          */
-        $('body').on('click', '#tab-collection-tab1 .load', (e) => {
+        $('body').on('click', '#collectionItems .load', (e) => {
             e.preventDefault();
             let src = $(e.target).data('url');
             //this.editorFrame = src;

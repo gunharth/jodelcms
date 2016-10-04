@@ -1,6 +1,6 @@
 .jodelRegion { 
 	outline: 1px dashed #ccc;
-	min-height: 1em;
+	min-height: 25px;
 	position: relative;
 }
 

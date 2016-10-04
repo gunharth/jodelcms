@@ -21,13 +21,13 @@
           @foreach ($post->regions as $reg) 
               @if ($reg->name == 'region-1')
                   @foreach ($reg->elements as $element)
-                      {!! \App\Http\Controllers\ElementsController::renderElementView($element, $element->content) !!}
+                      {!! \App\Http\Controllers\ElementsController::renderElementView($element, $element->content, false) !!}
                       {{ $post->published_at }}
                   @endforeach
               @endif
-              @if ($reg->name == 'region-2')
+              @if ($reg->name == 'region-3')
                   @foreach ($reg->elements as $element)
-                      {!! \App\Http\Controllers\ElementsController::renderElementView($element, $element->content) !!}
+                      {!! \App\Http\Controllers\ElementsController::renderElementView($element, $element->content, false) !!}
                       <a href="{!! $post->link !!}">Full article</a>
                   @endforeach
               @endif
