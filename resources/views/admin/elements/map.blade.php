@@ -18,7 +18,7 @@
 	    {!! Form::text('zoom',null,['class' => 'form-control', 'placeholder' => '12']) !!}
 	</div>
 	<div class="form-group">
-	    <a href="#" class="find-coords">Find Adress</a> <br>
+	    <a href="#" class="find-coords">Find Address</a> <a href="#" class="current-location">Current Location</a><br>
 	</div>
 	<div class="form-group">
 	    {!! Form::label('lat','Latitude') !!}

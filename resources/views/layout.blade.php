@@ -49,6 +49,8 @@
         <script src='/js/admin.js'></script>
     @endif
     @yield('templateScripts')
+    @include('elements.mapjs')
+    @stack('elementsScripts')
     @yield('body_end_code')
   </body>
 </html>

@@ -19,8 +19,8 @@ options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
 @endif
 
 @if (! Auth::check())
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?language=en&key=AIzaSyCRqfUKokTWoFg77sAhHOBew_NLgepcTOM"></script>
-<script>new google.maps.Marker({
+@push('elementsScripts')
+    <script>new google.maps.Marker({
     position: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),
     title: "aaa",
     map: new google.maps.Map(document.getElementById("element_{{ $element->id }}_map"), {
@@ -28,4 +28,6 @@ options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
         zoom: {{ $element->options->zoom }}
     })
 });</script>
+@endpush
+
 @endif

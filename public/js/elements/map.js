@@ -40,19 +40,20 @@ editor.registerElementHandler('map', new function() {
         let handler = this;
         return {
             onCreate: function(form) {
-                $('a.find-coords', form).click(function(e){
+                $('a.find-coords', form).click(function(e) {
 
                     e.preventDefault();
 
-                    editor.showPromptDialog('Enter Address', 'address', function(address){
-                        handler.loadApi(function(google){
+                    editor.showPromptDialog('Enter Address', 'address', function(address) {
+                        handler.loadApi(function(google) {
 
                             var geocoder = new google.maps.Geocoder();
 
-                            geocoder.geocode( { 'address': address }, function(results, status) {
+                            geocoder.geocode({ 'address': address }, function(results, status) {
 
                                 if (status !== google.maps.GeocoderStatus.OK) {
-                                   editor.showMessageDialog('addressError'); return;
+                                    editor.showMessageDialog('addressError');
+                                    return;
                                 }
 
                                 var lat = results[0].geometry.location.lat();
@@ -67,6 +68,19 @@ editor.registerElementHandler('map', new function() {
                     });
 
                 });
+
+                $('a.current-location', form).click(function(e) {
+                    e.preventDefault();
+                    var startPos;
+                    var geoSuccess = function(position) {
+                        startPos = position;
+                        // document.getElementById('startLat').innerHTML = startPos.coords.latitude;
+                        // document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+                        $('#lat', form).val(startPos.coords.latitude);
+                        $('#lng', form).val(startPos.coords.longitude);
+                    };
+                    navigator.geolocation.getCurrentPosition(geoSuccess);
+                });
             }
         };
     };
@@ -75,19 +89,19 @@ editor.registerElementHandler('map', new function() {
 
     this.onInitElement = function(elementDom) {
         let elementId = elementDom.attr('id');
-        let mapId = elementId+'_map';
+        let mapId = elementId + '_map';
 
         let handler = this;
 
-        this.loadApi(function(google){
+        this.loadApi(function(google) {
 
             handler.initElementMap(mapId, elementDom, google);
 
         });
-        
+
     };
 
-    this.initElementMap = function(mapId, elementDom, google){
+    this.initElementMap = function(mapId, elementDom, google) {
 
         let elementId = elementDom.attr('id');
 
@@ -95,12 +109,12 @@ editor.registerElementHandler('map', new function() {
 
         var center = new google.maps.LatLng(options.lat, options.lng);
 
-        var map = new google.maps.Map(elementDom.find('#'+mapId)[0], {
+        var map = new google.maps.Map(elementDom.find('#' + mapId)[0], {
             center: center,
             zoom: Number(options.zoom)
         });
 
-        map.marker =  new google.maps.Marker({
+        map.marker = new google.maps.Marker({
             map: map,
             position: center,
             draggable: true
@@ -137,27 +151,27 @@ editor.registerElementHandler('map', new function() {
         //alert(elementId);
         //var mapId = $('#' + elementId + '_map', $("#editorIFrame"));
         //
-        let width = $('#width',form).val();
-        let height = $('#height',form).val();
-        let zoom = $('#zoom',form).val();
-        let lat = $('#lat',form).val();
-        let lng = $('#lng',form).val();
+        let width = $('#width', form).val();
+        let height = $('#height', form).val();
+        let zoom = $('#zoom', form).val();
+        let lat = $('#lat', form).val();
+        let lng = $('#lng', form).val();
 
         editor.editorFrame.get(0).contentWindow.options[elementId]['width'] = width;
         editor.editorFrame.get(0).contentWindow.options[elementId]['zoom'] = zoom;
         editor.editorFrame.get(0).contentWindow.options[elementId]['lat'] = lat;
         editor.editorFrame.get(0).contentWindow.options[elementId]['lng'] = lng;
-        
-        if (height){
+
+        if (height) {
             editor.editorFrame.get(0).contentWindow.options[elementId]['height'] = height;
-            $('#' + elementId + '_map', elementDom).css('height', Number(height)+'px');
+            $('#' + elementId + '_map', elementDom).css('height', Number(height) + 'px');
             //mapId.css({height: options.height});
         } else {
             editor.editorFrame.get(0).contentWindow.options[elementId]['height'] = 200;
-            $('#' + elementId + '_map', elementDom).css('height', Number(200)+'px');
+            $('#' + elementId + '_map', elementDom).css('height', Number(200) + 'px');
         }
 
-        this.loadApi(function(google){
+        this.loadApi(function(google) {
             var center = new google.maps.LatLng(lat, lng);
             google.maps.event.trigger(mapObject, "resize");
             mapObject.setZoom(Number(zoom));
@@ -175,7 +189,7 @@ editor.registerElementHandler('map', new function() {
 
         var google = window.frames[0].google;
 
-        while(this.callbacks.length > 0) {
+        while (this.callbacks.length > 0) {
             var callback = this.callbacks.pop();
             callback(google);
         }
@@ -183,17 +197,18 @@ editor.registerElementHandler('map', new function() {
     };
 
     this.loadApi = function(callback) {
-        if (editor.isGoogleMapsApiLoaded) {
-            var google = window.frames[0].google;
-            callback(google); return;
-        }
+        //if (editor.isGoogleMapsApiLoaded) {
+        var google = window.frames[0].google;
+        callback(google);
+        return;
+        //}
 
         this.callbacks.push(callback);
 
-        if (!this.isGoogleMapsApiLoadInProgress){
-            editor.injectScript('http://maps.googleapis.com/maps/api/js?callback=parent.editor.elementHandlers.map.loaded&language=en&key=AIzaSyCRqfUKokTWoFg77sAhHOBew_NLgepcTOM');
-            this.isGoogleMapsApiLoadInProgress = true;
-        }
+        // if (!this.isGoogleMapsApiLoadInProgress){
+        //     editor.injectScript('http://maps.googleapis.com/maps/api/js?callback=parent.editor.elementHandlers.map.loaded&language=en&key=AIzaSyCRqfUKokTWoFg77sAhHOBew_NLgepcTOM');
+        //     this.isGoogleMapsApiLoadInProgress = true;
+        // }
 
     };
 
