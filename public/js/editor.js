@@ -130,6 +130,28 @@ class Editor {
             $('.modal-header .tb-toggle i').toggleClass('fa-lock').toggleClass('fa-unlock');
         });
 
+        $('.modal-header .tb-collapse-right', this.editorPanel).on('click', (e) => {
+            e.preventDefault();
+            // this.editorPanelCollapse.slideToggle(250, () => {
+            //     this.savePanelState();
+            // });
+            this.editorPanel
+            // Set the effect type
+            var effect = 'slide';
+
+            // Set the options for the effect type chosen
+            var options = { direction: 'right' };
+
+            // Set the duration (default: 400 milliseconds)
+            var duration = 500;
+
+            this.editorPanel.toggle(effect, options, duration);
+            this.editorFrame.animate({
+            width: "100%"
+          }, duration);
+            $('.modal-header .tb-collapse i').toggleClass('fa-caret-right').toggleClass('fa-caret-left');
+        });
+
         $('.modal-header .tb-refresh', this.editorPanel).on('click', (e) => {
             e.preventDefault();
             this.editorFrame.get(0).contentWindow.location.reload(true);

@@ -17,10 +17,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-        <div class="col-sm-6">
-        	<h4 class="modal-title">jodelCMS</h4>
+        <div class="col-sm-2">
+        	<h4 class="modal-title">J</h4>
         </div>
-        <div class="col-sm-6 text-right">
+        <div class="col-sm-10 text-right">
 			<select id="editorLocales" class="editor-langs form-control" style="width: 30%; float: left;">
 			    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
 			    <option value="{{$localeCode}}">{{ strtoupper($localeCode) }}</option>
@@ -28,6 +28,7 @@
             </select> 
 			<a class="tb-refresh" href="#" title="Refresh"><i class="fa fa-fw fa-lg fa-refresh"></i></a>
 			<a class="tb-collapse" href="#" title="Toggle"><i class="fa fa-fw fa-lg fa-caret-up"></i></a>
+			<a class="tb-collapse-right" href="#" title="Toggle"><i class="fa fa-fw fa-lg fa-caret-right"></i></a>
 			<a class="tb-toggle" href="#" title="Pin"><i class="fa fa-fw fa-lg fa-unlock"></i></a>
 			<!-- <a href="/logout" title="Sign out"><i class="fa fa-lg fa-sign-out"></i></a> -->
 			 <a href="{{ url('/logout') }}"
