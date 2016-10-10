@@ -1938,16 +1938,16 @@
         },
         {
             "name": "psr/log",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "5277094ed527a1c4477177d102fe4c53551953e0"
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/5277094ed527a1c4477177d102fe4c53551953e0",
-                "reference": "5277094ed527a1c4477177d102fe4c53551953e0",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
                 "shasum": ""
             },
             "require": {
@@ -1981,7 +1981,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-09-19 16:02:08"
+            "time": "2016-10-10 12:19:37"
         },
         {
             "name": "psy/psysh",
@@ -2248,16 +2248,16 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "1.9.2",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "4e06ac112327be673d3a3da9f3260f31ef790ac9"
+                "reference": "10850468cd973d3309e4c5e730e951545fbb6727"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/4e06ac112327be673d3a3da9f3260f31ef790ac9",
-                "reference": "4e06ac112327be673d3a3da9f3260f31ef790ac9",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/10850468cd973d3309e4c5e730e951545fbb6727",
+                "reference": "10850468cd973d3309e4c5e730e951545fbb6727",
                 "shasum": ""
             },
             "require": {
@@ -2308,7 +2308,7 @@
                 "spatie",
                 "user"
             ],
-            "time": "2016-09-27 07:33:56"
+            "time": "2016-10-10 14:20:42"
         },
         {
             "name": "spatie/laravel-sitemap",
@@ -3468,16 +3468,16 @@
         },
         {
             "name": "caouecs/laravel-lang",
-            "version": "3.0.16",
+            "version": "3.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/caouecs/Laravel-lang.git",
-                "reference": "ce233a950d1851a6cd4e0e1ce9e6fd3e7f1a201c"
+                "reference": "f22feed58adaa8051918ceb86fa2d991afad63ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/caouecs/Laravel-lang/zipball/ce233a950d1851a6cd4e0e1ce9e6fd3e7f1a201c",
-                "reference": "ce233a950d1851a6cd4e0e1ce9e6fd3e7f1a201c",
+                "url": "https://api.github.com/repos/caouecs/Laravel-lang/zipball/f22feed58adaa8051918ceb86fa2d991afad63ad",
+                "reference": "f22feed58adaa8051918ceb86fa2d991afad63ad",
                 "shasum": ""
             },
             "require-dev": {
@@ -3504,7 +3504,7 @@
                 "laravel",
                 "lpm"
             ],
-            "time": "2016-10-02 09:40:19"
+            "time": "2016-10-10 18:52:34"
         },
         {
             "name": "doctrine/instantiator",

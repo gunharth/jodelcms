@@ -14,25 +14,31 @@ body {
     height: 100%;
 }
 #editorIFrame.pinned {
-    width: calc(100% - 340px);
+    /*width: calc(100% - 340px);*/
 }
 
 #editor-panel {
-    right: auto;
+   /* right: auto;
     bottom: auto;
     top: 161px;
     left: 410px;
     display: none;
-    z-index: 50;
-}
-
-#editor-panel.pinned {
+    z-index: 50;*/
     right: 0;
     bottom: auto;
     top: 161px;
     left: auto;
     display: none;
     z-index: 50;
+}
+
+#editor-panel.pinned {
+   /* right: 0;
+    bottom: auto;
+    top: 161px;
+    left: auto;
+    display: none;
+    z-index: 50;*/
 }
 
 #editor-panel button:focus {
@@ -303,7 +309,7 @@ body {
 }
 
 .dd-title {
-    width: 180px;
+    width: 55%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

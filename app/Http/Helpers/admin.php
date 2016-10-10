@@ -50,7 +50,7 @@ if (! function_exists('renderEditorMenus')) {
         $actions .= '</div>';
 
         $name = '<div '.$handle.'><i class="fa fa-arrows"></i></div>';
-        $name .= '<div class="dd-content">'.$node->name.$actions.'</div>';
+        $name .= '<div class="dd-content"><span class="dd-title">'.$node->name.'</span>'.$actions.'</div>';
 
         if ($node->isLeaf()) {
             return '<li '.$class.' '.$id.'>'.$name.'</li>';
