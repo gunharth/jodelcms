@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="/font-awesome/css/font-awesome.css">
 </head>
 <body>
-	<iframe id="editorIFrame" name="editorIFrame" src="{{ $src }}?menu={{ $menu }}" frameborder="0" style="position: absolute; margin: 0; padding:0; width: 100%; height: 100%;"></iframe>
+	<iframe id="editorIFrame" name="editorIFrame" src="{{ $src }}?menu={{ $menu }}" frameborder="0"></iframe>
 
 <div id="editor-panel" class="modal">
   <div class="modal-dialog">
@@ -28,6 +28,7 @@
             </select> 
 			<a class="tb-refresh" href="#" title="Refresh"><i class="fa fa-fw fa-lg fa-refresh"></i></a>
 			<a class="tb-collapse" href="#" title="Toggle"><i class="fa fa-fw fa-lg fa-caret-up"></i></a>
+			<a class="tb-toggle" href="#" title="Pin"><i class="fa fa-fw fa-lg fa-unlock"></i></a>
 			<!-- <a href="/logout" title="Sign out"><i class="fa fa-lg fa-sign-out"></i></a> -->
 			 <a href="{{ url('/logout') }}"
                                         onclick="event.preventDefault();
@@ -134,11 +135,14 @@
 			             <a href="/admin/clearcache">Clear Cache</a> <br><br>
 			             <b><a href="/admin/sitemap">Generate Sitemap</a> </b><br>
 			             spatie google analytics ! <br>
+			             spatie cookie plugin ! <br>
+			             spatie backup! <br>
 			             realfavicongenerator package <br>
 			             Settings (Global Title, etc ... Mail Preferences) <br>
 			             Users / Access <br>
 			             Global Code (GA, Google webmaster tools, Bing webmaster tools, keep open to enter scripts like page specific codes) <br>
 			             Need for Recycle bin ? <br>
+			             offer external seo tools <br>
 			        </div> 
 		        </div>
             </div>
@@ -152,6 +156,7 @@
 
 	<script src="/js/app.js"></script>
 	<script src='/js/jquery-ui.js'></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 	<script src="/packages/nestable-fork/src/jquery.nestable.js"></script>
 	<script src="/js/editor.js"></script>
 	<script src="/js/elements.js"></script>

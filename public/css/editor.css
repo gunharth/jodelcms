@@ -6,11 +6,31 @@ body {
     background: transparent;
 }
 
+#editorIFrame {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+#editorIFrame.pinned {
+    width: calc(100% - 340px);
+}
+
 #editor-panel {
     right: auto;
     bottom: auto;
     top: 161px;
     left: 410px;
+    display: none;
+    z-index: 50;
+}
+
+#editor-panel.pinned {
+    right: 0;
+    bottom: auto;
+    top: 161px;
+    left: auto;
     display: none;
     z-index: 50;
 }
@@ -22,6 +42,9 @@ body {
 #editor-panel .modal-dialog {
     margin: 10px;
     width: 380px;
+}
+#editor-panel.pinned .modal-dialog {
+    width: 320px;
 }
 
 #editor-panel .modal-content {
@@ -55,19 +78,29 @@ body {
 #editor-panel #tabs .buttons {
     padding-bottom: 5px;
 }
+
+
 /* boostrap overrides */
+
 #editor-panel .modal-body {
     padding: 5px;
 }
+
+
 /* end boostrap overrides */
 
+
 /* jquery ui overrides */
+
 .ui-tabs .ui-tabs-panel {
     padding: 10px 5px;
 }
+
 .ui-helper-reset {
     font-size: 85%;
 }
+
+
 /* end jquery ui overrides */
 
 .dd {
@@ -339,9 +372,14 @@ body {
     border: 0;
     outline: 1px solid #d9534f;
 }
-.has-error span { color: #d9534f; font-weight: normal; }
 
-.form-control, .form-control:focus {
+.has-error span {
+    color: #d9534f;
+    font-weight: normal;
+}
+
+.form-control,
+.form-control:focus {
     border: 1px solid rgba(240, 173, 78, 0.44);
 }
 
@@ -360,9 +398,9 @@ body {
     border: solid 1px #999;
     border-radius: 2px;
     list-style: none;
-    }
+}
 
-    #tab-elements .list ul li i {
+#tab-elements .list ul li i {
     font-size: 30px;
     display: block;
     height: 50px;

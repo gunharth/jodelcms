@@ -119,6 +119,17 @@ class Editor {
             $('.modal-header .tb-collapse i').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
         });
 
+        $('.modal-header .tb-toggle', this.editorPanel).on('click', (e) => {
+            e.preventDefault();
+            this.editorPanel.toggleClass('pinned');
+            this.editorFrame.toggleClass('pinned');
+            //this.editorPanelCollapse.slideToggle(250, () => {
+                this.savePanelState();
+                this.restorePanelState()
+            //});
+            $('.modal-header .tb-toggle i').toggleClass('fa-lock').toggleClass('fa-unlock');
+        });
+
         $('.modal-header .tb-refresh', this.editorPanel).on('click', (e) => {
             e.preventDefault();
             this.editorFrame.get(0).contentWindow.location.reload(true);
@@ -732,9 +743,9 @@ class Editor {
     savePanelState() {
         let activeLanguage = this.editorLocale;
         let activeTab = $('#tabs').tabs("option", "active");
-        // let active menu
         let activeMenu = $('#menuSelector', this.editorPanel).val();
         localStorage.setItem("editor-panel", JSON.stringify({
+            pinned: this.editorPanel.hasClass('pinned'),
             position: this.editorPanel.position(),
             locale: activeLanguage,
             tab: activeTab,
@@ -752,6 +763,7 @@ class Editor {
         let panelState = {};
         if (!localStorage.getItem("editor-panel")) {
             panelState = {
+                pinned: true,
                 position: { left: 50, top: 150 },
                 locale: this.editorLocale,
                 tab: 0,
@@ -761,16 +773,33 @@ class Editor {
         } else {
             panelState = JSON.parse(localStorage.getItem("editor-panel"))
         }
-        this.editorPanel.css(panelState.position);
-        this.editorLocale = panelState.locale;
-        $("#editorLocales > [value=" + panelState.locale + "]").attr("selected", "true");
-        $('#tabs').tabs("option", "active", panelState.tab);
-        $("#menuSelector > [value=" + panelState.menu + "]").attr("selected", "true");
-        this.loadPages();
-        this.loadMenu(panelState.menu);
-        if (!panelState.expanded) {
-            this.editorPanelCollapse.hide();
-            $('.modal-header .tb-collapse i').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
+        if (!panelState.pinned) {
+            this.editorPanel.css('right','auto');
+            this.editorPanel.css(panelState.position);
+            this.editorLocale = panelState.locale;
+            $("#editorLocales > [value=" + panelState.locale + "]").attr("selected", "true");
+            $('#tabs').tabs("option", "active", panelState.tab);
+            $("#menuSelector > [value=" + panelState.menu + "]").attr("selected", "true");
+            this.loadPages();
+            this.loadMenu(panelState.menu);
+            if (!panelState.expanded) {
+                this.editorPanelCollapse.hide();
+                $('.modal-header .tb-collapse i').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
+            }
+        } else {
+            this.editorFrame.addClass('pinned');
+            this.editorPanel.addClass('pinned');
+            this.editorPanel.css('right', 0).css('left','auto').css('top', 0);
+            this.editorLocale = panelState.locale;
+            $("#editorLocales > [value=" + panelState.locale + "]").attr("selected", "true");
+            $('#tabs').tabs("option", "active", panelState.tab);
+            $("#menuSelector > [value=" + panelState.menu + "]").attr("selected", "true");
+            this.loadPages();
+            this.loadMenu(panelState.menu);
+            // if (!panelState.expanded) {
+            //     this.editorPanelCollapse.hide();
+            //     $('.modal-header .tb-collapse i').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
+            // }
         }
     };
 
