@@ -10,6 +10,7 @@ class Editor {
         this.collection;
         this.collection_id = 0;
         this.editorLocale = 'en';
+        this.editorPinned = true;
         //this.elementsList = ["text","image","gallery","video","file","form","map","share","spacer","code"];
         this.elementsList = ['text', 'spacer', 'form', 'map'];
         this.elementHandlers = {};
@@ -100,6 +101,9 @@ class Editor {
                 let newTop = top - ((top + height) - windowHeight);
                 if (newTop < 0) { newTop = 0; }
                 $("#editor-panel").css({ top: newTop });
+            }
+            if(this.editorPinned) {
+                this.editorFrame.width($(document).width()-340);
             }
             this.savePanelState();
         });
@@ -796,6 +800,7 @@ class Editor {
             panelState = JSON.parse(localStorage.getItem("editor-panel"))
         }
         if (!panelState.pinned) {
+            this.editorPinned = false;
             this.editorFrame.animate({ 
                 width: '100%'
             }, 500);
@@ -806,13 +811,14 @@ class Editor {
             }
         } else {
             // this.editorFrame.addClass('pinned');
+            this.editorPinned = true;
             this.editorFrame.animate({ 
                 width: $(document).width()-340 
             }, 500);
             // var left = this.editorPanel.position().left; // get left position
             // var width = this.editorPanel.width(); // get width;
             // var right = width + left;
-            this.editorPanel.addClass('pinned')
+            this.editorPanel.addClass('pinned');
             this.editorPanel.css('right', 0).css('left','auto').css('top', 0).draggable( 'disable' )
                             // .animate({
                             //     right: 0,
