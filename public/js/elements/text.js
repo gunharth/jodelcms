@@ -33,7 +33,9 @@ editor.registerElementHandler('text', new function() {
         let elementId = elementDom.attr('id');
         let getTiny = editor.editorFrame.get(0).contentWindow;
         getTiny.initTinyMCE('#' + elementId + '_content');
-        getTiny.tinyMCE.EditorManager.get(elementId + '_content').focus();
+        setTimeout(function() {
+            getTiny.tinyMCE.EditorManager.get(elementId + '_content').focus();
+        }, 500)
     };
 
 });

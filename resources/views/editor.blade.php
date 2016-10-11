@@ -136,7 +136,7 @@
 			             <a href="/admin/clearcache">Clear Cache</a> <br><br>
 			             <b><a href="/admin/sitemap">Generate Sitemap</a> </b><br>
 			             spatie google analytics ! <br>
-			             spatie cookie plugin ! <br>
+			             spatie cookie plugin or https://silktide.com/tools/cookie-consent/ <br>
 			             spatie backup! <br>
 			             realfavicongenerator package <br>
 			             Settings (Global Title, etc ... Mail Preferences) <br>
