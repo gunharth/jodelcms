@@ -14,9 +14,8 @@ editor.registerElementHandler('form', new function() {
         "email_type": "default",
         "email": "",
         "subject": "",
-        "thanks_msg": "Thank you for your message",
+        "response": "Thank you!",
         "submit": "Submit",
-        "style": "s-horizontal",
         "fields": []
     };
 
@@ -70,20 +69,29 @@ editor.registerElementHandler('form', new function() {
                     }
                     list.append(item);
                 });
+
+                //  "email_type": "default",
+                // "email": "",
+                $('.subject', form).val(options.subject);
+                $('.submit', form).val(options.submit);
+                $('.response', form).val(options.response);
             }
         };
     };
-
-    this.onClick = false;
 
     this.onCreateElement = function(elementDom) {
         this.openOptionsForm(elementDom);
     };
 
-    this.applyOptions = function(elementDom, options, form) {
+    this.applyOptions = function(elementDom, form) {
+
         editor.showLoadingIndicator();
+
         var elementId = elementDom.attr('id');
-        editor.editorFrame.get(0).contentWindow.options[elementId]['fields'] = [];
+        var elementIdDb = elementId.replace('element_', '');
+
+        options = this.getOptions(elementId);
+        options['fields'] = [];
 
         $('.fields-list .form-field', form).each(function(index) {
             var field = $(this);
@@ -91,15 +99,18 @@ editor.registerElementHandler('form', new function() {
             if (!title) { return; }
             var type = $('select.field-type', field).val();
             var isMandatory = $('.b-mandatory', field).hasClass('active');
-            editor.editorFrame.get(0).contentWindow.options[elementId]['fields'].push({
+            options['fields'].push({
                 type: type,
                 title: title,
                 isMandatory: isMandatory
             });
         });
 
-        options = editor.editorFrame.get(0).contentWindow.options[elementId];
-        var elementIdDb = elementId.replace('element_', '');
+        //  "email_type": "default",
+        // "email": "",
+        options['subject'] = $('.subject', form).val();
+        options['submit'] = $('.submit', form).val();
+        options['response'] = $('.response', form).val(); 
 
         $.ajax({
             type: 'POST', // define the type of HTTP verb we want to use (POST for our form)

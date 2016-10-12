@@ -86,7 +86,7 @@ function Element() {
                 ok: 'Apply',
             },
             onSubmit: function(options, form) {
-                handler.applyOptions(elementDom, options, form);
+                handler.applyOptions(elementDom, form);
             }
         };
         if (typeof(this.getOptionsFormSettings) !== 'undefined') {
@@ -101,10 +101,18 @@ function Element() {
 
         //       widget.domId = 'jodelcms-element-' + regionId + widget.id;
 
-        //       newOptions = $.extend({}, newOptions, this.applyOptions(widget, newOptions, form));
+               //newOptions = $.extend({}, newOptions, this.applyOptions(widget, newOptions, form));
 
         // cms.setWidgetOptions(regionId, widgetId, newOptions);
 
+    };
+
+    this.getOptions = function(elementId) {
+        return editor.editorFrame.get(0).contentWindow.options[elementId];
+    }
+
+    this.onClick = function(elementDom) {
+        this.openOptionsForm(elementDom);
     };
 
     //this.applyOptions = function(elementDom, options, form){};
@@ -130,8 +138,6 @@ function Element() {
 
     //   };
 
-    this.onClick = function(widget, regionId) {
-        this.openOptionsForm(regionId, widget.id);
-    };
+    
 
 }

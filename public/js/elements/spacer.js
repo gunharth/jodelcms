@@ -35,16 +35,17 @@ editor.registerElementHandler('spacer', new function() {
         };
     };
 
-	this.onClick = false;
-
 	this.onCreateElement = function(elementDom) {
         this.openOptionsForm(elementDom);
 	};
 
-    this.applyOptions = function(elementDom, options, form) {
+    this.applyOptions = function(elementDom, form) {
         let size = $('#size',form).val();
         let elementId = elementDom.attr('id');
-        editor.editorFrame.get(0).contentWindow.options[elementId]['size'] = size;
+
+        options = this.getOptions(elementId);
+        options['size'] = size;
+
         $('div.jodelcms-content div', elementDom).css('height', Number(size)+'px');
     };
 

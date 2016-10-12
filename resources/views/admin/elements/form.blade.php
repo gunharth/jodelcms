@@ -51,37 +51,29 @@
                 <div class="form-group f-email-type">
                     <label for="email_type">Recipient:</label>
                     <select name="email_type">
-                        <option value="default"></option>
-                        <!-- <option value="custom">formEmailCustom</option> -->
+                        <option value="default">Mailgun</option>
+                        <option value="custom">formEmailCustom</option>
                     </select>
                 </div>
 
-                <div class="field f-email">
+                <div class="form-group f-email">
                     <label for="email">E-Mail:</label>
                     <input type="text" name="email">
                 </div>
 
                 <div class="form-group">
-                {!! Form::label('subject','E-Mail Subject') !!}
-                {!! Form::text('subject',null,['class' => 'form-control', 'placeholder' => 'E-Mail Subject']) !!}
+                    {!! Form::label('subject','E-Mail Subject') !!}
+                    {!! Form::text('subject',null,['class' => 'form-control subject', 'placeholder' => 'E-Mail Subject']) !!}
                 </div>
 
-                <div class="field f-thanks-msg">
-                    <label for="thanks_msg">Thank you Mesage:</label>
-                    <textarea name="thanks_msg">{{ $element->options->thanks_msg }}</textarea>
+                <div class="form-group">
+                    {!! Form::label('submit','Submit Button') !!}
+                    {!! Form::text('submit',null,['class' => 'form-control submit', 'placeholder' => 'Submit']) !!}
                 </div>
 
-                <div class="field">
-                    <label for="submit">Subit Button:</label>
-                    <input type="text" name="submit" value="{{ $element->options->submit }}">
-                </div>
-
-                <div class="field">
-                    <label for="style">formLabelsAlign:</label>
-                    <select name="style">
-                        <option value="s-vertical">formLabelsAlignVert</option>
-                        <option value="s-horizontal">formLabelsAlignHor</option>
-                    </select>
+                <div class="form-group">
+                    {!! Form::label('response','Response Message after Submission') !!}
+                    {!! Form::textarea('response',null,['class' => 'form-control response', 'rows' => 3, 'placeholder' => 'Thank you!']) !!}
                 </div>
 
             </fieldset>

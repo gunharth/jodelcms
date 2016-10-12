@@ -9,7 +9,12 @@
 		@endif
 	>
 	
-		<form class="form-horizontal">
+		{{-- <form class="form-horizontal"> --}}
+		{!! Form::open([
+        'url' => '/elements/submitForm',
+        'class' => 'form-horizontal'
+    ]) !!}
+		{{ csrf_field() }}
 
 		@foreach($element->options->fields as $field)
     		<div class="form-group">

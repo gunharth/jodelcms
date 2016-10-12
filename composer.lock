@@ -2248,16 +2248,16 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "1.10.0",
+            "version": "1.10.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "10850468cd973d3309e4c5e730e951545fbb6727"
+                "reference": "909d61ac043dc5c46a7f225966b07eeeb85771f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/10850468cd973d3309e4c5e730e951545fbb6727",
-                "reference": "10850468cd973d3309e4c5e730e951545fbb6727",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/909d61ac043dc5c46a7f225966b07eeeb85771f9",
+                "reference": "909d61ac043dc5c46a7f225966b07eeeb85771f9",
                 "shasum": ""
             },
             "require": {
@@ -2308,7 +2308,7 @@
                 "spatie",
                 "user"
             ],
-            "time": "2016-10-10 14:20:42"
+            "time": "2016-10-11 21:59:00"
         },
         {
             "name": "spatie/laravel-sitemap",

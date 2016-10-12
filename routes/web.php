@@ -34,6 +34,8 @@ Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], f
      */
     Route::get('articles/{post}', 'PostsController@show');
     Route::get('articles', 'PostsController@index');
+
+    Route::post('elements/submitForm', 'ElementsController@submitForm');
 });
 
 /*
@@ -81,6 +83,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::post('element/store', 'ElementsController@store');
     Route::delete('element/{id}', 'ElementsController@destroy');
     Route::post('element/sort', 'ElementsController@sort');
+
     //Route::match(['put', 'patch'], 'element/{id}', ['as' => 'admin.element.update', 'uses' => 'ElementController@update']);
     Route::get('element/{element}/{id}/settings/{locale}', 'ElementsController@settings');
     Route::post('element/{element}/{id}/apply', 'ElementsController@apply');

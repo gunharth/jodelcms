@@ -1260,7 +1260,10 @@ class Editor {
                 },
                 "move": {
                     icon: "fa-arrows",
-                    title: 'Move'
+                    title: 'Move',
+                    click: (elementDom) => {
+                        return false;
+                    }
                 },
                 "delete": {
                     icon: "fa-trash",
@@ -1300,7 +1303,8 @@ class Editor {
             toolbar.append(buttonDom);
 
             if (typeof(button.click) === 'function') {
-                buttonDom.click(function() {
+                buttonDom.click(function(e) {
+                    e.stopPropagation();
                     button.click(elementDom);
                 });
             }
