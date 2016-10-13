@@ -35,7 +35,7 @@ Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], f
     Route::get('articles/{post}', 'PostsController@show');
     Route::get('articles', 'PostsController@index');
 
-    Route::post('elements/submitForm', 'ElementsController@submitForm');
+    Route::post('elements/submitForm', ['as' => '.elements.send', 'uses' => 'ElementsController@formElementSend']);
 });
 
 /*

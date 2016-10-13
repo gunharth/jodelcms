@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Region;
 use App\Element;
+use Mail;
 use App;
 
 class ElementsController extends Controller
@@ -40,8 +41,6 @@ class ElementsController extends Controller
         $element = Element::findOrFail($request->id);
 
         return $element;
-            //return ['success' => true, 'message' => 'Item deleted!'];
-        //}
     }
 
     /**
@@ -125,5 +124,34 @@ class ElementsController extends Controller
 
             return ['success' => true, 'message' => 'Item deleted!'];
         }
+    }
+
+    public function formElementSend(Request $request) {
+
+        $element = Element::findOrFail($request->id);
+
+        $element->options = json_decode($element->options);
+
+        $content = '';
+        $fields = [];
+
+        $i = 0;
+        foreach($element->options->fields as $field) {
+            //$content .= $field->title . $request->field[0];
+            //
+            $fields[$i] = $field->title;
+            $fields[$i] = $request->field[$i];
+            $i++;
+        }
+
+        Mail::send('elements.formmail', ['fields' => $fields], function ($message)
+        {
+            $message->from('guest@gunharth.io', 'Website Visitor');
+            $message->to('hello@gunharth.io');
+            $message->subject('My Subject');
+        });
+
+        return $element->options->response;
+
     }
 }
