@@ -7,11 +7,10 @@ $(function() {
     $('title', window.parent.document).text($('title').text());
 });
 
-$(document).keydown((e)=> {
-    if((e.ctrlKey || e.metaKey) && e.which == 83) {
+$(document).keydown((e) => {
+    if ((e.ctrlKey || e.metaKey) && e.which == 83) {
         e.preventDefault();
         saveContent();
-        //console.log('aminjs Save fired')
     }
 });
 
@@ -58,7 +57,7 @@ function tinyMceChange(ed) {
 
 function setModalEvents(ed) {
     ed.windowManager.oldOpen = ed.windowManager.open; // save for later
-    ed.windowManager.open = function(t, r) { 
+    ed.windowManager.open = function(t, r) {
         $('#editor-panel', window.parent.document).fadeOut();
         var modal = this.oldOpen.apply(this, [t, r]);
         modal.on('close', function() {
@@ -73,7 +72,6 @@ function setModalEvents(ed) {
 }
 
 function elFinderBrowser(field_name, url, type, win) {
-    //console.log(type);
     tinymce.activeEditor.windowManager.open({
         file: '/elfinder/tinymce4', // use an absolute path!
         title: 'Files',
@@ -95,17 +93,19 @@ function saveContent() {
     var elements = {};
     var url = $('#url').val();
     var elms = 0;
-    for (i = 0; i < tinymce.editors.length; i++) {
-        var content = tinymce.editors[i].getContent();
-        var element = document.getElementById(tinymce.editors[i].id).dataset.field;
-        elements[i] = { 'id': element, 'content': content, 'options': '' };
-        elms++;
+    if (tinymce.editors.length) {
+        for (i = 0; i < tinymce.editors.length; i++) {
+            var content = tinymce.editors[i].getContent();
+            var element = document.getElementById(tinymce.editors[i].id).dataset.field;
+            elements[i] = { 'id': element, 'content': content, 'options': '' };
+            elms++;
+        }
     }
 
-    $('.jodelcms-element').each( function() {
+    $('.jodelcms-element').each(function() {
         if ($(this).attr('data-type') !== 'text') {
             var element_id = $(this).attr('id');
-            var eid = element_id.replace('element_','');
+            var eid = element_id.replace('element_', '');
             var content = $(this).find('.jodelcms-content').html();
             elements[elms] = { 'id': eid, 'content': content, 'options': JSON.stringify(options[element_id]) };
             elms++;
