@@ -30,7 +30,7 @@ editor.registerElementHandler('spacer', new function() {
         return {
             onShow: function(form, options){
                 if (!options || !options.size) { return; }
-                //$('#size', form).val(options.size);
+                $('#size', form).val(options.size);
             }
         };
     };
