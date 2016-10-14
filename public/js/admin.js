@@ -103,10 +103,14 @@ function saveContent() {
     }
 
     $('.jodelcms-element').each(function() {
-        if ($(this).attr('data-type') !== 'text') {
+        var element_type = $(this).attr('data-type');
+        if (element_type !== 'text') {
             var element_id = $(this).attr('id');
             var eid = element_id.replace('element_', '');
-            var content = $(this).find('.jodelcms-content').html();
+            var content = '';
+            if (element_type !== 'form') {
+                content = $(this).find('.jodelcms-content').html();
+            }
             elements[elms] = { 'id': eid, 'content': content, 'options': JSON.stringify(options[element_id]) };
             elms++;
         }

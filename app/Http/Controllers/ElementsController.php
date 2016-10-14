@@ -149,15 +149,21 @@ class ElementsController extends Controller
      */
     public function formElementSend(Request $request)
     {
+
         $element = Element::findOrFail($request->id);
 
         $options = json_decode($element->options);
 
         $i = 0;
+        $rules = [];
         foreach ($options->fields as $field) {
             $fields[] = [ 'name' => $field->title, 'value' => $request->field[$i]];
+            if($field->isMandatory) {
+                $rules['field.'.$i] = 'required';
+            }
             $i++;
         }
+         $this->validate($request, $rules);
 
         Mail::send('elements.formmail', ['fields' => $fields], function ($message) use ($options) {
             $message->from('guest@gunharth.io', 'Website Visitor');

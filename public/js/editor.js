@@ -55,12 +55,12 @@ class Editor {
 
 
         });
-
+        
+        //Save Keyboard shortcut if editor is in focus
         $(document).keydown((e) => {
             if ((e.ctrlKey || e.metaKey) && e.which == 83) {
                 e.preventDefault();
                 this.editorFrame.get(0).contentWindow.saveContent();
-                console.log('editorjs Save fired')
             }
         });
 

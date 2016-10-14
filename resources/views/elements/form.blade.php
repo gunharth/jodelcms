@@ -20,13 +20,16 @@
 
 		@foreach($element->options->fields as $field)
     		<div class="form-group">
-	            <label for="{{ $field->title}}" class="col-sm-2 control-label">{{ $field->title}}</label>
+	            <label for="{{ $field->title}}" class="col-sm-2 control-label">{{ $field->title}} @if($field->isMandatory) * @endif</label>
 	            <div class="col-sm-10">
 	            @if($field->type == 'textarea')
-	            	<textarea class="form-control" placeholder="{{ $field->title}}" name="field[{{ $loop->index }}]" id="{{ $field->title}}"></textarea>
+	            	<textarea class="form-control" placeholder="{{ $field->title}}" name="field[{{ $loop->index }}]" id="{{ $field->title}}" @if($field->isMandatory) required="required" @endif></textarea>
 	            @endif
 	            @if($field->type == 'text')
-	            	<input class="form-control" placeholder="{{ $field->title}}" name="field[{{ $loop->index }}]" type="{{ $field->type}}" id="{{ $field->title}}">
+	            	<input class="form-control" placeholder="{{ $field->title}}" name="field[{{ $loop->index }}]" type="{{ $field->type}}" id="{{ $field->title}}" @if($field->isMandatory) required="required" @endif>
+	            @endif
+	            @if($field->type == 'email')
+	            	<input class="form-control" placeholder="{{ $field->title}}" name="field[{{ $loop->index }}]" type="{{ $field->type}}" id="{{ $field->title}}" @if($field->isMandatory) required="required" @endif>
 	            @endif
 	            	
 	            </div>
@@ -64,7 +67,21 @@ $(function() {
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
             url         : '/elements/submitForm', // the url where we want to POST
             data        : formData, // our data object
-            encode          : true
+            encode          : true,
+            error: (data) => {
+                var error = $('<p class="text-danger">Please fill in all required fields</p>')
+                form.prepend(error);
+                error.delay(2000).slideUp();
+
+                // $("input").parent().removeClass('has-error');
+                // $("input").prev().find('span').remove();
+                // let errors = data.responseJSON;
+                // console.log(errors);
+                // $.each(errors, (key, value) => {
+                //     $("input[name=" + key + "]").parent().addClass('has-error');
+                //     $("input[name=" + key + "]").prev().append(' <span class="has-error">' + value + '</span>');
+                // })
+            }
         })
         .done(function(response) {
             form.parent().html('<p>' + response + '</p>'); 
