@@ -49,35 +49,30 @@
 options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
 </script>
 @endif
+
 @if (! Auth::check())
 @push('elementsScripts')
 <script>
 $(function() {
     $('#form_element_{{ $element->id }}').submit(function(e) {
     	e.preventDefault();
+    	var form = $(this);
 
-        let formData = $(this).serialize();
-console.log(formData); 
+        let formData = form.serialize();
+
         $.ajax({
             type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
             url         : '/elements/submitForm', // the url where we want to POST
             data        : formData, // our data object
-            dataType    : 'json', // what type of data do we expect back from the server
             encode          : true
         })
-            // using the done promise callback
-            .done(function(data) {
-
-                // log data to the console so we can see
-                console.log(data); 
-
-                // here we will handle errors and validation messages
-            });
+        .done(function(response) {
+            form.parent().html('<p>' + response + '</p>'); 
+        });
         
     });
 
 });
 </script>
 @endpush
-
 @endif

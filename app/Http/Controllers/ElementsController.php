@@ -10,22 +10,38 @@ use App;
 
 class ElementsController extends Controller
 {
-
+    /**
+     * Display Elements called from App\Helpers
+     * @param  [object]  $element  [description]
+     * @param  [type]  $content  [description]
+     * @param  boolean $editable [description]
+     * @return [type]            [description]
+     */
     public static function renderElementView($element, $content, $editable=true)
     {
         $element->options = json_decode($element->options);
         return view('elements.'.$element->type, compact('element', 'content', 'editable'))->render();
     }
 
-    public static function renderGmapScript()
-    {
-        return view('elements.mapjs')->render();
-    }
+    /**
+     * Helper to add GMap JS to views
+     * @return [type] [description]
+     */
+    // public static function renderGmapScript()
+    // {
+    //     return view('elements.mapjs')->render();
+    // }
 
+    /**
+     * Apply Element Settings
+     * @param  Request $request 
+     * @param  object  $element 
+     * @param  int  $id
+     * @return view
+     */
     public static function apply(Request $request, $element, $id)
     {
         $options = json_decode($request->options);
-        //return $options;
 
         return view('elements.updateForm', compact('options'))->render();
     }
@@ -59,7 +75,7 @@ class ElementsController extends Controller
         $element->order = $request->order;
         $region->elements()->save($element);
 
-        return $this->renderElementView($element,'');
+        return $this->renderElementView($element, '');
         //return $element;
             //return ['success' => true, 'message' => 'Item deleted!'];
         //}
@@ -126,32 +142,29 @@ class ElementsController extends Controller
         }
     }
 
-    public function formElementSend(Request $request) {
-
+    /**
+     * Submit form Element _ TODO: change to mailable
+     * @param  Request $request 
+     * @return json
+     */
+    public function formElementSend(Request $request)
+    {
         $element = Element::findOrFail($request->id);
 
-        $element->options = json_decode($element->options);
-
-        $content = '';
-        $fields = [];
+        $options = json_decode($element->options);
 
         $i = 0;
-        foreach($element->options->fields as $field) {
-            //$content .= $field->title . $request->field[0];
-            //
-            $fields[$i] = $field->title;
-            $fields[$i] = $request->field[$i];
+        foreach ($options->fields as $field) {
+            $fields[] = [ 'name' => $field->title, 'value' => $request->field[$i]];
             $i++;
         }
 
-        Mail::send('elements.formmail', ['fields' => $fields], function ($message)
-        {
+        Mail::send('elements.formmail', ['fields' => $fields], function ($message) use ($options) {
             $message->from('guest@gunharth.io', 'Website Visitor');
             $message->to('hello@gunharth.io');
-            $message->subject('My Subject');
+            $message->subject($options->subject);
         });
 
-        return $element->options->response;
-
+        return $options->response;
     }
 }
