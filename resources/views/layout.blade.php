@@ -45,7 +45,7 @@
   $.material.init();
 </script>
     @if (Auth::check())
-        <script src='/js/tinymce/tinymce.min.js'></script>
+        <script src='/js/vendor/tinymce/tinymce.min.js'></script>
         <script src='/js/admin.js'></script>
     @endif
     @yield('templateScripts')
