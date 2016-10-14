@@ -38,4 +38,10 @@ editor.registerElementHandler('text', new function() {
         }, 500)
     };
 
+    this.deleteElement = function(elementDom) {
+        let elementId = elementDom.attr('id');  
+        editor.editorFrame.get(0).contentWindow.tinymce.remove('#' + elementId + '_content');
+        elementDom.remove();
+    };
+
 });

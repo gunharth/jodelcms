@@ -115,8 +115,13 @@ function saveContent() {
             elms++;
         }
     });
+    if(Object.keys(elements).length < 1 ) {
+        $('#editor-loading', window.parent.document).hide();
+        return false;
+    }
 
     data['elements'] = elements;
+
 
     $.ajax({
         dataType: 'json',

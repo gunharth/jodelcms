@@ -1402,6 +1402,8 @@ class Editor {
 
         let elementId = elementDom.attr('id');
         let eid = elementId.replace('element_', '');
+        let type = elementDom.data('type');
+        let handler = this.elementHandlers[type];
 
         this.showConfirmationDialog('Delete this Element', function() {
             $.ajax({
@@ -1416,7 +1418,11 @@ class Editor {
                     console.log(thrownError);
                 }
             }).done((data) => {
-                elementDom.remove();
+                if (typeof(handler.deleteElement) === 'function') {
+                    handler.deleteElement(elementDom);
+                } else {
+                    elementDom.remove();
+                }
             });
         });
     };
