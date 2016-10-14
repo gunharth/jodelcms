@@ -11,20 +11,21 @@ use App;
 class ElementsController extends Controller
 {
     /**
-     * Display Elements called from App\Helpers
+     * Display Elements called from App\Helpers.
      * @param  [object]  $element  [description]
      * @param  [type]  $content  [description]
-     * @param  boolean $editable [description]
+     * @param  bool $editable [description]
      * @return [type]            [description]
      */
-    public static function renderElementView($element, $content, $editable=true)
+    public static function renderElementView($element, $content, $editable = true)
     {
         $element->options = json_decode($element->options);
+
         return view('elements.'.$element->type, compact('element', 'content', 'editable'))->render();
     }
 
     /**
-     * Helper to add GMap JS to views
+     * Helper to add GMap JS to views.
      * @return [type] [description]
      */
     // public static function renderGmapScript()
@@ -33,9 +34,9 @@ class ElementsController extends Controller
     // }
 
     /**
-     * Apply Element Settings
-     * @param  Request $request 
-     * @param  object  $element 
+     * Apply Element Settings.
+     * @param  Request $request
+     * @param  object  $element
      * @param  int  $id
      * @return view
      */
@@ -143,13 +144,12 @@ class ElementsController extends Controller
     }
 
     /**
-     * Submit form Element _ TODO: change to mailable
-     * @param  Request $request 
+     * Submit form Element _ TODO: change to mailable.
+     * @param  Request $request
      * @return json
      */
     public function formElementSend(Request $request)
     {
-
         $element = Element::findOrFail($request->id);
 
         $options = json_decode($element->options);
@@ -157,13 +157,13 @@ class ElementsController extends Controller
         $i = 0;
         $rules = [];
         foreach ($options->fields as $field) {
-            $fields[] = [ 'name' => $field->title, 'value' => $request->field[$i]];
-            if($field->isMandatory) {
+            $fields[] = ['name' => $field->title, 'value' => $request->field[$i]];
+            if ($field->isMandatory) {
                 $rules['field.'.$i] = 'required';
             }
             $i++;
         }
-         $this->validate($request, $rules);
+        $this->validate($request, $rules);
 
         Mail::send('elements.formmail', ['fields' => $fields], function ($message) use ($options) {
             $message->from('guest@gunharth.io', 'Website Visitor');
