@@ -90,7 +90,7 @@ editor.registerElementHandler('form', new function() {
         var elementId = elementDom.attr('id');
         var elementIdDb = elementId.replace('element_', '');
 
-        options = this.getOptions(elementId);
+        var options = this.getOptions(elementId);
         options['fields'] = [];
 
         $('.fields-list .form-field', form).each(function(index) {

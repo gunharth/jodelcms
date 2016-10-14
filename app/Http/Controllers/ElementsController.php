@@ -25,15 +25,6 @@ class ElementsController extends Controller
     }
 
     /**
-     * Helper to add GMap JS to views.
-     * @return [type] [description]
-     */
-    // public static function renderGmapScript()
-    // {
-    //     return view('elements.mapjs')->render();
-    // }
-
-    /**
      * Apply Element Settings.
      * @param  Request $request
      * @param  object  $element
@@ -68,7 +59,6 @@ class ElementsController extends Controller
      */
     public function store(Request $request)
     {
-        //if ($request->ajax()) {
         $region = Region::findOrFail($request->id);
         $element = new Element();
         $element->type = $request->type;
@@ -77,9 +67,6 @@ class ElementsController extends Controller
         $region->elements()->save($element);
 
         return $this->renderElementView($element, '');
-        //return $element;
-            //return ['success' => true, 'message' => 'Item deleted!'];
-        //}
     }
 
     /**
@@ -93,9 +80,6 @@ class ElementsController extends Controller
         App::setLocale($editorLocale);
         $element = Element::findOrFail($id);
         $element->options = json_decode($element->options);
-
-        //foreach $element->options
-
         return view('admin.elements.'.$handler, compact('element'));
     }
 
@@ -127,7 +111,6 @@ class ElementsController extends Controller
             foreach ($elements as $key => $id) {
                 $elm = Element::findOrFail($id);
                 $elm->order = $key;
-                //return $elm;
                 $elm->save();
             }
         }

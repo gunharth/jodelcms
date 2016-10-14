@@ -20,12 +20,15 @@ options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
 
 @if (! Auth::check())
 @push('elementsScripts')
-    <script>new google.maps.Marker({
+    <script>
+    new google.maps.Marker({
     position: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),
     title: "aaa",
+    icon: '{{ $element->options->icon }}',
     map: new google.maps.Map(document.getElementById("element_{{ $element->id }}_map"), {
         center: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),
-        zoom: {{ $element->options->zoom }}
+        zoom: {{ $element->options->zoom }},
+        styles: {!! $element->options->styles !!}
     })
 });</script>
 @endpush

@@ -108,7 +108,7 @@ function saveContent() {
             var element_id = $(this).attr('id');
             var eid = element_id.replace('element_', '');
             var content = '';
-            if (element_type !== 'form') {
+            if (element_type !== 'form' && element_type !== 'map') {
                 content = $(this).find('.jodelcms-content').html();
             }
             elements[elms] = { 'id': eid, 'content': content, 'options': JSON.stringify(options[element_id]) };

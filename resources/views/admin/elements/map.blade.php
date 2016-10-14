@@ -29,6 +29,15 @@
 	    {!! Form::text('lng',null,['class' => 'form-control']) !!}
 	</div>
 	<div class="form-group">
+	    {!! Form::label('icon','Icon URL') !!}
+	    {!! Form::text('icon',null,['class' => 'form-control', 'placeholder' => 'https://domain.com/icon.png']) !!}
+	</div>
+	<div class="form-group">
+		<a href="https://snazzymaps.com" target="_blank">https://snazzymaps.com</a><br>
+	    {!! Form::label('styles','Styles') !!}
+	    {!! Form::textarea('styles',null,['class' => 'form-control', 'rows' => 3, 'placeholder' => '[]']) !!}
+	</div>
+	<div class="form-group">
 	    {!! Form::label('title','Marker') !!}
 	    {!! Form::text('title',null,['class' => 'form-control']) !!}
 	</div>

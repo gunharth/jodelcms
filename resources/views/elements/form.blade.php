@@ -64,31 +64,20 @@ $(function() {
         let formData = form.serialize();
 
         $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : '/elements/submitForm', // the url where we want to POST
-            data        : formData, // our data object
+            type        : 'POST',
+            url         : '/elements/submitForm',
+            data        : formData,
             encode          : true,
             error: (data) => {
                 var error = $('<p class="text-danger">Please fill in all required fields</p>')
                 form.prepend(error);
                 error.delay(2000).slideUp();
-
-                // $("input").parent().removeClass('has-error');
-                // $("input").prev().find('span').remove();
-                // let errors = data.responseJSON;
-                // console.log(errors);
-                // $.each(errors, (key, value) => {
-                //     $("input[name=" + key + "]").parent().addClass('has-error');
-                //     $("input[name=" + key + "]").prev().append(' <span class="has-error">' + value + '</span>');
-                // })
             }
         })
         .done(function(response) {
             form.parent().html('<p>' + response + '</p>'); 
         });
-        
     });
-
 });
 </script>
 @endpush

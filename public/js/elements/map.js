@@ -21,7 +21,9 @@ editor.registerElementHandler('map', new function() {
         height: 200,
         lat: '48.856614',
         lng: '2.3522219',
-        zoom: 12
+        zoom: 12,
+        icon: '//maps.google.com/mapfiles/marker.png',
+        styles: '[]'
     };
 
     this.getToolbarButtons = function() {
@@ -41,46 +43,44 @@ editor.registerElementHandler('map', new function() {
         return {
             onCreate: function(form) {
                 $('a.find-coords', form).click(function(e) {
-
                     e.preventDefault();
-
                     editor.showPromptDialog('Enter Address', 'address', function(address) {
                         handler.loadApi(function(google) {
-
                             var geocoder = new google.maps.Geocoder();
-
                             geocoder.geocode({ 'address': address }, function(results, status) {
-
                                 if (status !== google.maps.GeocoderStatus.OK) {
                                     editor.showMessageDialog('addressError');
                                     return;
                                 }
-
                                 var lat = results[0].geometry.location.lat();
                                 var lng = results[0].geometry.location.lng();
-
                                 $('#lat', form).val(lat);
                                 $('#lng', form).val(lng);
-
                             });
-
                         });
                     });
-
                 });
-
                 $('a.current-location', form).click(function(e) {
                     e.preventDefault();
                     var startPos;
                     var geoSuccess = function(position) {
                         startPos = position;
-                        // document.getElementById('startLat').innerHTML = startPos.coords.latitude;
-                        // document.getElementById('startLon').innerHTML = startPos.coords.longitude;
                         $('#lat', form).val(startPos.coords.latitude);
                         $('#lng', form).val(startPos.coords.longitude);
                     };
                     navigator.geolocation.getCurrentPosition(geoSuccess);
                 });
+            },
+            onShow: function(form, options) {
+                if (!options) { return; }
+
+                $('input[name=width]').val(options.width);
+                $('input[name=height]').val(options.height);
+                $('input[name=lat]').val(options.lat);
+                $('input[name=lng]').val(options.lng);
+                $('input[name=zoom]').val(options.zoom);
+                $('input[name=icon]').val(options.icon);
+                $('textarea[name=styles]').val(options.styles);
             }
         };
     };
@@ -105,33 +105,33 @@ editor.registerElementHandler('map', new function() {
 
         let elementId = elementDom.attr('id');
 
-        options = editor.editorFrame.get(0).contentWindow.options[elementId];
+        var options = this.getOptions(elementId);
 
         var center = new google.maps.LatLng(options.lat, options.lng);
 
         var map = new google.maps.Map(elementDom.find('#' + mapId)[0], {
             center: center,
-            zoom: Number(options.zoom)
+            zoom: Number(options.zoom),
+            styles: JSON.parse(options.styles)
         });
 
         map.marker = new google.maps.Marker({
             map: map,
             position: center,
+            icon: options.icon,
             draggable: true
         });
 
-        // google.maps.event.addListener(map, 'zoom_changed', function() {
-        //     map.elementDom.options.zoom = map.getZoom();
-        // });
+        google.maps.event.addListener(map, 'zoom_changed', function() {
+            options.zoom = map.getZoom();
+        });
 
-        // google.maps.event.addListener(map.marker, 'dragend', function() {
-        //     var coords = map.marker.getPosition();
-        //     map.elementDom.options.lat = coords.lat();
-        //     map.elementDom.options.lng = coords.lng();
-        //     map.setCenter(coords);
-        // });
-
-        //map.elementDom = elementDom;
+        google.maps.event.addListener(map.marker, 'dragend', function() {
+            var coords = map.marker.getPosition();
+            options.lat = coords.lat();
+            options.lng = coords.lng();
+            map.setCenter(coords);
+        });
 
         this.mapsObjects[mapId] = map;
 
@@ -139,36 +139,60 @@ editor.registerElementHandler('map', new function() {
 
 
     this.onCreateElement = function(elementDom) {
+        let elementId = elementDom.attr('id');
+        let mapId = elementId + '_map';
+
+        let handler = this;
+
+        this.loadApi(function(google) {
+
+            handler.initElementMap(mapId, elementDom, google);
+
+        });
         this.openOptionsForm(elementDom);
     };
 
-    this.applyOptions = function(elementDom, options, form) {
-        //editor.showLoadingIndicator();
-        //console.log(options)
+
+    this.applyOptions = function(elementDom, form) {
+
         var elementId = elementDom.attr('id');
-        //var mapObject = $('#' + elementId + '_map', elementDom);
         var mapObject = this.mapsObjects[elementId + '_map'];
-        //alert(elementId);
-        //var mapId = $('#' + elementId + '_map', $("#editorIFrame"));
-        //
+
         let width = $('#width', form).val();
         let height = $('#height', form).val();
         let zoom = $('#zoom', form).val();
         let lat = $('#lat', form).val();
         let lng = $('#lng', form).val();
+        let icon = $('#icon', form).val();
+        let styles = $('#styles', form).val();
 
-        editor.editorFrame.get(0).contentWindow.options[elementId]['width'] = width;
-        editor.editorFrame.get(0).contentWindow.options[elementId]['zoom'] = zoom;
-        editor.editorFrame.get(0).contentWindow.options[elementId]['lat'] = lat;
-        editor.editorFrame.get(0).contentWindow.options[elementId]['lng'] = lng;
+        var options = this.getOptions(elementId);
+
+        options['width'] = width;
+        options['zoom'] = zoom;
+        options['lat'] = lat;
+        options['lng'] = lng;
+        
+        if(styles == "") {
+            styles = '[]';
+        }
+        options['styles'] = styles;
+        options['icon'] = icon;
 
         if (height) {
-            editor.editorFrame.get(0).contentWindow.options[elementId]['height'] = height;
+            options['height'] = height;
             $('#' + elementId + '_map', elementDom).css('height', Number(height) + 'px');
-            //mapId.css({height: options.height});
         } else {
-            editor.editorFrame.get(0).contentWindow.options[elementId]['height'] = 200;
+            options['height'] = 200;
             $('#' + elementId + '_map', elementDom).css('height', Number(200) + 'px');
+        }
+
+        if (width) {
+            options['width'] = width;
+            $('#' + elementId + '_map', elementDom).css('width', width);
+        } else {
+            options['width'] = '100%';
+            $('#' + elementId + '_map', elementDom).css('width', '100%');
         }
 
         this.loadApi(function(google) {
@@ -177,7 +201,8 @@ editor.registerElementHandler('map', new function() {
             mapObject.setZoom(Number(zoom));
             mapObject.setCenter(center);
             mapObject.marker.setPosition(center);
-
+            mapObject.marker.setIcon(icon);
+            mapObject.setOptions({styles: JSON.parse(styles)});
         });
 
     };
