@@ -144,9 +144,10 @@ class ElementsController extends Controller
     public function settings($handler, $id, $editorLocale)
     {
         App::setLocale($editorLocale);
-        $element = Element::findOrFail($id);
-        $element->options = json_decode($element->options);
-        return view('admin.elements.'.$handler, compact('element'));
+        // $element = Element::findOrFail($id);
+        // $element->options = json_decode($element->options);
+        //$element->id = json_decode($element->options);
+        return view('admin.elements.'.$handler, compact('id'));
     }
 
     // /**

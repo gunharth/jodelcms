@@ -72,8 +72,11 @@ function Element() {
     this.openOptionsForm = function(elementDom) {
 
         var handler = this;
-        var elementId = elementDom.attr('id').replace('element_', '');
-        let options = editor.editorFrame.get(0).contentWindow.options['element_' + elementId];
+        var eid = elementDom.attr('id');
+        console.log(eid)
+        //var elementId = elementDom.attr('id').replace('element_', '');
+        var elementId = parseInt(eid.match(/(\d+)$/)[0], 10);
+        let options = editor.editorFrame.get(0).contentWindow.options[eid];
 
         var formSettings = {
             id: this.getName() + '-options',

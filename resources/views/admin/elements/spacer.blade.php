@@ -1,6 +1,6 @@
-{!! Form::model($element->options,[
+{!! Form::model([
         'method' => 'PATCH',
-        'url' => ['/'.config('app.locale').'/admin/element/'.$element->id],
+        'url' => ['/'.config('app.locale').'/admin/element/'.$id],
         'id' => 'updateElement'
     ]) !!}
 

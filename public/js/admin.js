@@ -160,24 +160,35 @@ function saveContent() {
 
         $(this).find('>div.jodelcms-element').each(function() {
 
+            var content = "";
+            var opts = "";
             var element_type = $(this).attr('data-type');
             var element_id = $(this).attr('id');
 
+
             if($(this).hasClass('dummy')) {
+
                 if(element_type == 'text') {
-                    var content = tinymce.get(element_id+'_content').getContent();
-                    dummies[dummyIndex] = { 'region': regionID, 'order': elementOrder, 'type': element_type, 'content': content, 'options': '' };
+                    content = tinymce.get(element_id+'_content').getContent();
+                } else {
+                    //console.log(element_id);
+                    opts = JSON.stringify(options[element_id]);
                 }
+                dummies[dummyIndex] = { 'region': regionID, 'order': elementOrder, 'type': element_type, 'content': content, 'options': opts };
                 dummyIndex++;
+
             } else {
                 var eid = element_id.replace('element_', '');
+
                 if(element_type == 'text') {
-                    var content = tinymce.get(element_id+'_content').getContent();
-                    updates[updateIndex] = { 'id': eid, 'region': regionID, 'order': elementOrder, 'content': content, 'options': '' };
+                    content = tinymce.get(element_id+'_content').getContent();
+                } else {
+                    opts = JSON.stringify(options[element_id]);
                 }
+                updates[updateIndex] = { 'id': eid, 'region': regionID, 'order': elementOrder, 'content': content, 'options': opts };
                 updateIndex++;
+
             }
-            
             elementOrder++;
         });
 
