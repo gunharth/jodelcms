@@ -80,7 +80,8 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::get('page/listPages/{lang}', 'PagesController@editorList');
 
     Route::get('element/{id}', 'ElementsController@show');
-    Route::post('element/store', 'ElementsController@store');
+    //Route::post('element/store', 'ElementsController@store');
+    Route::post('element/add', 'ElementsController@add');
     Route::delete('element/{id}', 'ElementsController@destroy');
     Route::post('element/sort', 'ElementsController@sort');
 

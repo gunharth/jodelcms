@@ -16,6 +16,7 @@ class Editor {
         this.elementHandlers = {};
         this.elementOptions = {};
         this.isGoogleMapsApiLoaded = false;
+        this.elementsToDelete = [];
     }
 
     showLoadingIndicator() {
@@ -1349,10 +1350,23 @@ class Editor {
                 }
             });
 
+            // region.droppable({
+            //     accept: ".jodelcms-element",
+            //     drop: (event, ui) => {
+            //         region.append($("ui.helper").clone());
+            //         $('.drop-helper', region).hide();
+            //         alert('moved');
+            //     }
+            // });
+
             region.sortable({
                 handle: '.b-move',
-                axis: 'y',
+                //axis: 'y',
+                connectWith: '.jodelRegion',
                 update: function(event, ui) {
+                    
+                    //console.log(ui.item.index())
+                    //region.sortable();
                     var data = $(this).sortable('serialize');
                     $.ajax({
                         data: data,
@@ -1362,6 +1376,12 @@ class Editor {
                     })
                 }
             });
+            // region.find('>div').draggable({
+            //     helper: 'clone'
+            // })
+            // region.on( "stop", function( event, ui ) {
+            //     region.sortable('refreshPositions');
+            // } );
         });
 
     };
@@ -1369,18 +1389,47 @@ class Editor {
     /**
      * Add an Element
      */
+    // addElement(regionDom, type) {
+    //     //alert(type)
+    //     let regionId = regionDom.data('region-id');
+    //     let elementOrder = regionDom.find('>div').length - 1;
+
+    //     let handler = this.elementHandlers[type];
+    //     let options = handler.defaultOptions;
+
+    //     $.ajax({
+    //         type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
+    //         url: '/admin/element/store', // the url where we want to POST
+    //         data: { 'id': regionId, 'type': type, 'options': JSON.stringify(options), 'order': elementOrder }, // our data object
+    //         //dataType: 'json', // what type of data do we expect back from the server
+    //         encode: true,
+    //         error: (data) => {}
+    //     }).done((data) => {
+    //         let elementDom = $(data);
+    //         $('.drop-helper', regionDom).before(elementDom);
+
+    //         handler.createElement(regionId, elementDom, (elementDom, type) => {
+    //             this.buildElementToolbar(elementDom, handler);
+    //             return true;
+    //         });
+    //     });
+    // };
+
     addElement(regionDom, type) {
         //alert(type)
         let regionId = regionDom.data('region-id');
         let elementOrder = regionDom.find('>div').length - 1;
+        let totalElements = this.editorFrame.contents().find('div.jodelcms-element').length;
+        let dummyID = Number(totalElements)+1;
+        //console.log('dummy ID: ' +dummyID)
 
         let handler = this.elementHandlers[type];
         let options = handler.defaultOptions;
 
         $.ajax({
             type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url: '/admin/element/store', // the url where we want to POST
-            data: { 'id': regionId, 'type': type, 'options': JSON.stringify(options), 'order': elementOrder }, // our data object
+            url: '/admin/element/add', // the url where we want to POST
+            data: { 'id': regionId, 'dummyID': dummyID, 'type': type, 'options': JSON.stringify(options), 'order': elementOrder }, // our data object
             //dataType: 'json', // what type of data do we expect back from the server
             encode: true,
             error: (data) => {}
@@ -1405,25 +1454,29 @@ class Editor {
         let type = elementDom.data('type');
         let handler = this.elementHandlers[type];
 
-        this.showConfirmationDialog('Delete this Element', function() {
-            $.ajax({
-                type: 'POST',
-                url: '/admin/element/' + eid,
-                data: {
-                    '_method': 'delete'
-                },
-                dataType: 'json',
-                error: (xhr, ajaxOptions, thrownError) => {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                }
-            }).done((data) => {
+        this.showConfirmationDialog('Delete this Element', () => {
+            // $.ajax({
+            //     type: 'POST',
+            //     url: '/admin/element/' + eid,
+            //     data: {
+            //         '_method': 'delete'
+            //     },
+            //     dataType: 'json',
+            //     error: (xhr, ajaxOptions, thrownError) => {
+            //         console.log(xhr.status);
+            //         console.log(thrownError);
+            //     }
+            // }).done((data) => {
+            if( ! elementDom.hasClass('dummy')) {
+                // add to a region option for deletion of element
+                this.elementsToDelete.push(eid);
+            }
                 if (typeof(handler.deleteElement) === 'function') {
                     handler.deleteElement(elementDom);
                 } else {
                     elementDom.remove();
                 }
-            });
+            // });
         });
     };
 

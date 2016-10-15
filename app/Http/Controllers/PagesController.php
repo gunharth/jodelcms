@@ -7,6 +7,7 @@ use App\Http\Requests\PageRequest;
 use Illuminate\Http\Request;
 use App\PageTranslation;
 use App\Template;
+use App\Region;
 use App\Element;
 use App\Page;
 use Auth;
@@ -123,12 +124,35 @@ class PagesController extends Controller
             }
             $page->save();
 
-            foreach ($request->elements as $elem) {
-                $element = Element::findOrFail($elem['id']);
-                $element->content = $elem['content'];
-                $element->options = $elem['options'];
-                $element->save();
+            if($request->dummies) {
+                ElementsController::store($request->dummies);
             }
+            if($request->updates) {
+                ElementsController::update($request->updates);
+            }
+            if($request->deletes) {
+                ElementsController::destroy($request->deletes);
+            }
+            
+            // foreach ($request->dummies as $elem) {
+
+            //     $region = Region::findOrFail($elem['region']);
+            //     $element = new Element();
+            //     //$element->id = $request->dummyID;
+            //     //$element->region_id = $elem['region'];
+            //     $element->type = $elem['type'];
+            //     $element->content = $elem['content'];
+            //     $element->options = $elem['options'];
+            //     $element->order = $elem['order'];
+            //     $region->elements()->save($element);
+            // }
+
+            // foreach ($request->elements as $elem) {
+            //     $element = Element::findOrFail($elem['id']);
+            //     $element->content = $elem['content'];
+            //     $element->options = $elem['options'];
+            //     $element->save();
+            // }
 
             return $page;
         }

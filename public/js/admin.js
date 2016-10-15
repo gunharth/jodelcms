@@ -86,42 +86,112 @@ function elFinderBrowser(field_name, url, type, win) {
     return false;
 }
 
+// function saveContent() {
+//     $('#editor-loading', window.parent.document).show();
+//     var data = { '_method': 'patch' };
+//     data['lang'] = $('html').attr('lang');
+//     var elements = {};
+//     var url = $('#url').val();
+//     var elms = 0;
+//     if (tinymce.editors.length) {
+//         for (i = 0; i < tinymce.editors.length; i++) {
+//             var content = tinymce.editors[i].getContent();
+//             var element = document.getElementById(tinymce.editors[i].id).dataset.field;
+//             elements[i] = { 'id': element, 'content': content, 'options': '' };
+//             elms++;
+//         }
+//     }
+
+//     $('.jodelcms-element').each(function() {
+//         var element_type = $(this).attr('data-type');
+//         if (element_type !== 'text') {
+//             var element_id = $(this).attr('id');
+//             var eid = element_id.replace('element_', '');
+//             var content = '';
+//             if (element_type !== 'form' && element_type !== 'map') {
+//                 content = $(this).find('.jodelcms-content').html();
+//             }
+//             elements[elms] = { 'id': eid, 'content': content, 'options': JSON.stringify(options[element_id]) };
+//             elms++;
+//         }
+//     });
+//     if(Object.keys(elements).length < 1 ) {
+//         $('#editor-loading', window.parent.document).hide();
+//         return false;
+//     }
+
+//     data['elements'] = elements;
+
+
+//     $.ajax({
+//         dataType: 'json',
+//         data: data,
+//         url: url,
+//         cache: false,
+//         method: 'POST',
+//         success: function(data) {
+//             setTimeout(function() {
+//                 $('#editor-loading', window.parent.document).hide();
+//                 window.parent.editor.isGoogleMapsApiLoaded = false;
+//                 document.location.reload();
+//             }, 500);
+//         }
+//     });
+// }
+
 function saveContent() {
-    $('#editor-loading', window.parent.document).show();
+    //$('#editor-loading', window.parent.document).show();
+    //lop thtough regions and build update create and delete
+    
+    // settings
     var data = { '_method': 'patch' };
     data['lang'] = $('html').attr('lang');
-    var elements = {};
     var url = $('#url').val();
-    var elms = 0;
-    if (tinymce.editors.length) {
-        for (i = 0; i < tinymce.editors.length; i++) {
-            var content = tinymce.editors[i].getContent();
-            var element = document.getElementById(tinymce.editors[i].id).dataset.field;
-            elements[i] = { 'id': element, 'content': content, 'options': '' };
-            elms++;
-        }
-    }
+    var dummies = {};
+    var updates = {};
+    var deletes = {};
 
-    $('.jodelcms-element').each(function() {
-        var element_type = $(this).attr('data-type');
-        if (element_type !== 'text') {
+    var dummyIndex = 0;
+    var updateIndex = 0;
+    $('div.jodelRegion').each(function() {
+        
+        var elementOrder = 1;
+        var regionID = $(this).data('region-id');
+
+        $(this).find('>div.jodelcms-element').each(function() {
+
+            var element_type = $(this).attr('data-type');
             var element_id = $(this).attr('id');
-            var eid = element_id.replace('element_', '');
-            var content = '';
-            if (element_type !== 'form' && element_type !== 'map') {
-                content = $(this).find('.jodelcms-content').html();
+
+            if($(this).hasClass('dummy')) {
+                if(element_type == 'text') {
+                    var content = tinymce.get(element_id+'_content').getContent();
+                    dummies[dummyIndex] = { 'region': regionID, 'order': elementOrder, 'type': element_type, 'content': content, 'options': '' };
+                }
+                dummyIndex++;
+            } else {
+                var eid = element_id.replace('element_', '');
+                if(element_type == 'text') {
+                    var content = tinymce.get(element_id+'_content').getContent();
+                    updates[updateIndex] = { 'id': eid, 'region': regionID, 'order': elementOrder, 'content': content, 'options': '' };
+                }
+                updateIndex++;
             }
-            elements[elms] = { 'id': eid, 'content': content, 'options': JSON.stringify(options[element_id]) };
-            elms++;
-        }
+            
+            elementOrder++;
+        });
+
     });
-    if(Object.keys(elements).length < 1 ) {
-        $('#editor-loading', window.parent.document).hide();
-        return false;
+
+    
+    var deletesArray = window.parent.editor.elementsToDelete;
+    for (i = 0; i < deletesArray.length; i++) { 
+        deletes[i] = { 'id': deletesArray[i] };
     }
 
-    data['elements'] = elements;
-
+    data['dummies'] = dummies;
+    data['updates'] = updates;
+    data['deletes'] = deletes;
 
     $.ajax({
         dataType: 'json',
@@ -137,4 +207,57 @@ function saveContent() {
             }, 500);
         }
     });
+
+    //return false;
+    // //let regionId = regionDom.data('region-id');
+    //     let elementOrder = regionDom.find('>div').length - 1;
+    //     let totalElements = this.editorFrame.contents().find('div.jodelcms-element').length;
+
+    // //var elements = {};
+   
+    // var elms = 0;
+    // if (tinymce.editors.length) {
+    //     for (i = 0; i < tinymce.editors.length; i++) {
+    //         var content = tinymce.editors[i].getContent();
+    //         var element = document.getElementById(tinymce.editors[i].id).dataset.field;
+    //         elements[i] = { 'id': element, 'content': content, 'options': '' };
+    //         elms++;
+    //     }
+    // }
+
+    // $('.jodelcms-element').each(function() {
+    //     var element_type = $(this).attr('data-type');
+    //     if (element_type !== 'text') {
+    //         var element_id = $(this).attr('id');
+    //         var eid = element_id.replace('element_', '');
+    //         var content = '';
+    //         if (element_type !== 'form' && element_type !== 'map') {
+    //             content = $(this).find('.jodelcms-content').html();
+    //         }
+    //         elements[elms] = { 'id': eid, 'content': content, 'options': JSON.stringify(options[element_id]) };
+    //         elms++;
+    //     }
+    // });
+    // if(Object.keys(elements).length < 1 ) {
+    //     $('#editor-loading', window.parent.document).hide();
+    //     return false;
+    // }
+
+    // data['elements'] = elements;
+
+
+    // $.ajax({
+    //     dataType: 'json',
+    //     data: data,
+    //     url: url,
+    //     cache: false,
+    //     method: 'POST',
+    //     success: function(data) {
+    //         setTimeout(function() {
+    //             $('#editor-loading', window.parent.document).hide();
+    //             window.parent.editor.isGoogleMapsApiLoaded = false;
+    //             document.location.reload();
+    //         }, 500);
+    //     }
+    // });
 }
