@@ -71,7 +71,6 @@ class Editor {
             this.initRegions();
             // alert(JSON.stringify(this.editorFrame.get(0).contentWindow.eoptions));
 
-
         });
         
         //Save Keyboard shortcut if editor is in focus
@@ -79,7 +78,7 @@ class Editor {
             if ((e.ctrlKey || e.metaKey) && e.which == 83) {
                 e.preventDefault();
                 this.editorFrame.get(0).contentWindow.saveContent();
-                this.hasUnsavedChanges = false;
+                //this.hasUnsavedChanges = false;
             }
         });
 
@@ -131,6 +130,11 @@ class Editor {
             if (!this.hasChanges()){ return; }
             return 'pageOutConfirm';
         };
+
+        $('#saveMe').on('click', (e) => {
+            e.preventDefault();
+            this.editorFrame.get(0).contentWindow.saveContent();
+        })
 
         $('.modal-header select', this.editorPanel).on('change', (e) => {
             e.preventDefault();
