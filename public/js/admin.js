@@ -53,6 +53,7 @@ function initTinyMCE(selector) {
 
 function tinyMceChange(ed) {
     $(ed.targetElm).parent().addClass('has-changed');
+    window.parent.editor.setChanges();
 }
 
 function setModalEvents(ed) {
@@ -86,64 +87,9 @@ function elFinderBrowser(field_name, url, type, win) {
     return false;
 }
 
-// function saveContent() {
-//     $('#editor-loading', window.parent.document).show();
-//     var data = { '_method': 'patch' };
-//     data['lang'] = $('html').attr('lang');
-//     var elements = {};
-//     var url = $('#url').val();
-//     var elms = 0;
-//     if (tinymce.editors.length) {
-//         for (i = 0; i < tinymce.editors.length; i++) {
-//             var content = tinymce.editors[i].getContent();
-//             var element = document.getElementById(tinymce.editors[i].id).dataset.field;
-//             elements[i] = { 'id': element, 'content': content, 'options': '' };
-//             elms++;
-//         }
-//     }
-
-//     $('.jodelcms-element').each(function() {
-//         var element_type = $(this).attr('data-type');
-//         if (element_type !== 'text') {
-//             var element_id = $(this).attr('id');
-//             var eid = element_id.replace('element_', '');
-//             var content = '';
-//             if (element_type !== 'form' && element_type !== 'map') {
-//                 content = $(this).find('.jodelcms-content').html();
-//             }
-//             elements[elms] = { 'id': eid, 'content': content, 'options': JSON.stringify(options[element_id]) };
-//             elms++;
-//         }
-//     });
-//     if(Object.keys(elements).length < 1 ) {
-//         $('#editor-loading', window.parent.document).hide();
-//         return false;
-//     }
-
-//     data['elements'] = elements;
-
-
-//     $.ajax({
-//         dataType: 'json',
-//         data: data,
-//         url: url,
-//         cache: false,
-//         method: 'POST',
-//         success: function(data) {
-//             setTimeout(function() {
-//                 $('#editor-loading', window.parent.document).hide();
-//                 window.parent.editor.isGoogleMapsApiLoaded = false;
-//                 document.location.reload();
-//             }, 500);
-//         }
-//     });
-// }
-
 function saveContent() {
-    //$('#editor-loading', window.parent.document).show();
-    //lop thtough regions and build update create and delete
-    
-    // settings
+    $('#editor-loading', window.parent.document).show();
+
     var data = { '_method': 'patch' };
     data['lang'] = $('html').attr('lang');
     var url = $('#url').val();
@@ -153,6 +99,7 @@ function saveContent() {
 
     var dummyIndex = 0;
     var updateIndex = 0;
+
     $('div.jodelRegion').each(function() {
         
         var elementOrder = 1;
@@ -165,13 +112,11 @@ function saveContent() {
             var element_type = $(this).attr('data-type');
             var element_id = $(this).attr('id');
 
-
             if($(this).hasClass('dummy')) {
 
                 if(element_type == 'text') {
                     content = tinymce.get(element_id+'_content').getContent();
                 } else {
-                    //console.log(element_id);
                     opts = JSON.stringify(options[element_id]);
                 }
                 dummies[dummyIndex] = { 'region': regionID, 'order': elementOrder, 'type': element_type, 'content': content, 'options': opts };
@@ -187,14 +132,12 @@ function saveContent() {
                 }
                 updates[updateIndex] = { 'id': eid, 'region': regionID, 'order': elementOrder, 'content': content, 'options': opts };
                 updateIndex++;
-
             }
             elementOrder++;
         });
 
     });
 
-    
     var deletesArray = window.parent.editor.elementsToDelete;
     for (i = 0; i < deletesArray.length; i++) { 
         deletes[i] = { 'id': deletesArray[i] };
@@ -213,62 +156,12 @@ function saveContent() {
         success: function(data) {
             setTimeout(function() {
                 $('#editor-loading', window.parent.document).hide();
+                window.parent.editor.elementsToDelete = [];
                 window.parent.editor.isGoogleMapsApiLoaded = false;
+                window.parent.editor.noChanges();
                 document.location.reload();
             }, 500);
         }
     });
 
-    //return false;
-    // //let regionId = regionDom.data('region-id');
-    //     let elementOrder = regionDom.find('>div').length - 1;
-    //     let totalElements = this.editorFrame.contents().find('div.jodelcms-element').length;
-
-    // //var elements = {};
-   
-    // var elms = 0;
-    // if (tinymce.editors.length) {
-    //     for (i = 0; i < tinymce.editors.length; i++) {
-    //         var content = tinymce.editors[i].getContent();
-    //         var element = document.getElementById(tinymce.editors[i].id).dataset.field;
-    //         elements[i] = { 'id': element, 'content': content, 'options': '' };
-    //         elms++;
-    //     }
-    // }
-
-    // $('.jodelcms-element').each(function() {
-    //     var element_type = $(this).attr('data-type');
-    //     if (element_type !== 'text') {
-    //         var element_id = $(this).attr('id');
-    //         var eid = element_id.replace('element_', '');
-    //         var content = '';
-    //         if (element_type !== 'form' && element_type !== 'map') {
-    //             content = $(this).find('.jodelcms-content').html();
-    //         }
-    //         elements[elms] = { 'id': eid, 'content': content, 'options': JSON.stringify(options[element_id]) };
-    //         elms++;
-    //     }
-    // });
-    // if(Object.keys(elements).length < 1 ) {
-    //     $('#editor-loading', window.parent.document).hide();
-    //     return false;
-    // }
-
-    // data['elements'] = elements;
-
-
-    // $.ajax({
-    //     dataType: 'json',
-    //     data: data,
-    //     url: url,
-    //     cache: false,
-    //     method: 'POST',
-    //     success: function(data) {
-    //         setTimeout(function() {
-    //             $('#editor-loading', window.parent.document).hide();
-    //             window.parent.editor.isGoogleMapsApiLoaded = false;
-    //             document.location.reload();
-    //         }, 500);
-    //     }
-    // });
 }

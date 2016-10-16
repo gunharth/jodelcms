@@ -154,6 +154,7 @@
   </div>
 </div>
 <div id="editor-loading"><i class="fa fa-spinner fa-pulse"></i></div>
+<div id="saveMe" style="display: none; position: absolute; margin: 0 auto; background: red; width: 100px; height: 100px; z-index: 99999; color: white">Click me or hit CMD/CTRL S to save!</div>
 
 	<script src="/js/app.js"></script>
 	<script src='/js/jquery-ui.js'></script>

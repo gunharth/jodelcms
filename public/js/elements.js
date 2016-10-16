@@ -73,8 +73,6 @@ function Element() {
 
         var handler = this;
         var eid = elementDom.attr('id');
-        console.log(eid)
-        //var elementId = elementDom.attr('id').replace('element_', '');
         var elementId = parseInt(eid.match(/(\d+)$/)[0], 10);
         let options = editor.editorFrame.get(0).contentWindow.options[eid];
 
@@ -98,17 +96,17 @@ function Element() {
         editor.openDialog(formSettings);
     };
 
-    this.saveOptions = function(elementDom, options, form) {
-        //console.log(elementId)
-        //       var widget = cms.getWidget(regionId, widgetId);
+    // this.saveOptions = function(elementDom, options, form) {
+    //     //console.log(elementId)
+    //     //       var widget = cms.getWidget(regionId, widgetId);
 
-        //       widget.domId = 'jodelcms-element-' + regionId + widget.id;
+    //     //       widget.domId = 'jodelcms-element-' + regionId + widget.id;
 
-               //newOptions = $.extend({}, newOptions, this.applyOptions(widget, newOptions, form));
+    //            //newOptions = $.extend({}, newOptions, this.applyOptions(widget, newOptions, form));
 
-        // cms.setWidgetOptions(regionId, widgetId, newOptions);
+    //     // cms.setWidgetOptions(regionId, widgetId, newOptions);
 
-    };
+    // };
 
     this.getOptions = function(elementId) {
         return editor.editorFrame.get(0).contentWindow.options[elementId];

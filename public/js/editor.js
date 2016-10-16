@@ -17,7 +17,24 @@ class Editor {
         this.elementOptions = {};
         this.isGoogleMapsApiLoaded = false;
         this.elementsToDelete = [];
+        this.hasUnsavedChanges = false;
     }
+
+    setChanges() {
+        this.hasUnsavedChanges = true;
+        $('#saveMe').show();
+        //$('.btn-save', this.panel).addClass('glow').find('i').removeClass('fa-check').addClass('fa-exclamation-circle');
+    };
+
+    hasChanges() {
+        return this.hasUnsavedChanges;
+    };
+
+    noChanges() {
+        this.hasUnsavedChanges = false;
+        $('#saveMe').hide();
+        //$('.btn-save', this.panel).removeClass('glow').find('i').removeClass('fa-exclamation-circle').addClass('fa-check');
+    };
 
     showLoadingIndicator() {
         $('#editor-loading').show();
@@ -62,6 +79,7 @@ class Editor {
             if ((e.ctrlKey || e.metaKey) && e.which == 83) {
                 e.preventDefault();
                 this.editorFrame.get(0).contentWindow.saveContent();
+                this.hasUnsavedChanges = false;
             }
         });
 
@@ -108,6 +126,11 @@ class Editor {
             }
             this.savePanelState();
         });
+
+        window.onbeforeunload = () => {
+            if (!this.hasChanges()){ return; }
+            return 'pageOutConfirm';
+        };
 
         $('.modal-header select', this.editorPanel).on('change', (e) => {
             e.preventDefault();
@@ -607,7 +630,7 @@ class Editor {
             }
         }).done((data) => {
             //this.hideLoadingIndicator();
-            console.log(data)
+            //console.log(data)
             if (data == true) {
                 this.hideLoadingIndicator();
             } else {
@@ -1350,70 +1373,17 @@ class Editor {
                 }
             });
 
-            // region.droppable({
-            //     accept: ".jodelcms-element",
-            //     drop: (event, ui) => {
-            //         region.append($("ui.helper").clone());
-            //         $('.drop-helper', region).hide();
-            //         alert('moved');
-            //     }
-            // });
-
             region.sortable({
                 handle: '.b-move',
                 //axis: 'y',
                 connectWith: '.jodelRegion',
-                update: function(event, ui) {
-                    
-                    //console.log(ui.item.index())
-                    //region.sortable();
-                    var data = $(this).sortable('serialize');
-                    $.ajax({
-                        data: data,
-                        type: 'POST',
-                        dataType: 'json',
-                        url: '/admin/element/sort'
-                    })
+                update: (event, ui) => {
+                    this.setChanges();
                 }
             });
-            // region.find('>div').draggable({
-            //     helper: 'clone'
-            // })
-            // region.on( "stop", function( event, ui ) {
-            //     region.sortable('refreshPositions');
-            // } );
         });
-
     };
 
-    /**
-     * Add an Element
-     */
-    // addElement(regionDom, type) {
-    //     //alert(type)
-    //     let regionId = regionDom.data('region-id');
-    //     let elementOrder = regionDom.find('>div').length - 1;
-
-    //     let handler = this.elementHandlers[type];
-    //     let options = handler.defaultOptions;
-
-    //     $.ajax({
-    //         type: 'POST', // define the type of HTTP verb we want to use (POST for our form)
-    //         url: '/admin/element/store', // the url where we want to POST
-    //         data: { 'id': regionId, 'type': type, 'options': JSON.stringify(options), 'order': elementOrder }, // our data object
-    //         //dataType: 'json', // what type of data do we expect back from the server
-    //         encode: true,
-    //         error: (data) => {}
-    //     }).done((data) => {
-    //         let elementDom = $(data);
-    //         $('.drop-helper', regionDom).before(elementDom);
-
-    //         handler.createElement(regionId, elementDom, (elementDom, type) => {
-    //             this.buildElementToolbar(elementDom, handler);
-    //             return true;
-    //         });
-    //     });
-    // };
 
     addElement(regionDom, type) {
         //alert(type)
@@ -1421,7 +1391,6 @@ class Editor {
         let elementOrder = regionDom.find('>div').length - 1;
         let totalElements = this.editorFrame.contents().find('div.jodelcms-element').length;
         let dummyID = Number(totalElements)+1;
-        //console.log('dummy ID: ' +dummyID)
 
         let handler = this.elementHandlers[type];
         let options = handler.defaultOptions;
@@ -1441,6 +1410,7 @@ class Editor {
                 this.buildElementToolbar(elementDom, handler);
                 return true;
             });
+            this.setChanges();
         });
     };
 
@@ -1455,28 +1425,16 @@ class Editor {
         let handler = this.elementHandlers[type];
 
         this.showConfirmationDialog('Delete this Element', () => {
-            // $.ajax({
-            //     type: 'POST',
-            //     url: '/admin/element/' + eid,
-            //     data: {
-            //         '_method': 'delete'
-            //     },
-            //     dataType: 'json',
-            //     error: (xhr, ajaxOptions, thrownError) => {
-            //         console.log(xhr.status);
-            //         console.log(thrownError);
-            //     }
-            // }).done((data) => {
+
             if( ! elementDom.hasClass('dummy')) {
-                // add to a region option for deletion of element
                 this.elementsToDelete.push(eid);
             }
-                if (typeof(handler.deleteElement) === 'function') {
-                    handler.deleteElement(elementDom);
-                } else {
-                    elementDom.remove();
-                }
-            // });
+            if (typeof(handler.deleteElement) === 'function') {
+                handler.deleteElement(elementDom);
+            } else {
+                elementDom.remove();
+            }
+            this.setChanges();
         });
     };
 
