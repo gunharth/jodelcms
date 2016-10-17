@@ -1385,16 +1385,16 @@
         },
         {
             "name": "mcamara/laravel-localization",
-            "version": "1.1.8",
+            "version": "1.1.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mcamara/laravel-localization.git",
-                "reference": "cbf2c144bfa95f41392721a41beacce13338afb5"
+                "reference": "82bc38c4d6b0c8cd8a4a774edbc677039b460769"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/cbf2c144bfa95f41392721a41beacce13338afb5",
-                "reference": "cbf2c144bfa95f41392721a41beacce13338afb5",
+                "url": "https://api.github.com/repos/mcamara/laravel-localization/zipball/82bc38c4d6b0c8cd8a4a774edbc677039b460769",
+                "reference": "82bc38c4d6b0c8cd8a4a774edbc677039b460769",
                 "shasum": ""
             },
             "require": {
@@ -1429,7 +1429,7 @@
                 "localization",
                 "php"
             ],
-            "time": "2016-09-28 06:12:40"
+            "time": "2016-10-17 06:56:04"
         },
         {
             "name": "mikemccabe/json-patch-php",
@@ -1735,16 +1735,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v2.0.2",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "088c04e2f261c33bed6ca5245491cfca69195ccf"
+                "reference": "c0125896dbb151380ab47e96c621741e79623beb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/088c04e2f261c33bed6ca5245491cfca69195ccf",
-                "reference": "088c04e2f261c33bed6ca5245491cfca69195ccf",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/c0125896dbb151380ab47e96c621741e79623beb",
+                "reference": "c0125896dbb151380ab47e96c621741e79623beb",
                 "shasum": ""
             },
             "require": {
@@ -1779,7 +1779,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-04-03 06:00:07"
+            "time": "2016-10-17 15:23:22"
         },
         {
             "name": "patchwork/utf8",

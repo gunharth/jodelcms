@@ -531,6 +531,7 @@ class Editor {
             title: 'Edit',
             modal: true,
             width: 800,
+            minHeight: 600,
             url: '/admin/' + this.collection + '/collectionIndex',
             type: 'ajax',
             onAfterShow: () => {
@@ -1028,12 +1029,13 @@ class Editor {
             buttons: buttons,
             width: typeof(options.width) === 'undefined' ? 450 : options.width,
             minWidth: 300,
-            minHeight: 600,
-            /*position: {
+            //minHeight: 600,
+            minHeight: typeof(options.minHeight) === 'undefined' ? 'auto' : options.minHeight,
+            position: {
                 my: "center top",
-                at: "center top+50",
+                at: "center top+80",
                 of: window
-            },*/
+            },
             open: function() {
 
                 //$(this).closest('.ui-dialog').find(".ui-dialog-buttonset .ui-button:first").addClass("green");
