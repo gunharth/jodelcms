@@ -33,7 +33,7 @@ class ViewsServiceProvider extends ServiceProvider
             $menus = Cache::remember('menus', 2, function () {
                 return Menu::with('morpher')->whereActive(1)->whereMenuTypeId(1)->get();
             });
-
+            //dd($menus);
             $view->with('menu', $menus)->with('path', $path);
         });
 

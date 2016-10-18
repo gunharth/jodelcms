@@ -52,13 +52,17 @@ if (! function_exists('renderMainMenu')) {
         if ($node->isLeaf()) {
             return '<li'.$active.'>'.$single.'</li>';
         } else {
-            $html = '<li '.$class.'>'.$drop_down;
-            $html .= '<ul '.$list.'>';
-            foreach ($node->children as $child) {
-                $html .= renderMainMenu($child, $path, $link);
+            if(sizeof($node->children) > 0) {
+                $html = '<li '.$class.'>'.$drop_down;
+                $html .= '<ul '.$list.'>';
+                foreach ($node->children as $child) {
+                    $html .= renderMainMenu($child, $path, $link);
+                }
+                $html .= '</ul>';
+                $html .= '</li>';
+            } else {
+                $html = '<li'.$active.'>'.$single.'</li>';
             }
-            $html .= '</ul>';
-            $html .= '</li>';
         }
 
         return $html;
