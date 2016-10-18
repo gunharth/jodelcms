@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Spatie\Sitemap\SitemapGenerator;
 use Illuminate\Http\Request;
+use Spatie\Sitemap\SitemapGenerator;
 
 class SitemapController extends Controller
 {

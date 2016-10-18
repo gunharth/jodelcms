@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use App\Http\Requests\PostRequest;
-use Illuminate\Http\Request;
-use App\PostTranslation;
-use App\Template;
-use App\Element;
-use App\Post;
-use Auth;
 use App;
+use Auth;
+use App\Post;
+use App\Element;
+use App\Template;
+use App\PostTranslation;
+use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class PostsController extends Controller
 {

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App;
+use Mail;
 use App\Region;
 use App\Element;
-use Mail;
-use App;
+use Illuminate\Http\Request;
 
 class ElementsController extends Controller
 {
@@ -24,6 +24,12 @@ class ElementsController extends Controller
         return view('elements.'.$element->type, compact('element', 'content', 'editable'))->render();
     }
 
+    /**
+     * Render Element dummies on create.
+     * @param  object $element
+     * @param  object $content
+     * @return view
+     */
     public static function renderDummyView($element, $content)
     {
         $element->options = json_decode($element->options);
@@ -64,27 +70,13 @@ class ElementsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function store(Request $request)
-    // {
-    //     $region = Region::findOrFail($request->id);
-    //     $element = new Element();
-    //     $element->type = $request->type;
-    //     $element->options = $request->options;
-    //     $element->order = $request->order;
-    //     $region->elements()->save($element);
-
-    //     return $this->renderElementView($element, '');
-    // }
-    //
     public function add(Request $request)
     {
-        //$region = Region::findOrFail($request->id);
         $element = new Element();
         $element->id = $request->dummyID;
         $element->type = $request->type;
         $element->options = $request->options;
         $element->order = $request->order;
-        //$region->elements()->save($element);
 
         return $this->renderDummyView($element, '');
     }
@@ -94,9 +86,7 @@ class ElementsController extends Controller
         foreach ($dummies as $elem) {
             $region = Region::findOrFail($elem['region']);
             $element = new Element();
-                //$element->id = $request->dummyID;
-                //$element->region_id = $elem['region'];
-                $element->type = $elem['type'];
+            $element->type = $elem['type'];
             $element->content = $elem['content'];
             $element->options = $elem['options'];
             $element->order = $elem['order'];
@@ -116,16 +106,6 @@ class ElementsController extends Controller
         }
     }
 
-    //public function destroy(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $element = Element::findOrFail($request->id);
-    //         $element->delete();
-
-    //         return ['success' => true, 'message' => 'Item deleted!'];
-    //     }
-    // }
-
     public static function destroy($deletes)
     {
         foreach ($deletes as $elem) {
@@ -135,7 +115,7 @@ class ElementsController extends Controller
     }
 
     /**
-     * Show the form for editing the specified menu.
+     * Show the form for editing the specified element.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -143,43 +123,8 @@ class ElementsController extends Controller
     public function settings($handler, $id, $editorLocale)
     {
         App::setLocale($editorLocale);
-        // $element = Element::findOrFail($id);
-        // $element->options = json_decode($element->options);
-        //$element->id = json_decode($element->options);
+
         return view('admin.elements.'.$handler, compact('id'));
-    }
-
-    // /**
-    //  * Update the specified menu in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(Request $request, $id)
-    // {
-    //     $menu = Element::findOrFail($id);
-    //     Cache::forget('menus');
-    //     $menu = $menu->fill($request->all())->save();
-
-    //     return 'true';
-    // }
-
-    /**
-     * Save the element ordering.
-     *
-     * @param Request $request
-     */
-    public function sort(Request $request)
-    {
-        // if ($request->ajax()) {
-        //     $elements = $request->element;
-        //     foreach ($elements as $key => $id) {
-        //         $elm = Element::findOrFail($id);
-        //         $elm->order = $key;
-        //         $elm->save();
-        //     }
-        // }
     }
 
     /**

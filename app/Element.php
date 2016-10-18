@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Dimsav\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Model;
 
 class Element extends Model
 {
@@ -18,9 +18,9 @@ class Element extends Model
         'options',
     ];
 
-    protected $with = [
-        //'translations'
-    ];
+    // protected $with = [
+    //     //'translations'
+    // ];
 
     public function region()
     {

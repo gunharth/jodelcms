@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-//use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use App\Http\Requests\MenuRequest;
-use Illuminate\Http\Request;
-use App\Menu;
-use App\Page;
-use Config;
-use Cache;
 use App;
+use Cache;
+use Config;
+use App\Page;
+use App\Menu;
+use Illuminate\Http\Request;
+use App\Http\Requests\MenuRequest;
 
 class MenusController extends Controller
 {

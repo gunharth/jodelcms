@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Setting;
 use Cache;
+use App\Setting;
+use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
@@ -18,8 +18,6 @@ class SettingsController extends Controller
      */
     public function update(Request $request)
     {
-        // ...
-        //dd($request->input());
         $settings = $request->input();
         $settings = array_except($settings, ['_token', '_method']);
         foreach ($settings as $name => $value) {

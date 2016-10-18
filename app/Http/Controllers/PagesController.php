@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-use App\Http\Requests\PageRequest;
-use Illuminate\Http\Request;
-use App\PageTranslation;
-use App\Template;
+use App;
+use Auth;
+use App\Page;
 use App\Region;
 use App\Element;
-use App\Page;
-use Auth;
-use App;
+use App\Template;
+use App\PageTranslation;
+use Illuminate\Http\Request;
+use App\Http\Requests\PageRequest;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 class PagesController extends Controller
 {
@@ -124,35 +124,15 @@ class PagesController extends Controller
             }
             $page->save();
 
-            if($request->dummies) {
+            if ($request->dummies) {
                 ElementsController::store($request->dummies);
             }
-            if($request->updates) {
+            if ($request->updates) {
                 ElementsController::update($request->updates);
             }
-            if($request->deletes) {
+            if ($request->deletes) {
                 ElementsController::destroy($request->deletes);
             }
-            
-            // foreach ($request->dummies as $elem) {
-
-            //     $region = Region::findOrFail($elem['region']);
-            //     $element = new Element();
-            //     //$element->id = $request->dummyID;
-            //     //$element->region_id = $elem['region'];
-            //     $element->type = $elem['type'];
-            //     $element->content = $elem['content'];
-            //     $element->options = $elem['options'];
-            //     $element->order = $elem['order'];
-            //     $region->elements()->save($element);
-            // }
-
-            // foreach ($request->elements as $elem) {
-            //     $element = Element::findOrFail($elem['id']);
-            //     $element->content = $elem['content'];
-            //     $element->options = $elem['options'];
-            //     $element->save();
-            // }
 
             return $page;
         }

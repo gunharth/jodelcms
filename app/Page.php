@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Spatie\Activitylog\Traits\LogsActivity;
-use Illuminate\Database\Eloquent\Model;
 use Dimsav\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Page extends Model
 {

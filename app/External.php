@@ -4,8 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-//use App\Menu;
-
 class External extends Model
 {
     // Menu::class Morph Relation
