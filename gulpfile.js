@@ -1,6 +1,6 @@
 const elixir = require('laravel-elixir');
 
-require('laravel-elixir-vue-2');
+//require('laravel-elixir-vue-2');
 
 /*
  |--------------------------------------------------------------------------
@@ -16,5 +16,8 @@ require('laravel-elixir-vue-2');
 elixir(mix => {
     mix.sass('app.scss')
        .webpack('app.js')
-       .copy('node_modules/tinymce', 'public/js/vendor/tinymce');
+       .copy('node_modules/tinymce', 'public/js/vendor/tinymce')
+       .browserSync({
+	        proxy: 'jodelcms.dev'
+	    });
 });
