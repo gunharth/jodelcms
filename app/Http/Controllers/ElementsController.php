@@ -75,7 +75,7 @@ class ElementsController extends Controller
 
     //     return $this->renderElementView($element, '');
     // }
-    // 
+    //
     public function add(Request $request)
     {
         //$region = Region::findOrFail($request->id);
@@ -91,18 +91,17 @@ class ElementsController extends Controller
 
     public static function store($dummies)
     {
-       foreach ($dummies as $elem) {
-
-                $region = Region::findOrFail($elem['region']);
-                $element = new Element();
+        foreach ($dummies as $elem) {
+            $region = Region::findOrFail($elem['region']);
+            $element = new Element();
                 //$element->id = $request->dummyID;
                 //$element->region_id = $elem['region'];
                 $element->type = $elem['type'];
-                $element->content = $elem['content'];
-                $element->options = $elem['options'];
-                $element->order = $elem['order'];
-                $region->elements()->save($element);
-            }
+            $element->content = $elem['content'];
+            $element->options = $elem['options'];
+            $element->order = $elem['order'];
+            $region->elements()->save($element);
+        }
     }
 
     public static function update($updates)
@@ -114,7 +113,7 @@ class ElementsController extends Controller
             $element->options = $elem['options'];
             $element->order = $elem['order'];
             $element->save();
-        } 
+        }
     }
 
     //public function destroy(Request $request)
@@ -132,7 +131,7 @@ class ElementsController extends Controller
         foreach ($deletes as $elem) {
             $element = Element::findOrFail($elem['id']);
             $element->delete();
-        } 
+        }
     }
 
     /**
@@ -182,16 +181,6 @@ class ElementsController extends Controller
         //     }
         // }
     }
-
-    // public function destroy(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $element = Element::findOrFail($request->id);
-    //         $element->delete();
-
-    //         return ['success' => true, 'message' => 'Item deleted!'];
-    //     }
-    // }
 
     /**
      * Submit form Element _ TODO: change to mailable.

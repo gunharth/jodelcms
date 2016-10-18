@@ -65,7 +65,7 @@ $(function() {
 
         $.ajax({
             type        : 'POST',
-            url         : '/elements/submitForm',
+            url         : '/{{ App::getLocale() }}/elements/submitForm',
             data        : formData,
             encode          : true,
             error: (data) => {
