@@ -33,6 +33,11 @@ class Menu extends Node
     // Baum Scope for multiple Menus
     protected $scoped = ['menu_type_id'];
 
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
+
     // Morph Relation
     public function morpher()
     {
