@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App;
 use Auth;
 use App\Page;
-use App\Region;
-use App\Element;
 use App\Template;
 use App\PageTranslation;
 use Illuminate\Http\Request;
