@@ -178,7 +178,8 @@ return [
         /*
          * Application Custom Service Providers...
          */
-        App\Providers\JodelServiceProvider::class,
+        App\Providers\SettingsServiceProvider::class,
+        App\Providers\ViewsServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
 
         /*

@@ -3,42 +3,24 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\MenuTranslation;
-use App\PageTranslation;
-use App\Setting;
-use App\Page;
-use App\Menu;
-use Request;
-use Cache;
-use Schema;
-use App;
 
-class JodelServiceProvider extends ServiceProvider
+use Cache;
+use Request;
+use App\Menu;
+// use App\Page;
+// use App\Setting;
+use App\PageTranslation;
+use App\MenuTranslation;
+
+class ViewsServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
      *
      * @return void
      */
-    public function boot(Setting $settings)
+    public function boot()
     {
-
-        // Fix for enabling sqlite foreign key constraints
-        if (config('database.default') == 'sqlite') {
-            $db = app()->make('db');
-            $db->connection()->getPdo()->exec('pragma foreign_keys=1');
-        }
-
-        // Add settings to config and cache at boot
-        // but only after migrations are done, i.e in local & testing env
-        if (App::environment() == 'local' || App::environment() == 'testing') {
-            if (Schema::hasTable('settings')) {
-                $this->loadSettings($settings);
-            }
-        } else {
-            $this->loadSettings($settings);
-        }
-
         /*
          * Main Menue View Composer
          */
@@ -163,19 +145,6 @@ class JodelServiceProvider extends ServiceProvider
             // morper needed here?
             $view->with('menu', Menu::with('morpher')->where('active', '=', 1)->where('menu_type_id', 2)->get());
         });
-    }
-
-    /**
-     * load app settings.
-     * @param  Settings $settings load settings
-     * @return settings and add to config
-     */
-    public function loadSettings($settings)
-    {
-        $settings = Cache::remember('settings', 60, function () use ($settings) {
-            return $settings->pluck('value', 'name')->all();
-        });
-        config()->set('settings', $settings);
     }
 
     /**
