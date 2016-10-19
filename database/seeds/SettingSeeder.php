@@ -12,6 +12,11 @@ class SettingSeeder extends Seeder
     public function run()
     {
         DB::table('settings')->insert([
+            'name' => 'googlemap_api',
+            'value' => 'AIzaSyCRqfUKokTWoFg77sAhHOBew_NLgepcTOM',
+        ]);
+
+        DB::table('settings')->insert([
             'name' => 'blog_title',
             'value' => 'Blog Home',
         ]);

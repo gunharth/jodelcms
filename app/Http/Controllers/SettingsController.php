@@ -37,4 +37,20 @@ class SettingsController extends Controller
         $setting->value = $value;
         $setting->save();
     }
+
+    /**
+     * Load editor settings form
+     * ajax route.
+     * @param  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function settings(Request $request)
+    {
+        if ($request->ajax()) {
+            //App::setLocale($editorLocale);
+            $settings = Setting::all();
+
+            return view('admin.settings.settings', compact('settings'));
+        }
+    }
 }

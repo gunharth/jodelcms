@@ -507,6 +507,16 @@ class Editor {
         });
 
         /**
+         *  Open edit page dialog
+         */
+        $('#tab-settings', this.editorPanel).on('click', '.openSettings', (e) => {
+            e.preventDefault();
+            let parent = $(e.target).parents('.dd-item');
+            this.setting = parent.data('setting');
+            this.editSetting(this.setting);
+        });
+
+        /**
          *  Tab settings logs
          *  Load collection in iframe
          */

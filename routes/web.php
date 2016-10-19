@@ -109,6 +109,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
      * Admin Settings
      */
      Route::match(['put', 'patch'], 'settings', ['as' => 'admin.settings', 'uses' => 'SettingsController@update']);
+     Route::get('settings', 'SettingsController@settings');
 
     /*
      * Admin Menus
@@ -153,6 +154,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
      * Fill the select filed on Menu Type change
      * Type: ajax
      */
+    
     Route::get('activity', 'LogsController@index');
 });
 

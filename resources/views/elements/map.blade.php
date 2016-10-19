@@ -19,7 +19,7 @@ options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
 @endif
 
 @pushonce('elementsScripts:googlemaps')
-<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?language={{ App::getLocale() }}&key=AIzaSyCRqfUKokTWoFg77sAhHOBew_NLgepcTOM"></script>
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?language={{ App::getLocale() }}&key={{ config('settings.googlemap_api') }}"></script>
 @endpushonce
 
 @if (! Auth::check())

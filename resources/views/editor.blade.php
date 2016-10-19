@@ -123,6 +123,12 @@
 				<div class="tab-content">
 					<div class="dd">
 			             <ol class="dd-list">
+			            	<li class="dd-item" data-setting="settings">
+			            		<div class="dd-content"><span class="dd-title">Global Settings</span><div class="btn-group pull-right" role="group" aria-label="...">
+			            			<button type="button" class="btn btn-link btn-xs openSettings" data-toggle="tooltip" title="view"><i class="fa fa-gear"></i></button>
+			            		</div>
+			            		</div>
+			            	</li>
 			            	<li class="dd-item" data-setting="activity">
 			            		<div class="dd-content"><span class="dd-title">Activity Log</span><div class="btn-group pull-right" role="group" aria-label="...">
 			            			<button type="button" class="btn btn-link btn-xs openLogs" data-toggle="tooltip" title="view"><i class="fa fa-eye"></i></button>
