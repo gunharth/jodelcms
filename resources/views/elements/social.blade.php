@@ -18,6 +18,7 @@ options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
 </script>
 @endif
 
+@if (! Auth::check())
 @pushonce('elementsStyles:jssocial')
 <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.css" />
 <link type="text/css" rel="stylesheet" href="//cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials-theme-flat.css" />
@@ -26,6 +27,7 @@ options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
 @pushonce('elementsScripts:jssocial')
 <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.jssocials/1.4.0/jssocials.min.js"></script>
 @endpushonce
+@endif
 
 @push('elementsScripts')
     <script>

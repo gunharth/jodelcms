@@ -18,11 +18,11 @@ options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
 </script>
 @endif
 
+@if (! Auth::check())
 @pushonce('elementsScripts:googlemaps')
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?language={{ App::getLocale() }}&key={{ config('settings.googlemap_api') }}"></script>
 @endpushonce
 
-@if (! Auth::check())
 @push('elementsScripts')
 <script>
 new google.maps.Marker({
