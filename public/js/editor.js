@@ -47,7 +47,6 @@ class Editor {
     injectScript(url, callback) {
 
         let doc = this.editorFrame.get(0).contentWindow.document;
-
         let head = doc.getElementsByTagName('body')[0];
         let script = doc.createElement('script');
         script.type = 'text/javascript';
@@ -890,6 +889,8 @@ class Editor {
             }
         }).done((html) => {
             $('#menuItems').html(html)
+            $('#menuItems').parent().nestable('init');
+            $('#menuItems').parent().nestable('collapseAll');
             this.savePanelState();
             this.hideLoadingIndicator();
         });
