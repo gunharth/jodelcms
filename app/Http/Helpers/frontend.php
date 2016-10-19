@@ -52,7 +52,7 @@ if (! function_exists('renderMainMenu')) {
         if ($node->isLeaf()) {
             return '<li'.$active.'>'.$single.'</li>';
         } else {
-            if (sizeof($node->children) > 0) {
+            if (count($node->children) > 0) {
                 $html = '<li '.$class.'>'.$drop_down;
                 $html .= '<ul '.$list.'>';
                 foreach ($node->children as $child) {

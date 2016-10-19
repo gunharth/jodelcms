@@ -2,15 +2,12 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-
 use Cache;
 use Request;
 use App\Menu;
-// use App\Page;
-// use App\Setting;
 use App\PageTranslation;
 use App\MenuTranslation;
+use Illuminate\Support\ServiceProvider;
 
 class ViewsServiceProvider extends ServiceProvider
 {
