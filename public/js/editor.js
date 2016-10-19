@@ -12,7 +12,7 @@ class Editor {
         this.editorLocale = 'en';
         this.editorPinned = true;
         //this.elementsList = ["text","image","gallery","video","file","form","map","share","spacer","code"];
-        this.elementsList = ['text', 'spacer', 'form', 'map'];
+        this.elementsList = ['text', 'spacer', 'form', 'map', 'social'];
         this.elementHandlers = {};
         this.elementOptions = {};
         this.isGoogleMapsApiLoaded = false;

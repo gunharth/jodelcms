@@ -48,7 +48,7 @@ class ElementsController extends Controller
     {
         $options = json_decode($request->options);
 
-        return view('elements.updateForm', compact('options'))->render();
+        return view('admin.elements.'.$element.'update', compact('options'))->render();
     }
 
     /**

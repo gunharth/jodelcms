@@ -165,3 +165,17 @@ function saveContent() {
     });
 
 }
+
+/**
+ * Re-init the socials plugin
+ * Used in Editor to update soical display on apply
+ */
+function reInitJsSocials(element,options) {
+    $('#'+element).jsSocials({
+        showLabel: options.showLabel,
+        showCount: options.showCount,
+        shareIn: options.shareIn,
+        shares: options.shares
+    });
+
+}

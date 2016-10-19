@@ -4,7 +4,7 @@
         'class' => 'form-horizontal',
         'id' => 'updateElement'
     ]) !!} --}}
-    <form method="POST" class="form-horizontal"action="#" accept-charset="UTF-8">
+    <form method="POST" class="form-horizontal" action="#" accept-charset="UTF-8">
 
 
     <input type="hidden" name="locale" value="en">

@@ -166,5 +166,6 @@
 	<script src="/js/elements/spacer.js"></script>
 	<script src="/js/elements/form.js"></script>
 	<script src="/js/elements/map.js"></script>
+	<script src="/js/elements/social.js"></script>
 </body>
 </html>
