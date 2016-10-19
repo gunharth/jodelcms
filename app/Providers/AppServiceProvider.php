@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::directive('pushonce', function ($expression) {
+            $domain = explode(':', trim(substr($expression, 1, -1)));
+            $push_name = $domain[0];
+            $push_sub = $domain[1];
+            $isDisplayed = '__pushonce_'.$push_name.'_'.$push_sub;
+            
+            return "<?php if(!isset(\$__env->{$isDisplayed})): \$__env->{$isDisplayed} = true; \$__env->startPush('{$push_name}'); ?>";
+        });
+
+        Blade::directive('endpushonce', function ($expression) {
+            return '<?php $__env->stopPush(); endif; ?>';
+        });
     }
 
     /**

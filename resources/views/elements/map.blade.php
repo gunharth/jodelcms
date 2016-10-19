@@ -2,7 +2,7 @@
 	@if ($editable) 
 		class="jodelcms-element" id="element_{{ $element->id }}" data-type="{{ $element->type }}"
 	@endif
->
+	>
 	<div 
 		@if ($editable) 
 			class="jodelcms-content" id="element_{{ $element->id }}_content" data-field="{{ $element->id }}"
@@ -18,19 +18,22 @@ options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
 </script>
 @endif
 
+@pushonce('elementsScripts:googlemaps')
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?language={{ App::getLocale() }}&key=AIzaSyCRqfUKokTWoFg77sAhHOBew_NLgepcTOM"></script>
+@endpushonce
+
 @if (! Auth::check())
 @push('elementsScripts')
-    <script>
-    new google.maps.Marker({
-    position: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),
-    title: "aaa",
-    icon: '{{ $element->options->icon }}',
-    map: new google.maps.Map(document.getElementById("element_{{ $element->id }}_map"), {
-        center: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),
-        zoom: {{ $element->options->zoom }},
-        styles: {!! $element->options->styles !!}
-    })
+<script>
+new google.maps.Marker({
+position: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),
+title: "aaa",
+icon: '{{ $element->options->icon }}',
+map: new google.maps.Map(document.getElementById("element_{{ $element->id }}_map"), {
+    center: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),
+    zoom: {{ $element->options->zoom }},
+    styles: {!! $element->options->styles !!}
+})
 });</script>
 @endpush
-
 @endif
