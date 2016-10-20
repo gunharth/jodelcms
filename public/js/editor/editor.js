@@ -10256,7 +10256,14 @@ return jQuery;
 } );
 });
 
-var jquery$2 = createCommonjsModule(function (module) {
+
+
+var jquery$2 = Object.freeze({
+	default: jquery,
+	__moduleExports: jquery
+});
+
+var jquery$3 = createCommonjsModule(function (module) {
 /*!
  * jQuery JavaScript Library v3.1.1
  * https://jquery.com/
@@ -20501,13 +20508,7 @@ return jQuery;
 } );
 });
 
-/*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
- * Licensed under the MIT license
- */
-
-if (typeof jquery$2 === 'undefined') {
+if (typeof jquery$3 === 'undefined') {
   throw new Error('Bootstrap\'s JavaScript requires jQuery')
 }
 
@@ -20517,7 +20518,7 @@ if (typeof jquery$2 === 'undefined') {
   if ((version[0] < 2 && version[1] < 9) || (version[0] == 1 && version[1] == 9 && version[2] < 1) || (version[0] > 3)) {
     throw new Error('Bootstrap\'s JavaScript requires jQuery version 1.9.1 or higher, but lower than version 4')
   }
-}(jquery$2);
+}(jquery$3);
 
 /* ========================================================================
  * Bootstrap: transition.js v3.3.7
@@ -20577,7 +20578,7 @@ if (typeof jquery$2 === 'undefined') {
     };
   });
 
-}(jquery$2);
+}(jquery$3);
 
 /* ========================================================================
  * Bootstrap: alert.js v3.3.7
@@ -20672,7 +20673,7 @@ if (typeof jquery$2 === 'undefined') {
 
   $(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close);
 
-}(jquery$2);
+}(jquery$3);
 
 /* ========================================================================
  * Bootstrap: button.js v3.3.7
@@ -20798,7 +20799,7 @@ if (typeof jquery$2 === 'undefined') {
       $(e.target).closest('.btn').toggleClass('focus', /^focus(in)?$/.test(e.type));
     });
 
-}(jquery$2);
+}(jquery$3);
 
 /* ========================================================================
  * Bootstrap: carousel.js v3.3.7
@@ -21036,7 +21037,7 @@ if (typeof jquery$2 === 'undefined') {
     });
   });
 
-}(jquery$2);
+}(jquery$3);
 
 /* ========================================================================
  * Bootstrap: collapse.js v3.3.7
@@ -21249,7 +21250,7 @@ if (typeof jquery$2 === 'undefined') {
     Plugin.call($target, option);
   });
 
-}(jquery$2);
+}(jquery$3);
 
 /* ========================================================================
  * Bootstrap: dropdown.js v3.3.7
@@ -21415,7 +21416,7 @@ if (typeof jquery$2 === 'undefined') {
     .on('keydown.bs.dropdown.data-api', toggle, Dropdown.prototype.keydown)
     .on('keydown.bs.dropdown.data-api', '.dropdown-menu', Dropdown.prototype.keydown);
 
-}(jquery$2);
+}(jquery$3);
 
 /* ========================================================================
  * Bootstrap: modal.js v3.3.7
@@ -21755,7 +21756,7 @@ if (typeof jquery$2 === 'undefined') {
     Plugin.call($target, option, this);
   });
 
-}(jquery$2);
+}(jquery$3);
 
 /* ========================================================================
  * Bootstrap: tooltip.js v3.3.7
@@ -22280,7 +22281,7 @@ if (typeof jquery$2 === 'undefined') {
     return this
   };
 
-}(jquery$2);
+}(jquery$3);
 
 /* ========================================================================
  * Bootstrap: popover.js v3.3.7
@@ -22389,7 +22390,7 @@ if (typeof jquery$2 === 'undefined') {
     return this
   };
 
-}(jquery$2);
+}(jquery$3);
 
 /* ========================================================================
  * Bootstrap: scrollspy.js v3.3.7
@@ -22564,7 +22565,7 @@ if (typeof jquery$2 === 'undefined') {
     });
   });
 
-}(jquery$2);
+}(jquery$3);
 
 /* ========================================================================
  * Bootstrap: tab.js v3.3.7
@@ -22720,7 +22721,7 @@ if (typeof jquery$2 === 'undefined') {
     .on('click.bs.tab.data-api', '[data-toggle="tab"]', clickHandler)
     .on('click.bs.tab.data-api', '[data-toggle="pill"]', clickHandler);
 
-}(jquery$2);
+}(jquery$3);
 
 /* ========================================================================
  * Bootstrap: affix.js v3.3.7
@@ -22883,18 +22884,12 @@ if (typeof jquery$2 === 'undefined') {
     });
   });
 
-}(jquery$2);
+}(jquery$3);
 
-// window._ = require('lodash');
+var require$$1 = ( jquery$2 && jquery$2['default'] ) || jquery$2;
 
-/**
- * We'll load jQuery and the Bootstrap jQuery plugin which provides support
- * for JavaScript based Bootstrap features such as modals and tabs. This
- * code may be modified to fit the specific needs of your application.
- */
-
-window.$ = window.jQuery = jquery;
+window.$ = window.jQuery = require$$1;
 
 }((this.LaravelElixirBundle = this.LaravelElixirBundle || {})));
 
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=editor.js.map

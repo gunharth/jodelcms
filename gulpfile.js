@@ -15,7 +15,11 @@ const elixir = require('laravel-elixir');
 
 elixir(mix => {
     mix.sass('app.scss')
-       .webpack('app.js')
+       .rollup('app.js')
+       .rollup(
+       		'editor/editor.js',
+       		'./public/js/editor'
+       	)
        .copy('node_modules/tinymce', 'public/js/vendor/tinymce')
        .browserSync({
 	        proxy: 'jodelcms.dev'
