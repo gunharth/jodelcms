@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.css">
     <link rel="stylesheet" href="/css/prism.css">
+    @if (Auth::check())
+        @include('admin.elements.elementscripts')
+    @endif
     @stack('elementsStyles')
     @if (Auth::check())
         <link rel="stylesheet" href="/css/admin.css">
