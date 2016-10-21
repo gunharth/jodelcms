@@ -15,13 +15,23 @@ const elixir = require('laravel-elixir');
 
 elixir(mix => {
     mix.sass('app.scss')
-       .rollup('app.js')
-       .rollup(
-       		'editor/editor.js',
-       		'./public/js/editor'
-       	)
+        .rollup('app.js')
+        .rollup(
+          'editor_main.js',
+          './resources/assets/js/editor.js'
+        )
+        .scripts([
+          'editor.js',
+          'editor/elements.js',
+          'editor/elements/form.js',
+          'editor/elements/map.js',
+          'editor/elements/social.js',
+          'editor/elements/spacer.js',
+          'editor/elements/text.js'
+          ], 'public/js/editor/editor.js')
+
        .copy('node_modules/tinymce', 'public/js/vendor/tinymce')
-       .browserSync({
-	        proxy: 'jodelcms.dev'
-	    });
+     //   .browserSync({
+	    //     proxy: 'jodelcms.dev'
+	    // });
 });

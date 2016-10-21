@@ -166,12 +166,12 @@
 	<script src='/js/jquery-ui.js'></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
 	<script src="/packages/nestable-fork/src/jquery.nestable.js"></script>
-	<script src="/js/editor.js"></script>
-	<script src="/js/elements.js"></script>
+	<!-- <script src="/js/editor.js"></script> -->
+	<!-- <script src="/js/elements.js"></script>
 	<script src="/js/elements/text.js"></script>
 	<script src="/js/elements/spacer.js"></script>
 	<script src="/js/elements/form.js"></script>
 	<script src="/js/elements/map.js"></script>
-	<script src="/js/elements/social.js"></script>
+	<script src="/js/elements/social.js"></script> -->
 </body>
 </html>
