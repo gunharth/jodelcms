@@ -28,7 +28,7 @@ elixir(mix => {
           'editor/elements/social.js',
           'editor/elements/spacer.js',
           'editor/elements/text.js'
-          ], 'public/js/editor/editor.js')
+          ], 'public/js/editor.js')
 
        .copy('node_modules/tinymce', 'public/js/vendor/tinymce')
      //   .browserSync({
