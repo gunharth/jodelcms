@@ -20,6 +20,7 @@ elixir(mix => {
           'editor_main.js',
           './resources/assets/js/editor.js'
         )
+        //.copy('node_modules/jquery-ui-dist/jquery-ui.js', 'public/packages/jquery-ui/jquery-ui.js')
         .scripts([
           'editor.js',
           'editor/elements.js',
@@ -27,10 +28,15 @@ elixir(mix => {
           'editor/elements/map.js',
           'editor/elements/social.js',
           'editor/elements/spacer.js',
-          'editor/elements/text.js'
+          'editor/elements/text.js',  
+          './node_modules/jquery-ui-dist/jquery-ui.js'
           ], 'public/js/editor.js')
-
-       .copy('node_modules/tinymce', 'public/js/vendor/tinymce')
+        //tinymce
+       .copy('node_modules/tinymce', 'public/packages/tinymce')
+       // jquery-ui
+       
+       .copy('node_modules/jquery-ui-dist/jquery-ui.css', 'public/packages/jquery-ui/jquery-ui.css')
+       .copy('node_modules/jquery-ui-dist/images', 'public/packages/jquery-ui/images')
      //   .browserSync({
 	    //     proxy: 'jodelcms.dev'
 	    // });

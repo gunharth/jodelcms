@@ -41,7 +41,7 @@
     <script src="/js/app.js"></script>
     <script src="/js/prism.js"></script>
     @if (Auth::check())
-        <script src='/js/vendor/tinymce/tinymce.min.js'></script>
+        <script src='/packages/tinymce/tinymce.min.js'></script>
         <script src='/js/admin.js'></script>
     @endif
     @yield('templateScripts')
