@@ -881,8 +881,6 @@ class Editor {
     }
 
     initNestableMenu(ele) {
-        
-        console.log('äcalled')
         ele.nestable({
             maxDepth: 2
         }).on('change', () => {

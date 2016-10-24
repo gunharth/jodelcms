@@ -22,16 +22,18 @@ elixir(mix => {
         )
         //.copy('node_modules/jquery-ui-dist/jquery-ui.js', 'public/packages/jquery-ui/jquery-ui.js')
         .scripts([
+          './node_modules/jquery/dist/jquery.js',
+          './node_modules/bootstrap-sass/assets/javascripts/bootstrap.js',
+          './node_modules/jquery-ui-dist/jquery-ui.js',
+          './node_modules/jquery-ui-touch-punch/jquery.ui.touch-punch.js',
+          './node_modules/nestable-fork/src/jquery.nestable.js',
           'editor.js',
           'editor/elements.js',
           'editor/elements/form.js',
           'editor/elements/map.js',
           'editor/elements/social.js',
           'editor/elements/spacer.js',
-          'editor/elements/text.js',
-          './node_modules/jquery-ui-dist/jquery-ui.js',
-          './node_modules/jquery-ui-touch-punch/jquery.ui.touch-punch.js',
-          './node_modules/nestable-fork/src/jquery.nestable.js'
+          'editor/elements/text.js'
           ], 'public/js/editor.js')
         //tinymce
        .copy('node_modules/tinymce', 'public/packages/tinymce')
