@@ -508,12 +508,12 @@ class Editor {
 
     }
 
-/**
-        /* Menu funtions
-        */
-       initNestable(ele) {
+    /**
+    /* init Menu Nestable
+    */
+   initNestable(ele) {
         ele.nestable({
-            maxDepth: 5
+            maxDepth: 2
         }).on('change', () => {
             this.showLoadingIndicator();
             $.ajax({
@@ -521,9 +521,6 @@ class Editor {
                 url: '/admin/menu/sortorder',
                 data: JSON.stringify(ele.nestable('asNestedSet')),
                 contentType: "json",
-                /*headers: {
-                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                },*/
                 error: (xhr, ajaxOptions, thrownError) => {
                     console.log(xhr.status);
                     console.log(thrownError);

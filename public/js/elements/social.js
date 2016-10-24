@@ -18,7 +18,7 @@ editor.registerElementHandler('social', new function() {
     };
 
     this.getToolbarButtons = function() {
-        let handler = this;
+        var handler = this;
         return {
             options: {
                 icon: "fa-gear",

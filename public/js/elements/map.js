@@ -22,12 +22,12 @@ editor.registerElementHandler('map', new function() {
         lat: '48.856614',
         lng: '2.3522219',
         zoom: 12,
-        icon: '//maps.google.com/mapfiles/marker.png',
+        icon: '//maps.gstatic.com/mapfiles/markers2/marker.png',
         styles: '[]'
     };
 
     this.getToolbarButtons = function() {
-        let handler = this;
+        var handler = this;
         return {
             options: {
                 icon: "fa-gear",
@@ -39,7 +39,7 @@ editor.registerElementHandler('map', new function() {
     };
 
     this.getOptionsFormSettings = function() {
-        let handler = this;
+        var handler = this;
         return {
             onCreate: function(form) {
                 $('a.find-coords', form).click(function(e) {
@@ -88,10 +88,10 @@ editor.registerElementHandler('map', new function() {
     this.onClick = false;
 
     this.onInitElement = function(elementDom) {
-        let elementId = elementDom.attr('id');
-        let mapId = elementId + '_map';
+        var elementId = elementDom.attr('id');
+        var mapId = elementId + '_map';
 
-        let handler = this;
+        var handler = this;
 
         this.loadApi(function(google) {
 
@@ -103,7 +103,7 @@ editor.registerElementHandler('map', new function() {
 
     this.initElementMap = function(mapId, elementDom, google) {
 
-        let elementId = elementDom.attr('id');
+        var elementId = elementDom.attr('id');
 
         var options = this.getOptions(elementId);
 
@@ -118,6 +118,7 @@ editor.registerElementHandler('map', new function() {
         map.marker = new google.maps.Marker({
             map: map,
             position: center,
+            //animation: google.maps.Animation.DROP,
             icon: options.icon,
             draggable: true
         });
@@ -139,10 +140,10 @@ editor.registerElementHandler('map', new function() {
 
 
     this.onCreateElement = function(elementDom) {
-        let elementId = elementDom.attr('id');
-        let mapId = elementId + '_map';
+        var elementId = elementDom.attr('id');
+        var mapId = elementId + '_map';
 
-        let handler = this;
+        var handler = this;
 
         this.loadApi(function(google) {
 
@@ -158,13 +159,13 @@ editor.registerElementHandler('map', new function() {
         var elementId = elementDom.attr('id');
         var mapObject = this.mapsObjects[elementId + '_map'];
 
-        let width = $('#width', form).val();
-        let height = $('#height', form).val();
-        let zoom = $('#zoom', form).val();
-        let lat = $('#lat', form).val();
-        let lng = $('#lng', form).val();
-        let icon = $('#icon', form).val();
-        let styles = $('#styles', form).val();
+        var width = $('#width', form).val();
+        var height = $('#height', form).val();
+        var zoom = $('#zoom', form).val();
+        var lat = $('#lat', form).val();
+        var lng = $('#lng', form).val();
+        var icon = $('#icon', form).val();
+        var styles = $('#styles', form).val();
 
         var options = this.getOptions(elementId);
 

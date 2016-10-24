@@ -74,7 +74,7 @@ function Element() {
         var handler = this;
         var eid = elementDom.attr('id');
         var elementId = parseInt(eid.match(/(\d+)$/)[0], 10);
-        let options = editor.editorFrame.get(0).contentWindow.options[eid];
+        var options = editor.editorFrame.get(0).contentWindow.options[eid];
 
         var formSettings = {
             id: this.getName() + '-options',

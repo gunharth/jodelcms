@@ -15,7 +15,7 @@ editor.registerElementHandler('spacer', new function() {
     this.defaultOptions = { 'size': '25' };
 
     this.getToolbarButtons = function() {
-		let handler = this;
+		var handler = this;
         return {
 			options: {
                 icon: "fa-gear",
@@ -40,8 +40,8 @@ editor.registerElementHandler('spacer', new function() {
 	};
 
     this.applyOptions = function(elementDom, form) {
-        let size = $('#size',form).val();
-        let elementId = elementDom.attr('id');
+        var size = $('#size',form).val();
+        var elementId = elementDom.attr('id');
 
         options = this.getOptions(elementId);
         options['size'] = size;
