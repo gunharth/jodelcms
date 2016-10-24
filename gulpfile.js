@@ -28,8 +28,10 @@ elixir(mix => {
           'editor/elements/map.js',
           'editor/elements/social.js',
           'editor/elements/spacer.js',
-          'editor/elements/text.js',  
-          './node_modules/jquery-ui-dist/jquery-ui.js'
+          'editor/elements/text.js',
+          './node_modules/jquery-ui-dist/jquery-ui.js',
+          './node_modules/jquery-ui-touch-punch/jquery.ui.touch-punch.js',
+          './node_modules/nestable-fork/src/jquery.nestable.js'
           ], 'public/js/editor.js')
         //tinymce
        .copy('node_modules/tinymce', 'public/packages/tinymce')

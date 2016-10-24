@@ -9,10 +9,11 @@
     "gulp": "^3.9.1",
     "jquery": "^3.1.0",
     "jquery-ui-dist": "^1.12.1",
+    "jquery-ui-touch-punch": "^0.2.3",
     "laravel-elixir": "^6.0.0-11",
     "laravel-elixir-browsersync-official": "^1.0.0",
     "laravel-elixir-rollup-official": "^1.1.0",
     "nestable-fork": "^1.0.3",
-    "tinymce": "^4.3.12",
+    "tinymce": "^4.3.12"
   }
 }
