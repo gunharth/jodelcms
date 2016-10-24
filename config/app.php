@@ -173,7 +173,7 @@ return [
         Dimsav\Translatable\TranslatableServiceProvider::class,
         Spatie\Activitylog\ActivitylogServiceProvider::class,
         Spatie\Sitemap\SitemapServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
+        //Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Custom Service Providers...
