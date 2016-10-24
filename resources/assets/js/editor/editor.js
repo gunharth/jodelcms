@@ -282,31 +282,6 @@ class Editor {
         });
 
         /**
-        /* Menu funtions
-        */
-        $('.nestable').nestable({
-            maxDepth: 2
-        }).on('change', () => {
-            this.showLoadingIndicator();
-            $.ajax({
-                type: 'POST',
-                url: '/admin/menu/sortorder',
-                data: JSON.stringify($('.nestable').nestable('asNestedSet')),
-                contentType: "json",
-                /*headers: {
-                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                },*/
-                error: (xhr, ajaxOptions, thrownError) => {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                }
-            }).done(() => {
-                this.hideLoadingIndicator();
-            });
-        });
-
-
-        /**
          *  Open new menu dialog
          */
         $('#tab-menus', this.editorPanel).on('click', '.btn-create', (e) => {
@@ -899,10 +874,34 @@ class Editor {
             }
         }).done((html) => {
             $('#menuItems').html(html)
-            $('#menuItems').parent().nestable('init');
-            $('#menuItems').parent().nestable('collapseAll');
+            this.initNestableMenu($('#menuItemsList'));
             this.savePanelState();
             this.hideLoadingIndicator();
+        });
+    }
+
+    initNestableMenu(ele) {
+        
+        console.log('äcalled')
+        ele.nestable({
+            maxDepth: 2
+        }).on('change', () => {
+            this.showLoadingIndicator();
+            $.ajax({
+                type: 'POST',
+                url: '/admin/menu/sortorder',
+                data: JSON.stringify(ele.nestable('asNestedSet')),
+                contentType: "json",
+                /*headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },*/
+                error: (xhr, ajaxOptions, thrownError) => {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            }).done(() => {
+                this.hideLoadingIndicator();
+            });
         });
     }
 

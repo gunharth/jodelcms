@@ -23162,31 +23162,6 @@ Editor.prototype.initPanel = function initPanel () {
     });
 
     /**
-    /* Menu funtions
-    */
-    $('.nestable').nestable({
-        maxDepth: 2
-    }).on('change', function () {
-        this$1.showLoadingIndicator();
-        $.ajax({
-            type: 'POST',
-            url: '/admin/menu/sortorder',
-            data: JSON.stringify($('.nestable').nestable('asNestedSet')),
-            contentType: "json",
-            /*headers: {
-                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-            },*/
-            error: function (xhr, ajaxOptions, thrownError) {
-                console.log(xhr.status);
-                console.log(thrownError);
-            }
-        }).done(function () {
-            this$1.hideLoadingIndicator();
-        });
-    });
-
-
-    /**
      *  Open new menu dialog
      */
     $('#tab-menus', this.editorPanel).on('click', '.btn-create', function (e) {
@@ -23797,10 +23772,36 @@ Editor.prototype.loadMenu = function loadMenu (menu_type_id) {
         }
     }).done(function (html) {
         $('#menuItems').html(html);
-        $('#menuItems').parent().nestable('init');
-        $('#menuItems').parent().nestable('collapseAll');
+        this$1.initNestableMenu($('#menuItemsList'));
         this$1.savePanelState();
         this$1.hideLoadingIndicator();
+    });
+};
+
+Editor.prototype.initNestableMenu = function initNestableMenu (ele) {
+        var this$1 = this;
+
+        
+    console.log('äcalled');
+    ele.nestable({
+        maxDepth: 2
+    }).on('change', function () {
+        this$1.showLoadingIndicator();
+        $.ajax({
+            type: 'POST',
+            url: '/admin/menu/sortorder',
+            data: JSON.stringify(ele.nestable('asNestedSet')),
+            contentType: "json",
+            /*headers: {
+                'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+            },*/
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        }).done(function () {
+            this$1.hideLoadingIndicator();
+        });
     });
 };
 

@@ -87,7 +87,7 @@
 					<button class="btn btn-sm btn-create" title="Create"><i class="fa fa-plus"></i></button>
 				</div>
 				<div class="tab-content">
-					<div class="dd nestable">
+					<div class="dd nestable" id="menuItemsList">
 			            <ol class="dd-list" id="menuItems">
 
 			            </ol>
@@ -162,6 +162,6 @@
 <div id="editor-loading"><i class="fa fa-spinner fa-pulse"></i></div>
 <div id="saveMe" style="display: none; position: absolute; margin: 0 auto; background: red; width: 100px; height: 100px; z-index: 99999; color: white">Click me or hit CMD/CTRL S to save!</div>
 	<script src="/js/editor.js"></script>
-	<script src="/packages/nestable-fork/src/jquery.nestable.js"></script>
+	<!-- <script src="/packages/nestable-fork/src/jquery.nestable.js"></script> -->
 </body>
 </html>
