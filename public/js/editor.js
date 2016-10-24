@@ -281,29 +281,7 @@ class Editor {
             });
         });
 
-        /**
-        /* Menu funtions
-        */
-        $('.nestable').nestable({
-            maxDepth: 2
-        }).on('change', () => {
-            this.showLoadingIndicator();
-            $.ajax({
-                type: 'POST',
-                url: '/admin/menu/sortorder',
-                data: JSON.stringify($('.nestable').nestable('asNestedSet')),
-                contentType: "json",
-                /*headers: {
-                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
-                },*/
-                error: (xhr, ajaxOptions, thrownError) => {
-                    console.log(xhr.status);
-                    console.log(thrownError);
-                }
-            }).done(() => {
-                this.hideLoadingIndicator();
-            });
-        });
+        
 
 
         /**
@@ -530,6 +508,31 @@ class Editor {
 
     }
 
+/**
+        /* Menu funtions
+        */
+       initNestable(ele) {
+        ele.nestable({
+            maxDepth: 5
+        }).on('change', () => {
+            this.showLoadingIndicator();
+            $.ajax({
+                type: 'POST',
+                url: '/admin/menu/sortorder',
+                data: JSON.stringify(ele.nestable('asNestedSet')),
+                contentType: "json",
+                /*headers: {
+                    'X-CSRF-Token': $('meta[name="_token"]').attr('content')
+                },*/
+                error: (xhr, ajaxOptions, thrownError) => {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            }).done(() => {
+                this.hideLoadingIndicator();
+            });
+        });
+    }
 
     /**
      *  Editor edit collection window
@@ -899,8 +902,9 @@ class Editor {
             }
         }).done((html) => {
             $('#menuItems').html(html)
-            $('#menuItems').parent().nestable('init');
-            $('#menuItems').parent().nestable('collapseAll');
+            // $('#menuItems').parent().nestable('init');
+            this.initNestable($('#menuItems').parent());
+            //$('#menuItems').parent().nestable('collapseAll');
             this.savePanelState();
             this.hideLoadingIndicator();
         });
