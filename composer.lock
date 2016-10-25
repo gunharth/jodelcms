@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3a572c345ecfa03c23abd758aa5505dd",
-    "content-hash": "5b615c38090a52e36b621cc3ad3c2348",
+    "hash": "53461764124880b217663548e308e370",
+    "content-hash": "f8b564be9b331ab35c49a2cd8ca24a91",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -59,16 +59,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.19.18",
+            "version": "3.19.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d9004dac4bd7f5405952f963da3bcf986295a4de"
+                "reference": "c1bd15f806fa12062cf1d0167ba2b0c42dcf1e60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d9004dac4bd7f5405952f963da3bcf986295a4de",
-                "reference": "d9004dac4bd7f5405952f963da3bcf986295a4de",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c1bd15f806fa12062cf1d0167ba2b0c42dcf1e60",
+                "reference": "c1bd15f806fa12062cf1d0167ba2b0c42dcf1e60",
                 "shasum": ""
             },
             "require": {
@@ -135,7 +135,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2016-10-20 20:21:56"
+            "time": "2016-10-24 20:45:41"
         },
         {
             "name": "barryvdh/elfinder-flysystem-driver",
@@ -504,99 +504,6 @@
                 "string"
             ],
             "time": "2015-11-06 14:35:42"
-        },
-        {
-            "name": "guzzle/guzzle",
-            "version": "v3.8.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "4de0618a01b34aa1c8c33a3f13f396dcd3882eba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/4de0618a01b34aa1c8c33a3f13f396dcd3882eba",
-                "reference": "4de0618a01b34aa1c8c33a3f13f396dcd3882eba",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=5.3.3",
-                "symfony/event-dispatcher": ">=2.1"
-            },
-            "replace": {
-                "guzzle/batch": "self.version",
-                "guzzle/cache": "self.version",
-                "guzzle/common": "self.version",
-                "guzzle/http": "self.version",
-                "guzzle/inflection": "self.version",
-                "guzzle/iterator": "self.version",
-                "guzzle/log": "self.version",
-                "guzzle/parser": "self.version",
-                "guzzle/plugin": "self.version",
-                "guzzle/plugin-async": "self.version",
-                "guzzle/plugin-backoff": "self.version",
-                "guzzle/plugin-cache": "self.version",
-                "guzzle/plugin-cookie": "self.version",
-                "guzzle/plugin-curlauth": "self.version",
-                "guzzle/plugin-error-response": "self.version",
-                "guzzle/plugin-history": "self.version",
-                "guzzle/plugin-log": "self.version",
-                "guzzle/plugin-md5": "self.version",
-                "guzzle/plugin-mock": "self.version",
-                "guzzle/plugin-oauth": "self.version",
-                "guzzle/service": "self.version",
-                "guzzle/stream": "self.version"
-            },
-            "require-dev": {
-                "doctrine/cache": "*",
-                "monolog/monolog": "1.*",
-                "phpunit/phpunit": "3.7.*",
-                "psr/log": "1.0.*",
-                "symfony/class-loader": "*",
-                "zendframework/zend-cache": "<2.3",
-                "zendframework/zend-log": "<2.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.8-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Guzzle": "src/",
-                    "Guzzle\\Tests": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Michael Dowling",
-                    "email": "mtdowling@gmail.com",
-                    "homepage": "https://github.com/mtdowling"
-                },
-                {
-                    "name": "Guzzle Community",
-                    "homepage": "https://github.com/guzzle/guzzle/contributors"
-                }
-            ],
-            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
-            "homepage": "http://guzzlephp.org/",
-            "keywords": [
-                "client",
-                "curl",
-                "framework",
-                "http",
-                "http client",
-                "rest",
-                "web service"
-            ],
-            "abandoned": "guzzlehttp/guzzle",
-            "time": "2014-01-28 22:29:15"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -978,16 +885,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.3.19",
+            "version": "v5.3.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "f1a5bb417b3e0d1949fe84617eacd1a14d75d7f1"
+                "reference": "09f2515b72eba3229dfce44a801852b9b8d011e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/f1a5bb417b3e0d1949fe84617eacd1a14d75d7f1",
-                "reference": "f1a5bb417b3e0d1949fe84617eacd1a14d75d7f1",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/09f2515b72eba3229dfce44a801852b9b8d011e2",
+                "reference": "09f2515b72eba3229dfce44a801852b9b8d011e2",
                 "shasum": ""
             },
             "require": {
@@ -1102,7 +1009,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-10-17 19:35:14"
+            "time": "2016-10-25 13:38:24"
         },
         {
             "name": "laravelcollective/html",
@@ -1337,53 +1244,6 @@
             "time": "2016-01-25 08:21:11"
         },
         {
-            "name": "league/flysystem-rackspace",
-            "version": "1.0.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/flysystem-rackspace.git",
-                "reference": "ba877e837f5dce60e78a0555de37eb9bfc7dd6b9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem-rackspace/zipball/ba877e837f5dce60e78a0555de37eb9bfc7dd6b9",
-                "reference": "ba877e837f5dce60e78a0555de37eb9bfc7dd6b9",
-                "shasum": ""
-            },
-            "require": {
-                "league/flysystem": "~1.0",
-                "php": ">=5.4.0",
-                "rackspace/php-opencloud": "~1.16"
-            },
-            "require-dev": {
-                "mockery/mockery": "0.9.*",
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "League\\Flysystem\\Rackspace\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Frank de Jonge",
-                    "email": "info@frenky.net"
-                }
-            ],
-            "description": "Flysystem adapter for Rackspace",
-            "time": "2016-03-11 12:13:42"
-        },
-        {
             "name": "mcamara/laravel-localization",
             "version": "1.1.9",
             "source": {
@@ -1430,33 +1290,6 @@
                 "php"
             ],
             "time": "2016-10-17 06:56:04"
-        },
-        {
-            "name": "mikemccabe/json-patch-php",
-            "version": "0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mikemccabe/json-patch-php.git",
-                "reference": "b3af30a6aec7f6467c773cd49b2d974a70f7c0d4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mikemccabe/json-patch-php/zipball/b3af30a6aec7f6467c773cd49b2d974a70f7c0d4",
-                "reference": "b3af30a6aec7f6467c773cd49b2d974a70f7c0d4",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "mikemccabe\\JsonPatch\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-3.0"
-            ],
-            "description": "Produce and apply json-patch objects",
-            "time": "2015-01-05 21:19:54"
         },
         {
             "name": "monolog/monolog",
@@ -2054,63 +1887,6 @@
                 "shell"
             ],
             "time": "2016-03-09 05:03:14"
-        },
-        {
-            "name": "rackspace/php-opencloud",
-            "version": "v1.16.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/rackspace/php-opencloud.git",
-                "reference": "d6b71feed7f9e7a4b52e0240a79f06473ba69c8c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/rackspace/php-opencloud/zipball/d6b71feed7f9e7a4b52e0240a79f06473ba69c8c",
-                "reference": "d6b71feed7f9e7a4b52e0240a79f06473ba69c8c",
-                "shasum": ""
-            },
-            "require": {
-                "guzzle/guzzle": "~3.8",
-                "mikemccabe/json-patch-php": "~0.1",
-                "php": ">=5.4",
-                "psr/log": "~1.0"
-            },
-            "require-dev": {
-                "apigen/apigen": "~4.0",
-                "fabpot/php-cs-fixer": "1.0.*@dev",
-                "jakub-onderka/php-parallel-lint": "0.*",
-                "phpspec/prophecy": "~1.4",
-                "phpunit/phpunit": "4.3.*",
-                "satooshi/php-coveralls": "0.6.*@dev"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "OpenCloud": [
-                        "lib/"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Jamie Hannaford",
-                    "email": "jamie.hannaford@rackspace.com",
-                    "homepage": "https://github.com/jamiehannaford"
-                }
-            ],
-            "description": "PHP SDK for Rackspace/OpenStack APIs",
-            "keywords": [
-                "Openstack",
-                "nova",
-                "opencloud",
-                "rackspace",
-                "swift"
-            ],
-            "time": "2016-01-29 10:34:57"
         },
         {
             "name": "ramsey/uuid",
@@ -4275,16 +4051,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.6.1",
+            "version": "5.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "60c32c5b5e79c2248001efa2560f831da11cc2d7"
+                "reference": "cd13b23ac5a519a4708e00736c26ee0bb28b2e01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/60c32c5b5e79c2248001efa2560f831da11cc2d7",
-                "reference": "60c32c5b5e79c2248001efa2560f831da11cc2d7",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/cd13b23ac5a519a4708e00736c26ee0bb28b2e01",
+                "reference": "cd13b23ac5a519a4708e00736c26ee0bb28b2e01",
                 "shasum": ""
             },
             "require": {
@@ -4353,7 +4129,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-10-07 13:03:26"
+            "time": "2016-10-25 07:40:25"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

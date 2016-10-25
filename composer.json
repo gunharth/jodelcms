@@ -9,7 +9,6 @@
         "laravel/framework": "5.3.*",
         "barryvdh/laravel-elfinder": "^0.3.7",
         "league/flysystem-aws-s3-v3": "~1.0",
-        "league/flysystem-rackspace": "~1.0",
         "laravelcollective/html": "^5.2",
         "baum/baum": "^1.1",
         "spatie/laravel-activitylog": "^1.7",
