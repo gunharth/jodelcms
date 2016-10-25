@@ -25,7 +25,7 @@ class SettingsServiceProvider extends ServiceProvider
 
         // Add settings to config and cache at boot
         // but only after migrations are done, i.e in local & testing env
-        if (App::environment() == 'local' || App::environment() == 'testing') {
+        if (App::environment('local','testing')) {
             if (Schema::hasTable('settings')) {
                 $this->loadSettings($settings);
             }
