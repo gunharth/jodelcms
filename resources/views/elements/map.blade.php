@@ -25,12 +25,18 @@ options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
 
 @push('elementsScripts')
 <script>
+var dragnscroll = true;
+if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch) { 
+	dragnscroll = false;
+}
 new google.maps.Marker({
 position: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),
 title: "aaa",
 icon: '{{ $element->options->icon }}',
 map: new google.maps.Map(document.getElementById("element_{{ $element->id }}_map"), {
     center: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),
+    draggable: dragnscroll,
+    scrollwheel: dragnscroll,
     zoom: {{ $element->options->zoom }},
     styles: {!! $element->options->styles !!}
 })
