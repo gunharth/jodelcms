@@ -25,14 +25,18 @@ options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
 
 @push('elementsScripts')
 <script>
+console.log(!('ontouchstart' in document.documentElement))
+var isNotTouch = !('ontouchstart' in document.documentElement);
 new google.maps.Marker({
 position: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),
-title: "aaa",
+title: "",
 icon: '{{ $element->options->icon }}',
 map: new google.maps.Map(document.getElementById("element_{{ $element->id }}_map"), {
     center: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),
     zoom: {{ $element->options->zoom }},
-    styles: {!! $element->options->styles !!}
+    styles: {!! $element->options->styles !!},
+    draggable: isNotTouch,
+  	scrollwheel: isNotTouch
 })
 });</script>
 @endpush
