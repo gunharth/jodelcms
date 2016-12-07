@@ -16,11 +16,13 @@ return [
     'accepted'             => ':attribute muss akzeptiert werden.',
     'active_url'           => ':attribute ist keine gültige Internet-Adresse.',
     'after'                => ':attribute muss ein Datum nach dem :date sein.',
+    'after_or_equal'       => 'The :attribute must be a date after or equal to :date.',
     'alpha'                => ':attribute darf nur aus Buchstaben bestehen.',
     'alpha_dash'           => ':attribute darf nur aus Buchstaben, Zahlen, Binde- und Unterstrichen bestehen. Umlaute (ä, ö, ü) und Eszett (ß) sind nicht erlaubt.',
     'alpha_num'            => ':attribute darf nur aus Buchstaben und Zahlen bestehen.',
     'array'                => ':attribute muss ein Array sein.',
     'before'               => ':attribute muss ein Datum vor dem :date sein.',
+    'before_or_equal'      => 'The :attribute must be a date before or equal to :date.',
     'between'              => [
         'numeric' => ':attribute muss zwischen :min & :max liegen.',
         'file'    => ':attribute muss zwischen :min & :max Kilobytes groß sein.',
@@ -36,7 +38,7 @@ return [
     'digits_between'       => ':attribute muss zwischen :min und :max Stellen haben.',
     'dimensions'           => ':attribute hat ungültige Bildabmessungen.',
     'distinct'             => 'Das Feld :attribute beinhaltet einen bereits vorhandenen Wert.',
-    'email'                => ':attribute Format ist ungültig.',
+    'email'                => ':attribute muss eine gültige E-Mail-Adresse sein.',
     'exists'               => 'Der gewählte Wert für :attribute ist ungültig.',
     'file'                 => ':attribute muss eine Datei sein.',
     'filled'               => ':attribute muss ausgefüllt sein.',
@@ -81,7 +83,7 @@ return [
     'string'               => ':attribute muss ein String sein.',
     'timezone'             => ':attribute muss eine gültige Zeitzone sein.',
     'unique'               => ':attribute ist schon vergeben.',
-    'uploaded'             => 'The :attribute uploading failed.',
+    'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'Das Format von :attribute ist ungültig.',
 
     /*
@@ -115,7 +117,7 @@ return [
     'attributes' => [
         'username' => 'Benutzername',
         'password' => 'Passwort',
-        'email'    => 'E-Mail',
+        'email'    => 'E-Mail-Adresse',
     ],
 
 ];
