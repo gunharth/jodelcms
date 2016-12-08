@@ -22,7 +22,7 @@ class Editor {
 
     setChanges() {
         this.hasUnsavedChanges = true;
-        $('#saveMe').show();
+        $('#save-outer').show();
         //$('.btn-save', this.panel).addClass('glow').find('i').removeClass('fa-check').addClass('fa-exclamation-circle');
     };
 
@@ -32,7 +32,7 @@ class Editor {
 
     noChanges() {
         this.hasUnsavedChanges = false;
-        $('#saveMe').hide();
+        $('#save-outer').hide();
         //$('.btn-save', this.panel).removeClass('glow').find('i').removeClass('fa-exclamation-circle').addClass('fa-check');
     };
 
@@ -130,7 +130,7 @@ class Editor {
             return 'pageOutConfirm';
         };
 
-        $('#saveMe').on('click', (e) => {
+        $('#save-outer').on('click', (e) => {
             e.preventDefault();
             this.editorFrame.get(0).contentWindow.saveContent();
         })

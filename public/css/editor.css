@@ -59,9 +59,40 @@ body {
     border-radius: 6px;
 }
 
-#editor-panel .modal-header,
+/*#editor-panel .modal-header,
 #editor-panel .modal-footer {
     border-radius: 6px;
+}*/
+
+#editor-panel .modal-footer {
+    padding: 10px 0;
+    border: 0;
+    height: 52px;
+    text-align: left;
+}
+
+#save-outer {
+    display: none;
+}
+
+@keyframes glow {
+    0 {
+        opacity: 1
+    }
+
+    50% {
+        opacity: .25
+    }
+
+    100% {
+        opacity: 1
+    }
+}
+
+#editor-panel .modal-footer button i {
+    animation-name: glow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
 }
 
 #editor-panel .modal-header:hover {

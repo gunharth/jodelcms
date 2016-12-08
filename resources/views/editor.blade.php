@@ -154,14 +154,20 @@
 		        </div>
             </div>
 		</div><!-- tabs end -->
+		<div class="modal-footer">
+			<div id="save-outer">
+				<button class="btn btn-success">
+					<i class="fa fa-fw fa-exclamation-circle"></i> Save
+				</button> 
+				or hit CMD/CTRL S to save!
+			</div>
+		</div>
       </div>
       </div>
     </div>
   </div>
 </div>
 <div id="editor-loading"><i class="fa fa-spinner fa-pulse"></i></div>
-<div id="saveMe" style="display: none; position: absolute; margin: 0 auto; background: red; width: 100px; height: 100px; z-index: 99999; color: white">Click me or hit CMD/CTRL S to save!</div>
-
 	<script src="/js/editor/editor.js"></script>
 	<script src='/js/jquery-ui.js'></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
