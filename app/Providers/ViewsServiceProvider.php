@@ -5,8 +5,8 @@ namespace App\Providers;
 use Cache;
 use Request;
 use App\Menu;
-use App\PageTranslation;
 use App\MenuTranslation;
+use App\PageTranslation;
 use Illuminate\Support\ServiceProvider;
 
 class ViewsServiceProvider extends ServiceProvider
@@ -81,7 +81,6 @@ class ViewsServiceProvider extends ServiceProvider
                     $translation = $translations->getBySlug(end($categories));
                     $page = $translation->page;
                     //dd($page);
-
 
                     // $slugs[] = $page->getOriginal('slug');
                     //  $slugs = array();

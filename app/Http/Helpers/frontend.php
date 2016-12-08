@@ -28,7 +28,6 @@ if (! function_exists('renderMainMenu')) {
             $single = '<a href="'.LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(), $link).'">'.$node->name.'</a>';
         }
 
-
         $target = '';
         if ($node->external_link != '') {
             $link = $node->external_link;

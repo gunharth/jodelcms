@@ -91,7 +91,6 @@ return [
             'strict'    => false,
         ],
 
-
     ],
 
     /*

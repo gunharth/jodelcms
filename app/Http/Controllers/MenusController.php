@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App;
 use Cache;
 use Config;
-use App\Page;
 use App\Menu;
+use App\Page;
 use Illuminate\Http\Request;
 use App\Http\Requests\MenuRequest;
 

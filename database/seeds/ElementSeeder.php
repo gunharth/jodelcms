@@ -28,7 +28,6 @@ class ElementSeeder extends Seeder
             'order' => 1,
         ]);
 
-
         DB::table('element_translations')->insert([
             'element_id' => 1,
             'locale' => 'en',
@@ -51,7 +50,6 @@ class ElementSeeder extends Seeder
             'locale' => 'de',
             'content' => 'DE Homepage Text More',
         ]);
-
 
         // page 1
         // element_id 3
@@ -79,7 +77,6 @@ class ElementSeeder extends Seeder
             'type' => 'spacer',
             'order' => 1,
         ]);
-
 
         DB::table('element_translations')->insert([
             'element_id' => 3,
