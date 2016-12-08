@@ -13,7 +13,6 @@
 
 Route::auth();
 
-
 Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], function () {
 
     /*
@@ -89,7 +88,6 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::get('element/{element}/{id}/settings/{locale}', 'ElementsController@settings');
     Route::post('element/{element}/{id}/apply', 'ElementsController@apply');
 
-
     /*
      * Admin Blog
      */
@@ -103,7 +101,6 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::delete('blog/{id}', 'PostsController@destroy');
     Route::get('blog/{id}/settings', 'PostsController@settings');
     Route::get('blog/listCollectionItems', 'PostsController@editorList');
-
 
      /*
      * Admin Settings
@@ -146,9 +143,6 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
      */
     Route::get('sitemap', 'SitemapController@generateSitemap');
 
-
-
-
     /*
      * Editor: show event Log
      * Fill the select filed on Menu Type change
@@ -170,7 +164,6 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
 //     Route::get('tinymce4', ['as' => 'elfinder.tinymce4', 'uses' => 'ElfinderController@showTinyMCE4']);
 //     Route::get('ckeditor', ['as' => 'elfinder.ckeditor', 'uses' => 'ElfinderController@showCKeditor4']);
 // });
-
 
 /*
  *  Catch all route for slugs

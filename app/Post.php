@@ -3,10 +3,10 @@
 namespace App;
 
 //use Spatie\Activitylog\Traits\LogsActivity;
-use Illuminate\Database\Eloquent\Model;
-use Dimsav\Translatable\Translatable;
 use App;
 use Carbon\Carbon;
+use Dimsav\Translatable\Translatable;
+use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {

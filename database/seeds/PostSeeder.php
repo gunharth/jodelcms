@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 
 class PostSeeder extends Seeder
 {
