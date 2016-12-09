@@ -3,6 +3,7 @@ class Editor {
 
     constructor() {
         this.editorPanel = $('#editor-panel');
+        this.editorPanelWidth = 340;
         this.editorPanelCollapse = $('#modal-toggle');
         this.page_id = 0;
         this.editorFrame = $("#editorIFrame");
@@ -71,7 +72,7 @@ class Editor {
             // alert(JSON.stringify(this.editorFrame.get(0).contentWindow.eoptions));
 
         });
-        
+
         //Save Keyboard shortcut if editor is in focus
         $(document).keydown((e) => {
             if ((e.ctrlKey || e.metaKey) && e.which == 83) {
@@ -86,6 +87,14 @@ class Editor {
             iframeFix: true,
             cursor: "move",
             containment: "document",
+            drag: function(event, ui) {
+                if (ui.position.top < 0) {
+                    ui.position.top = 0;
+                }
+                if (ui.position.left < 0) {
+                    ui.position.left = 0;
+                }
+            },
             stop: () => {
                 this.savePanelState();
                 this.editorPanel.css({ height: 'auto' });
@@ -119,14 +128,15 @@ class Editor {
                 if (newTop < 0) { newTop = 0; }
                 $("#editor-panel").css({ top: newTop });
             }
-            if(this.editorPinned) {
-                this.editorFrame.width($(document).width()-340);
+            if (this.editorPinned) {
+                this.editorFrame.width($(window).width() - this.editorPanelWidth);
             }
             this.savePanelState();
         });
 
         window.onbeforeunload = () => {
-            if (!this.hasChanges()){ return; }
+            if (!this.hasChanges()) {
+                return; }
             return 'pageOutConfirm';
         };
 
@@ -155,32 +165,32 @@ class Editor {
             this.editorPanel.toggleClass('pinned');
             this.editorFrame.toggleClass('pinned');
             //this.editorPanelCollapse.slideToggle(250, () => {
-                this.savePanelState();
-                this.restorePanelState()
-            //});
+            this.savePanelState();
+            this.restorePanelState()
+                //});
             $('.modal-header .tb-toggle i').toggleClass('fa-lock').toggleClass('fa-unlock');
         });
 
         $('.modal-header .tb-collapse-right', this.editorPanel).on('click', (e) => {
             e.preventDefault();
-            // this.editorPanelCollapse.slideToggle(250, () => {
-            //     this.savePanelState();
-            // });
-            this.editorPanel
-            // Set the effect type
-            var effect = 'slide';
+            this.editorPanel.animate({ 'right': -this.editorPanelWidth }, () => {
+                $('#editor-panel-left').show().animate({ right: 0 });
+                this.savePanelState();
+            });
+            this.editorFrame.animate({ width: "100%" });
+        });
 
-            // Set the options for the effect type chosen
-            var options = { direction: 'right' };
-
-            // Set the duration (default: 400 milliseconds)
-            var duration = 500;
-
-            this.editorPanel.toggle(effect, options, duration);
-            this.editorFrame.animate({
-            width: "100%"
-          }, duration);
-            $('.modal-header .tb-collapse i').toggleClass('fa-caret-right').toggleClass('fa-caret-left');
+        $('#editor-panel-left .tb-collapse-left').on('click', (e) => {
+            e.preventDefault();
+            $('#editor-panel-left').animate({ right: -53 } , () => {
+                $('#editor-panel-left').hide();
+                this.editorPanel.animate({ 'right': 0 });
+                this.editorFrame.animate({ width: $(window).width() - this.editorPanelWidth });
+                this.savePanelState();
+            });          
+            
+            //$('#editor-panel-left').fadeOut();
+            //$('.modal-header .tb-collapse i').toggleClass('fa-caret-right').toggleClass('fa-caret-left');
         });
 
         $('.modal-header .tb-refresh', this.editorPanel).on('click', (e) => {
@@ -281,7 +291,7 @@ class Editor {
             });
         });
 
-        
+
 
 
         /**
@@ -511,7 +521,7 @@ class Editor {
     /**
     /* init Menu Nestable
     */
-   initNestable(ele) {
+    initNestable(ele) {
         ele.nestable({
             maxDepth: 2
         }).on('change', () => {
@@ -814,7 +824,8 @@ class Editor {
             locale: activeLanguage,
             tab: activeTab,
             menu: activeMenu,
-            expanded: $('#modal-toggle:visible', this.editorPanel).length
+            expanded: $('#modal-toggle:visible', this.editorPanel).length,
+            hidden: $('#editor-panel-left:visible').length
         }));
     };
 
@@ -832,17 +843,18 @@ class Editor {
                 locale: this.editorLocale,
                 tab: 0,
                 menu: 1,
-                expanded: true
+                expanded: true,
+                hidden: false
             };
         } else {
             panelState = JSON.parse(localStorage.getItem("editor-panel"))
         }
         if (!panelState.pinned) {
             this.editorPinned = false;
-            this.editorFrame.animate({ 
+            this.editorFrame.animate({
                 width: '100%'
             }, 500);
-            this.editorPanel.css('right','auto').css(panelState.position).draggable( 'enable' )
+            this.editorPanel.css('right', 'auto').css(panelState.position).draggable('enable')
             if (!panelState.expanded) {
                 this.editorPanelCollapse.hide();
                 $('.modal-header .tb-collapse i').toggleClass('fa-caret-up').toggleClass('fa-caret-down');
@@ -850,22 +862,17 @@ class Editor {
         } else {
             // this.editorFrame.addClass('pinned');
             this.editorPinned = true;
-            this.editorFrame.animate({ 
-                width: $(document).width()-340 
-            }, 500);
-            // var left = this.editorPanel.position().left; // get left position
-            // var width = this.editorPanel.width(); // get width;
-            // var right = width + left;
             this.editorPanel.addClass('pinned');
-            this.editorPanel.css('right', 0).css('left','auto').css('top', 0).draggable( 'disable' )
-                            // .animate({
-                            //     right: 0,
-                            //     top: 0
-                            // }, 500);
-                            //.css('right', 0).css('left','auto').css('top', 0);
+            if (panelState.hidden) {
+                this.editorPanel.css('right', -this.editorPanelWidth ).css('left', 'auto').css('top', 0).draggable('disable');
+                $('#editor-panel-left').show().css('right', 0 );
+                this.editorFrame.width('100%');
+            } else {
+                this.editorFrame.animate({ width: $(window).width() - this.editorPanelWidth });
+                this.editorPanel.css('right', 0).css('left', 'auto').css('top', 0).draggable('disable');
+            }
             if (!panelState.expanded) {
                 this.editorPanelCollapse.show();
-                
             }
         }
         this.editorLocale = panelState.locale;
@@ -899,7 +906,7 @@ class Editor {
             }
         }).done((html) => {
             $('#menuItems').html(html)
-            // $('#menuItems').parent().nestable('init');
+                // $('#menuItems').parent().nestable('init');
             this.initNestable($('#menuItems').parent());
             //$('#menuItems').parent().nestable('collapseAll');
             this.savePanelState();
@@ -1105,9 +1112,9 @@ class Editor {
 
         var messageHtml = message;
 
-        if (typeof(message) === 'object'){
+        if (typeof(message) === 'object') {
             messageHtml = $('<ul></ul>').addClass('messages-list');
-            for (var i in message){
+            for (var i in message) {
                 var itemDom = $('<li></li>').html(message[i]);
                 messageHtml.append(itemDom);
             }
@@ -1115,7 +1122,7 @@ class Editor {
 
         var buttons = {};
 
-        buttons["ok"] = function(){
+        buttons["ok"] = function() {
             $(this).dialog('close');
         };
 
@@ -1137,12 +1144,12 @@ class Editor {
 
         var buttons = {};
 
-        buttons['ok'] = function(){
+        buttons['ok'] = function() {
             onSubmit(input.val());
             $(this).dialog('close');
         };
 
-        buttons['cancel'] = function(){
+        buttons['cancel'] = function() {
             $(this).dialog('close');
         };
 
@@ -1152,8 +1159,8 @@ class Editor {
             resizable: false,
             width: 350,
             buttons: buttons,
-            open: function(){
-                setTimeout(function(){
+            open: function() {
+                setTimeout(function() {
                     input.focus();
                 }, 10);
             }
@@ -1332,11 +1339,14 @@ class Editor {
         $.map(handler.toolbarButtons, function(button, buttonId) {
 
             if (button === false) {
-                return button; }
+                return button;
+            }
             if (buttonId == 'move' && isFixedRegion) {
-                return button; }
+                return button;
+            }
             if (buttonId == 'delete' && isFixedRegion) {
-                return button; }
+                return button;
+            }
 
             var buttonDom = $('<div></div>').addClass('button').addClass('b-' + buttonId);
             buttonDom.attr('title', button.title);
@@ -1375,7 +1385,8 @@ class Editor {
             $('.drop-helper', region).hide();
 
             if (region.hasClass('jodelcms-region-fixed')) {
-                return; }
+                return;
+            }
 
             region.droppable({
                 accept: ".editor-element",
@@ -1408,7 +1419,7 @@ class Editor {
         let regionId = regionDom.data('region-id');
         let elementOrder = regionDom.find('>div').length - 1;
         let totalElements = this.editorFrame.contents().find('div.jodelcms-element').length;
-        let dummyID = Number(totalElements)+1;
+        let dummyID = Number(totalElements) + 1;
 
         let handler = this.elementHandlers[type];
         let options = handler.defaultOptions;
@@ -1444,7 +1455,7 @@ class Editor {
 
         this.showConfirmationDialog('Delete this Element', () => {
 
-            if( ! elementDom.hasClass('dummy')) {
+            if (!elementDom.hasClass('dummy')) {
                 this.elementsToDelete.push(eid);
             }
             if (typeof(handler.deleteElement) === 'function') {

@@ -11,7 +11,14 @@
 </head>
 <body>
 	<iframe id="editorIFrame" name="editorIFrame" src="{{ $src }}?menu={{ $menu }}" frameborder="0"></iframe>
-
+	
+	<div id="editor-panel-left" style="display: none; position: absolute; right: -53px; z-index: 99999; width: 50px, height: 50px; background: #999">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a class="tb-collapse-left" href="#" title="Toggle"><i class="fa fa-fw fa-lg fa-caret-left"></i></a>
+			</div>
+		</div>
+	</div>
 	<div id="editor-panel" class="modal">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
@@ -47,10 +54,10 @@
 	      <div class="modal-body">
 	        <div id="tabs">
 				<ul class="list-inline">
-					<li><a href="#tab-elements">Elements</a></li>
-					<li><a href="#tab-pages">Pages</a></li>
-					<li><a href="#tab-menus">Menus</a></li>
-					<li><a href="#tab-collections">Collections</a></li>
+					<li><a href="#tab-elements"><i class="fa fa-fw fa-lg fa-font"></i>Elements</a></li>
+					<li><a href="#tab-pages"><i class="fa fa-fw fa-lg fa-file-text-o"></i>Pages</a></li>
+					<li><a href="#tab-menus"><i class="fa fa-fw fa-lg fa-bars"></i>Menus</a></li>
+					<li><a href="#tab-collections"><i class="fa fa-fw fa-lg fa-th-list"></i>Collections</a></li>
 					<li><a href="#tab-settings"><i class="fa fa-gear"></i></a></li>
 				</ul>
 				<div id="tab-elements" class="tab">

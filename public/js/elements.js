@@ -88,6 +88,7 @@ function Element() {
             },
             onSubmit: function(options, form) {
                 handler.applyOptions(elementDom, form);
+                editor.setChanges();
             }
         };
         if (typeof(this.getOptionsFormSettings) !== 'undefined') {

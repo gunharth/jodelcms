@@ -25,7 +25,7 @@ options.element_{{ $element->id }} = {!! json_encode($element->options) !!};
 
 @push('elementsScripts')
 <script>
-console.log(!('ontouchstart' in document.documentElement))
+//console.log(!('ontouchstart' in document.documentElement))
 var isNotTouch = !('ontouchstart' in document.documentElement);
 new google.maps.Marker({
 position: new google.maps.LatLng({{ $element->options->lat }}, {{ $element->options->lng }}),

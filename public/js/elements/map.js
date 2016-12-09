@@ -125,6 +125,7 @@ editor.registerElementHandler('map', new function() {
 
         google.maps.event.addListener(map, 'zoom_changed', function() {
             options.zoom = map.getZoom();
+            editor.setChanges();
         });
 
         google.maps.event.addListener(map.marker, 'dragend', function() {
