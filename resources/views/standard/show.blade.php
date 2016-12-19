@@ -3,9 +3,9 @@
 @section('meta_title'){{ $page->meta_title }}@endsection
 @section('meta_description'){{ $page->meta_description }}@endsection
 @section('meta_keywords'){{ $page->meta_keywords }}@endsection
-@section('head_code'){{ $page->head_code }}@endsection
-@section('body_start_code'){{ $page->body_start_code }}@endsection
-@section('body_end_code'){{ $page->body_end_code }}@endsection
+@section('head_code'){!! $page->head_code !!}@endsection
+@section('body_start_code'){!! $page->body_start_code !!}@endsection
+@section('body_end_code'){!! $page->body_end_code !!}@endsection
 
 @section('templateStyles')
 @endsection
