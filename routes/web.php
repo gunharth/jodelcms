@@ -77,14 +77,10 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::post('page/duplicate', 'PagesController@duplicate');
     Route::get('page/{id}/settings', 'PagesController@settings');
     Route::get('page/listPages/{lang}', 'PagesController@editorList');
-
+    // Elements
     Route::get('element/{id}', 'ElementsController@show');
-    //Route::post('element/store', 'ElementsController@store');
     Route::post('element/add', 'ElementsController@add');
     Route::delete('element/{id}', 'ElementsController@destroy');
-    //Route::post('element/sort', 'ElementsController@sort');
-
-    //Route::match(['put', 'patch'], 'element/{id}', ['as' => 'admin.element.update', 'uses' => 'ElementController@update']);
     Route::get('element/{element}/{id}/settings/{locale}', 'ElementsController@settings');
     Route::post('element/{element}/{id}/apply', 'ElementsController@apply');
 
@@ -105,7 +101,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
      /*
      * Admin Settings
      */
-     Route::match(['put', 'patch'], 'settings', 'SettingsController@update')->name('admin.settings');
+    Route::match(['put', 'patch'], 'settings', 'SettingsController@update')->name('admin.settings');
     Route::get('settings', 'SettingsController@settings');
 
     /*
@@ -115,7 +111,6 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::get('menu/create/{id}', 'MenusController@create')->name('admin.menu.create');
     Route::match(['put', 'patch'], 'menu/{menu}', 'MenusController@update')->name('admin.menu.uppdate');
     Route::delete('menu/{id}', 'MenusController@destroy');
-
     Route::post('menu/sortorder', 'MenusController@postOrder');
     Route::post('menu/active', 'MenusController@postActive');
     Route::get('menu/{menu}/settings/{locale}', 'MenusController@settings');
@@ -151,19 +146,6 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
 
     Route::get('activity', 'LogsController@index');
 });
-
-/*
- *  Manually register elfinder again to override slug below
- */
-// Route::group(['prefix' => 'elfinder'], function () {
-//     Route::get('/', 'ElfinderController@showIndex');
-//     Route::any('connector', ['as' => 'elfinder.connector', 'uses' => 'ElfinderController@showConnector']);
-//     Route::get('popup/{input_id}', ['as' => 'elfinder.popup', 'uses' => 'ElfinderController@showPopup']);
-//     Route::get('filepicker/{input_id}', ['as' => 'elfinder.filepicker', 'uses' => 'ElfinderController@showFilePicker']);
-//     Route::get('tinymce', ['as' => 'elfinder.tinymce', 'uses' => 'ElfinderController@showTinyMCE']);
-//     Route::get('tinymce4', ['as' => 'elfinder.tinymce4', 'uses' => 'ElfinderController@showTinyMCE4']);
-//     Route::get('ckeditor', ['as' => 'elfinder.ckeditor', 'uses' => 'ElfinderController@showCKeditor4']);
-// });
 
 /*
  *  Catch all route for slugs
