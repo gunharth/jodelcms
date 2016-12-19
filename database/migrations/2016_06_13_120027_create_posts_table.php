@@ -16,9 +16,9 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->integer('template_id')->nullable();
 
-            $table->string('head_code')->nullable();
-            $table->string('body_start_code')->nullable();
-            $table->string('body_end_code')->nullable();
+            $table->text('head_code')->nullable();
+            $table->text('body_start_code')->nullable();
+            $table->text('body_end_code')->nullable();
 
             $table->timestamp('published_at');
 
@@ -37,8 +37,8 @@ class CreatePostsTable extends Migration
             // $table->text('content03')->nullable();
 
             $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
-            $table->string('meta_keywords')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->text('meta_keywords')->nullable();
 
             $table->unique(['slug', 'locale']);
             $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');

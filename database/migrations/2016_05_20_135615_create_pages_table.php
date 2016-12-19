@@ -16,9 +16,9 @@ class CreatePagesTable extends Migration
             $table->increments('id');
             $table->integer('template_id')->nullable();
 
-            $table->string('head_code')->nullable();
-            $table->string('body_start_code')->nullable();
-            $table->string('body_end_code')->nullable();
+            $table->text('head_code')->nullable();
+            $table->text('body_start_code')->nullable();
+            $table->text('body_end_code')->nullable();
 
             $table->timestamps();
         });
@@ -30,20 +30,10 @@ class CreatePagesTable extends Migration
 
             $table->string('title')->nullable();
             $table->string('slug')->index();
-            // $table->text('content01')->nullable();
-            // $table->text('content02')->nullable();
-            // $table->text('content03')->nullable();
-            // $table->text('content04')->nullable();
-            // $table->text('content05')->nullable();
-            // $table->text('content06')->nullable();
-            // $table->text('content07')->nullable();
-            // $table->text('content08')->nullable();
-            // $table->text('content09')->nullable();
-            // $table->text('content10')->nullable();
 
             $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
-            $table->string('meta_keywords')->nullable();
+            $table->text('meta_description')->nullable();
+            $table->text('meta_keywords')->nullable();
 
             $table->unique(['slug', 'locale']);
             $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');
