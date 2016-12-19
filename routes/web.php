@@ -18,8 +18,8 @@ Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], f
     /*
      * Pages
      */
-    Route::get('/', ['as' => '.homepage', 'uses' => 'PagesController@index']); // Homepage
-    Route::get('page/{slug}', ['as' => '.showpage', 'uses' => 'PagesController@show']);
+    Route::get('/', 'PagesController@index')->name('.homepage'); // Homepage
+    Route::get('page/{slug}', 'PagesController@show')->name('.showpage');
 
     /*
      * Blog
@@ -34,7 +34,7 @@ Route::group(['as' => 'direct', 'prefix' => LaravelLocalization::setLocale()], f
     Route::get('articles/{post}', 'PostsController@show');
     Route::get('articles', 'PostsController@index');
 
-    Route::post('elements/submitForm', ['as' => '.elements.send', 'uses' => 'ElementsController@formElementSend']);
+    Route::post('elements/submitForm', 'ElementsController@formElementSend')->name('.elements.send');
 });
 
 /*
@@ -56,7 +56,7 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     });
 
     /*
-     * Dev only reset Database
+     * Dev only clear cache
      */
     Route::get('/clearcache', function () {
         Artisan::call('cache:clear');
@@ -68,11 +68,11 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     /*
      * Admin Pages
      */
-    Route::post('page', ['as' => 'admin.page.store',    'uses' => 'PagesController@store']);
-    Route::get('page/create', ['as' => 'admin.page.create',   'uses' => 'PagesController@create']);
-    Route::get('page/{slug}/edit', ['as' => 'editpage', 'uses' => 'PagesController@edit']);
-    Route::match(['put', 'patch'], 'page/{slug}/content', ['as' => 'admin.page.content', 'uses' => 'PagesController@updateContent']);
-    Route::match(['put', 'patch'], 'page/{id}', ['as' => 'admin.page.update', 'uses' => 'PagesController@update']);
+    Route::post('page', 'PagesController@store')->name('admin.page.store');
+    Route::get('page/create', 'PagesController@create')->name('admin.page.create');
+    Route::get('page/{slug}/edit', 'PagesController@edit')->name('editpage');
+    Route::match(['put', 'patch'], 'page/{slug}/content', 'PagesController@updateContent')->name('admin.page.content');
+    Route::match(['put', 'patch'], 'page/{id}', 'PagesController@update')->name('admin.page.update');
     Route::delete('page/{id}', 'PagesController@destroy');
     Route::post('page/duplicate', 'PagesController@duplicate');
     Route::get('page/{id}/settings', 'PagesController@settings');
@@ -92,11 +92,11 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
      * Admin Blog
      */
     Route::get('blog/editIndex', 'PostsController@editIndex');
-    Route::post('blog', ['as' => 'admin.blog.store',    'uses' => 'PostsController@store']);
-    Route::get('blog/create', ['as' => 'admin.blog.create',   'uses' => 'PostsController@create']);
+    Route::post('blog', 'PostsController@store')->name('admin.blog.store');
+    Route::get('blog/create', 'PostsController@create')->name('admin.blog.create');
     Route::get('blog/{slug}/edit', 'PostsController@edit');
-    Route::match(['put', 'patch'], 'blog/{post}/content', ['as' => 'admin.blog.content', 'uses' => 'PostsController@updateContent']);
-    Route::match(['put', 'patch'], 'blog/{id}', ['as' => 'admin.blog.update', 'uses' => 'PostsController@update']);
+    Route::match(['put', 'patch'], 'blog/{post}/content', 'PostsController@updateContent')->name('admin.blog.content');
+    Route::match(['put', 'patch'], 'blog/{id}', 'PostsController@update')->name('admin.blog.update');
     Route::get('blog/collectionIndex', 'PostsController@collectionIndex');
     Route::delete('blog/{id}', 'PostsController@destroy');
     Route::get('blog/{id}/settings', 'PostsController@settings');
@@ -105,15 +105,15 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
      /*
      * Admin Settings
      */
-     Route::match(['put', 'patch'], 'settings', ['as' => 'admin.settings', 'uses' => 'SettingsController@update']);
+     Route::match(['put', 'patch'], 'settings', 'SettingsController@update')->name('admin.settings');
     Route::get('settings', 'SettingsController@settings');
 
     /*
      * Admin Menus
      */
-    Route::post('menu', ['as' => 'admin.menu.store', 'uses' => 'MenusController@store']);
-    Route::get('menu/create/{id}', ['as' => 'admin.menu.create', 'uses' => 'MenusController@create']);
-    Route::match(['put', 'patch'], 'menu/{menu}', ['as' => 'admin.menu.update', 'uses' => 'MenusController@update']);
+    Route::post('menu', 'MenusController@store')->name('admin.menu.store');
+    Route::get('menu/create/{id}', 'MenusController@create')->name('admin.menu.create');
+    Route::match(['put', 'patch'], 'menu/{menu}', 'MenusController@update')->name('admin.menu.uppdate');
     Route::delete('menu/{id}', 'MenusController@destroy');
 
     Route::post('menu/sortorder', 'MenusController@postOrder');
