@@ -36,17 +36,9 @@
 				<a class="tb-refresh" href="#" title="Refresh"><i class="fa fa-fw fa-lg fa-refresh"></i></a>
 				<a class="tb-collapse" href="#" title="Toggle"><i class="fa fa-fw fa-lg fa-caret-up"></i></a>
 				<a class="tb-collapse-right" href="#" title="Toggle"><i class="fa fa-fw fa-lg fa-caret-right"></i></a>
-				<a class="tb-toggle" href="#" title="Pin"><i class="fa fa-fw fa-lg fa-unlock"></i></a>
+				<a class="tb-toggle" href="#" title="Pin"><i class="fa fa-fw fa-lg fa-lock"></i></a>
 				<!-- <a href="/logout" title="Sign out"><i class="fa fa-lg fa-sign-out"></i></a> -->
-				 <a href="{{ url('/logout') }}"
-	                                        onclick="event.preventDefault();
-	                                                 document.getElementById('logout-form').submit();">
-	                                        <i class="fa fa-lg fa-sign-out"></i>
-	                                    </a>
-
-	                                    <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-	                                        {{ csrf_field() }}
-	                                    </form>
+				 
 			</div>
 	        
 	      </div>
@@ -162,12 +154,24 @@
 	            </div>
 			</div><!-- tabs end -->
 			<div class="modal-footer">
-				<div id="save-outer">
+				<div id="save-outer" class="col-sm-10">
 					<button class="btn btn-success">
 						<i class="fa fa-fw fa-exclamation-circle"></i> Save
 					</button> 
 					or hit CMD/CTRL S to save!
 				</div>
+				<div class="col-sm-2 pull-right text-right">
+					<a href="{{ url('/logout') }}"
+	                    onclick="event.preventDefault();
+	                    document.getElementById('logout-form').submit();" 
+	                    data-toggle="tooltip" 
+	                    title="Logout">
+	                    <i class="fa fa-lg fa-sign-out text-warning"></i>
+	                </a>
+	                <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+	                    {{ csrf_field() }}
+	                </form>
+	            </div>
 			</div>
 	      </div>
 	      </div>

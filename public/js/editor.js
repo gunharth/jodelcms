@@ -3,7 +3,7 @@ class Editor {
 
     constructor() {
         this.editorPanel = $('#editor-panel');
-        this.editorPanelWidth = 340;
+        this.editorPanelWidth = 430;
         this.editorPanelCollapse = $('#modal-toggle');
         this.page_id = 0;
         this.editorFrame = $("#editorIFrame");
@@ -107,9 +107,9 @@ class Editor {
         /**
          * Boostrap tooltips
          */
-        // $('[data-toggle="tooltip"]').tooltip({
-        //     animation: false
-        // }); 
+        $('[data-toggle="tooltip"]').tooltip({
+            animation: false
+        }); 
 
         $(window).resize(() => {
             let windowWidth = $(window).width();
@@ -168,7 +168,7 @@ class Editor {
             this.savePanelState();
             this.restorePanelState()
                 //});
-            $('.modal-header .tb-toggle i').toggleClass('fa-lock').toggleClass('fa-unlock');
+            //$('.modal-header .tb-toggle i').toggleClass('fa-unlock').toggleClass('fa-lock');
         });
 
         $('.modal-header .tb-collapse-right', this.editorPanel).on('click', (e) => {
@@ -851,6 +851,9 @@ class Editor {
         }
         if (!panelState.pinned) {
             this.editorPinned = false;
+            $('.modal-header .tb-toggle i').removeClass('fa-lock').addClass('fa-unlock');
+            $('.modal-header .tb-collapse-right').hide();
+            $('.modal-header .tb-collapse').show();
             this.editorFrame.animate({
                 width: '100%'
             }, 500);
@@ -863,6 +866,9 @@ class Editor {
             // this.editorFrame.addClass('pinned');
             this.editorPinned = true;
             this.editorPanel.addClass('pinned');
+            $('.modal-header .tb-toggle i').addClass('fa-lock').removeClass('fa-unlock');
+            $('.modal-header .tb-collapse-right').show();
+            $('.modal-header .tb-collapse').hide();
             if (panelState.hidden) {
                 this.editorPanel.css('right', -this.editorPanelWidth ).css('left', 'auto').css('top', 0).draggable('disable');
                 $('#editor-panel-left').show().css('right', 0 );

@@ -3,7 +3,7 @@
 }
 
 body {
-    background: transparent;
+    background: #e5e5e5;
 }
 
 #editorIFrame {
@@ -47,11 +47,11 @@ body {
 
 #editor-panel .modal-dialog {
     margin: 10px;
-    width: 380px;
+    width: 410px;
 }
-#editor-panel.pinned .modal-dialog {
-    width: 320px;
-}
+/*#editor-panel.pinned .modal-dialog {
+    width: 410px;
+}*/
 
 #editor-panel .modal-content {
     -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
@@ -97,6 +97,11 @@ body {
 
 #editor-panel .modal-header:hover {
     cursor: move;
+}
+
+#editor-panel .modal-header .fa-lg, #editor-panel .modal-footer .fa-lg {
+    font-size: 1.7em;
+    line-height: 1.9em;
 }
 
 #editor-panel .tab {
