@@ -162,18 +162,18 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Laravel\Tinker\TinkerServiceProvider::class,
+        // Laravel\Tinker\TinkerServiceProvider::class,
 
         /*
          * Package Service Providers...
          */
         Barryvdh\Elfinder\ElfinderServiceProvider::class,
-        Baum\Providers\BaumServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
-        Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
-        Dimsav\Translatable\TranslatableServiceProvider::class,
-        Spatie\Activitylog\ActivitylogServiceProvider::class,
-        Spatie\Sitemap\SitemapServiceProvider::class,
+        // Baum\Providers\BaumServiceProvider::class,
+        // Collective\Html\HtmlServiceProvider::class,
+        // Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
+        // Dimsav\Translatable\TranslatableServiceProvider::class,
+        // Spatie\Activitylog\ActivitylogServiceProvider::class,
+        // Spatie\Sitemap\SitemapServiceProvider::class,
         //Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
@@ -240,7 +240,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'LaravelLocalization'   => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
+        // 'LaravelLocalization'   => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
 
     ],
 

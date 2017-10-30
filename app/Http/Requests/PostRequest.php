@@ -19,7 +19,7 @@ class PostRequest extends Request
      *
      * @return array
      */
-    public function all()
+    public function all($keys = null)
     {
         $input = parent::all();
         if (empty($input['slug'])) {
