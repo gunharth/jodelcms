@@ -35,9 +35,9 @@ if (! function_exists('renderMainMenu')) {
             $single = '<a href="'.$link.'" '.$target.'>'.$node->name.'</a>';
         }
         //dd($node->getAncestorsAndSelf()->pluck('slug'));
-       // $link =  implode('/',$node->getAncestorsAndSelf()->pluck('slug'));
-       //echo $node->morpher_id;
-       //echo $node->morpher->id;
+        // $link =  implode('/',$node->getAncestorsAndSelf()->pluck('slug'));
+        //echo $node->morpher_id;
+        //echo $node->morpher->id;
         $active = '';
         $path = '/'.preg_replace('/\/edit$/', '', $path);
         //echo($path);

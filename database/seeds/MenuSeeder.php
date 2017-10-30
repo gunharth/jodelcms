@@ -72,9 +72,9 @@ class MenuSeeder extends Seeder
             'updated_at' => Carbon::now(),
         ]);
 
-         /*
-         * Menus Translations
-         */
+        /*
+        * Menus Translations
+        */
 
         // Home
         DB::table('menu_translations')->insert([
