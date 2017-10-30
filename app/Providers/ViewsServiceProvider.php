@@ -99,20 +99,20 @@ class ViewsServiceProvider extends ServiceProvider
                 case 'editpage':
                     if (! empty($path)) {
                         // $categories = explode('/', $path);
-                      // $active = Menu::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
-                      // foreach($active->getDescendantsAndSelf() as $descendant) {
-                      //   $slugs[] = $descendant->getOriginal('slug');
-                      // }
+                        // $active = Menu::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
+                        // foreach($active->getDescendantsAndSelf() as $descendant) {
+                        //   $slugs[] = $descendant->getOriginal('slug');
+                        // }
 
-                       $categories = explode('/', $path);
-                   // $active = Menu::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
-                    $menus = new MenuTranslation;
+                        $categories = explode('/', $path);
+                        // $active = Menu::where('slug','LIKE', '%"' . config('app.locale'). '":"' . end($categories) . '"%')->first();
+                        $menus = new MenuTranslation;
                         $translation = $menus->getBySlug(end($categories));
                         $menu = $translation->menu;
 
-                    //dd($menu);
-                    //dd($menu->getDescendantsAndSelf());
-                    $slugs = [];
+                        //dd($menu);
+                        //dd($menu->getDescendantsAndSelf());
+                        $slugs = [];
                         foreach ($menu->getDescendantsAndSelf() as $descendant) {
                             $menuslugs = [];
                             foreach ($descendant->translations as $langs) {

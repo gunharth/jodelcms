@@ -98,9 +98,9 @@ Route::group(['middleware' => 'auth', 'prefix' => LaravelLocalization::setLocale
     Route::get('blog/{id}/settings', 'PostsController@settings');
     Route::get('blog/listCollectionItems', 'PostsController@editorList');
 
-     /*
-     * Admin Settings
-     */
+    /*
+    * Admin Settings
+    */
     Route::match(['put', 'patch'], 'settings', 'SettingsController@update')->name('admin.settings');
     Route::get('settings', 'SettingsController@settings');
 

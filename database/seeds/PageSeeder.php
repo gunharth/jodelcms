@@ -19,7 +19,7 @@ class PageSeeder extends Seeder
             'template_id' => 1,
         ]);
         // page 1
-         DB::table('pages')->insert([
+        DB::table('pages')->insert([
             'template_id' => 2,
         ]);
 
